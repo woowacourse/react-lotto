@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+<p align="middle" >
+  <img width="200px;" src="https://raw.githubusercontent.com/woowacourse/javascript-lotto/main/src/images/lotto_ball.png"/>
+</p>
+<h2 align="middle">Level2 - 행운의 로또</h2>
+<p align="middle">React 로또 어플리케이션</p>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Getting Started
 
-## Available Scripts
+- Boilerplate는 페어와 협의하여 자유롭게 선택합니다.
+- CSS는 레벨1에 있는 코드를 직접 찾아서 자유롭게 재활용합니다.
+- 불필요한 Third-Party 없이 React에서 제공되는 것만으로 구현합니다.
+- 테스트 도구 선정부터 작성까지 일절 관여하지 않습니다. 자유롭게 즐겨보세요
+  <br>
 
-In the project directory, you can run:
+## 📝 Requirements
 
-### `yarn start`
+### Step1
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [ ] `Class Component`를 사용합니다.
+- [ ] 로또 구입 금액을 입력하면, 금액에 해당하는 로또를 발급해야 한다.
+- [ ] 로또 1장의 가격은 1,000원이다.
+- [ ] 소비자는 **자동 구매**만 할 수 있다.
+- [ ] 복권 번호는 번호보기 토글 버튼을 클릭하면, 볼 수 있어야 한다.
+- [ ] 결과 확인하기 버튼을 누르면 당첨 통계, 수익률을 모달로 확인할 수 있다.
+- [ ] 로또 당첨 금액은 고정되어 있는 것으로 가정한다.
+- [ ] 다시 시작하기 버튼을 누르면 초기화 되서 다시 구매를 시작할 수 있다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Step2
 
-### `yarn test`
+- [ ] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 공통 심화
 
-### `yarn build`
+- [ ] UI를 통해 **실시간으로** 당첨 번호 발표까지 남은 시간을 제공합니다.
+- [ ] 다시 시작하기 버튼을 누르면 당첨 번호 발표 시간도 사라진다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 👏 Contributing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `yarn eject`
+## 🐞 Bug Report
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+버그를 발견한다면, [Issues](https://github.com/woowacourse/react-lotto/issues)에 등록해주세요.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 📝 License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is [MIT](https://github.com/woowacourse/react-lotto/blob/main/LICENSE) licensed.
