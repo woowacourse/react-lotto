@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import PurchaseForm from './PurchaseForm';
 import LottoListSection from './LottoListSection';
-import WinningNumberSection from './WinningNumberSection';
+import WinningNumberForm from './WinningNumberForm';
+import '../../css/index.css';
 
 export default class Main extends Component {
   constructor() {
@@ -10,11 +11,11 @@ export default class Main extends Component {
 
   render() {
     return (
-      <main>
-        <h1>🎱행운의 로또</h1>
+      <main className="main-container d-flex flex-col">
+        <h1 className="text-center m-0">🎱 행운의 로또</h1>
         <PurchaseForm />
         <LottoListSection />
-        <WinningNumberSection />
+        <WinningNumberForm />
       </main>
     );
   }

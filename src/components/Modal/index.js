@@ -9,7 +9,7 @@ export default class Modal extends Component {
 
   render() {
     return (
-      <div className="modal" role="dialog" aria-modal="true">
+      <div className="modal hidden" role="dialog" aria-modal="true">
         <button type="button" className="modal-close">
           <svg viewbox="0 0 40 40">
             <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />

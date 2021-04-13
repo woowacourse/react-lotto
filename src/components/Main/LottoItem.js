@@ -7,8 +7,8 @@ export default class LottoItem extends Component {
 
   render() {
     return (
-      <li>
-        <span>🎟</span>
+      <li className="lotto-item">
+        <span className="lotto-icon">🎟</span>
         <span>1, 2, 3, 4, 5, 6</span>
       </li>
     );

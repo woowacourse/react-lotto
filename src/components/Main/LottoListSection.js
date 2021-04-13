@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import LottoItem from './LottoItem';
+import '../../css/index.css';
 
 export default class LottoListSection extends Component {
   constructor() {
@@ -8,15 +9,17 @@ export default class LottoListSection extends Component {
 
   render() {
     return (
-      <section>
-        <div>
-          총 <span>5</span>개를 구매하였습니다.
+      <section className="mt-5">
+        <div className="d-flex justify-space-between items-center">
+          <div>
+            총 <span>5</span>개를 구매하였습니다.
+          </div>
+          <label className="toggle-button">
+            <input type="checkbox" />
+            <span className="toggle-slider"></span>
+          </label>
         </div>
-        <label>
-          <input type="checkbox" />
-          <span>toggle</span>
-        </label>
-        <ul>
+        <ul className="lotto-list">
           <LottoItem />
           <LottoItem />
           <LottoItem />
