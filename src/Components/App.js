@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import GlobalStyles from "../Styles/GlobalStyles";
 
 import Header from "./Header";
 
@@ -11,9 +12,12 @@ const Container = styled.div`
 export default class App extends Component {
   render() {
     return (
-      <Container>
-        <Header />
-      </Container>
+      <>
+        <GlobalStyles />
+        <Container>
+          <Header />
+        </Container>
+      </>
     );
   }
 }
