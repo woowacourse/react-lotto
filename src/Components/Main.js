@@ -7,16 +7,27 @@ import WinningNumberInput from "./WinningNumberInput";
 
 const Container = styled.div`
   width: 23vw;
-  min-width: 300px;
+  min-width: 400px;
 `;
 
 export default class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lottoCount: 0,
+    };
+  }
+
+  setLottoCount(number) {
+    this.setState({ ...this.state, lottoCount: number });
+  }
+
   render() {
     return (
       <Container>
-        <PurchaseInput />
-        <LottoDisplay />
-        <WinningNumberInput />
+        <PurchaseInput setLottoCount={this.setLottoCount.bind(this)} />
+        {this.state.lottoCount ? <LottoDisplay /> : ""}
+        {this.state.lottoCount ? <WinningNumberInput /> : ""}
       </Container>
     );
   }
