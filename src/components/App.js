@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import PriceInput from './PriceInput';
 import PurchasedLotto from './PurchasedLotto';
 import ResultModal from './ResultModal';
 import WinningNumberInput from './WinngingNumberInput';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <>
@@ -21,3 +22,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default hot(App);
