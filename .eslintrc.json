@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["cypress/"],
+  "parser": "babel-eslint",
+  "rules": {
+    "no-new": "off",
+    "no-alert": "off",
+    "no-param-reassign": "off",
+    "no-return-assign": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "max-depth": ["error", 1],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-one-expression-per-line": "off",
+    "react/prefer-stateless-function": "off"
+  }
+}
