@@ -79,7 +79,7 @@ class Main extends Component {
           />
           {this.state.isNumberShowing && <LottoNumberList lottoList={this.state.lottoList} />}
         </div>
-        <Link to="/enter-winning">
+        <Link to={{ pathname: '/enter-winning', state: { lottoList: this.state.lottoList } }}>
           <button>🤩 당첨 번호 입력</button>
         </Link>
       </Styled.Container>
