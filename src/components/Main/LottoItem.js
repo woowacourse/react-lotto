@@ -30,7 +30,7 @@ export default class LottoItem extends Component {
     const isToggled = this.props.isToggled;
 
     return (
-      <li className={isToggled ? 'lotto-item' : 'lotto-item toggle'}>
+      <li className={`lotto-item ${isToggled ? 'toggle' : ''}`}>
         <span className="lotto-icon">🎟</span>
         <span className={isToggled ? '' : 'hidden'}>{[...this.state.numbers].join(', ')}</span>
       </li>

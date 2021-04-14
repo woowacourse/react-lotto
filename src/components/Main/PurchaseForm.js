@@ -8,8 +8,8 @@ export default class PurchaseForm extends Component {
     this.onSubmitPurchaseForm = this.onSubmitPurchaseForm.bind(this);
   }
 
-  handleLottoCountChange(count) {
-    this.props.handleLottoCountChange(count);
+  setLottoCount(count) {
+    this.props.setLottoCount(count);
   }
 
   onSubmitPurchaseForm(event) {
@@ -22,7 +22,7 @@ export default class PurchaseForm extends Component {
       return;
     }
 
-    this.handleLottoCountChange(moneyInput / LOTTO_PRICE);
+    this.setLottoCount(moneyInput / LOTTO_PRICE);
   }
 
   isValidPrice(price) {
