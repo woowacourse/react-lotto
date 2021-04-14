@@ -1,9 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>Hello React</div>
+    <App />
   </React.StrictMode>,
-  document.querySelector("#root")
+  document.querySelector('#root')
 );
