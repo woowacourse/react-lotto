@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { isDistinctNumbers } from "../utils";
 
 const Header = styled.h2`
   font-size: 16px;
@@ -35,9 +36,24 @@ const Button = styled.button`
 `;
 
 export default class WinningNumberInput extends Component {
+  onSubmit(event) {
+    const { elements } = event.target;
+    const winningNumbers = Array.from(
+      elements["winning-number"],
+      ($input) => $input.value
+    );
+    const bonusNumber = elements["bonus-number"].value;
+
+    if (!isDistinctNumbers([...winningNumbers, bonusNumber])) {
+      return;
+    }
+
+    console.log("good!");
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.onSubmit}>
         <Header>지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</Header>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div
@@ -56,6 +72,7 @@ export default class WinningNumberInput extends Component {
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox
                   key={index}
+                  name="winning-number"
                   type="number"
                   min="1"
                   max="45"
@@ -74,6 +91,7 @@ export default class WinningNumberInput extends Component {
           >
             <InputHeader>보너스 번호</InputHeader>
             <InputBox
+              name="bonus-number"
               type="number"
               min="1"
               max="45"

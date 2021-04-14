@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-// import PropTypes from "prop-types";
 
 import LottoContext from "../Contexts/LottoContext";
+import { isDivisible } from "../utils";
 
 const Form = styled.form`
   width: 100%;
@@ -32,8 +32,6 @@ const MessageBox = styled.p`
   text-align: center;
 `;
 
-const isValidPurchaseInput = (input) => Number(input) % 1000 === 0;
-
 // TODO: 1000 매직 넘버 상수 처리
 export default class PurchaseInput extends Component {
   constructor(props) {
@@ -44,6 +42,7 @@ export default class PurchaseInput extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // TODO: 매직넘버 상수화
   onSubmit(event) {
     event.preventDefault();
     const payment = Number(event.target.elements["purchase-input"].value);
@@ -51,7 +50,7 @@ export default class PurchaseInput extends Component {
     this.setState(
       {
         ...this.state,
-        isValidInput: isValidPurchaseInput(payment),
+        isValidInput: isDivisible(payment, 1000),
       },
       () =>
         this.state.isValidInput
