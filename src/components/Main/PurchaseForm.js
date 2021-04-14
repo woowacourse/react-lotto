@@ -21,7 +21,7 @@ export default class PurchaseForm extends Component {
               min="1000"
               required
             />
-            <button type="submit" className="submit-button">
+            <button type="submit" className="basic-button">
               확인
             </button>
           </div>

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import LottoItem from './LottoItem';
-import '../../css/index.css';
 
 export default class LottoListSection extends Component {
   constructor() {

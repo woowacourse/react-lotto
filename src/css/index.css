@@ -1,3 +1,5 @@
+/* TODO: 속성, 특징에 따라 파일 분류하기, 순서 정리 */
+
 .app {
   width: 100vw;
   height: 100vh;
@@ -50,6 +52,14 @@
   padding-left: 0.25rem;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
 .money-input {
   width: 82%;
   height: 32px;
@@ -57,7 +67,7 @@
   padding: 0.3rem 0.5rem;
 }
 
-.submit-button {
+.basic-button {
   height: 32px;
   box-sizing: border-box;
   padding: 0.3rem 0.75rem;
@@ -77,6 +87,10 @@
 
 .m-0 {
   margin: 0;
+}
+
+.m-1 {
+  margin: 0.25rem;
 }
 
 .mt-1 {
@@ -197,4 +211,60 @@ input[type='number'] {
 
 .font-bold {
   font-weight: bold;
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-inner {
+  position: relative;
+  width: 360px;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem;
+  border-radius: 1rem;
+}
+
+.modal-close-button {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+svg {
+  display: block;
+}
+
+.close-x {
+  stroke: gray;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #ccc;
 }

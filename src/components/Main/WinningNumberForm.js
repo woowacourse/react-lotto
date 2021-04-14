@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import '../../css/index.css';
 
 export default class WinningNumberForm extends Component {
   constructor() {
@@ -72,7 +71,7 @@ export default class WinningNumberForm extends Component {
               <input type="number" className="winning-number-input" min="1" max="45" required />
             </fieldset>
           </div>
-          <button className="w-100 submit-button mt-3" type="submit">
+          <button className="w-100 basic-button mt-3" type="submit">
             결과 확인하기
           </button>
         </form>

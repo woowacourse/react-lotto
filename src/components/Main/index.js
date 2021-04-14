@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PurchaseForm from './PurchaseForm';
 import LottoListSection from './LottoListSection';
 import WinningNumberForm from './WinningNumberForm';
-import '../../css/index.css';
 
 export default class Main extends Component {
   constructor() {

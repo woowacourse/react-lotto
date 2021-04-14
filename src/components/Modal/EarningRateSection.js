@@ -7,8 +7,8 @@ export default class EarningRateSection extends Component {
 
   render() {
     return (
-      <div>
-        당신의 총 수익률은 <span>0</span>%입니다.
+      <div className="mt-5 text-center">
+        🎉🎉 당신의 총 수익률은 <span className="font-bold">0</span>%입니다. 🎉🎉
       </div>
     );
   }
