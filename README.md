@@ -34,19 +34,3 @@
 
 - [ ] UI를 통해 **실시간으로** 당첨 번호 발표까지 남은 시간을 제공합니다.
 - [ ] 다시 시작하기 버튼을 누르면 당첨 번호 발표 시간도 사라진다.
-
-## 👏 Contributing
-
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
-
-<br>
-
-## 🐞 Bug Report
-
-버그를 발견한다면, [Issues](https://github.com/woowacourse/react-lotto/issues)에 등록해주세요.
-
-<br>
-
-## 📝 License
-
-This project is [MIT](https://github.com/woowacourse/react-lotto/blob/main/LICENSE) licensed.
