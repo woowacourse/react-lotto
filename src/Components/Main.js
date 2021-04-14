@@ -24,11 +24,13 @@ export default class Main extends Component {
   }
 
   render() {
+    const { lottoCount } = this.state;
+
     return (
       <Container>
         <PurchaseInput setLottoCount={this.setLottoCount} />
-        {this.state.lottoCount ? <LottoDisplay /> : ""}
-        {this.state.lottoCount ? <WinningNumberInput /> : ""}
+        {lottoCount !== 0 && <LottoDisplay lottoCount={lottoCount} />}
+        {lottoCount !== 0 && <WinningNumberInput />}
       </Container>
     );
   }

@@ -29,6 +29,7 @@ const Button = styled.button`
 
 const MessageBox = styled.p`
   color: red;
+  text-align: center;
 `;
 
 const isValidPurchaseInput = (input) => Number(input) % 1000 === 0;
@@ -52,7 +53,10 @@ export default class PurchaseInput extends Component {
         ...this.state,
         isValidInput: isValidPurchaseInput(payment),
       },
-      () => this.state.isValidInput && this.props.setLottoCount(payment / 1000)
+      () =>
+        this.state.isValidInput
+          ? this.props.setLottoCount(payment / 1000)
+          : this.props.setLottoCount(0)
     );
   }
 
