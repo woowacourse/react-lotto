@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { LOTTO_PRICE } from '../constants/lottoData';
+import { LOTTO } from '../constants/lottoData';
+import { ERROR_MESSAGE } from '../constants/messages';
 import './PriceInput.scss';
 
 export default class PriceInput extends Component {
@@ -8,7 +9,18 @@ export default class PriceInput extends Component {
 
     const price = event.target.price.value;
 
-    this.props.createLottoList(Math.floor(price / LOTTO_PRICE));
+    if (price < LOTTO.PRICE) {
+      alert(ERROR_MESSAGE.LESS_THAN_MIN_PRICE);
+
+      return;
+    }
+
+    const change = price % LOTTO.PRICE;
+    if (change > 0) {
+      alert(ERROR_MESSAGE.HAS_CHANGE(change));
+    }
+
+    this.props.createLottoList(Math.floor(price / LOTTO.PRICE));
   }
 
   render() {

@@ -3,7 +3,6 @@ import './LottoTicket.scss';
 
 export default class LottoTicket extends Component {
   render() {
-    console.log(this.props);
     return (
       <div className="LottoTicket">
         <span className="lotto-ticket-emoji">🎟</span>

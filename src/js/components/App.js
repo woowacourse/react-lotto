@@ -5,7 +5,7 @@ import PurchasedLotto from './PurchasedLotto';
 import ResultModal from './ResultModal';
 import WinningNumberInput from './WinningNumberInput';
 import { getRandomNumber } from '../utils/random';
-import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBER_LENGTH } from '../constants/lottoData';
+import { LOTTO } from '../constants/lottoData';
 import './App.scss';
 
 class App extends Component {
@@ -20,8 +20,8 @@ class App extends Component {
   createLotto() {
     const numberList = new Set();
 
-    while (numberList.size < LOTTO_NUMBER_LENGTH) {
-      numberList.add(getRandomNumber(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER));
+    while (numberList.size < LOTTO.NUMBER_LENGTH) {
+      numberList.add(getRandomNumber(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER));
     }
 
     return [...numberList].sort((a, b) => a - b);
