@@ -2,7 +2,7 @@
 
 .app {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .w-100 {
@@ -13,12 +13,12 @@
   display: none;
 }
 
-/* TODO: 로또 개수가 많아지면, 컨테이너의 크기가 화면을 벗어나는 문제 해결 필요 */
 .main-container {
   width: 360px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   padding: 2.5rem;
   border-radius: 1rem;
+  margin: 5rem 0;
 }
 
 .d-flex {
