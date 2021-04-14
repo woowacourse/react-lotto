@@ -2,8 +2,8 @@ import { Component } from 'react';
 import { LOTTO_VALUE } from '../../constants';
 
 export default class LottoItem extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       numbers: this.generateLottoNumbers(),
@@ -27,10 +27,12 @@ export default class LottoItem extends Component {
   }
 
   render() {
+    const isToggled = this.props.isToggled;
+
     return (
-      <li className="lotto-item">
+      <li className={isToggled ? 'lotto-item' : 'lotto-item toggle'}>
         <span className="lotto-icon">🎟</span>
-        <span>{[...this.state.numbers].join(', ')}</span>
+        <span className={isToggled ? '' : 'hidden'}>{[...this.state.numbers].join(', ')}</span>
       </li>
     );
   }

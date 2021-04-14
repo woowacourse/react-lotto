@@ -4,6 +4,18 @@ import LottoItem from './LottoItem';
 export default class LottoListSection extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      toggle: false,
+    };
+
+    this.onToggle = this.onToggle.bind(this);
+  }
+
+  onToggle() {
+    this.setState({
+      toggle: !this.state.toggle,
+    });
   }
 
   render() {
@@ -16,13 +28,13 @@ export default class LottoListSection extends Component {
             총 <span>{lottoCount}</span>개를 구매하였습니다.
           </div>
           <label className="toggle-button">
-            <input type="checkbox" />
+            <input type="checkbox" onChange={this.onToggle} />
             <span className="toggle-slider"></span>
           </label>
         </div>
         <ul className="lotto-list">
           {Array.from({ length: lottoCount }).map((_, index) => (
-            <LottoItem key={index} />
+            <LottoItem key={index} isToggled={this.state.toggle} />
           ))}
         </ul>
       </section>
