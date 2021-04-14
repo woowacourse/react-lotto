@@ -32,7 +32,7 @@ export default class App extends Component {
           lottos = [];
         }
 
-        this.setState({ lottos });
+        this.setState({ ...this.state, lottos });
       },
     };
   }

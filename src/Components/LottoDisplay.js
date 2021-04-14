@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import LottoContext from "../Contexts/LottoContext";
-import Tickets from "./Tickets";
+import LottoBox from "./LottoBox";
 import Toggle from "./common/Toggle";
 
 const Header = styled.h2`
@@ -40,7 +40,7 @@ export default class LottoDisplay extends Component {
           <span>총 {lottoCount}개를 구매하였습니다.</span>
           <Toggle text={"번호 보기"} onToggle={this.onToggle} />
         </Header>
-        <Tickets isNumberVisible={this.state.isToggled} />
+        <LottoBox isNumberVisible={this.state.isToggled} />
       </div>
     );
   }
