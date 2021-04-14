@@ -173,23 +173,23 @@
 }
 
 .lotto-item {
-  display: flex;
+  display: inline;
   list-style: none;
   margin-bottom: 0.25rem;
   align-items: center;
 }
 
-.lotto-item.toggle {
-  display: inline;
+.toggle {
+  display: flex;
 }
 
 .lotto-icon {
-  font-size: x-large;
+  font-size: xx-large;
   margin-right: 0.25rem;
 }
 
 .lotto-item.toggle .lotto-icon {
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 fieldset {

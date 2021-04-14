@@ -3,13 +3,19 @@ import ResultSection from './ResultSection';
 import EarningRateSection from './EarningRateSection';
 
 export default class Modal extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
+    const isModalOpened = this.props.isModalOpened;
+
     return (
-      <div className="modal d-flex justify-center items-center" role="dialog" aria-modal="true">
+      <div
+        className={`modal d-flex justify-center items-center ${isModalOpened ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+      >
         <div className="modal-inner d-flex flex-col justify-center">
           <button type="button" className="modal-close-button">
             <svg viewBox="0 0 40 40">
