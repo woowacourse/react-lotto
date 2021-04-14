@@ -23,6 +23,12 @@ const GlobalStyles = createGlobalStyle`
         list-style: none;
         padding: 0;
     }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 `;
 
 export default GlobalStyles;

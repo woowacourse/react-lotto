@@ -11,11 +11,6 @@ const Form = styled.form`
 const Input = styled.input`
   width: 100%;
   padding: 10px;
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
 `;
 
 const Button = styled.button`
@@ -27,6 +22,9 @@ const Button = styled.button`
   border-radius: 5px;
   outline: none;
   cursor: pointer;
+  &:hover {
+    background-color: #018c9e;
+  }
 `;
 
 const MessageBox = styled.p`
