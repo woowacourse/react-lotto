@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../../utils/input';
+import Button from '../../utils/button';
 class MoneyInput extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +14,9 @@ class MoneyInput extends React.Component {
           min='1000'
           max='1000000'
           placeholder='구입 금액을 입력해주세요.'
+          autoFocus
         />
-        <button>구입하기</button>
+        <Button buttonText='구입하기' customClass='money-input-button'></Button>
       </form>
     );
   }

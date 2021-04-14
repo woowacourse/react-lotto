@@ -11,7 +11,6 @@ class Input extends React.Component {
         className={`number-input ${this.props.customClass}`}
         type='number'
         {...this.props}
-        autoFocus
         required
       />
     );
