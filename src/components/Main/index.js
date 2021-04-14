@@ -43,6 +43,7 @@ export default class Main extends Component {
         <PurchaseForm setLottoCount={this.setLottoCount} />
         <LottoListSection lottoCount={this.state.lottoCount} />
         <WinningNumberForm
+          lottoCount={this.state.lottoCount}
           setWinningNumbers={this.setWinningNumbers}
           setBonusNumber={this.setBonusNumber}
           openModal={this.props.openModal}

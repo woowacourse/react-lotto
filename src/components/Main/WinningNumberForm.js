@@ -16,6 +16,12 @@ export default class WinningNumberForm extends Component {
 
   onSubmitWinningNumberForm(event) {
     event.preventDefault();
+
+    if (!this.props.lottoCount) {
+      alert(MESSAGE.ALERT.LOTTO_NOT_EXIST);
+      return;
+    }
+
     const winningNumberInputs =
       event.target.elements[ID.MAIN.WINNING_NUMBER_FORM.WINNING_NUMBER_FIELDSET].elements;
     const winningNumbers = Array.from(winningNumberInputs).map(($input) => $input.valueAsNumber);

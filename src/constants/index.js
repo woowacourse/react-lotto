@@ -32,6 +32,7 @@ export const LOTTO_VALUE = {
 export const MESSAGE = {
   ALERT: {
     INVALID_MONEY_UNIT: '1000원 단위로만 구매 가능합니다.',
+    LOTTO_NOT_EXIST: '구입한 로또가 없습니다.',
     DUPLICATED_WINNING_NUMBERS: '당첨 번호는 중복될 수 없습니다.',
   },
 };
