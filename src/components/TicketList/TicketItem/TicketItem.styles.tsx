@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Wrapper } from '../../../common/Wrapper';
 
-export const TicketItemWrapper = styled.div`
+export const TicketItemWrapper = styled(Wrapper)`
   display: flex;
   align-items: center;
 
