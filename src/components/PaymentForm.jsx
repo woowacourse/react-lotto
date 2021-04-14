@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { LOTTERY_PRICE, MAX_PAYMENT, MESSAGE } from "../utils";
-import { SELECTOR } from "../utils/constants";
+import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
 class PaymentForm extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class PaymentForm extends Component {
 
   //TODO: 필드 범위 (private, public) 얘기해보기
   isValidPayment(value) {
-    return value > 0 && value % LOTTERY_PRICE === 0;
+    return value > 0 && value % LOTTERY.PRICE === 0;
   }
 
   handleInputCheck = ({ target }) => {
@@ -28,15 +27,21 @@ class PaymentForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
-    const value = Number(event.target[SELECTOR.ID.PAYMENT_INPUT].value);
+
+    const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
+    const $button = event.target[SELECTOR.ID.PAYMENT_SUBMIT];
+    const money = Number($input.value);
     const $message = this.messageRef.current;
 
-    if (!this.isValidPayment(value)) {
+    if (!this.isValidPayment(money)) {
       $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
 
       return;
     }
+
+    this.props.setLotteries(money);
+    $input.disabled = true;
+    $button.disabled = true;
   };
 
   render() {
@@ -49,11 +54,13 @@ class PaymentForm extends Component {
           <input
             id={SELECTOR.ID.PAYMENT_INPUT}
             type="number"
-            placeholder={`구입 금액 (${LOTTERY_PRICE}원 단위)`}
+            placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}
           />
-          <button type="submit">확인</button>
+          <button id={SELECTOR.ID.PAYMENT_SUBMIT} type="submit">
+            확인
+          </button>
         </div>
         <p ref={this.messageRef}></p>
       </form>
