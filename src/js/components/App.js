@@ -7,6 +7,17 @@ import ResultModal from './ResultModal';
 import WinningNumberInput from './WinningNumberInput';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      lottoList: [],
+    };
+  }
+
+  createLotto() {}
+
+  createLottoList(count) {}
+
   render() {
     return (
       <>
