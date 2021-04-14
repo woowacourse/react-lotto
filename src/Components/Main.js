@@ -5,33 +5,25 @@ import PurchaseInput from "./PurchaseInput";
 import LottoDisplay from "./LottoDisplay";
 import WinningNumberInput from "./WinningNumberInput";
 
+import LottoContext from "../Contexts/LottoContext";
+
 const Container = styled.div`
   width: 23vw;
   min-width: 400px;
 `;
 
 export default class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lottoCount: 0,
-    };
-    this.setLottoCount = this.setLottoCount.bind(this);
-  }
-
-  setLottoCount(number) {
-    this.setState({ ...this.state, lottoCount: number });
-  }
-
   render() {
-    const { lottoCount } = this.state;
+    const lottoCount = this.context.state.lottos.length;
 
     return (
       <Container>
-        <PurchaseInput setLottoCount={this.setLottoCount} />
-        {lottoCount !== 0 && <LottoDisplay lottoCount={lottoCount} />}
+        <PurchaseInput />
+        {lottoCount !== 0 && <LottoDisplay />}
         {lottoCount !== 0 && <WinningNumberInput />}
       </Container>
     );
   }
 }
+
+Main.contextType = LottoContext;

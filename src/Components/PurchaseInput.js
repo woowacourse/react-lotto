@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+
+import LottoContext from "../Contexts/LottoContext";
 
 const Form = styled.form`
   width: 100%;
@@ -55,8 +57,8 @@ export default class PurchaseInput extends Component {
       },
       () =>
         this.state.isValidInput
-          ? this.props.setLottoCount(payment / 1000)
-          : this.props.setLottoCount(0)
+          ? this.context.action.createLottos(payment / 1000)
+          : this.context.action.createLottos(0)
     );
   }
 
@@ -83,6 +85,4 @@ export default class PurchaseInput extends Component {
   }
 }
 
-PurchaseInput.propTypes = {
-  setLottoCount: PropTypes.func.isRequired,
-};
+PurchaseInput.contextType = LottoContext;

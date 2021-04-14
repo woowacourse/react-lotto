@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+
+import LottoContext from "../Contexts/LottoContext";
 import Tickets from "./Tickets";
 import Toggle from "./common/Toggle";
 
@@ -31,7 +32,7 @@ export default class LottoDisplay extends Component {
   }
 
   render() {
-    const { lottoCount } = this.props;
+    const lottoCount = this.context.state.lottos.length;
 
     return (
       <div>
@@ -45,6 +46,4 @@ export default class LottoDisplay extends Component {
   }
 }
 
-LottoDisplay.propTypes = {
-  lottoCount: PropTypes.number.isRequired,
-};
+LottoDisplay.contextType = LottoContext;
