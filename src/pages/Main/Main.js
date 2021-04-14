@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { LOTTO } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
@@ -76,6 +77,7 @@ class Main extends Component {
             isChecked={this.state.isNumberShowing}
             onChange={this.handleToggleSwitch.bind(this)}
           />
+          {this.state.isNumberShowing && <LottoNumberList lottoList={this.state.lottoList} />}
         </div>
       </Styled.Container>
     );
