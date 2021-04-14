@@ -9,8 +9,8 @@ export default class LottoGame extends Component {
   render() {
     return (
       <>
-        <div className="d-flex justify-center mt-5">
-          <div className="w-100">
+        <div className="flex justify-center mt-5">
+          <div className="w-full">
             <h1 className="text-center">🎱 행운의 로또</h1>
             <PurchaseAmountForm />
             <LottoTicketList />

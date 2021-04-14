@@ -18,7 +18,7 @@ export default class LottoResultContainer extends Component {
       <>
         <h2 className="text-center">🏆 당첨 통계 🏆</h2>
 
-        <div className="d-flex justify-center">
+        <div className="flex justify-center">
           <table className="border-collapse border border-black">
             <thead>
               <tr className="text-center">
@@ -37,7 +37,7 @@ export default class LottoResultContainer extends Component {
           당신의 총 수익률은 %입니다.
         </p>
 
-        <div className="d-flex justify-center mt-5">
+        <div className="flex justify-center mt-5">
           <button type="button" className="result-modal__restart-button btn btn-cyan">
             다시 시작하기
           </button>

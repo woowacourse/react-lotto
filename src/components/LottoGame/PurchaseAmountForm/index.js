@@ -7,12 +7,12 @@ export default class PurchaseAmountForm extends Component {
         <label for="purchase-price-input-form__input" className="mb-2 d-inline-block">
           구입할 금액을 입력해주세요.
         </label>
-        <div className="d-flex">
+        <div className="flex">
           <input
             id="purchase-price-input-form__input"
             step="any"
             type="number"
-            className="w-100 mr-2 pl-2"
+            className="w-full mr-2 pl-2"
             placeholder="구입 금액"
             required
           />
