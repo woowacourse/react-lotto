@@ -3,18 +3,30 @@ import LottoTicket from './LottoTicket';
 import './PurchasedLotto.scss';
 
 export default class PurchasedLotto extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isShowNumber: false,
+    };
+  }
+
+  onToggleLottoNumber({ target }) {
+    this.setState({ isShowNumber: target.checked });
+  }
+
   render() {
     return (
       <section className="PurchasedLotto">
-        <span>총 5개를 구매하였습니다.</span>
+        <span>총 {this.props.lottoList.length}개를 구매하였습니다.</span>
         <label className="switch">
-          <input type="checkbox" className="switch-input" />
+          <input type="checkbox" className="switch-input" onChange={this.onToggleLottoNumber.bind(this)} />
           <span>번호보기</span>
         </label>
-        <ul>
+        <ul className={this.state.isShowNumber ? '' : 'hide-number'}>
           {this.props.lottoList.map((lotto, index) => (
             <li key={index}>
-              <LottoTicket lottoNumbers={lotto} isShowNumber={true} />
+              <LottoTicket lottoNumbers={lotto} isShowNumber={this.state.isShowNumber} />
             </li>
           ))}
         </ul>

@@ -3,10 +3,13 @@
 
   ul {
     padding: 0;
+    max-height: 40vh;
+    overflow-y: auto;
   }
 
   li {
     list-style: none;
+    margin: 0 auto;
   }
 
   .switch {
@@ -58,5 +61,28 @@
       background-color: var(--color-pink-2);
       transform: translateX(16px);
     }
+  }
+
+  .hide-number {
+    display: grid;
+    grid-template-columns: repeat(10, 10%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(184, 184, 184);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(151, 151, 151);
   }
 }
