@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { LOTTO } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
 import { Styled } from './Main.style';
@@ -11,6 +12,7 @@ class Main extends Component {
       moneyInput: '',
       lottoList: {},
       lottoCount: 0,
+      isNumberShowing: false,
     };
   }
 
@@ -46,6 +48,10 @@ class Main extends Component {
     this.setState({ moneyInput: event.target.value });
   }
 
+  handleToggleSwitch(event) {
+    this.setState({ isNumberShowing: event.target.checked });
+  }
+
   render() {
     return (
       <Styled.Container>
@@ -65,10 +71,11 @@ class Main extends Component {
           <p>
             현재 구입한 로또 <span>{this.state.lottoCount}</span>개
           </p>
-          <Styled.ToggleSwitch htmlFor="number-toggle">
-            <Styled.ToggleCheckbox type="checkbox" id="number-toggle" />
-            <Styled.ToggleText>번호 보기</Styled.ToggleText>
-          </Styled.ToggleSwitch>
+          <ToggleSwitch
+            title="번호 보기"
+            isChecked={this.state.isNumberShowing}
+            onChange={this.handleToggleSwitch.bind(this)}
+          />
         </div>
       </Styled.Container>
     );
