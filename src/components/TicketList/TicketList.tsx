@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Toggle from '../../common/Toggle';
-import { TicketListHeader, TicketListWrapper } from './TicketList.styles';
+import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
+import TicketItem from './TicketItem/TicketItem';
 
 // type TicketListProps = {};
 
@@ -14,7 +15,13 @@ export default class TicketList extends Component {
             <Toggle>번호보기</Toggle>
           </div>
         </TicketListHeader>
-        <div id="ticket-list" className="d-flex flex-wrap"></div>
+        <List>
+          <TicketItem />
+          <TicketItem />
+          <TicketItem />
+          <TicketItem />
+          <TicketItem />
+        </List>
       </TicketListWrapper>
     );
   }

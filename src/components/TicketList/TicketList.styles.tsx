@@ -7,9 +7,13 @@ export const TicketListWrapper = styled.section`
 
 export const TicketListHeader = styled.div`
   display: flex;
-
   .ticket-list-header-label {
     flex: 1 1 auto;
     margin: 0 inherit;
   }
+`;
+
+export const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
 `;
