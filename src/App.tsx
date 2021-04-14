@@ -1,7 +1,8 @@
-import PriceInputForm from './components/PriceInputForm/PriceInputForm';
+import PaymentForm from './components/PaymentForm/PaymentForm';
 import TicketList from './components/TicketList/TicketList';
-// import WinningNumberInput from './components/WinningNumberInput/WinningNumberInput';
+import WinningNumberInput from './components/WinningNumberInput/WinningNumberInput';
 import { AppWrapper } from './App.styles';
+import Button from './common/Button';
 
 function App() {
   return (
@@ -9,69 +10,10 @@ function App() {
       <div className="d-flex justify-center mt-5">
         <div className="w-100">
           <h1 className="text-center">🎱 행운의 로또</h1>
-          <PriceInputForm />
+          <PaymentForm />
           <TicketList />
-          <form id="lotto-number-form" className="mt-9 hide">
-            <label className="flex-auto d-inline-block mb-3">
-              지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.
-            </label>
-            <div className="d-flex">
-              <div>
-                <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
-                <div>
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="first"
-                    required
-                  />
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="second"
-                    required
-                  />
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="third"
-                    required
-                  />
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="fourth"
-                    required
-                  />
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="fifth"
-                    required
-                  />
-                  <input
-                    type="number"
-                    className="winning-number mx-1 text-center"
-                    name="sixth"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="bonus-number-container flex-grow">
-                <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
-                <div className="d-flex justify-center">
-                  <input type="number" className="bonus-number text-center" name="bonus" required />
-                </div>
-              </div>
-            </div>
-            <button
-              type="submit"
-              id="result"
-              className="open-result-modal-button mt-5 btn btn-cyan w-100"
-            >
-              결과 확인하기
-            </button>
-          </form>
+          <WinningNumberInput />
+          <Button fullWidth>결과 확인하기</Button>
         </div>
       </div>
 
