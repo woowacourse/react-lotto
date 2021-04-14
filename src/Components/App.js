@@ -7,6 +7,8 @@ import Header from "./Header";
 import Main from "./Main";
 import Modal from "./Modal";
 
+import { createDistinctRandomIntegers } from "../utils";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,17 +22,10 @@ export default class App extends Component {
       lottos: [],
     };
     this.action = {
-      createLottos: (lottoNumber) => {
-        let lottos;
-
-        if (lottoNumber) {
-          lottos = [
-            [1, 2, 3, 4, 5, 6],
-            [2, 3, 4, 5, 6, 7],
-          ];
-        } else {
-          lottos = [];
-        }
+      createLottos: (lottoCount) => {
+        const lottos = Array.from({ length: lottoCount }, () =>
+          createDistinctRandomIntegers(1, 45, 6)
+        ); // TODO: 매직넘버 상수화
 
         this.setState({ ...this.state, lottos });
       },
