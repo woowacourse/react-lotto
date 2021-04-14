@@ -1,0 +1,32 @@
+.purchase-amount-container {
+  margin-top: 1.25rem;
+}
+
+.purchase-amount-label {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.purchase-amount-text {
+  display: inline-block;
+}
+
+.purchase-amount-input {
+  width: 100%;
+  margin-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.purchase-amount-submit-button {
+  height: 36px;
+  min-width: 64px;
+  padding: 0 16px;
+  border-radius: 4px;
+  outline: 0;
+  border-style: none;
+  cursor: pointer;
+  background-color: #00bcd4;
+  border-color: #00bcd4;
+}
