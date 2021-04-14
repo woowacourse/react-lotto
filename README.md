@@ -34,13 +34,17 @@
 - [ ] `App.js`: 최상위 컴포넌트
 
 - [ ] `MoneyInput`: 로또 구입 금액 컴포넌트
-
+  - [ ] Input Component
+  - [ ] Button Component
 - [ ] `PurchasedNumberList`: 번호들의 컴포넌트
+  - [ ] Toggle Component
 - [ ] `PurchasedNumberItem`: 번호 Detail
-
+  - [ ] LottoNumber Component
 - [ ] `WinningNumber.js`: 당첨 번호 컴포넌트
-
+  - [ ] Input Component
+  - [ ] Button Component
 - [ ] `Modal.js`: Modal 컴포넌트
+  - [ ] Button Component
 
 ### Step2
 
