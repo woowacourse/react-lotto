@@ -1,0 +1,9 @@
+.LottoTicket {
+  display: flex;
+  align-items: center;
+
+  .lotto-ticket-emoji {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+}

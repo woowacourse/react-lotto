@@ -14,11 +14,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        test: /\.(css|scss)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: require.resolve('sass-loader'),
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         include: [path.resolve(__dirname, './src')],
         exclude: /node_modules/,
         use: {
