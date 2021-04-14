@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Lottie from 'lottie-react-web';
+// import Lottie from 'lottie-react-web';
+// import congrat from '../animations/congrat.json';
 import '../css/purchase-amount.css';
-import congrat from '../animations/congrat.json';
-import { LOTTO_UNIT_PRICE, MIN_MONETARY_UNIT, MESSAGE } from '../constants.js';
+import { LOTTO_UNIT_PRICE, MIN_MONETARY_UNIT } from '../constants/lottoRules.js';
+import { MESSAGE } from '../constants/display.js';
 
 export default class PurchaseAmount extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class PurchaseAmount extends Component {
 
     const purchaseAmount = e.target.input.value;
     const change = purchaseAmount % LOTTO_UNIT_PRICE;
-    const numOfLotto = purchaseAmount - change;
+    const numOfLotto = (purchaseAmount - change) / LOTTO_UNIT_PRICE;
 
     if (change > 0) {
       alert(MESSAGE.PURCHASE_AMOUNT_HAS_CHANGE(change));
@@ -62,8 +63,6 @@ export default class PurchaseAmount extends Component {
   }
 
   render() {
-    const isPurchased = Boolean(this.props.lottoBundle.length);
-
     return (
       <div>
         <form className="purchase-amount-container" onSubmit={this.onSubmit}>
@@ -85,14 +84,20 @@ export default class PurchaseAmount extends Component {
           </button>
           <div>{this.state.validationMessage}</div>
         </form>
-        <Lottie
-          speed={isPurchased ? 1 : 0}
-          options={{
-            animationData: congrat,
-            loop: false,
-          }}
-        />
       </div>
     );
   }
 }
+
+// // TODO: 애니메이션 추가
+// const isPurchased = Boolean(this.props.lottoBundle.length);
+
+// const lottie = (
+//   <Lottie
+//     speed={isPurchased ? 1 : 0}
+//     options={{
+//       animationData: congrat,
+//       loop: false,
+//     }}
+//   />
+// );
