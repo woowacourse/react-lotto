@@ -29,6 +29,19 @@
 - [ ] 다시 시작하기 버튼을 누를 수 있다.
   - 게임이 초기화 된다.
 
+### Component 구성
+
+- [ ] `App.js`: 최상위 컴포넌트
+
+- [ ] `MoneyInput`: 로또 구입 금액 컴포넌트
+
+- [ ] `PurchasedNumberList`: 번호들의 컴포넌트
+- [ ] `PurchasedNumberItem`: 번호 Detail
+
+- [ ] `WinningNumber.js`: 당첨 번호 컴포넌트
+
+- [ ] `Modal.js`: Modal 컴포넌트
+
 ### Step2
 
 - [ ] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
