@@ -20,6 +20,8 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
+    "react/destructuring-assignment": "off"
   }
 }
