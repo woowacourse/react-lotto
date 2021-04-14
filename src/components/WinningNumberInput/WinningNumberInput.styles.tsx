@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Wrapper } from '../../common/Wrapper';
 
-export const WinningNumberInputWrapper = styled.div`
+export const WinningNumberInputWrapper = styled(Wrapper)`
   margin-bottom: 1rem;
 
   .input-label {
