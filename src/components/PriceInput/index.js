@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Root, Form, Label, InputWrapper, Input, Button } from './style';
+import { Root, Form, Label, InputWrapper, Input, SubmitButton } from './style';
 
 class PriceInput extends Component {
   render() {
@@ -9,7 +9,7 @@ class PriceInput extends Component {
           <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
           <InputWrapper>
             <Input type="number" min="1000" id="price" placeholder="구입 금액" />
-            <Button>확인</Button>
+            <SubmitButton>확인</SubmitButton>
           </InputWrapper>
         </Form>
       </Root>

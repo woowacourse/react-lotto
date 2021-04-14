@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Form = styled.form``;
@@ -18,13 +19,13 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
   height: 100%;
-  width: 240px;
+  width: calc(100% - 52px);
   box-sizing: border-box;
   margin-right: 4px;
   padding-left: 6px;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   height: 100%;
   width: 48px;
   border: none;
@@ -32,4 +33,4 @@ const Button = styled.button`
   background-color: #ffa02b;
 `;
 
-export { Root, Form, Label, InputWrapper, Input, Button };
+export { Root, Form, Label, InputWrapper, Input, SubmitButton };
