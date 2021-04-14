@@ -14,7 +14,7 @@ module.exports = {
     hot: true,
     inline: true,
     host: 'localhost',
-    port: 5500,
+    port: 9000,
     contentBase: path.join(__dirname, '/dist/'),
   },
   module: {
