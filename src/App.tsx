@@ -1,27 +1,16 @@
 import PriceInputForm from './components/PriceInputForm/PriceInputForm';
-// import ResultModal from './components/ResultModal/ResultModal';
-// import TicketList from './components/TicketList/TicketList';
+import TicketList from './components/TicketList/TicketList';
 // import WinningNumberInput from './components/WinningNumberInput/WinningNumberInput';
+import { AppWrapper } from './App.styles';
 
 function App() {
   return (
-    <div className="App">
+    <AppWrapper>
       <div className="d-flex justify-center mt-5">
         <div className="w-100">
           <h1 className="text-center">🎱 행운의 로또</h1>
           <PriceInputForm />
-          {/* <section id="ticket-list-wrapper" className="mt-9 hide">
-            <div className="d-flex">
-              <label id="ticket-count" className="flex-auto my-0"></label>
-              <div className="flex-auto d-flex justify-end pr-1">
-                <label id="toggle-detail-mode" className="switch">
-                  <input type="checkbox" className="lotto-numbers-toggle-button" />
-                  <span className="text-base font-normal">번호보기</span>
-                </label>
-              </div>
-            </div>
-            <div id="ticket-list" className="d-flex flex-wrap"></div>
-          </section> */}
+          <TicketList />
           <form id="lotto-number-form" className="mt-9 hide">
             <label className="flex-auto d-inline-block mb-3">
               지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.
@@ -223,7 +212,7 @@ function App() {
           </section>
         </div>
       </div>
-    </div>
+    </AppWrapper>
   );
 }
 
