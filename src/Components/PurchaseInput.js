@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import LottoContext from "../Contexts/LottoContext";
+import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../utils";
 
 const Form = styled.form`
@@ -25,11 +26,6 @@ const Button = styled.button`
   &:hover {
     background-color: #018c9e;
   }
-`;
-
-const MessageBox = styled.p`
-  color: red;
-  text-align: center;
 `;
 
 // TODO: 1000 매직 넘버 상수 처리
@@ -75,7 +71,7 @@ export default class PurchaseInput extends Component {
           <Button type="submit">확인</Button>
         </div>
         {!this.state.isValidInput && (
-          <MessageBox>1000원 단위로 입력해주세요.</MessageBox>
+          <ErrorMessageBox text="1000원 단위로 입력해주세요." />
         )}
       </Form>
     );
