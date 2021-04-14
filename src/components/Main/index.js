@@ -25,7 +25,7 @@ export default class Main extends Component {
       <main className="main-container d-flex flex-col">
         <h1 className="text-center m-0">🎱 행운의 로또</h1>
         <PurchaseForm handleLottoCountChange={this.handleLottoCountChange} />
-        <LottoListSection />
+        <LottoListSection lottoCount={this.state.lottoCount} />
         <WinningNumberForm />
       </main>
     );
