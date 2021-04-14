@@ -4,7 +4,7 @@ import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { LOTTO } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
 import { Styled } from './Main.style';
-
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 class Main extends Component {
   constructor() {
     super();
@@ -79,6 +79,9 @@ class Main extends Component {
           />
           {this.state.isNumberShowing && <LottoNumberList lottoList={this.state.lottoList} />}
         </div>
+        <Link to="/enter-winning">
+          <button>🤩 당첨 번호 입력</button>
+        </Link>
       </Styled.Container>
     );
   }
