@@ -4,7 +4,7 @@ import './App.scss';
 import PriceInput from './PriceInput';
 import PurchasedLotto from './PurchasedLotto';
 import ResultModal from './ResultModal';
-import WinningNumberInput from './WinngingNumberInput';
+import WinningNumberInput from './WinningNumberInput';
 
 class App extends Component {
   render() {
