@@ -8,7 +8,13 @@ import Lotto from "./Lotto";
 export default class LottoBox extends Component {
   render() {
     return (
-      <ul style={{ display: this.props.isNumberVisible ? "" : "flex" }}>
+      <ul
+        style={
+          this.props.isNumberVisible
+            ? {}
+            : { display: "flex", flexWrap: "wrap" }
+        }
+      >
         {this.context.state.lottos.map((lottoNumbers, index) => (
           <Lotto
             key={lottoNumbers.toString() + index}
