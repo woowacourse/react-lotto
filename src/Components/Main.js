@@ -16,6 +16,7 @@ export default class Main extends Component {
     this.state = {
       lottoCount: 0,
     };
+    this.setLottoCount = this.setLottoCount.bind(this);
   }
 
   setLottoCount(number) {
@@ -25,7 +26,7 @@ export default class Main extends Component {
   render() {
     return (
       <Container>
-        <PurchaseInput setLottoCount={this.setLottoCount.bind(this)} />
+        <PurchaseInput setLottoCount={this.setLottoCount} />
         {this.state.lottoCount ? <LottoDisplay /> : ""}
         {this.state.lottoCount ? <WinningNumberInput /> : ""}
       </Container>

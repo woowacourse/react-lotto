@@ -40,6 +40,7 @@ export default class PurchaseInput extends Component {
     this.state = {
       isValidInput: true,
     };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(event) {
@@ -57,7 +58,7 @@ export default class PurchaseInput extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.onSubmit.bind(this)}>
+      <Form onSubmit={this.onSubmit}>
         <label htmlFor="purchase-input">구입할 금액을 입력해주세요.</label>
         <div style={{ display: "flex", marginTop: "0.5rem" }}>
           <Input
