@@ -5,6 +5,10 @@ export default class PurchaseForm extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isActive: true,
+    };
+
     this.onSubmitPurchaseForm = this.onSubmitPurchaseForm.bind(this);
   }
 
@@ -23,6 +27,7 @@ export default class PurchaseForm extends Component {
     }
 
     this.setLottoCount(moneyInput / LOTTO_PRICE);
+    this.setState({ isActive: false });
   }
 
   isValidPrice(price) {
@@ -44,8 +49,13 @@ export default class PurchaseForm extends Component {
               placeholder="구입 금액"
               min="1000"
               required
+              disabled={this.state.isActive ? false : true}
             />
-            <button type="submit" className="basic-button">
+            <button
+              type="submit"
+              className="basic-button"
+              disabled={this.state.isActive ? false : true}
+            >
               확인
             </button>
           </div>
