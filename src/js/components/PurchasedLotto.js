@@ -12,18 +12,11 @@ export default class PurchasedLotto extends Component {
           <span>번호보기</span>
         </label>
         <ul>
-          <li>
-            <LottoTicket isShowNumber={true} lottoNumbers={[1, 2, 3, 4, 5, 6]} />
-          </li>
-          <li>
-            <LottoTicket isShowNumber={true} lottoNumbers={[1, 2, 3, 4, 5, 6]} />
-          </li>
-          <li>
-            <LottoTicket isShowNumber={true} lottoNumbers={[1, 2, 3, 4, 5, 6]} />
-          </li>
-          <li>
-            <LottoTicket isShowNumber={true} lottoNumbers={[1, 2, 3, 4, 5, 6]} />
-          </li>
+          {this.props.lottoList.map((lotto, index) => (
+            <li key={index}>
+              <LottoTicket lottoNumbers={lotto} isShowNumber={true} />
+            </li>
+          ))}
         </ul>
       </section>
     );
