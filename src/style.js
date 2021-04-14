@@ -6,7 +6,7 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  width: 640px;
+  width: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
