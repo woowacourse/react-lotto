@@ -12,13 +12,19 @@ export default class App extends Component {
     super();
     this.state = {
       lottoBundle: [],
+      isShowingWinningResult: false,
     };
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
+    this.onShowWinningResult = this.onShowWinningResult.bind(this);
   }
 
   onPurchaseLotto({ numOfLotto }) {
     this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => this.createLotto()) });
+  }
+
+  onShowWinningResult() {
+    this.setState({ isShowingWinningResult: true });
   }
 
   createLotto(array = []) {
@@ -35,7 +41,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { lottoBundle } = this.state;
+    const { lottoBundle, isShowingWinningResult } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
@@ -44,8 +50,8 @@ export default class App extends Component {
         <main>
           <PurchaseAmount lottoBundle={lottoBundle} onPurchaseLotto={this.onPurchaseLotto} />
           {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
-          {isPurchased && <WinningNumbers />}
-          <WinningResult />
+          {isPurchased && <WinningNumbers onShowWinningResult={this.onShowWinningResult} />}
+          {isShowingWinningResult && <WinningResult />}
         </main>
       </div>
     );
