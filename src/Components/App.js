@@ -48,6 +48,23 @@ export default class App extends Component {
       closeModal: () => {
         this.setState({ isModalOpen: false });
       },
+
+      clear: () => {
+        this.setState({
+          lottos: [],
+          isModalOpen: false,
+          lottoResult: {
+            rankCount: {
+              1: 0,
+              2: 0,
+              3: 0,
+              4: 0,
+              5: 0,
+            },
+            earningRate: 0,
+          },
+        });
+      },
     };
   }
 

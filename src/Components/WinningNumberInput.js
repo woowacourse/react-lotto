@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import LottoContext from "../Contexts/LottoContext";
@@ -76,24 +77,19 @@ export default class WinningNumberInput extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <Header>지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</Header>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
+            css={css`
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+            `}
           >
             <InputHeader>당첨 번호</InputHeader>
             <div
-              style={{
-                display: "flex",
-              }}
+              css={css`
+                display: flex;
+              `}
             >
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox

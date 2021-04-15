@@ -151,7 +151,9 @@ export default class Modal extends Component {
             </tbody>
           </ResultTable>
           <p style={{ fontWeight: "bold" }}>earning rate</p>
-          <Button type="button">다시 시작하기</Button>
+          <Button type="button" onClick={this.context.action.clear}>
+            다시 시작하기
+          </Button>
         </ModalInner>
       </ModalContainer>
     );

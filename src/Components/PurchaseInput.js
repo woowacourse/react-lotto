@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
 
 import LottoContext from "../Contexts/LottoContext";
@@ -35,29 +35,35 @@ export default class PurchaseInput extends Component {
     this.state = {
       isValidInput: true,
     };
+
+    this.formRef = createRef();
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   // TODO: 매직넘버 상수화
   onSubmit(event) {
     event.preventDefault();
+
     const payment = Number(event.target.elements["purchase-input"].value);
 
     this.setState(
       {
-        ...this.state,
         isValidInput: isDivisible(payment, 1000),
       },
-      () =>
-        this.state.isValidInput
-          ? this.context.action.createLottos(payment / 1000)
-          : this.context.action.createLottos(0)
+      () => {
+        if (this.state.isValidInput) {
+          this.context.action.createLottos(payment / 1000);
+          this.formRef.current.reset();
+        } else {
+          this.context.action.createLottos(0);
+        }
+      }
     );
   }
 
   render() {
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.onSubmit} ref={this.formRef}>
         <label htmlFor="purchase-input">구입할 금액을 입력해주세요.</label>
         <div style={{ display: "flex", marginTop: "0.5rem" }}>
           <Input
