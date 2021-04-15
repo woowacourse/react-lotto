@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import './ResultModal.scss';
 
 export default class ResultModal extends Component {
   render() {
     return (
-      <section className="modal" role="dialog">
+      <section className="ResultModal" role="dialog">
         <div className="modal-inner">
           <div className="modal-close">
             <svg viewBox="0 0 40 40">
@@ -50,10 +51,10 @@ export default class ResultModal extends Component {
               </tbody>
             </table>
           </div>
-          <p>당신의 총 수익률은 %입니다.</p>
-          <div>
-            <button type="reset">다시 시작하기</button>
-          </div>
+          <p className="rate-of-return-message">당신의 총 수익률은 %입니다.</p>
+          <button className="restart-btn" type="reset">
+            다시 시작하기
+          </button>
         </div>
       </section>
     );
