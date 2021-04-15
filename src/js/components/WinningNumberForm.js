@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import WinningNumberInput from './WinningNumberInput';
 import { LOTTO } from '../constants/lottoData';
+import './WinningNumberForm.scss';
 
 const INPUT_LABEL = {
   WINNING_NUMBERS: [
@@ -20,21 +21,23 @@ export default class WinningNumberForm extends Component {
       <section className="WinningNumberForm">
         <h2>당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
         <form>
-          <section>
-            <h3>당첨 번호</h3>
-            <ul>
-              {INPUT_LABEL.WINNING_NUMBERS.map((label) => (
-                <li key={label}>
-                  <WinningNumberInput min={LOTTO.MIN_NUMBER} max={LOTTO.MAX_NUMBER} inputLabel={label} />
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            <h3>보너스 번호</h3>
-            <WinningNumberInput min={LOTTO.MIN_NUMBER} max={LOTTO.MAX_NUMBER} inputLabel={INPUT_LABEL.BONUS_NUMBER} />
-          </section>
-          <button>결과 확인하기</button>
+          <div className="number-input-box">
+            <section className="winning-number-box">
+              <h3>당첨 번호</h3>
+              <ul>
+                {INPUT_LABEL.WINNING_NUMBERS.map((label) => (
+                  <li key={label}>
+                    <WinningNumberInput min={LOTTO.MIN_NUMBER} max={LOTTO.MAX_NUMBER} inputLabel={label} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="bonus-number-box">
+              <h3>보너스 번호</h3>
+              <WinningNumberInput min={LOTTO.MIN_NUMBER} max={LOTTO.MAX_NUMBER} inputLabel={INPUT_LABEL.BONUS_NUMBER} />
+            </section>
+          </div>
+          <button className="winning-number-submit-btn">결과 확인하기</button>
         </form>
       </section>
     );

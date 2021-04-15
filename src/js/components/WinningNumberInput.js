@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './WinningNumberInput.scss';
 
 export default class WinningNumberInput extends Component {
   render() {
     return (
-      <label>
+      <label className="WinningNumberInput">
         <span>{this.props.inputLabel ?? ''}</span>
         <input type="number" min={this.props.minNumber ?? ''} max={this.props.maxNumber ?? ''} required />
       </label>

@@ -7,6 +7,10 @@
   --color-pink-3: rgb(243, 102, 137);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
@@ -23,4 +27,12 @@ button {
 
 p {
   margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }

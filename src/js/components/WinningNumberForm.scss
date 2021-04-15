@@ -1,2 +1,64 @@
 .WinningNumberForm {
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .number-input-box {
+    display: flex;
+    justify-content: space-between;
+
+    .winning-number-box {
+      margin: 0 auto;
+    }
+
+    .bonus-number-box {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  ul {
+    display: flex;
+
+    li {
+      margin-right: 0.7rem;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .winning-number-submit-btn {
+    font-size: 1rem;
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 1rem;
+    background-color: var(--color-pink-1);
+
+    &:disabled {
+      background-color: #bbb;
+      color: #555;
+      cursor: not-allowed;
+    }
+
+    &:disabled:hover {
+      background-color: #bbb;
+    }
+
+    &:hover {
+      background-color: var(--color-pink-3);
+    }
+  }
 }
