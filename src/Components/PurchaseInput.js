@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
-import { isDivisible } from "../utils";
+import { isDivisible } from "../Utils";
+import { LOTTO_PRICE } from "../Constants/prizeTable";
 
 const Form = styled.form`
   width: 100%;
@@ -28,7 +29,6 @@ const Button = styled.button`
   }
 `;
 
-// TODO: 1000 매직 넘버 상수 처리
 export default class PurchaseInput extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +40,6 @@ export default class PurchaseInput extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // TODO: 매직넘버 상수화
   onSubmit(event) {
     event.preventDefault();
 
@@ -48,11 +47,11 @@ export default class PurchaseInput extends Component {
 
     this.setState(
       {
-        isValidInput: isDivisible(payment, 1000),
+        isValidInput: isDivisible(payment, LOTTO_PRICE),
       },
       () => {
         if (this.state.isValidInput) {
-          this.context.action.createLottos(payment / 1000);
+          this.context.action.createLottos(payment / LOTTO_PRICE);
           this.formRef.current.reset();
         } else {
           this.context.action.createLottos(0);
@@ -71,13 +70,13 @@ export default class PurchaseInput extends Component {
             name="purchase-input"
             type="number"
             placeholder="구입 금액"
-            min="1000"
+            min={LOTTO_PRICE}
             required
           />
           <Button type="submit">확인</Button>
         </div>
         {!this.state.isValidInput && (
-          <ErrorMessageBox text="1000원 단위로 입력해주세요." />
+          <ErrorMessageBox text={`${LOTTO_PRICE}원 단위로 입력해주세요.`} />
         )}
       </Form>
     );

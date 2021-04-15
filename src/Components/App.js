@@ -7,7 +7,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Modal from "./Modal";
 
-import { createDistinctRandomIntegers } from "../utils";
+import { createDistinctRandomIntegers } from "../Utils";
 
 const Container = styled.div`
   display: flex;

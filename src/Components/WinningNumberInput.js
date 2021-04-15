@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import LottoContext from "../Contexts/LottoContext";
-import { isDistinctNumbers } from "../utils";
+import { isDistinctNumbers } from "../Utils";
 
 const Header = styled.h2`
   font-size: 16px;
