@@ -33,5 +33,3 @@ export const PRIZE_TABLE = {
     condition: "2개 이하",
   },
 };
-
-export const LOTTO_PRICE = 1000;

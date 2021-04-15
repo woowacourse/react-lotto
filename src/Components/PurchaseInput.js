@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../Utils";
-import { LOTTO_PRICE } from "../Constants/prizeTable";
+import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
 const Form = styled.form`
   width: 100%;
@@ -63,7 +63,7 @@ export default class PurchaseInput extends Component {
   render() {
     return (
       <Form onSubmit={this.onSubmit} ref={this.formRef}>
-        <label htmlFor="purchase-input">구입할 금액을 입력해주세요.</label>
+        <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
         <div style={{ display: "flex", marginTop: "0.5rem" }}>
           <Input
             id="purchase-input"
@@ -76,7 +76,7 @@ export default class PurchaseInput extends Component {
           <Button type="submit">확인</Button>
         </div>
         {!this.state.isValidInput && (
-          <ErrorMessageBox text={`${LOTTO_PRICE}원 단위로 입력해주세요.`} />
+          <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
         )}
       </Form>
     );

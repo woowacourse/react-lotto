@@ -7,7 +7,13 @@ import Header from "./Header";
 import Main from "./Main";
 import Modal from "./Modal";
 
-import { PRIZE_TABLE, RANKINGS, LOTTO_PRICE } from "../Constants/prizeTable";
+import {
+  PRIZE_TABLE,
+  RANKINGS,
+  LOTTO_PRICE,
+  LOTTO_RANGE,
+  LOTTO_LENGTH,
+} from "../Constants";
 
 import { countMatchedNumbers, createDistinctRandomIntegers } from "../Utils";
 
@@ -70,8 +76,12 @@ export default class App extends Component {
     this.action = {
       createLottos: (lottoCount) => {
         const lottos = Array.from({ length: lottoCount }, () =>
-          createDistinctRandomIntegers(1, 45, 6)
-        ); // TODO: 매직넘버 상수화
+          createDistinctRandomIntegers(
+            LOTTO_RANGE.FROM,
+            LOTTO_RANGE.TO,
+            LOTTO_LENGTH
+          )
+        );
 
         this.setState({ lottos });
       },

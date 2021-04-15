@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+// TODO: 인라인 스타일 css로 바꿔주기
 export default class Lotto extends Component {
   render() {
     return (

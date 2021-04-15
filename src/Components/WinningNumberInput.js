@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import LottoContext from "../Contexts/LottoContext";
 import { isDistinctNumbers } from "../Utils";
+import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
 const Header = styled.h2`
   font-size: 16px;
@@ -76,7 +77,7 @@ export default class WinningNumberInput extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <Header>지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</Header>
+        <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div
             css={css`
@@ -91,6 +92,7 @@ export default class WinningNumberInput extends Component {
                 display: flex;
               `}
             >
+              {/* TODO: 매직 넘버 */}
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox
                   key={index}
@@ -122,7 +124,7 @@ export default class WinningNumberInput extends Component {
           </div>
         </div>
         {!this.state.isValidInput && (
-          <ErrorMessageBox text="서로 다른 숫자를 입력해주세요." />
+          <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
         )}
         <Button type="submit">확인</Button>
       </form>

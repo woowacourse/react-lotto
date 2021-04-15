@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
-import { PRIZE_TABLE, RANKINGS } from "../Constants/prizeTable";
+import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../Constants";
 
 const ModalContainer = styled.div`
   opacity: 1;
@@ -135,7 +135,7 @@ export default class Modal extends Component {
             </tbody>
           </ResultTable>
           <p style={{ fontWeight: "bold" }}>
-            당신의 수익률은 총 {earningRate}% 입니다.
+            {GUIDE_MESSAGE.EARNING_RATE(earningRate)}
           </p>
           <Button type="button" onClick={this.context.action.clear}>
             다시 시작하기

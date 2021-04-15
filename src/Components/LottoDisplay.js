@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import LottoContext from "../Contexts/LottoContext";
 import LottoBox from "./LottoBox";
 import Toggle from "./common/Toggle";
+import { GUIDE_MESSAGE } from "../Constants";
 
 const Header = styled.h2`
   display: flex;
@@ -37,7 +38,7 @@ export default class LottoDisplay extends Component {
     return (
       <div>
         <Header>
-          <span>총 {lottoCount}개를 구매하였습니다.</span>
+          <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottoCount)}</span>
           <Toggle text={"번호 보기"} onToggle={this.onToggle} />
         </Header>
         <LottoBox isNumberVisible={this.state.isToggled} />
