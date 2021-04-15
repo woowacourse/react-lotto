@@ -11,13 +11,19 @@ import {
 } from './style';
 
 class LottosContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    const lottos = Array.from({ length: 5 }, (_, idx) => (
-      <LottoWrapper key={idx}>
-        💎
-        <LottoNumbers>1, 2, 3, 4, 5, 6</LottoNumbers>
-      </LottoWrapper>
-    ));
+    const lottos = this.props.lottos.map((lotto, idx) => {
+      return (
+        <LottoWrapper key={idx}>
+          💎
+          <LottoNumbers>{lotto.numbers.join(',')}</LottoNumbers>
+        </LottoWrapper>
+      );
+    });
 
     return (
       <Root>
