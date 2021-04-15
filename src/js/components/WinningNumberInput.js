@@ -7,7 +7,14 @@ export default class WinningNumberInput extends Component {
     return (
       <label className="WinningNumberInput">
         <span>{this.props.inputLabel ?? ''}</span>
-        <input type="number" min={this.props.minNumber ?? ''} max={this.props.maxNumber ?? ''} required />
+        <input
+          onChange={this.props.onChangeInput}
+          name={this.props.inputName ?? ''}
+          type="number"
+          min={this.props.minNumber ?? ''}
+          max={this.props.maxNumber ?? ''}
+          required
+        />
       </label>
     );
   }
@@ -17,4 +24,6 @@ WinningNumberInput.propTypes = {
   inputLabel: PropTypes.string,
   minNumber: PropTypes.number,
   maxNumber: PropTypes.number,
+  inputName: PropTypes.string,
+  onChangeInput: PropTypes.func.isRequired,
 };

@@ -14,6 +14,7 @@ class App extends Component {
 
     this.state = {
       lottoList: [],
+      isShowModal: false,
     };
 
     this.createLottoList = this.createLottoList.bind(this);
@@ -45,7 +46,7 @@ class App extends Component {
           <PriceForm createLottoList={this.createLottoList} />
           <PurchasedLotto lottoList={this.state.lottoList} />
           <WinningNumberForm />
-          <ResultModal />
+          {this.state.isShowModal && <ResultModal />}
         </main>
       </>
     );
