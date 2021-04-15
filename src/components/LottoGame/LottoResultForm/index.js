@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { LOTTO_NUMBER_COUNT } from '../../../constants/standard';
+import { isDuplicate, isValidRange } from '../../../utils/validator';
+import { MESSAGE } from '../../../constants/messages';
 
 export default class LottoResultForm extends Component {
   constructor(props) {
@@ -15,6 +17,16 @@ export default class LottoResultForm extends Component {
       .fill()
       .map((_, idx) => Number(event.target[`winning-${idx + 1}`].value));
     const bounusNumber = Number(event.target['bonus'].value);
+
+    if (!isValidRange([...winningNumbers, bounusNumber])) {
+      alert(MESSAGE.OUT_RANGED_LOTTO_NUMBERS);
+      return;
+    }
+
+    if (isDuplicate([...winningNumbers, bounusNumber])) {
+      alert(MESSAGE.DUPLICATED_LOTTO_NUMBERS);
+      return;
+    }
 
     this.props.setResultNumbers({ winningNumbers, bounusNumber });
   }
