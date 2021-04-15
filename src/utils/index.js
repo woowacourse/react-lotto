@@ -11,3 +11,15 @@ export const shuffle = (currentArray) => {
 
   return array;
 };
+
+export const getIntersectionCount = (arr1, arr2) => {
+  const intersection = arr1.filter((element) => arr2.includes(element));
+
+  return intersection.length;
+};
+
+export const currencyFormat = (number) =>
+  new Intl.NumberFormat('ko-KR', {
+    style: 'currency',
+    currency: 'KRW',
+  }).format(number);

@@ -18,6 +18,10 @@ class EnterWinning extends Component {
       },
       bonusNumber: '',
     };
+
+    this.handleChangeWinningNumber = this.handleChangeWinningNumber.bind(this);
+    this.handleChangeBonusNumber = this.handleChangeBonusNumber.bind(this);
+    this.handleSubmitWinningNumber = this.handleSubmitWinningNumber.bind(this);
   }
 
   handleChangeWinningNumber(event) {
@@ -25,7 +29,7 @@ class EnterWinning extends Component {
       ...prevState,
       winningNumber: {
         ...prevState.winningNumber,
-        [event.target.name]: event.target.value,
+        [event.target.name]: Number(event.target.value),
       },
     }));
   }
@@ -33,16 +37,18 @@ class EnterWinning extends Component {
   handleChangeBonusNumber(event) {
     this.setState((prevState) => ({
       ...prevState,
-      bonusNumber: event.target.value,
+      bonusNumber: Number(event.target.value),
     }));
   }
 
   handleSubmitWinningNumber(event) {
     event.preventDefault();
 
+    const { lottoList, moneyInput } = this.props.location.state;
+
     this.props.history.push({
       pathname: '/result',
-      state: { lottoList: this.props.location.state.lottoList, ...this.state },
+      state: { lottoList, moneyInput, ...this.state },
     });
   }
 
@@ -50,7 +56,7 @@ class EnterWinning extends Component {
     return (
       <div>
         <p>지난 주 당첨번호를 입력해주세요</p>
-        <form onSubmit={this.handleSubmitWinningNumber.bind(this)}>
+        <form onSubmit={this.handleSubmitWinningNumber}>
           <fieldset>
             <legend>당첨 번호 입력</legend>
             {Object.keys(this.state.winningNumber).map((key) => (
@@ -62,7 +68,7 @@ class EnterWinning extends Component {
                 name={key}
                 aria-label=""
                 value={this.state.winningNumber[key]}
-                onChange={this.handleChangeWinningNumber.bind(this)}
+                onChange={this.handleChangeWinningNumber}
                 required
               />
             ))}
@@ -77,7 +83,7 @@ class EnterWinning extends Component {
             id="bonus-number"
             name="bonus-number"
             value={this.state.bonusNumber}
-            onChange={this.handleChangeBonusNumber.bind(this)}
+            onChange={this.handleChangeBonusNumber}
             required
           />
           <button>당첨 결과 확인</button>

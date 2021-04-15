@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { LOTTO } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
 import { Styled } from './Main.style';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 class Main extends Component {
   constructor() {
     super();
@@ -15,6 +15,10 @@ class Main extends Component {
       lottoCount: 0,
       isNumberShowing: false,
     };
+
+    this.handleSubmitMoneyInput = this.handleSubmitMoneyInput.bind(this);
+    this.handleChangeMoneyInput = this.handleChangeMoneyInput.bind(this);
+    this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
   }
 
   generateLotto(baseNumberList) {
@@ -46,7 +50,7 @@ class Main extends Component {
   }
 
   handleChangeMoneyInput(event) {
-    this.setState({ moneyInput: event.target.value });
+    this.setState({ moneyInput: Number(event.target.value) });
   }
 
   handleToggleSwitch(event) {
@@ -54,15 +58,18 @@ class Main extends Component {
   }
 
   render() {
+    const { lottoList, moneyInput } = this.state;
+
     return (
       <Styled.Container>
-        <form onSubmit={this.handleSubmitMoneyInput.bind(this)}>
+        <form onSubmit={this.handleSubmitMoneyInput}>
           <input
             type="number"
             value={this.state.moneyInput}
             min={LOTTO.PRICE}
-            onChange={this.handleChangeMoneyInput.bind(this)}
+            onChange={this.handleChangeMoneyInput}
             disabled={this.state.lottoCount > 0 ? 'disabled' : ''}
+            required
           />
           <button type="submit" disabled={this.state.lottoCount > 0 ? 'disabled' : ''}>
             구입
@@ -75,11 +82,16 @@ class Main extends Component {
           <ToggleSwitch
             title="번호 보기"
             isChecked={this.state.isNumberShowing}
-            onChange={this.handleToggleSwitch.bind(this)}
+            onChange={this.handleToggleSwitch}
           />
           {this.state.isNumberShowing && <LottoNumberList lottoList={this.state.lottoList} />}
         </div>
-        <Link to={{ pathname: '/enter-winning', state: { lottoList: this.state.lottoList } }}>
+        <Link
+          to={{
+            pathname: '/enter-winning',
+            state: { lottoList, moneyInput },
+          }}
+        >
           <button>🤩 당첨 번호 입력</button>
         </Link>
       </Styled.Container>

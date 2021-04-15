@@ -21,3 +21,47 @@ export const INPUT_NAME = {
     6: 'winning-number-6',
   },
 };
+
+export const RANKING = {
+  FIRST: 1,
+  SECOND: 2,
+  THIRD: 3,
+  FOURTH: 4,
+  FIFTH: 5,
+  NO_PRIZE: 0,
+};
+
+export const WINNING_TABLE = {
+  [RANKING.FIRST]: {
+    MATCH_CONDITION: '6개',
+    PRIZE: 2000000000,
+  },
+
+  [RANKING.SECOND]: {
+    MATCH_CONDITION: '5개 + 보너스볼',
+    PRIZE: 30000000,
+  },
+
+  [RANKING.THIRD]: {
+    MATCH_CONDITION: '5개',
+    PRIZE: 1500000,
+  },
+
+  [RANKING.FOURTH]: {
+    MATCH_CONDITION: '4개',
+    PRIZE: 50000,
+  },
+
+  [RANKING.FIFTH]: {
+    MATCH_CONDITION: '3개',
+    PRIZE: 5000,
+  },
+};
+
+export const RANKING_TABLE = {
+  6: RANKING.FIRST,
+  5.5: RANKING.SECOND,
+  5: RANKING.THIRD,
+  4: RANKING.FOURTH,
+  3: RANKING.FIFTH,
+};
