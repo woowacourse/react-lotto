@@ -36,3 +36,5 @@ export const initObject = (keyList, value) => {
 
   return obj;
 };
+
+export const isUniqueArray = (array) => array.length === new Set(array).size;

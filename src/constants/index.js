@@ -65,3 +65,7 @@ export const RANKING_TABLE = {
   4: RANKING.FOURTH,
   3: RANKING.FIFTH,
 };
+
+export const ALERT_MESSAGE = {
+  DUPLICATED_WINNING_NUMBER: '중복되지 않은 번호를 입력해주세요.',
+};

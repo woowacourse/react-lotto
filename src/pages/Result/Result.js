@@ -75,6 +75,7 @@ class Result extends Component {
   }
 
   render() {
+    const { isModalOpen } = this.state;
     const { lottoList, moneyInput, winningNumber, bonusNumber } = this.props?.location?.state;
     const winningResult = this.getWinningResult(lottoList, { winningNumber, bonusNumber });
     const profitRate = this.getProfitRate(winningResult, moneyInput);
@@ -92,7 +93,7 @@ class Result extends Component {
         <Link to="/">
           <button>다시 시작</button>
         </Link>
-        {this.state.isModalOpen && (
+        {isModalOpen && (
           <Modal onClose={this.handleCloseDetail}>
             <table>
               <thead>

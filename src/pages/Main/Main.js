@@ -31,7 +31,9 @@ class Main extends Component {
   }
 
   purchaseLottoList() {
-    const count = Math.floor(this.state.moneyInput / LOTTO.PRICE);
+    const { moneyInput } = this.state;
+
+    const count = Math.floor(moneyInput / LOTTO.PRICE);
     const baseNumberList = Array.from({ length: LOTTO.MAX_NUMBER }, (_, index) => index + 1);
     let newLottoList = {};
 
@@ -58,33 +60,34 @@ class Main extends Component {
   }
 
   render() {
-    const { lottoList, moneyInput } = this.state;
+    const { lottoList, moneyInput, lottoCount, isNumberShowing } = this.state;
+    ``;
 
     return (
       <Styled.Container>
         <form onSubmit={this.handleSubmitMoneyInput}>
           <input
             type="number"
-            value={this.state.moneyInput}
+            value={moneyInput}
             min={LOTTO.PRICE}
             onChange={this.handleChangeMoneyInput}
-            disabled={this.state.lottoCount > 0 ? 'disabled' : ''}
+            disabled={lottoCount > 0 ? 'disabled' : ''}
             required
           />
-          <button type="submit" disabled={this.state.lottoCount > 0 ? 'disabled' : ''}>
+          <button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
             구입
           </button>
         </form>
         <div>
           <p>
-            현재 구입한 로또 <span>{this.state.lottoCount}</span>개
+            현재 구입한 로또 <span>{lottoCount}</span>개
           </p>
           <ToggleSwitch
             title="번호 보기"
-            isChecked={this.state.isNumberShowing}
+            isChecked={isNumberShowing}
             onChange={this.handleToggleSwitch}
           />
-          {this.state.isNumberShowing && <LottoNumberList lottoList={this.state.lottoList} />}
+          {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
         </div>
         <Link
           to={{

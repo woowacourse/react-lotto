@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Styled from './EnterWinning.style';
-import { INPUT_NAME, LOTTO } from '../../constants';
-import { initObject } from '../../utils';
+import { ALERT_MESSAGE, INPUT_NAME, LOTTO } from '../../constants';
+import { initObject, isUniqueArray } from '../../utils';
 
 class EnterWinning extends Component {
   constructor(props) {
@@ -37,22 +37,33 @@ class EnterWinning extends Component {
   handleSubmitWinningNumber(event) {
     event.preventDefault();
 
-    const { lottoList, moneyInput } = this.props.location.state;
+    const { winningNumber, bonusNumber } = this.state;
+    const { location, history } = this.props;
+    const { lottoList, moneyInput } = location.state;
 
-    this.props.history.push({
+    const numberList = [...Object.values(winningNumber), bonusNumber];
+
+    if (!isUniqueArray(numberList)) {
+      alert(ALERT_MESSAGE.DUPLICATED_WINNING_NUMBER);
+      return;
+    }
+
+    history.push({
       pathname: '/result',
-      state: { lottoList, moneyInput, ...this.state },
+      state: { lottoList, moneyInput, winningNumber, bonusNumber },
     });
   }
 
   render() {
+    const { winningNumber, bonusNumber } = this.state;
+
     return (
       <div>
         <p>지난 주 당첨번호를 입력해주세요</p>
         <form onSubmit={this.handleSubmitWinningNumber}>
           <fieldset>
             <legend>당첨 번호 입력</legend>
-            {Object.keys(this.state.winningNumber).map((key) => (
+            {Object.keys(winningNumber).map((key) => (
               <Styled.NumberInput
                 key={key}
                 type="number"
@@ -60,7 +71,7 @@ class EnterWinning extends Component {
                 max={LOTTO.MAX_NUMBER}
                 name={key}
                 aria-label=""
-                value={this.state.winningNumber[key]}
+                value={winningNumber[key]}
                 onChange={this.handleChangeWinningNumber}
                 required
               />
@@ -75,7 +86,7 @@ class EnterWinning extends Component {
             max={LOTTO.MAX_NUMBER}
             id="bonus-number"
             name="bonus-number"
-            value={this.state.bonusNumber}
+            value={bonusNumber}
             onChange={this.handleChangeBonusNumber}
             required
           />
