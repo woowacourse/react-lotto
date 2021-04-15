@@ -22,6 +22,15 @@ export default class PurchaseAmount extends Component {
     this.purchaseAmountInput.current.focus();
   }
 
+  componentDidUpdate() {
+    if (this.props.isReset) {
+      this.purchaseAmountInput.current.value = '';
+      this.purchaseAmountInput.current.disabled = false;
+      this.purchaseAmountInput.current.focus();
+      this.props.didReset();
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
 

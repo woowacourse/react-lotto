@@ -13,10 +13,14 @@ export default class App extends Component {
     this.state = {
       lottoBundle: [],
       isShowingWinningResult: false,
+      isReset: false,
     };
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
     this.onShowWinningResult = this.onShowWinningResult.bind(this);
+    this.onCloseWinningResult = this.onCloseWinningResult.bind(this);
+    this.onReset = this.onReset.bind(this);
+    this.didReset = this.didReset.bind(this);
   }
 
   onPurchaseLotto({ numOfLotto }) {
@@ -25,6 +29,18 @@ export default class App extends Component {
 
   onShowWinningResult() {
     this.setState({ isShowingWinningResult: true });
+  }
+
+  onCloseWinningResult() {
+    this.setState({ isShowingWinningResult: false });
+  }
+
+  onReset() {
+    this.setState({ lottoBundle: [], isShowingWinningResult: false, isReset: true });
+  }
+
+  didReset() {
+    this.setState({ isReset: false });
   }
 
   createLotto(array = []) {
@@ -41,17 +57,28 @@ export default class App extends Component {
   }
 
   render() {
-    const { lottoBundle, isShowingWinningResult } = this.state;
+    const { isReset, lottoBundle, isShowingWinningResult } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
       <div className="app">
         <h1 className="header">🎱 행운의 로또</h1>
         <main>
-          <PurchaseAmount lottoBundle={lottoBundle} onPurchaseLotto={this.onPurchaseLotto} />
+          <PurchaseAmount
+            isReset={isReset}
+            didReset={this.didReset}
+            lottoBundle={lottoBundle}
+            onPurchaseLotto={this.onPurchaseLotto}
+          />
           {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
           {isPurchased && <WinningNumbers onShowWinningResult={this.onShowWinningResult} />}
-          {isShowingWinningResult && <WinningResult />}
+          {isShowingWinningResult && (
+            <WinningResult
+              lottoBundle={lottoBundle}
+              onCloseWinningResult={this.onCloseWinningResult}
+              onReset={this.onReset}
+            />
+          )}
         </main>
       </div>
     );
