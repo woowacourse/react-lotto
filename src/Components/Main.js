@@ -7,7 +7,7 @@ import WinningNumberInput from "./WinningNumberInput";
 
 import LottoContext from "../Contexts/LottoContext";
 
-const Container = styled.div`
+const MainContainer = styled.main`
   width: 23vw;
   min-width: 400px;
 `;
@@ -17,11 +17,11 @@ export default class Main extends Component {
     const lottoCount = this.context.state.lottos.length;
 
     return (
-      <Container>
+      <MainContainer>
         <PurchaseInput />
         {lottoCount !== 0 && <LottoDisplay />}
         {lottoCount !== 0 && <WinningNumberInput />}
-      </Container>
+      </MainContainer>
     );
   }
 }
