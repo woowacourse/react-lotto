@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import LottoPurchaseForm from './components/LottoPurchaseForm';
+import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
 
 const MainTitle = styled.h1`
   text-align: center;
@@ -30,13 +31,13 @@ class App extends Component {
 
   render() {
     return (
-      <main style={{ maxWidth: '30%', margin: '0 auto' }}>
+      <main style={{ maxWidth: '450px', margin: '0 auto' }}>
         <MainTitle>🎱 행운의 로또</MainTitle>
         <MainWrapper>
           <div style={{ width: '100%' }}>
             <LottoPurchaseForm setPrice={this.setPrice} />
+            <PurchaseResult />
           </div>
-          <div>{this.state.price}</div>
         </MainWrapper>
       </main>
     );
