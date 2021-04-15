@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Wrapper } from '../common/Wrapper';
 
 export const TicketListWrapper = styled(Wrapper)`
@@ -15,7 +15,16 @@ export const TicketListHeader = styled.div`
   }
 `;
 
-export const List = styled.ul`
+type ListProps = {
+  isToggled: boolean;
+};
+
+const detailedStyle = css`
+  flex-direction: column;
+`;
+
+export const List = styled.ul<ListProps>`
   display: flex;
   flex-wrap: wrap;
+  ${({ isToggled }) => isToggled && detailedStyle}
 `;

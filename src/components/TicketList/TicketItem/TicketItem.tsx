@@ -3,6 +3,7 @@ import { TicketItemWrapper } from './TicketItem.styles';
 
 type Props = {
   ticketNumbers: Ticket;
+  isDetailMode: boolean;
 };
 
 export default class TicketItem extends Component<Props> {
@@ -10,7 +11,9 @@ export default class TicketItem extends Component<Props> {
     return (
       <TicketItemWrapper>
         <span className="ticket-icon">🎟️ </span>
-        <span className="ticket-number">{this.props.ticketNumbers.join(' ')}</span>
+        {this.props.isDetailMode && (
+          <span className="ticket-number">{this.props.ticketNumbers.join(' ')}</span>
+        )}
       </TicketItemWrapper>
     );
   }
