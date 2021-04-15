@@ -9,6 +9,8 @@ export default class PurchasedLotto extends Component {
     this.state = {
       isShowNumber: false,
     };
+
+    this.onToggleLottoNumber = this.onToggleLottoNumber.bind(this);
   }
 
   onToggleLottoNumber({ target }) {
@@ -20,7 +22,7 @@ export default class PurchasedLotto extends Component {
       <section className="PurchasedLotto">
         <span>총 {this.props.lottoList.length}개를 구매하였습니다.</span>
         <label className="switch">
-          <input type="checkbox" className="switch-input" onChange={this.onToggleLottoNumber.bind(this)} />
+          <input type="checkbox" className="switch-input" onChange={this.onToggleLottoNumber} />
           <span>번호보기</span>
         </label>
         <ul className={this.state.isShowNumber ? '' : 'hide-number'}>

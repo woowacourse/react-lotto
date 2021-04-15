@@ -4,6 +4,12 @@ import { ERROR_MESSAGE } from '../constants/messages';
 import './PriceInput.scss';
 
 export default class PriceInput extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onSubmitPrice = this.onSubmitPrice.bind(this);
+  }
+
   onSubmitPrice(event) {
     event.preventDefault();
 
@@ -26,7 +32,7 @@ export default class PriceInput extends Component {
   render() {
     return (
       <section className="PriceInput">
-        <form className="price-form" onSubmit={this.onSubmitPrice.bind(this)}>
+        <form className="price-form" onSubmit={this.onSubmitPrice}>
           <label className="price-label">
             <span className="price-text">구입할 금액을 입력해주세요.</span>
             <input className="price-input" name="price" placeholder="구입 금액" type="number" min="1000" step="1000" />

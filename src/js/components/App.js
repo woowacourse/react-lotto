@@ -15,6 +15,8 @@ class App extends Component {
     this.state = {
       lottoList: [],
     };
+
+    this.createLottoList = this.createLottoList.bind(this);
   }
 
   createLotto() {
@@ -40,7 +42,7 @@ class App extends Component {
           <h1>🎱 행운의 로또</h1>
         </header>
         <main>
-          <PriceInput createLottoList={this.createLottoList.bind(this)} />
+          <PriceInput createLottoList={this.createLottoList} />
           <PurchasedLotto lottoList={this.state.lottoList} />
           <WinningNumberInput />
           <ResultModal />
