@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './LottoTicket.scss';
 
 export default class LottoTicket extends Component {
@@ -11,3 +12,8 @@ export default class LottoTicket extends Component {
     );
   }
 }
+
+LottoTicket.propTypes = {
+  isShowNumber: PropTypes.bool.isRequired,
+  lottoNumbers: PropTypes.array.isRequired,
+};

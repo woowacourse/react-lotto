@@ -15,6 +15,7 @@
     "prettier/prettier": "error",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-alert": "off"
   }
 }

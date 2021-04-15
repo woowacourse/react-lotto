@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LottoTicket from './LottoTicket';
 import './PurchasedLotto.scss';
 
@@ -36,3 +37,7 @@ export default class PurchasedLotto extends Component {
     );
   }
 }
+
+PurchasedLotto.propTypes = {
+  lottoList: PropTypes.array.isRequired,
+};

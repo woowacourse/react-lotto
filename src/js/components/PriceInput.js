@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { LOTTO } from '../constants/lottoData';
 import { ERROR_MESSAGE } from '../constants/messages';
 import './PriceInput.scss';
@@ -45,3 +46,7 @@ export default class PriceInput extends Component {
     );
   }
 }
+
+PriceInput.propTypes = {
+  createLottoList: PropTypes.func.isRequired,
+};
