@@ -16,7 +16,7 @@ import {
   LOTTO_LENGTH,
 } from "../Constants";
 
-import { countMatchedNumbers, createDistinctRandomIntegers } from "../Utils";
+import { countMatchedNumbers, createDistinctRandomIntegers } from "../utils";
 
 const Container = styled.div`
   display: flex;
