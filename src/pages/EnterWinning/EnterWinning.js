@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Styled from './EnterWinning.style';
-import { ALERT_MESSAGE, INPUT_NAME, LOTTO } from '../../constants';
+import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
 import { initObject, isUniqueArray } from '../../utils';
 
 class EnterWinning extends Component {
@@ -49,7 +49,7 @@ class EnterWinning extends Component {
     }
 
     history.push({
-      pathname: '/result',
+      pathname: PATH.RESULT,
       state: { lottoList, moneyInput, winningNumber, bonusNumber },
     });
   }

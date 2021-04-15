@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
-import { LOTTO } from '../../constants';
+import { LOTTO, PATH } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
 import { Styled } from './Main.style';
 class Main extends Component {
@@ -61,7 +61,6 @@ class Main extends Component {
 
   render() {
     const { lottoList, moneyInput, lottoCount, isNumberShowing } = this.state;
-    ``;
 
     return (
       <Styled.Container>
@@ -91,7 +90,7 @@ class Main extends Component {
         </div>
         <Link
           to={{
-            pathname: '/enter-winning',
+            pathname: PATH.ENTER_WINNING,
             state: { lottoList, moneyInput },
           }}
         >

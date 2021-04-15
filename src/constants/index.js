@@ -69,3 +69,9 @@ export const RANKING_TABLE = {
 export const ALERT_MESSAGE = {
   DUPLICATED_WINNING_NUMBER: '중복되지 않은 번호를 입력해주세요.',
 };
+
+export const PATH = {
+  MAIN: '/',
+  ENTER_WINNING: '/enter-winning',
+  RESULT: '/result',
+};
