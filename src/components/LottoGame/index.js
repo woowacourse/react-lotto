@@ -20,11 +20,15 @@ export default class LottoGame extends Component {
 
     this.publishLottoTickets = this.publishLottoTickets.bind(this);
     this.setResultNumbers = this.setResultNumbers.bind(this);
+    this.openResultModal = this.openResultModal.bind(this);
+    this.closeResultModal = this.closeResultModal.bind(this);
   }
 
   isPurchaseAmountSubmitted() {
     return this.state.purchaseAmount !== 0;
   }
+
+  isResultNumberSubmitted() {}
 
   publishLottoTickets(purchaseAmount) {
     this.setState({ purchaseAmount }, this.setLottoTickets);
@@ -53,6 +57,14 @@ export default class LottoGame extends Component {
     this.setState({ resultNumbers });
   }
 
+  openResultModal() {
+    this.setState({ isModalOpened: true });
+  }
+
+  closeResultModal() {
+    this.setState({ isModalOpened: false });
+  }
+
   render() {
     return (
       <>
@@ -64,10 +76,12 @@ export default class LottoGame extends Component {
               isPurchaseAmountSubmitted={this.isPurchaseAmountSubmitted()}
             />
             {this.isPurchaseAmountSubmitted() && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
-            {this.isPurchaseAmountSubmitted() && <LottoResultForm setResultNumbers={this.setResultNumbers} />}
+            {this.isPurchaseAmountSubmitted() && (
+              <LottoResultForm setResultNumbers={this.setResultNumbers} openResultModal={this.openResultModal} />
+            )}
           </div>
         </div>
-        {this.state.isModalOpened && <Modal container={<LottoResultContainer />} />}
+        {this.state.isModalOpened && <Modal container={<LottoResultContainer />} closeModal={this.closeResultModal} />}
       </>
     );
   }

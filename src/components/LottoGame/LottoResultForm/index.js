@@ -54,7 +54,12 @@ export default class LottoResultForm extends Component {
             </div>
           </div>
         </div>
-        <button type="submit" id="winning-number-input-form__button" className="mt-5 btn btn-cyan w-full">
+        <button
+          type="submit"
+          id="winning-number-input-form__button"
+          className="mt-5 btn btn-cyan w-full"
+          onClick={this.props.openResultModal}
+        >
           결과 확인하기
         </button>
       </form>
