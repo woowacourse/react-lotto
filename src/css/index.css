@@ -254,6 +254,10 @@ input[type='number'] {
   outline: none;
 }
 
+.modal-close-button:focus {
+  background-color: rebeccapurple;
+}
+
 svg {
   display: block;
 }
