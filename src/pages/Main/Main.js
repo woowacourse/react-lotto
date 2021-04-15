@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
-import { LOTTO, PATH } from '../../constants';
+import { ALERT_MESSAGE, LOTTO, PATH } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
 import { Styled } from './Main.style';
+
 class Main extends Component {
   constructor() {
     super();
@@ -12,13 +13,13 @@ class Main extends Component {
     this.state = {
       moneyInput: '',
       lottoList: {},
-      lottoCount: 0,
       isNumberShowing: false,
     };
 
     this.handleSubmitMoneyInput = this.handleSubmitMoneyInput.bind(this);
     this.handleChangeMoneyInput = this.handleChangeMoneyInput.bind(this);
     this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
+    this.handleClickEnterWinning = this.handleClickEnterWinning.bind(this);
   }
 
   generateLotto(baseNumberList) {
@@ -42,7 +43,7 @@ class Main extends Component {
       newLottoList = { ...newLottoList, ...lotto };
     });
 
-    this.setState({ lottoList: newLottoList, lottoCount: count });
+    this.setState({ lottoList: newLottoList });
   }
 
   handleSubmitMoneyInput(event) {
@@ -59,8 +60,24 @@ class Main extends Component {
     this.setState({ isNumberShowing: event.target.checked });
   }
 
+  handleClickEnterWinning() {
+    const { lottoList, moneyInput } = this.state;
+    const { history } = this.props;
+
+    if (!moneyInput || Object.entries(lottoList).length <= 0) {
+      alert(ALERT_MESSAGE.NO_PURCHASED_LOTTO);
+      return;
+    }
+
+    history.push({
+      pathname: PATH.ENTER_WINNING,
+      state: { lottoList, moneyInput },
+    });
+  }
+
   render() {
-    const { lottoList, moneyInput, lottoCount, isNumberShowing } = this.state;
+    const { lottoList, moneyInput, isNumberShowing } = this.state;
+    const lottoCount = Object.entries(lottoList).length;
 
     return (
       <Styled.Container>
@@ -74,9 +91,9 @@ class Main extends Component {
             required
             autoFocus
           />
-          <button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
+          <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
             구입
-          </button>
+          </Button>
         </form>
         <div>
           <p>
@@ -89,14 +106,7 @@ class Main extends Component {
           />
           {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
         </div>
-        <Link
-          to={{
-            pathname: PATH.ENTER_WINNING,
-            state: { lottoList, moneyInput },
-          }}
-        >
-          <button>🤩 당첨 번호 입력</button>
-        </Link>
+        <Button onClick={this.handleClickEnterWinning}>🤩 당첨 번호 입력</Button>
       </Styled.Container>
     );
   }

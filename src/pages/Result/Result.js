@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import Modal from '../../components/Modal/Modal';
 import { RANKING, RANKING_TABLE, WINNING_TABLE } from '../../constants';
@@ -89,9 +90,9 @@ class Result extends Component {
           <span>{bonusNumber}</span>
           <LottoNumberList lottoList={lottoList} />
         </div>
-        <button onClick={this.handleOpenDetail}>결과 확인</button>
+        <Button onClick={this.handleOpenDetail}>결과 확인</Button>
         <Link to="/">
-          <button>다시 시작</button>
+          <Button>다시 시작</Button>
         </Link>
         {isModalOpen && (
           <Modal onClose={this.handleCloseDetail}>

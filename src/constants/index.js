@@ -68,6 +68,7 @@ export const RANKING_TABLE = {
 
 export const ALERT_MESSAGE = {
   DUPLICATED_WINNING_NUMBER: '중복되지 않은 번호를 입력해주세요.',
+  NO_PURCHASED_LOTTO: '로또를 구입해주세요.',
 };
 
 export const PATH = {

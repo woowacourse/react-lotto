@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Styled from './EnterWinning.style';
 import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
 import { initObject, isUniqueArray } from '../../utils';
+import Button from '../../components/Button/Button';
 
 class EnterWinning extends Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class EnterWinning extends Component {
             onChange={this.handleChangeBonusNumber}
             required
           />
-          <button>당첨 결과 확인</button>
+          <Button>당첨 결과 확인</Button>
         </form>
       </div>
     );
