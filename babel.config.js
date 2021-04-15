@@ -1,3 +1,11 @@
 module.exports = {
-  presets: ["@babel/preset-env", "@babel/preset-react"],
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: '> 1% and last 2 versions',
+      },
+    ],
+    '@babel/preset-react',
+  ],
 };

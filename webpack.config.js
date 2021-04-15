@@ -1,8 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = (env, argv) => {
+  const isDevelopment = argv.mode !== 'production';
+
   return {
     entry: './src/index.js',
     output: {
@@ -12,14 +16,23 @@ module.exports = (env, argv) => {
     },
     devServer: {
       port: 3000,
+      hot: true,
     },
-    devtool: argv.mode === 'development' ? 'eval-source-map' : 'source-map',
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: 'babel-loader',
+          use: {
+            loader: 'babel-loader',
+            options: {
+              plugins: [isDevelopment && 'react-refresh/babel'].filter(Boolean),
+              cacheDirectory: true,
+              cacheCompression: false,
+              compact: !isDevelopment,
+            },
+          },
         },
         {
           test: /\.css$/,
@@ -30,12 +43,16 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({ template: 'public/index.html' }),
       new MiniCssExtractPlugin({ filename: 'style.css' }),
-    ],
+      isDevelopment && new webpack.HotModuleReplacementPlugin(),
+      isDevelopment && new ReactRefreshWebpackPlugin(),
+    ].filter(Boolean),
     resolve: {
       extensions: ['.js', '.jsx'],
     },
     performance: {
-      hints: argv.mode === 'development' ? 'warning' : 'error',
+      hints: isDevelopment ? 'warning' : 'error',
     },
+    // Check this out: https://github.com/webpack/webpack-dev-server/issues/2758
+    target: 'web',
   };
 };
