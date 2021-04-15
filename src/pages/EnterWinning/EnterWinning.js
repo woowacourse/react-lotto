@@ -63,7 +63,7 @@ class EnterWinning extends Component {
         <form onSubmit={this.handleSubmitWinningNumber}>
           <fieldset>
             <legend>당첨 번호 입력</legend>
-            {Object.keys(winningNumber).map((key) => (
+            {Object.keys(winningNumber).map((key, index) => (
               <Styled.NumberInput
                 key={key}
                 type="number"
@@ -73,7 +73,8 @@ class EnterWinning extends Component {
                 aria-label=""
                 value={winningNumber[key]}
                 onChange={this.handleChangeWinningNumber}
-                required
+                require
+                autoFocus={index === 0}
               />
             ))}
           </fieldset>

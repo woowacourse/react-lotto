@@ -72,6 +72,7 @@ class Main extends Component {
             onChange={this.handleChangeMoneyInput}
             disabled={lottoCount > 0 ? 'disabled' : ''}
             required
+            autoFocus
           />
           <button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
             구입
