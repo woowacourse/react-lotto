@@ -1,6 +1,7 @@
 import React from 'react';
-import Input from '../../utils/input';
-import Button from '../../utils/button';
+import Input from '../../utils/input/index';
+import Button from '../../utils/button/index';
+
 class MoneyInput extends React.Component {
   constructor(props) {
     super(props);
