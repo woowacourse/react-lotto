@@ -25,6 +25,7 @@ class WinningNumbersContainer extends Component {
     const bonus = event.target['bonus-number'].valueAsNumber;
 
     this.props.onSubmitWinningNumbers({ main, bonus });
+    this.props.onOpenResultModal();
   }
 
   render() {

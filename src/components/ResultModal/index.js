@@ -17,12 +17,22 @@ import {
 } from './style';
 
 class ResultModal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  closeModal() {
+    this.props.closeModal();
+  }
+
   render() {
     return (
       <Root>
-        <Modal>
+        <Modal isOpen={this.props.isOpen}>
           <ModalInner>
-            <CloseButton>
+            <CloseButton onClick={this.closeModal}>
               <svg viewBox="0 0 40 40">
                 <CloseX d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>

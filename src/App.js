@@ -10,9 +10,11 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { price: 0, lottos: [], winningNumbers: {} };
+    this.state = { price: 0, lottos: [], winningNumbers: {}, isResultModalOpen: false };
     this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
     this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
+    this.openResultModal = this.openResultModal.bind(this);
+    this.closeResultModal = this.closeResultModal.bind(this);
   }
 
   handleSubmitPrice(event) {
@@ -21,17 +23,29 @@ class App extends Component {
     this.setState({ price }, this.createLottos);
   }
 
+  createLottos() {
+    const count = this.state.price / Lotto.PRICE_UNIT;
+    const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
+
+    this.setState({ lottos });
+  }
+
   handleSubmitWinningNumbers(winningNumbers) {
     this.setState({
       winningNumbers,
     });
   }
 
-  createLottos() {
-    const count = this.state.price / Lotto.PRICE_UNIT;
-    const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
+  openResultModal() {
+    this.setState({
+      isResultModalOpen: true,
+    });
+  }
 
-    this.setState({ lottos });
+  closeResultModal() {
+    this.setState({
+      isResultModalOpen: false,
+    });
   }
 
   render() {
@@ -44,9 +58,10 @@ class App extends Component {
           <WinningNumbersContainer
             winningNumbers={this.state.winningNumbers}
             onSubmitWinningNumbers={this.handleSubmitWinningNumbers}
+            onOpenResultModal={this.openResultModal}
           />
         </Container>
-        <ResultModal />
+        <ResultModal isOpen={this.state.isResultModalOpen} closeModal={this.closeResultModal} />
       </Root>
     );
   }
