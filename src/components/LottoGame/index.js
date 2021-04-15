@@ -14,11 +14,12 @@ export default class LottoGame extends Component {
     this.state = {
       purchaseAmount: 0,
       lottoTickets: [],
-      resultNumberList: [],
+      resultNumbers: { winningNumbers: [], bonusNumber: 0 },
       isModalOpened: false,
     };
 
     this.publishLottoTickets = this.publishLottoTickets.bind(this);
+    this.setResultNumbers = this.setResultNumbers.bind(this);
   }
 
   isPurchaseAmountSubmitted() {
@@ -48,6 +49,10 @@ export default class LottoGame extends Component {
     this.setState({ lottoTickets });
   }
 
+  setResultNumbers(resultNumbers) {
+    this.setState({ resultNumbers });
+  }
+
   render() {
     return (
       <>
@@ -59,7 +64,7 @@ export default class LottoGame extends Component {
               isPurchaseAmountSubmitted={this.isPurchaseAmountSubmitted()}
             />
             {this.isPurchaseAmountSubmitted() && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
-            {this.isPurchaseAmountSubmitted() && <LottoResultForm />}
+            {this.isPurchaseAmountSubmitted() && <LottoResultForm setResultNumbers={this.setResultNumbers} />}
           </div>
         </div>
         {this.state.isModalOpened && <Modal container={<LottoResultContainer />} />}

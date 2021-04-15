@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 
 class LottoTicketItem extends Component {
   render() {
-    console.log(this.props.isToggleOn);
     return (
       <div className="lotto-wrapper d-flex items-start">
         <span className="lotto mx-1 text-4xl">🎟️ </span>
-        {this.props.isToggleOn && <span className="mx-1 text-2xl d-none">{this.props.numbers.join(', ')}</span>}
+        {this.props.isToggleOn && <span className="mx-1 text-2xl ">{this.props.numbers.join(', ')}</span>}
       </div>
     );
   }
@@ -22,8 +21,7 @@ export default class LottoTicketList extends Component {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleToggle(event) {
-    console.log('clicked');
+  handleToggle() {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn,
     }));
@@ -31,7 +29,7 @@ export default class LottoTicketList extends Component {
 
   render() {
     return (
-      <section id="purchase-result-section" className="mt-9 d-none">
+      <section id="purchase-result-section" className="mt-9 ">
         <div className="flex">
           <label id="purchase-result-section__label" className="flex-auto my-0">
             총 {this.props.lottoTickets.length}개를 구매하였습니다.
