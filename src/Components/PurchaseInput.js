@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
-import { isDivisible } from "../Utils";
+import { isDivisible } from "../utils";
 import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
 const Form = styled.form`
