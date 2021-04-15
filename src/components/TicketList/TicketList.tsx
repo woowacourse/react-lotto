@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Toggle from '../../common/Toggle';
+import Toggle from '../common/Toggle';
 import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
 import TicketItem from './TicketItem/TicketItem';
 

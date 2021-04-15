@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Wrapper } from '../../common/Wrapper';
+import { Wrapper } from '../common/Wrapper';
 
 export const WinningNumberInputWrapper = styled(Wrapper)`
   margin-bottom: 1rem;
