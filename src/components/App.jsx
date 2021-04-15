@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import LotteryMachine from "../services/LotteryMachine";
-import LotteriesDetail from "./LotteriesDetail";
-import PaymentForm from "./PaymentForm";
+import React, { Component } from 'react';
+import { LotteryMachine } from '../services';
+import LotteriesDetail from './LotteriesDetail';
+import PaymentForm from './PaymentForm';
 
 class App extends Component {
   constructor() {
@@ -12,18 +12,20 @@ class App extends Component {
     };
   }
 
-  setLotteries = (money) => {
+  setLotteries = money => {
     const lotteries = this.lotteryMachine.publishLotteries(money);
 
     this.setState({ lotteries });
   };
 
   render() {
+    const { lotteries } = this.state;
+
     return (
       <>
         <h1>🎱 행운의 로또</h1>
         <PaymentForm setLotteries={this.setLotteries} />
-        <LotteriesDetail lotteries={this.state.lotteries} />
+        {lotteries.length > 0 && <LotteriesDetail lotteries={lotteries} />}
       </>
     );
   }

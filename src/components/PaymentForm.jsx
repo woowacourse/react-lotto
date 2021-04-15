@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
+import React, { Component } from 'react';
+import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from '../utils';
 
 class PaymentForm extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class PaymentForm extends Component {
     const $message = this.messageRef.current;
 
     if (this.isValidPayment(value)) {
-      $message.innerText = "";
+      $message.innerText = '';
 
       return;
     }
@@ -25,13 +25,13 @@ class PaymentForm extends Component {
     $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
 
     const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
     const $button = event.target[SELECTOR.ID.PAYMENT_SUBMIT];
-    const money = Number($input.value);
     const $message = this.messageRef.current;
+    const money = Number($input.value);
 
     if (!this.isValidPayment(money)) {
       $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;

@@ -1,4 +1,4 @@
-import { getRandomNumber, idMaker, LOTTERY } from "../utils";
+import { getRandomNumbers, idMaker, LOTTERY } from '../utils';
 
 export default class LotteryMachine {
   publishLotteries(money) {
@@ -7,19 +7,13 @@ export default class LotteryMachine {
       .fill(0)
       .map(() => ({
         id: idMaker.next().value,
-        numbers: this.publishLottery(),
+        numbers: getRandomNumbers({
+          min: LOTTERY.MIN_NUMBER,
+          max: LOTTERY.MAX_NUMBER,
+          size: LOTTERY.NUMBER_COUNT,
+        }),
       }));
 
     return lotteries;
-  }
-
-  publishLottery() {
-    const numberSet = new Set();
-
-    while (numberSet.size < LOTTERY.NUMBER_COUNT) {
-      numberSet.add(getRandomNumber(LOTTERY.MIN_NUMBER, LOTTERY.MAX_NUMBER));
-    }
-
-    return [...numberSet];
   }
 }
