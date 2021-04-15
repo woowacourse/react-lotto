@@ -3,4 +3,5 @@ export const LOTTO = {
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
   NUMBER_LENGTH: 6,
+  BONUS_NUMBER_LENGTH: 1,
 };

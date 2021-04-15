@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import WinningNumberInput from './WinningNumberInput';
 import { LOTTO } from '../constants/lottoData';
 import './WinningNumberForm.scss';
+import { hasDuplicatedItem, isInRange } from '../utils/validator';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/messages';
 
-const INPUT_NAME = {
-  WINNING_NUMBER: 'winning-number',
+const WINNING_NUMBER_INPUT_NAME = {
+  NUMBER: 'winning-number',
   BONUS_NUMBER: 'bonus-number',
 };
 
-const INPUT_LABEL = {
-  WINNING_NUMBERS: [
+const WINNING_NUMBER_INPUT_LABEL = {
+  NUMBERS: [
     '첫 번째 당첨번호',
     '두 번째 당첨번호',
     '세 번째 당첨번호',
@@ -18,6 +20,18 @@ const INPUT_LABEL = {
     '여섯 번째 당첨번호',
   ],
   BONUS_NUMBER: '보너스 당첨번호',
+};
+
+const validateWinningNumber = (winningNumberList) => {
+  if (hasDuplicatedItem(winningNumberList)) {
+    return { isCompletedInput: false, checkMessage: ERROR_MESSAGE.HAS_DUPLICATED_NUMBER };
+  }
+
+  if (winningNumberList.length < LOTTO.NUMBER_LENGTH + LOTTO.BONUS_NUMBER_LENGTH) {
+    return { isCompletedInput: false, checkMessage: ERROR_MESSAGE.HAS_BLANK_INPUT };
+  }
+
+  return { isCompletedInput: true, checkMessage: SUCCESS_MESSAGE.INPUT_WINNING_NUMBER };
 };
 
 export default class WinningNumberForm extends Component {
@@ -31,63 +45,48 @@ export default class WinningNumberForm extends Component {
 
     this.formRef = React.createRef();
 
-    this.onSubmitWinningNumbers = this.onSubmitWinningNumbers.bind(this);
+    this.onSubmitWinningNumber = this.onSubmitWinningNumber.bind(this);
     this.onChangeNumber = this.onChangeNumber.bind(this);
   }
 
   getWinningNumberInputValue() {
-    const winningNumbers = [...this.formRef.current[INPUT_NAME.WINNING_NUMBER]].map((ele) => ele.value);
-    const bonusNumber = this.formRef.current[INPUT_NAME.BONUS_NUMBER].value;
+    const numbers = [...this.formRef.current[WINNING_NUMBER_INPUT_NAME.NUMBER]].map((ele) => ele.value);
+    const bonusNumber = this.formRef.current[WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER].value;
 
-    return {
-      winningNumbers,
-      bonusNumber,
-    };
+    return { numbers, bonusNumber };
   }
 
-  onSubmitWinningNumbers(event) {
+  onSubmitWinningNumber(event) {
     event.preventDefault();
   }
 
   onChangeNumber({ target }) {
-    if (target.value < LOTTO.MIN_NUMBER || target.value > LOTTO.MAX_NUMBER) {
-      this.setState({ isCompletedInput: false, checkMessage: '1 ~ 45 사이의 숫자를 입력해주세요!' });
+    if (isInRange(target.value, { min: LOTTO.MIN_NUMBER, max: LOTTO.MAX_NUMBER })) {
+      this.setState({ isCompletedInput: false, checkMessage: ERROR_MESSAGE.OUT_OF_RANGE });
 
       return;
     }
 
-    const { winningNumbers, bonusNumber } = this.getWinningNumberInputValue();
-    const typedNumbers = [...winningNumbers, bonusNumber].filter((num) => num !== '');
+    const { numbers, bonusNumber } = this.getWinningNumberInputValue();
+    const typedNumberList = [...numbers, bonusNumber].filter((num) => num !== '');
 
-    if (typedNumbers.length !== new Set(typedNumbers).size) {
-      this.setState({ isCompletedInput: false, checkMessage: '중복된 숫자가 입력되었습니다!' });
-
-      return;
-    }
-
-    if (typedNumbers.length < LOTTO.NUMBER_LENGTH + 1) {
-      this.setState({ isCompletedInput: false, checkMessage: '당첨 번호를 모두 입력해주세요!' });
-
-      return;
-    }
-
-    this.setState({ isCompletedInput: true, checkMessage: '입력완료! 결과를 확인하세요!' });
+    this.setState(validateWinningNumber(typedNumberList));
   }
 
   render() {
     return (
       <section className="WinningNumberForm">
         <h2>당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
-        <form ref={this.formRef} onSubmit={this.onSubmitWinningNumbers}>
+        <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber}>
           <div className="number-input-box">
-            <section className="winning-number-box">
+            <section className="numbers-box">
               <h3>당첨 번호</h3>
               <ul>
-                {INPUT_LABEL.WINNING_NUMBERS.map((label) => (
+                {WINNING_NUMBER_INPUT_LABEL.NUMBERS.map((label) => (
                   <li key={label}>
                     <WinningNumberInput
                       onChangeInput={this.onChangeNumber}
-                      inputName={INPUT_NAME.WINNING_NUMBER}
+                      inputName={WINNING_NUMBER_INPUT_NAME.NUMBER}
                       min={LOTTO.MIN_NUMBER}
                       max={LOTTO.MAX_NUMBER}
                       inputLabel={label}
@@ -100,10 +99,10 @@ export default class WinningNumberForm extends Component {
               <h3>보너스 번호</h3>
               <WinningNumberInput
                 onChangeInput={this.onChangeNumber}
-                inputName={INPUT_NAME.BONUS_NUMBER}
+                inputName={WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER}
                 min={LOTTO.MIN_NUMBER}
                 max={LOTTO.MAX_NUMBER}
-                inputLabel={INPUT_LABEL.BONUS_NUMBER}
+                inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
               />
             </section>
           </div>
