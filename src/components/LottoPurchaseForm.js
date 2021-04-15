@@ -27,7 +27,7 @@ class LottoPurchaseForm extends Component {
   render() {
     return (
       <form onSubmit={this.handlePayMoney} style={{ margin: '0.5rem' }}>
-        <Label for="input-price">구입할 금액을 입력해주세요.</Label>
+        <Label htmlFor="input-price">구입할 금액을 입력해주세요.</Label>
         <div style={{ display: 'flex' }}>
           <input
             type="number"
