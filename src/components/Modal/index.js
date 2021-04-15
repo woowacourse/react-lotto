@@ -32,7 +32,7 @@ export default class Modal extends Component {
             </svg>
           </button>
           <h1 className="text-center m-0">💵 당첨 결과</h1>
-          <ResultSection />
+          <ResultSection winningCounts={this.props.winningCounts} />
           <EarningRateSection />
           <button type="button" className="restart-button basic-button mt-5">
             다시 시작하기

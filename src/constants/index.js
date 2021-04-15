@@ -27,6 +27,14 @@ export const LOTTO_VALUE = {
   NUMBER_COUNT: 6,
   MIN_NUMBER: 1,
   MAX_NUMBER: 45,
+
+  RANK: {
+    FIRST: 1,
+    SECOND: 2,
+    THIRD: 3,
+    FOURTH: 4,
+    FIFTH: 5,
+  },
 };
 
 export const MESSAGE = {

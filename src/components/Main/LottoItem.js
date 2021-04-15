@@ -2,12 +2,43 @@ import { Component } from 'react';
 import { LOTTO_VALUE } from '../../constants';
 
 export default class LottoItem extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    numbers: this.generateLottoNumbers(),
+  };
 
-    this.state = {
-      numbers: this.generateLottoNumbers(),
-    };
+  isSameArray(array1, array2) {
+    return array1.length === new Set([...array1, ...array2]).size;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      !this.isSameArray(this.props.winningNumbers, prevProps.winningNumbers) ||
+      this.props.bonusNumber !== prevProps.bonusNumber
+    ) {
+      this.setWinningCounts();
+    }
+  }
+
+  setWinningCounts() {
+    // 일치하는 개수를 구하는 연산식
+    const matchedCount = 12 - new Set([...this.props.winningNumbers, ...this.state.numbers]).size;
+
+    if (matchedCount === 6) {
+      this.props.setWinningCounts(LOTTO_VALUE.RANK.FIRST);
+    }
+    if (matchedCount === 5) {
+      if (this.state.numbers.includes(this.props.bonusNumber)) {
+        this.props.setWinningCounts(LOTTO_VALUE.RANK.SECOND);
+      } else {
+        this.props.setWinningCounts(LOTTO_VALUE.RANK.THIRD);
+      }
+    }
+    if (matchedCount === 4) {
+      this.props.setWinningCounts(LOTTO_VALUE.RANK.FOURTH);
+    }
+    if (matchedCount === 3) {
+      this.props.setWinningCounts(LOTTO_VALUE.RANK.FIFTH);
+    }
   }
 
   getRandomNumber(min, max) {
@@ -23,7 +54,7 @@ export default class LottoItem extends Component {
       numbers.add(number);
     }
 
-    return numbers;
+    return Array.from(numbers);
   }
 
   render() {

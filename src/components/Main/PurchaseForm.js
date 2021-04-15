@@ -2,21 +2,15 @@ import { Component } from 'react';
 import { ID, LOTTO_PRICE, MESSAGE } from '../../constants';
 
 export default class PurchaseForm extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isActive: true,
+  };
 
-    this.state = {
-      isActive: true,
-    };
-
-    this.onSubmitPurchaseForm = this.onSubmitPurchaseForm.bind(this);
-  }
-
-  setLottoCount(count) {
+  setLottoCount = (count) => {
     this.props.setLottoCount(count);
-  }
+  };
 
-  onSubmitPurchaseForm(event) {
+  onSubmitPurchaseForm = (event) => {
     event.preventDefault();
 
     const moneyInput = event.target.elements[ID.MAIN.PURCHASE_FORM.INPUT].valueAsNumber;
@@ -26,13 +20,13 @@ export default class PurchaseForm extends Component {
       return;
     }
 
-    this.setLottoCount(moneyInput / LOTTO_PRICE);
+    this.props.setLottoCount(moneyInput / LOTTO_PRICE);
     this.setState({ isActive: false });
-  }
+  };
 
-  isValidPrice(price) {
+  isValidPrice = (price) => {
     return price % LOTTO_PRICE === 0;
-  }
+  };
 
   render() {
     return (

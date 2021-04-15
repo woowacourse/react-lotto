@@ -2,19 +2,13 @@ import { Component } from 'react';
 import { ID, MESSAGE } from '../../constants';
 
 export default class WinningNumberForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onSubmitWinningNumberForm = this.onSubmitWinningNumberForm.bind(this);
-  }
-
   isDuplicatedWinningNumbers(winningNumbers, bonusNumber) {
     return (
       winningNumbers.length !== new Set(winningNumbers).size || winningNumbers.includes(bonusNumber)
     );
   }
 
-  onSubmitWinningNumberForm(event) {
+  onSubmitWinningNumberForm = (event) => {
     event.preventDefault();
 
     if (!this.props.lottoCount) {
@@ -38,7 +32,7 @@ export default class WinningNumberForm extends Component {
     this.props.setBonusNumber(bonusNumber);
 
     this.props.openModal();
-  }
+  };
 
   render() {
     return (

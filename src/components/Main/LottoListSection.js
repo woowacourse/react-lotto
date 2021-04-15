@@ -2,21 +2,15 @@ import { Component } from 'react';
 import LottoItem from './LottoItem';
 
 export default class LottoListSection extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    toggle: false,
+  };
 
-    this.state = {
-      toggle: false,
-    };
-
-    this.onToggle = this.onToggle.bind(this);
-  }
-
-  onToggle() {
+  onToggle = () => {
     this.setState({
       toggle: !this.state.toggle,
     });
-  }
+  };
 
   render() {
     const lottoCount = this.props.lottoCount;
@@ -34,7 +28,13 @@ export default class LottoListSection extends Component {
         </div>
         <ul className="lotto-list">
           {Array.from({ length: lottoCount }).map((_, index) => (
-            <LottoItem key={index} isToggled={this.state.toggle} />
+            <LottoItem
+              key={index}
+              isToggled={this.state.toggle}
+              winningNumbers={this.props.winningNumbers}
+              bonusNumber={this.props.bonusNumber}
+              setWinningCounts={this.props.setWinningCounts}
+            />
           ))}
         </ul>
       </section>
