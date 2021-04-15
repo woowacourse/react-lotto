@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 import PurchaseInput from "./PurchaseInput";
 import LottoDisplay from "./LottoDisplay";

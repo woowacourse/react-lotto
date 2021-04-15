@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import GlobalStyles from "../Styles/GlobalStyles";
 
 import LottoContext from "../Contexts/LottoContext";
@@ -20,6 +20,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       lottos: [],
+      isModalOpen: true,
     };
     this.action = {
       createLottos: (lottoCount) => {
@@ -42,7 +43,7 @@ export default class App extends Component {
           <Container>
             <Header />
             <Main />
-            <Modal />
+            {this.state.isModalOpen && <Modal />}
           </Container>
         </LottoContext.Provider>
       </>

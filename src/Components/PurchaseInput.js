@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
