@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { isValidPurchaseAmount } from '../../../utils/validator';
+import { MESSAGE } from '../../../constants/messages';
 
 export default class PurchaseAmountForm extends Component {
   constructor(props) {
@@ -12,6 +14,11 @@ export default class PurchaseAmountForm extends Component {
     event.preventDefault();
 
     const purchaseAmount = this.input.current.value;
+    if (!isValidPurchaseAmount(purchaseAmount)) {
+      alert(MESSAGE.INVALID_PURCHASE_AMOUNT);
+      return;
+    }
+
     this.props.setPurchaseAmount(purchaseAmount);
   }
 
