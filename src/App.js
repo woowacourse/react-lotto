@@ -10,14 +10,21 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { price: 0, lottos: [] };
+    this.state = { price: 0, lottos: [], winningNumbers: {} };
     this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
+    this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
   }
 
   handleSubmitPrice(event) {
     const price = event.target.price.valueAsNumber;
 
     this.setState({ price }, this.createLottos);
+  }
+
+  handleSubmitWinningNumbers(winningNumbers) {
+    this.setState({
+      winningNumbers,
+    });
   }
 
   createLottos() {
@@ -34,7 +41,10 @@ class App extends Component {
           <Title>🎰 개미 로또</Title>
           <PriceInput onSubmitPrice={this.handleSubmitPrice} />
           <LottosContainer lottos={this.state.lottos} />
-          <WinningNumbersContainer />
+          <WinningNumbersContainer
+            winningNumbers={this.state.winningNumbers}
+            onSubmitWinningNumbers={this.handleSubmitWinningNumbers}
+          />
         </Container>
         <ResultModal />
       </Root>

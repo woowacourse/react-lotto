@@ -19,13 +19,23 @@ const NumbersContainer = styled.div`
   justify-content: center;
 `;
 
+const Form = styled.form``;
+
 const NumberInputType = styled.h4``;
 
 const NumberInput = styled.input`
   width: 28px;
   height: 32px;
+  text-align: center;
+
   &: not(: last-child) {
     margin-right: 6px;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;
 
@@ -38,4 +48,4 @@ const SubmitButton = styled.button`
   margin-top: 12px;
 `;
 
-export { Root, FlexContainer, NumberInputGuide, NumbersContainer, NumberInputType, NumberInput, SubmitButton };
+export { Root, NumberInputGuide, Form, FlexContainer, NumbersContainer, NumberInputType, NumberInput, SubmitButton };
