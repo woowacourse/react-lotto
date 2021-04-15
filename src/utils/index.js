@@ -23,3 +23,16 @@ export const currencyFormat = (number) =>
     style: 'currency',
     currency: 'KRW',
   }).format(number);
+
+export const initObject = (keyList, value) => {
+  let obj = {};
+
+  keyList.forEach((key) => {
+    obj = {
+      ...obj,
+      [key]: value,
+    };
+  });
+
+  return obj;
+};

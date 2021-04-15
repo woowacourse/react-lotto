@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import Styled from './EnterWinning.style';
 import { INPUT_NAME, LOTTO } from '../../constants';
+import { initObject } from '../../utils';
 
 class EnterWinning extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: WINNING_NUMBER_INPUT의 반복 사용 리팩토링하기
     this.state = {
-      winningNumber: {
-        [INPUT_NAME.WINNING_NUMBER[1]]: '',
-        [INPUT_NAME.WINNING_NUMBER[2]]: '',
-        [INPUT_NAME.WINNING_NUMBER[3]]: '',
-        [INPUT_NAME.WINNING_NUMBER[4]]: '',
-        [INPUT_NAME.WINNING_NUMBER[5]]: '',
-        [INPUT_NAME.WINNING_NUMBER[6]]: '',
-      },
+      winningNumber: initObject(Object.values(INPUT_NAME.WINNING_NUMBER), ''),
       bonusNumber: '',
     };
 

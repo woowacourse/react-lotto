@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import Modal from '../../components/Modal/Modal';
 import { RANKING, RANKING_TABLE, WINNING_TABLE } from '../../constants';
-import { getIntersectionCount, currencyFormat } from '../../utils';
+import { getIntersectionCount, currencyFormat, initObject } from '../../utils';
 
 class Result extends Component {
   constructor(props) {
@@ -32,13 +32,10 @@ class Result extends Component {
   getWinningResult(lottoList, { winningNumber, bonusNumber }) {
     const winningNumberList = Object.values(winningNumber);
 
-    let winningResult = {
-      [RANKING.FIRST]: 0,
-      [RANKING.SECOND]: 0,
-      [RANKING.THIRD]: 0,
-      [RANKING.FOURTH]: 0,
-      [RANKING.FIFTH]: 0,
-    };
+    let winningResult = initObject(
+      Object.values(RANKING).filter((ranking) => ranking !== RANKING.NO_PRIZE),
+      0
+    );
 
     Object.values(lottoList).forEach((lotto) => {
       const ranking = this.getRanking(lotto, { winningNumberList, bonusNumber });
