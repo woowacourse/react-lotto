@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import WinningNumberInput from './WinningNumberInput';
 import { LOTTO } from '../constants/lottoData';
-import './WinningNumberForm.scss';
 import { hasDuplicatedItem, isInRange } from '../utils/validator';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/messages';
+import './WinningNumberForm.scss';
 
 const WINNING_NUMBER_INPUT_NAME = {
   NUMBER: 'winning-number',
@@ -58,10 +59,17 @@ export default class WinningNumberForm extends Component {
 
   onSubmitWinningNumber(event) {
     event.preventDefault();
+
+    if (!this.state.isCompletedInput) {
+      return;
+    }
+
+    this.props.setWinningNumber(this.getWinningNumberInputValue());
+    this.props.openResultModal();
   }
 
   onChangeNumber({ target }) {
-    if (isInRange(target.value, { min: LOTTO.MIN_NUMBER, max: LOTTO.MAX_NUMBER })) {
+    if (!isInRange(target.value, { min: LOTTO.MIN_NUMBER, max: LOTTO.MAX_NUMBER })) {
       this.setState({ isCompletedInput: false, checkMessage: ERROR_MESSAGE.OUT_OF_RANGE });
 
       return;
@@ -117,3 +125,8 @@ export default class WinningNumberForm extends Component {
     );
   }
 }
+
+WinningNumberForm.propTypes = {
+  setWinningNumber: PropTypes.func.isRequired,
+  openResultModal: PropTypes.func.isRequired,
+};

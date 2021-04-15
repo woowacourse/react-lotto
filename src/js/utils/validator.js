@@ -1,5 +1,5 @@
 export const isInRange = (number, { min, max }) => {
-  return number < min || number > max;
+  return number >= min && number <= max;
 };
 
 export const hasDuplicatedItem = (itemList) => {
