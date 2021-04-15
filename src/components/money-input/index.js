@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../../utils/input/index';
+import NumberInput from '../../utils/number-input/index';
 import Button from '../../utils/button/index';
 
 class MoneyInput extends React.Component {
@@ -10,7 +10,7 @@ class MoneyInput extends React.Component {
   render() {
     return (
       <form>
-        <Input
+        <NumberInput
           customClass='money-input'
           min='1000'
           max='1000000'

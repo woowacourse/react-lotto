@@ -1,5 +1,5 @@
 import React from 'react';
-class Input extends React.Component {
+class NumberInput extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,4 +12,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+export default NumberInput;
