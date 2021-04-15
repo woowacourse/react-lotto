@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
-import PriceInput from './PriceInput';
+import PriceForm from './PriceForm';
 import PurchasedLotto from './PurchasedLotto';
 import ResultModal from './ResultModal';
-import WinningNumberInput from './WinningNumberInput';
+import WinningNumberForm from './WinningNumberForm';
 import { getRandomNumber } from '../utils/random';
 import { LOTTO } from '../constants/lottoData';
 import './App.scss';
@@ -42,9 +42,9 @@ class App extends Component {
           <h1>🎱 행운의 로또</h1>
         </header>
         <main>
-          <PriceInput createLottoList={this.createLottoList} />
+          <PriceForm createLottoList={this.createLottoList} />
           <PurchasedLotto lottoList={this.state.lottoList} />
-          <WinningNumberInput />
+          <WinningNumberForm />
           <ResultModal />
         </main>
       </>

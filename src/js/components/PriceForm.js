@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO } from '../constants/lottoData';
 import { ERROR_MESSAGE } from '../constants/messages';
-import './PriceInput.scss';
+import './PriceForm.scss';
 
-export default class PriceInput extends Component {
+export default class PriceForm extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ export default class PriceInput extends Component {
 
   render() {
     return (
-      <section className="PriceInput">
+      <section className="PriceForm">
         <form className="price-form" onSubmit={this.onSubmitPrice}>
           <label className="price-label">
             <span className="price-text">구입할 금액을 입력해주세요.</span>
@@ -47,6 +47,6 @@ export default class PriceInput extends Component {
   }
 }
 
-PriceInput.propTypes = {
+PriceForm.propTypes = {
   createLottoList: PropTypes.func.isRequired,
 };
