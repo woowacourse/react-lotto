@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+
 import LottoPurchaseForm from './components/LottoPurchaseForm';
 import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
+
+import { getRandomNumber } from './utils';
 
 const MainTitle = styled.h1`
   text-align: center;
@@ -19,14 +22,29 @@ class App extends Component {
     super(props);
 
     this.state = {
-      price: 0,
+      lottos: [],
     };
   }
 
-  setPrice = price => {
+  setLottos = lottos => {
     this.setState({
-      price,
+      lottos,
     });
+  };
+
+  createLottos = price => {
+    const lottoCount = Math.floor(price / 1000);
+
+    const newLottos = Array.from({ length: lottoCount }, () => {
+      const lotto = new Set();
+      while (lotto.size < 6) {
+        lotto.add(getRandomNumber(1, 45));
+      }
+
+      return lotto;
+    });
+
+    this.setLottos(newLottos);
   };
 
   render() {
@@ -35,7 +53,7 @@ class App extends Component {
         <MainTitle>🎱 행운의 로또</MainTitle>
         <MainWrapper>
           <div style={{ width: '100%' }}>
-            <LottoPurchaseForm setPrice={this.setPrice} />
+            <LottoPurchaseForm createLottos={this.createLottos} />
             <PurchaseResult />
           </div>
         </MainWrapper>

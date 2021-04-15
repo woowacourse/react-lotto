@@ -19,14 +19,18 @@ const Button = styled.button`
 `;
 
 class LottoPurchaseForm extends Component {
-  handlePayMoney = e => {
+  handlePurchaseLotto = e => {
     e.preventDefault();
-    this.props.setPrice(e.target.elements.price.value);
+
+    const inputPrice = e.target.elements.price.value;
+    // TODO : 유효성 검사
+
+    this.props.createLottos(inputPrice);
   };
 
   render() {
     return (
-      <form onSubmit={this.handlePayMoney} style={{ margin: '0.5rem' }}>
+      <form onSubmit={this.handlePurchaseLotto} style={{ margin: '0.5rem' }}>
         <Label htmlFor="input-price">구입할 금액을 입력해주세요.</Label>
         <div style={{ display: 'flex' }}>
           <input
