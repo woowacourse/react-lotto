@@ -20,7 +20,17 @@ export default class App extends Component {
     super(props);
     this.state = {
       lottos: [],
-      isModalOpen: true,
+      isModalOpen: false,
+      lottoResult: {
+        rankCount: {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+        },
+        earningRate: 0,
+      },
     };
     this.action = {
       createLottos: (lottoCount) => {
@@ -29,6 +39,14 @@ export default class App extends Component {
         ); // TODO: 매직넘버 상수화
 
         this.setState({ ...this.state, lottos });
+      },
+
+      openModal: () => {
+        this.setState({ isModalOpen: true });
+      },
+
+      closeModal: () => {
+        this.setState({ isModalOpen: false });
       },
     };
   }

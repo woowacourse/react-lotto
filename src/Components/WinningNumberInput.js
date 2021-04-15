@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "@emotion/styled";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
-
+import LottoContext from "../Contexts/LottoContext";
 import { isDistinctNumbers } from "../utils";
 
 const Header = styled.h2`
@@ -59,10 +59,17 @@ export default class WinningNumberInput extends Component {
     );
     const bonusNumber = elements["bonus-number"].value;
 
-    this.setState({
-      ...this.state,
-      isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
-    });
+    this.setState(
+      {
+        ...this.state,
+        isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
+      },
+      () => {
+        if (!this.state.isValidInput) return;
+
+        this.context.action.openModal();
+      }
+    );
   }
 
   render() {
@@ -126,3 +133,5 @@ export default class WinningNumberInput extends Component {
     );
   }
 }
+
+WinningNumberInput.contextType = LottoContext;

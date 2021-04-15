@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
+
+import LottoContext from "../Contexts/LottoContext";
 
 const ModalContainer = styled.div`
   opacity: 1;
@@ -79,12 +81,28 @@ const Button = styled.button`
 `;
 
 export default class Modal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.modalCloseSvgRef = createRef();
+    this.onMouseDown = this.onMouseDown.bind(this);
+  }
+
+  onMouseDown(event) {
+    if (
+      event.currentTarget === event.target ||
+      event.target === this.modalCloseSvgRef.current
+    ) {
+      this.context.action.closeModal();
+    }
+  }
+
   render() {
     return (
-      <ModalContainer>
+      <ModalContainer onMouseDown={this.onMouseDown}>
         <ModalInner>
           <ModalClose>
-            <Svg viewBox="0 0 40 40">
+            <Svg viewBox="0 0 40 40" ref={this.modalCloseSvgRef}>
               <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </Svg>
           </ModalClose>
@@ -139,3 +157,5 @@ export default class Modal extends Component {
     );
   }
 }
+
+Modal.contextType = LottoContext;
