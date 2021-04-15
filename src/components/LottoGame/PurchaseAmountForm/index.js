@@ -19,7 +19,7 @@ export default class PurchaseAmountForm extends Component {
       return;
     }
 
-    this.props.setPurchaseAmount(purchaseAmount);
+    this.props.publishLottoTickets(purchaseAmount);
   }
 
   render() {

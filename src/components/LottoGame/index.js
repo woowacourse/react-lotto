@@ -4,6 +4,8 @@ import LottoTicketList from './LottoTicketList';
 import LottoResultForm from './LottoResultForm';
 import LottoResultContainer from './LottoResultContainer';
 import Modal from '../Modal';
+import { getRandomNumber } from '../../utils/getRandomNumber';
+import { LOTTO_NUMBER_COUNT, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/standard';
 
 export default class LottoGame extends Component {
   constructor() {
@@ -16,15 +18,34 @@ export default class LottoGame extends Component {
       isModalOpened: false,
     };
 
-    this.setPurchaseAmount = this.setPurchaseAmount.bind(this);
+    this.publishLottoTickets = this.publishLottoTickets.bind(this);
   }
 
   isPurchaseAmountSubmitted() {
     return this.state.purchaseAmount !== 0;
   }
 
-  setPurchaseAmount(purchaseAmount) {
-    this.setState({ purchaseAmount });
+  publishLottoTickets(purchaseAmount) {
+    this.setState({ purchaseAmount }, this.setLottoTickets);
+  }
+
+  generateLottoNumbers() {
+    const ticketNumbers = new Set();
+
+    while (ticketNumbers.size < LOTTO_NUMBER_COUNT) {
+      ticketNumbers.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+    }
+
+    return [...ticketNumbers].sort((a, b) => a - b);
+  }
+
+  setLottoTickets() {
+    const amountOfLottoTicket = this.state.purchaseAmount / 1000;
+    const lottoTickets = Array(amountOfLottoTicket)
+      .fill()
+      .map(() => this.generateLottoNumbers());
+
+    this.setState({ lottoTickets });
   }
 
   render() {
@@ -34,10 +55,10 @@ export default class LottoGame extends Component {
           <div className="w-full">
             <h1 className="text-center">🎱 행운의 로또</h1>
             <PurchaseAmountForm
-              setPurchaseAmount={this.setPurchaseAmount}
+              publishLottoTickets={this.publishLottoTickets}
               isPurchaseAmountSubmitted={this.isPurchaseAmountSubmitted()}
             />
-            {this.isPurchaseAmountSubmitted() && <LottoTicketList />}
+            {this.isPurchaseAmountSubmitted() && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
             {this.isPurchaseAmountSubmitted() && <LottoResultForm />}
           </div>
         </div>

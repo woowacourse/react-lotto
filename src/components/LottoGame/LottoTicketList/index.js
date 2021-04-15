@@ -12,7 +12,7 @@ export default class LottoTicketList extends Component {
       <section id="purchase-result-section" className="mt-9 d-none">
         <div className="flex">
           <label id="purchase-result-section__label" className="flex-auto my-0">
-            총 0개를 구매하였습니다.
+            총 {this.props.lottoTickets.length}개를 구매하였습니다.
           </label>
           <div className="flex-auto flex justify-end pr-1">
             <label className="switch">
