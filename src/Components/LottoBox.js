@@ -15,7 +15,7 @@ export default class LottoBox extends Component {
             ? {}
             : css`
                 display: flex;
-                flexwrap: wrap;
+                flex-wrap: wrap;
               `
         }
       >
