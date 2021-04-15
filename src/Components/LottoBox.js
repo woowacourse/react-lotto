@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
 
@@ -9,10 +10,13 @@ export default class LottoBox extends Component {
   render() {
     return (
       <ul
-        style={
+        css={
           this.props.isNumberVisible
             ? {}
-            : { display: "flex", flexWrap: "wrap" }
+            : css`
+                display: flex;
+                flexwrap: wrap;
+              `
         }
       >
         {this.context.state.lottos.map((lottoNumbers, index) => (

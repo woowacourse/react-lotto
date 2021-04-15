@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
-import GlobalStyles from "../Styles/GlobalStyles";
+import { Global } from "@emotion/react";
 
+import GlobalStyles from "../Styles/GlobalStyles";
 import LottoContext from "../Contexts/LottoContext";
 import Header from "./Header";
 import Main from "./Main";
@@ -121,7 +122,7 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <GlobalStyles />
+        <Global styles={GlobalStyles} />
         <LottoContext.Provider
           value={{ state: this.state, action: this.action }}
         >

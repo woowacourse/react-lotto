@@ -65,7 +65,6 @@ const ResultTable = styled.table`
   }
 `;
 
-// TODO: 중복되는 styled component
 const Button = styled.button`
   width: 120px;
   padding: 10px 0;
@@ -113,7 +112,11 @@ export default class Modal extends Component {
 
           <ResultTable>
             <thead>
-              <tr style={{ textAlign: "center" }}>
+              <tr
+                css={css`
+                  text-align: center;
+                `}
+              >
                 <th>일치 갯수</th>
                 <th>당첨금</th>
                 <th>당첨 갯수</th>
@@ -134,7 +137,11 @@ export default class Modal extends Component {
               ))}
             </tbody>
           </ResultTable>
-          <p style={{ fontWeight: "bold" }}>
+          <p
+            css={css`
+              font-weight: bold;
+            `}
+          >
             {GUIDE_MESSAGE.EARNING_RATE(earningRate)}
           </p>
           <Button type="button" onClick={this.context.action.clear}>

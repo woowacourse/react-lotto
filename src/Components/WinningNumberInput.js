@@ -25,7 +25,6 @@ const InputBox = styled.input`
   text-align: center;
 `;
 
-// TODO: PurchaseInput의 Button이랑 중복되는 요소가 많음
 const Button = styled.button`
   width: 100%;
   margin-top: 30px;
@@ -78,7 +77,12 @@ export default class WinningNumberInput extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          css={css`
+            display: flex;
+            justify-content: space-between;
+          `}
+        >
           <div
             css={css`
               display: flex;
@@ -92,7 +96,6 @@ export default class WinningNumberInput extends Component {
                 display: flex;
               `}
             >
-              {/* TODO: 매직 넘버 */}
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox
                   key={index}
@@ -107,11 +110,11 @@ export default class WinningNumberInput extends Component {
           </div>
 
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
+            css={css`
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+            `}
           >
             <InputHeader>보너스 번호</InputHeader>
             <InputBox

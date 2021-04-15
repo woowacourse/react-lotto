@@ -1,5 +1,6 @@
 import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
@@ -64,7 +65,12 @@ export default class PurchaseInput extends Component {
     return (
       <Form onSubmit={this.onSubmit} ref={this.formRef}>
         <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
-        <div style={{ display: "flex", marginTop: "0.5rem" }}>
+        <div
+          css={css`
+            display: flex;
+            margin-top: 0.5rem;
+          `}
+        >
           <Input
             id="purchase-input"
             name="purchase-input"

@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { css } from "@emotion/react";
 
-// TODO: 인라인 스타일 css로 바꿔주기
 export default class Lotto extends Component {
   render() {
     return (
-      <li style={{ display: "flex", alignItems: "center" }}>
-        <span style={{ marginRight: "10px", fontSize: "24px" }}>🎟️</span>
+      <li
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <span
+          css={css`
+            margin-right: 10px;
+            font-size: 24px;
+          `}
+        >
+          🎟️
+        </span>
         {this.props.isNumberVisible && (
           <span>{this.props.lottoNumbers.join(", ")}</span>
         )}
