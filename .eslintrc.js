@@ -3,7 +3,8 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['semistandard', 'standard-jsx', 'plugin:react/recommended', 'prettier'],
+  parser: '@babel/eslint-parser',
+  extends: ['semistandard', 'standard-jsx', 'standard-react', 'plugin:react/recommended', 'prettier'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
