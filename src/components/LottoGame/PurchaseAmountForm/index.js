@@ -25,9 +25,7 @@ export default class PurchaseAmountForm extends Component {
   render() {
     return (
       <form id="purchase-price-input-form" className="mt-5" onSubmit={this.handleSubmit}>
-        <label htmlFor="purchase-price-input-form__input" className="mb-2 d-inline-block">
-          구입할 금액을 입력해주세요.
-        </label>
+        <div className="mb-2 d-inline-block">구입할 금액을 입력해주세요.</div>
         <div className="flex">
           <input
             id="purchase-price-input-form__input"

@@ -4,7 +4,7 @@ export default class LottoResultForm extends Component {
   render() {
     return (
       <form id="winning-number-input-form" className="mt-9 d-none">
-        <label className="flex-auto d-inline-block mb-3">지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
+        <div className="flex-auto d-inline-block mb-5">지난 주 당첨번호와 보너스 번호를 입력해주세요.</div>
         <div className="flex">
           <div>
             <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
