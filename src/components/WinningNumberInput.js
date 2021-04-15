@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
-import LottoContext from "../Contexts/LottoContext";
+import LottoContext from "../contexts/LottoContext";
 import { isDistinctNumbers } from "../utils";
-import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
+import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../constants";
 
 const Header = styled.h2`
   font-size: 16px;

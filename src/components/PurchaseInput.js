@@ -2,10 +2,10 @@ import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import LottoContext from "../Contexts/LottoContext";
+import LottoContext from "../contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../utils";
-import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
+import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../constants";
 
 const Form = styled.form`
   width: 100%;

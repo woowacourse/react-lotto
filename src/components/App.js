@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import styled from "@emotion/styled";
 import { Global } from "@emotion/react";
 
-import GlobalStyles from "../Styles/GlobalStyles";
-import LottoContext from "../Contexts/LottoContext";
-import Header from "./Header";
+import GlobalStyles from "../styles/GlobalStyles";
+import LottoContext from "../contexts/LottoContext";
 import Main from "./Main";
 import Modal from "./Modal";
 
@@ -14,7 +13,7 @@ import {
   LOTTO_PRICE,
   LOTTO_RANGE,
   LOTTO_LENGTH,
-} from "../Constants";
+} from "../constants";
 
 import { countMatchedNumbers, createDistinctRandomIntegers } from "../utils";
 
@@ -127,7 +126,7 @@ export default class App extends Component {
           value={{ state: this.state, action: this.action }}
         >
           <Container>
-            <Header />
+            <h1>🎱 행운의 로또</h1>
             <Main />
             {this.state.isModalOpen && <Modal />}
           </Container>

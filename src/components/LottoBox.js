@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import LottoContext from "../Contexts/LottoContext";
+import LottoContext from "../contexts/LottoContext";
 
 import Lotto from "./Lotto";
 

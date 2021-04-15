@@ -2,8 +2,8 @@ import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import LottoContext from "../Contexts/LottoContext";
-import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../Constants";
+import LottoContext from "../contexts/LottoContext";
+import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../constants";
 
 const ModalContainer = styled.div`
   opacity: 1;

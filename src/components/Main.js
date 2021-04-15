@@ -5,7 +5,7 @@ import PurchaseInput from "./PurchaseInput";
 import LottoDisplay from "./LottoDisplay";
 import WinningNumberInput from "./WinningNumberInput";
 
-import LottoContext from "../Contexts/LottoContext";
+import LottoContext from "../contexts/LottoContext";
 
 const MainContainer = styled.main`
   width: 23vw;

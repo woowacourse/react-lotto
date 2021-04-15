@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
 
-import LottoContext from "../Contexts/LottoContext";
+import LottoContext from "../contexts/LottoContext";
 import LottoBox from "./LottoBox";
 import Toggle from "./common/Toggle";
-import { GUIDE_MESSAGE } from "../Constants";
+import { GUIDE_MESSAGE } from "../constants";
 
 const Header = styled.h2`
   display: flex;
