@@ -54,11 +54,10 @@ export default class WinningNumberInput extends Component {
     event.preventDefault();
 
     const { elements } = event.target;
-    const winningNumbers = Array.from(
-      elements["winning-number"],
-      ($input) => $input.value
+    const winningNumbers = Array.from(elements["winning-number"], ($input) =>
+      Number($input.value)
     );
-    const bonusNumber = elements["bonus-number"].value;
+    const bonusNumber = Number(elements["bonus-number"].value);
 
     this.setState(
       {
@@ -68,6 +67,7 @@ export default class WinningNumberInput extends Component {
       () => {
         if (!this.state.isValidInput) return;
 
+        this.context.action.updateLottoResult(winningNumbers, bonusNumber);
         this.context.action.openModal();
       }
     );

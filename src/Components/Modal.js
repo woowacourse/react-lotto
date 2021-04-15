@@ -1,7 +1,9 @@
 import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
+import { PRIZE_TABLE, RANKINGS } from "../Constants/prizeTable";
 
 const ModalContainer = styled.div`
   opacity: 1;
@@ -19,9 +21,7 @@ const ModalContainer = styled.div`
 const ModalInner = styled.div`
   transition: top 0.25s ease;
   width: 70vw;
-  height: 70vh;
   max-width: 400px;
-  max-height: 600px;
   margin: auto;
   padding: 30px 50px;
   overflow: auto;
@@ -98,6 +98,8 @@ export default class Modal extends Component {
   }
 
   render() {
+    const { rankCount, earningRate } = this.context.state.lottoResult;
+
     return (
       <ModalContainer onMouseDown={this.onMouseDown}>
         <ModalInner>
@@ -118,39 +120,23 @@ export default class Modal extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
-              <tr style={{ textAlign: "center" }}>
-                <td>3개</td>
-                <td>5000원</td>
-                <td>0개</td>
-              </tr>
+              {Object.values(RANKINGS).map((ranking) => (
+                <tr
+                  css={css`
+                    text-align: center;
+                  `}
+                  key={ranking}
+                >
+                  <td>{PRIZE_TABLE[ranking].condition}</td>
+                  <td>{PRIZE_TABLE[ranking].prize}원</td>
+                  <td>{rankCount[ranking]}개</td>
+                </tr>
+              ))}
             </tbody>
           </ResultTable>
-          <p style={{ fontWeight: "bold" }}>earning rate</p>
+          <p style={{ fontWeight: "bold" }}>
+            당신의 수익률은 총 {earningRate}% 입니다.
+          </p>
           <Button type="button" onClick={this.context.action.clear}>
             다시 시작하기
           </Button>
