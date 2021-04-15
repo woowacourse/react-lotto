@@ -60,39 +60,43 @@ class EnterWinning extends Component {
 
     return (
       <div>
+        <h2>당첨 번호 입력</h2>
         <p>지난 주 당첨번호를 입력해주세요</p>
         <form onSubmit={this.handleSubmitWinningNumber}>
-          <fieldset>
-            <legend>당첨 번호 입력</legend>
-            {Object.keys(winningNumber).map((key, index) => (
-              <Styled.NumberInput
-                key={key}
-                type="number"
-                min={LOTTO.MIN_NUMBER}
-                max={LOTTO.MAX_NUMBER}
-                name={key}
-                aria-label=""
-                value={winningNumber[key]}
-                onChange={this.handleChangeWinningNumber}
-                require
-                autoFocus={index === 0}
-              />
-            ))}
-          </fieldset>
-          <label htmlFor="bonus-number" hidden>
-            보너스 번호
-          </label>
-          <Styled.NumberInput
-            type="number"
-            min={LOTTO.MIN_NUMBER}
-            max={LOTTO.MAX_NUMBER}
-            id="bonus-number"
-            name="bonus-number"
-            value={bonusNumber}
-            onChange={this.handleChangeBonusNumber}
-            required
-          />
-          <Button>당첨 결과 확인</Button>
+          <Styled.InputGroup>
+            <Styled.Fieldset>
+              <legend hidden>당첨 번호 입력</legend>
+              {Object.keys(winningNumber).map((key, index) => (
+                <Styled.NumberInput
+                  key={key}
+                  type="number"
+                  min={LOTTO.MIN_NUMBER}
+                  max={LOTTO.MAX_NUMBER}
+                  name={key}
+                  aria-label=""
+                  value={winningNumber[key]}
+                  onChange={this.handleChangeWinningNumber}
+                  required
+                  autoFocus={index === 0}
+                />
+              ))}
+            </Styled.Fieldset>
+            <Styled.PlusIcon>➕</Styled.PlusIcon>
+            <label htmlFor="bonus-number" hidden>
+              보너스 번호
+            </label>
+            <Styled.NumberInput
+              type="number"
+              min={LOTTO.MIN_NUMBER}
+              max={LOTTO.MAX_NUMBER}
+              id="bonus-number"
+              name="bonus-number"
+              value={bonusNumber}
+              onChange={this.handleChangeBonusNumber}
+              required
+            />
+          </Styled.InputGroup>
+          <Button>🥁 당첨 결과 확인</Button>
         </form>
       </div>
     );

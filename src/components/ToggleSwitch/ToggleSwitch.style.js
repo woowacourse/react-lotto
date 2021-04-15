@@ -39,7 +39,6 @@ const Styled = {
   `,
   ToggleText: styled.span`
     display: inline-block;
-    width: 100%;
     cursor: pointer;
 
     &::before {

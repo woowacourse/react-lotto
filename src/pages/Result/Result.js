@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
+import LottoNumberItem from '../../components/LottoNumberItem/LottoNumberItem';
 import Modal from '../../components/Modal/Modal';
 import { RANKING, RANKING_TABLE, WINNING_TABLE } from '../../constants';
 import { getIntersectionCount, currencyFormat, initObject } from '../../utils';
+import Styled from './Result.style';
 
 class Result extends Component {
   constructor(props) {
@@ -83,13 +85,15 @@ class Result extends Component {
 
     return (
       <>
-        <div>
+        <h2>얼마나 잃었을까요?</h2>
+        <Styled.WinningNumber>
           {Object.values(winningNumber).map((number) => (
-            <span key={`winning-number-${number}`}>{number} </span>
+            <LottoNumberItem key={`winning-number-${number}`}>{number}</LottoNumberItem>
           ))}
-          <span>{bonusNumber}</span>
-          <LottoNumberList lottoList={lottoList} />
-        </div>
+          <Styled.PlusIcon>➕</Styled.PlusIcon>
+          <LottoNumberItem>{bonusNumber}</LottoNumberItem>
+        </Styled.WinningNumber>
+        <LottoNumberList lottoList={lottoList} />
         <Button onClick={this.handleOpenDetail}>결과 확인</Button>
         <Link to="/">
           <Button>다시 시작</Button>

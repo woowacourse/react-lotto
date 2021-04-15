@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LottoNumberItem from '../LottoNumberItem/LottoNumberItem';
 import Styled from './LottoNumberList.style';
 
 class LottoNumberList extends Component {
@@ -8,15 +9,15 @@ class LottoNumberList extends Component {
 
   render() {
     return (
-      <ul>
+      <Styled.Container>
         {Object.entries(this.props.lottoList).map(([id, numberList]) => (
-          <li key={id}>
+          <Styled.Lotto key={id}>
             {numberList.map((number) => (
-              <span key={`${id}-${number}`}>{number} </span>
+              <LottoNumberItem key={`${id}-${number}`}>{number}</LottoNumberItem>
             ))}
-          </li>
+          </Styled.Lotto>
         ))}
-      </ul>
+      </Styled.Container>
     );
   }
 }

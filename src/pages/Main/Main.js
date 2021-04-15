@@ -80,34 +80,36 @@ class Main extends Component {
     const lottoCount = Object.entries(lottoList).length;
 
     return (
-      <Styled.Container>
-        <form onSubmit={this.handleSubmitMoneyInput}>
-          <input
+      <>
+        <h2>로또 구매</h2>
+        <Styled.Form onSubmit={this.handleSubmitMoneyInput}>
+          <Styled.MoneyInput
             type="number"
             value={moneyInput}
             min={LOTTO.PRICE}
             onChange={this.handleChangeMoneyInput}
             disabled={lottoCount > 0 ? 'disabled' : ''}
+            placeholder="돈을 내시오"
             required
             autoFocus
           />
           <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
             구입
           </Button>
-        </form>
-        <div>
-          <p>
-            현재 구입한 로또 <span>{lottoCount}</span>개
-          </p>
+        </Styled.Form>
+        <Styled.LottoListTop>
+          <Styled.LottoCountContainer>
+            현재 구입한 로또 <Styled.LottoCount>{lottoCount}</Styled.LottoCount>개
+          </Styled.LottoCountContainer>
           <ToggleSwitch
             title="번호 보기"
             isChecked={isNumberShowing}
             onChange={this.handleToggleSwitch}
           />
-          {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
-        </div>
+        </Styled.LottoListTop>
+        {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
         <Button onClick={this.handleClickEnterWinning}>🤩 당첨 번호 입력</Button>
-      </Styled.Container>
+      </>
     );
   }
 }
