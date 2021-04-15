@@ -1,5 +1,3 @@
-export const getRandomNumber = (min: number, max: number) => {
-  if (Number.isNaN(min) && Number.isNaN(max)) return;
-
+export const getRandomNumber = (min: number, max: number): number => {
   return Math.floor(Math.random() * max + min);
 };

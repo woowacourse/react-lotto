@@ -3,6 +3,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';
 import { PaymentFormWrapper, PaymentFormLabel } from './PaymentForm.styles';
+import { alertByPaymentCase, isValidPayment } from '../../services/validation';
 
 type Props = {
   handlePayment: (newPayment: number) => void;
@@ -11,9 +12,11 @@ type Props = {
 type State = {
   payment: number;
 };
+
 export default class PaymentForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
     this.state = {
       payment: 0,
     };
@@ -21,6 +24,7 @@ export default class PaymentForm extends Component<Props, State> {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({
       payment: event.target.valueAsNumber,
@@ -29,6 +33,12 @@ export default class PaymentForm extends Component<Props, State> {
 
   handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isValidPayment(this.state.payment)) {
+      alertByPaymentCase(this.state.payment);
+      return;
+    }
+
     this.props.handlePayment(this.state.payment);
   }
 

@@ -3,9 +3,11 @@ import Toggle from '../common/Toggle';
 import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
 import TicketItem from './TicketItem/TicketItem';
 
-// type TicketListProps = {};
+type Props = {
+  tickets: Ticket[];
+};
 
-export default class TicketList extends Component {
+export default class TicketList extends Component<Props> {
   render() {
     return (
       <TicketListWrapper>
@@ -16,11 +18,9 @@ export default class TicketList extends Component {
           </div>
         </TicketListHeader>
         <List>
-          <TicketItem />
-          <TicketItem />
-          <TicketItem />
-          <TicketItem />
-          <TicketItem />
+          {this.props.tickets.map(ticket => (
+            <TicketItem ticketNumbers={ticket} />
+          ))}
         </List>
       </TicketListWrapper>
     );
