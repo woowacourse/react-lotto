@@ -31,7 +31,7 @@ export default class App extends Component {
     return (
       <div className="app d-flex justify-center items-center">
         <Main openModal={this.openModal} />
-        <Modal isModalOpened={this.state.isModalOpened} />
+        {this.state.isModalOpened && <Modal />}
       </div>
     );
   }

@@ -9,10 +9,6 @@
   width: 100%;
 }
 
-.hidden {
-  display: none;
-}
-
 .main-container {
   width: 360px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -232,15 +228,9 @@ input[type='number'] {
   width: 100vw;
   height: 100vh;
   position: absolute;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 2;
-}
-
-.modal.open {
-  opacity: 1;
-  visibility: visible;
 }
 
 .modal-inner {

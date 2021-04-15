@@ -32,7 +32,7 @@ export default class LottoItem extends Component {
     return (
       <li className={`lotto-item ${isToggled ? 'toggle' : ''}`}>
         <span className="lotto-icon">🎟</span>
-        <span className={isToggled ? '' : 'hidden'}>{[...this.state.numbers].join(', ')}</span>
+        {isToggled && <span>{[...this.state.numbers].join(', ')}</span>}
       </li>
     );
   }
