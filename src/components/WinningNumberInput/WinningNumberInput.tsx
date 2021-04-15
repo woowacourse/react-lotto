@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WinningNumberInputWrapper } from './WinningNumberInput.styles';
-import Input from '../../common/Input';
-import { Wrapper } from '../../common/Wrapper';
+import Input from '../common/Input';
+import { Wrapper } from '../common/Wrapper';
 
 // type WinningNumberInputProps = {};
 

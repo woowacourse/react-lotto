@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Modal from '../../common/Modal';
-import { Wrapper } from '../../common/Wrapper';
+import Modal from '../common/Modal';
+import { Wrapper } from '../common/Wrapper';
 
 export const ResultModalWrapper = styled(Wrapper)`
   .result-header,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Modal from '../../common/Modal';
-import Button from '../../common/Button';
-import { Wrapper } from '../../common/Wrapper';
+import Modal from '../common/Modal';
+import Button from '../common/Button';
+import { Wrapper } from '../common/Wrapper';
 import { ResultModalWrapper, ResultTable } from './ResultModal.styles';
 import ResultTableRow from './ResultTableRow/ResultTableRow';
 
