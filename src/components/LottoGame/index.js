@@ -5,7 +5,16 @@ import LottoResultForm from './LottoResultForm';
 import LottoResultContainer from './LottoResultContainer';
 import Modal from '../Modal';
 import { getRandomNumber } from '../../utils/getRandomNumber';
-import { LOTTO_NUMBER_COUNT, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/standard';
+import {
+  UNIT_AMOUNT,
+  LOTTO_NUMBER_COUNT,
+  MAX_LOTTO_NUMBER,
+  MIN_LOTTO_NUMBER,
+  HIT_COUNT,
+  WINNING_RANK,
+  PROFITS,
+  RANK,
+} from '../../constants/standard';
 
 export default class LottoGame extends Component {
   constructor() {
@@ -27,8 +36,6 @@ export default class LottoGame extends Component {
   isPurchaseAmountSubmitted() {
     return this.state.purchaseAmount !== 0;
   }
-
-  isResultNumberSubmitted() {}
 
   publishLottoTickets(purchaseAmount) {
     this.setState({ purchaseAmount }, this.setLottoTickets);
@@ -57,6 +64,44 @@ export default class LottoGame extends Component {
     this.setState({ resultNumbers });
   }
 
+  getLottoResult() {
+    const rankCount = this.getRankCount();
+    const earningRate = this.getEarningRate(rankCount);
+
+    return { rankCount, earningRate };
+  }
+
+  getRankCount() {
+    const rankCount = {
+      [WINNING_RANK.FIRST]: 0,
+      [WINNING_RANK.SECOND]: 0,
+      [WINNING_RANK.THIRD]: 0,
+      [WINNING_RANK.FOURTH]: 0,
+      [WINNING_RANK.FIFTH]: 0,
+      [WINNING_RANK.NONE]: 0,
+    };
+
+    this.state.lottoTickets.forEach(ticket => {
+      const rank = this.getRank(ticket);
+      rankCount[rank]++;
+    });
+
+    return rankCount;
+  }
+
+  getRank(ticket) {
+    const hasBonusNumber = ticket.includes(this.state.resultNumbers.bonusNumber);
+    const winnigCount = LOTTO_NUMBER_COUNT * 2 - new Set([...ticket, ...this.state.resultNumbers.winningNumbers]).size;
+    const winningRank = hasBonusNumber && winnigCount === HIT_COUNT.FIVE ? WINNING_RANK.SECOND : RANK[winnigCount];
+
+    return winningRank;
+  }
+
+  getEarningRate(rankCount) {
+    const totalProfit = Object.entries(rankCount).reduce((acc, [rank, count]) => acc + PROFITS[rank] * count, 0);
+    return Number(((totalProfit / (this.state.purchaseAmount * UNIT_AMOUNT)) * 100).toFixed(2));
+  }
+
   openResultModal() {
     this.setState({ isModalOpened: true });
   }
@@ -81,7 +126,12 @@ export default class LottoGame extends Component {
             )}
           </div>
         </div>
-        {this.state.isModalOpened && <Modal container={<LottoResultContainer />} closeModal={this.closeResultModal} />}
+        {this.state.isModalOpened && (
+          <Modal
+            container={<LottoResultContainer lottoResult={this.getLottoResult()} />}
+            closeModal={this.closeResultModal}
+          />
+        )}
       </>
     );
   }

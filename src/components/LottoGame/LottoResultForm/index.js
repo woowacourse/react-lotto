@@ -16,19 +16,20 @@ export default class LottoResultForm extends Component {
     const winningNumbers = Array(LOTTO_NUMBER_COUNT)
       .fill()
       .map((_, idx) => Number(event.target[`winning-${idx + 1}`].value));
-    const bounusNumber = Number(event.target['bonus'].value);
+    const bonusNumber = Number(event.target['bonus'].value);
 
-    if (!isValidRange([...winningNumbers, bounusNumber])) {
+    if (!isValidRange([...winningNumbers, bonusNumber])) {
       alert(MESSAGE.OUT_RANGED_LOTTO_NUMBERS);
       return;
     }
 
-    if (isDuplicate([...winningNumbers, bounusNumber])) {
+    if (isDuplicate([...winningNumbers, bonusNumber])) {
       alert(MESSAGE.DUPLICATED_LOTTO_NUMBERS);
       return;
     }
 
-    this.props.setResultNumbers({ winningNumbers, bounusNumber });
+    this.props.setResultNumbers({ winningNumbers, bonusNumber });
+    this.props.openResultModal();
   }
 
   render() {
@@ -54,12 +55,7 @@ export default class LottoResultForm extends Component {
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          id="winning-number-input-form__button"
-          className="mt-5 btn btn-cyan w-full"
-          onClick={this.props.openResultModal}
-        >
+        <button id="winning-number-input-form__button" className="mt-5 btn btn-cyan w-full">
           결과 확인하기
         </button>
       </form>
