@@ -7,9 +7,14 @@ class MoneyInput extends React.Component {
     super(props);
   }
 
+  onMoneyInputSubmit(e) {
+    e.preventDefault();
+    this.props.handleSubmit();
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={(e) => this.onMoneyInputSubmit(e)}>
         <NumberInput
           customClass='money-input'
           min='1000'

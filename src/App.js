@@ -6,15 +6,29 @@ import WinningNumber from './components/winning-number';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isMoneyInputValid: false,
+      isModalOpen: false,
+    };
+  }
+
+  handleSubmit() {
+    this.setState({
+      isMoneyInputValid: true,
+    });
   }
 
   render() {
     return (
-      <React.Fragment>
-        <MoneyInput></MoneyInput>
-        <PurchaseNumberList></PurchaseNumberList>
-        <WinningNumber></WinningNumber>
-      </React.Fragment>
+      <>
+        <MoneyInput handleSubmit={() => this.handleSubmit()}></MoneyInput>
+        {this.state.isMoneyInputValid && (
+          <>
+            <PurchaseNumberList></PurchaseNumberList>
+            <WinningNumber></WinningNumber>
+          </>
+        )}
+      </>
     );
   }
 }
