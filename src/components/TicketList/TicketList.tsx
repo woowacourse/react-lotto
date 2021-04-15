@@ -7,19 +7,39 @@ type Props = {
   tickets: Ticket[];
 };
 
-export default class TicketList extends Component<Props> {
+type State = {
+  isToggled: boolean;
+};
+
+export default class TicketList extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      isToggled: false,
+    };
+
+    this.onToggle = this.onToggle.bind(this);
+  }
+
+  onToggle(isToggled: boolean) {
+    this.setState(state => ({ isToggled }));
+  }
+
   render() {
     return (
       <TicketListWrapper>
         <TicketListHeader>
-          <label className="ticket-list-header-label">총 0개를 구매하였습니다</label>
+          <label className="ticket-list-header-label">
+            총 {this.props.tickets.length}개를 구매하였습니다
+          </label>
           <div className="flex-auto d-flex justify-end pr-1">
-            <Toggle>번호보기</Toggle>
+            <Toggle onToggle={this.onToggle}>번호보기</Toggle>
           </div>
         </TicketListHeader>
-        <List>
+        <List isToggled={this.state.isToggled}>
           {this.props.tickets.map(ticket => (
-            <TicketItem ticketNumbers={ticket} />
+            <TicketItem ticketNumbers={ticket} isDetailMode={this.state.isToggled} />
           ))}
         </List>
       </TicketListWrapper>

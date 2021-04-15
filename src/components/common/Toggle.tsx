@@ -120,11 +120,25 @@ const ToggleWrapper = styled.label`
   }
 `;
 
-export default class Toggle extends Component {
+type Props = {
+  onToggle: (isToggled: boolean) => void;
+};
+
+export default class Toggle extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle(event: React.ChangeEvent<HTMLInputElement>) {
+    this.props.onToggle(event.target.checked);
+  }
+
   render() {
     return (
       <ToggleWrapper>
-        <input type="checkbox" className="toggle-button" />
+        <input onChange={this.handleToggle} type="checkbox" className="toggle-button" />
         <span className="toggle-text">{this.props.children}</span>
       </ToggleWrapper>
     );

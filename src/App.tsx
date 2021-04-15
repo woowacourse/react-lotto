@@ -8,7 +8,6 @@ import Button from './components/common/Button';
 import { issueTickets } from './services/tickets';
 
 type State = {
-  isToggled: boolean;
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
@@ -19,7 +18,6 @@ export default class App extends Component<{}, State> {
     super(props);
 
     this.state = {
-      isToggled: false,
       tickets: [],
       winningNumber: {
         numbers: [],
