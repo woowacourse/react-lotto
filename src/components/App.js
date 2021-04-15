@@ -44,7 +44,7 @@ export default class App extends Component {
         <main>
           <PurchaseAmount lottoBundle={lottoBundle} onPurchaseLotto={this.onPurchaseLotto} />
           {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
-          <WinningNumbers />
+          {isPurchased && <WinningNumbers />}
           <WinningResult />
         </main>
       </div>

@@ -36,7 +36,7 @@ export default class PurchaseLotto extends Component {
         </section>
         <section className={displaySectionClassName}>
           {this.props.lottoBundle.map((v, i) => (
-            <Lotto numbers={v} key={i.toString().charCodeAt(0)} />
+            <Lotto numbers={v} key={String.fromCharCode(97 + i)} />
           ))}
         </section>
       </div>
