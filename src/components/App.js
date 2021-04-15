@@ -43,7 +43,7 @@ export default class App extends Component {
         <h1 className="header">🎱 행운의 로또</h1>
         <main>
           <PurchaseAmount lottoBundle={lottoBundle} onPurchaseLotto={this.onPurchaseLotto} />
-          {isPurchased ? <PurchaseLotto lottoBundle={this.state.lottoBundle} /> : null}
+          {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
           <WinningNumbers />
           <WinningResult />
         </main>
