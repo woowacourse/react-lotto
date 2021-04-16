@@ -5,7 +5,7 @@ import { Global } from "@emotion/react";
 import GlobalStyles from "../styles/GlobalStyles";
 import LottoContext from "../contexts/LottoContext";
 import Main from "./Main";
-import Modal from "./Modal";
+import ResultModal from "./ResultModal";
 
 import { INITIAL_RESULT } from "../constants";
 
@@ -70,7 +70,7 @@ export default class App extends Component {
           <Container>
             <h1>🎱 행운의 로또</h1>
             <Main />
-            {this.state.isModalOpen && <Modal />}
+            {this.state.isModalOpen && <ResultModal />}
           </Container>
         </LottoContext.Provider>
       </>
