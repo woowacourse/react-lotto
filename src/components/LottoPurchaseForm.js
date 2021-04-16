@@ -19,21 +19,42 @@ const Button = styled.button`
 `;
 
 class LottoPurchaseForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.formRef = React.createRef();
+    this.inputRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.resetLottoPurchaseForm();
+  }
+
+  resetLottoPurchaseForm() {
+    this.formRef.current.reset();
+    this.inputRef.current.focus();
+
+    this.props.createLottos(0);
+  }
+
   handlePurchaseLotto = e => {
     e.preventDefault();
 
     const inputPrice = e.target.elements.price.value;
-    // TODO : 유효성 검사
-
     this.props.createLottos(inputPrice);
   };
 
   render() {
     return (
-      <form onSubmit={this.handlePurchaseLotto} style={{ margin: '0.5rem' }}>
+      <form
+        ref={this.formRef}
+        onSubmit={this.handlePurchaseLotto}
+        style={{ margin: '0.5rem' }}
+      >
         <Label htmlFor="input-price">구입할 금액을 입력해주세요.</Label>
         <div style={{ display: 'flex' }}>
           <input
+            ref={this.inputRef}
             type="number"
             id="input-price"
             name="price"
@@ -41,6 +62,7 @@ class LottoPurchaseForm extends Component {
             required
             min="1000"
             max="50000"
+            step="1000"
             style={{
               width: '100%',
               marginRight: '0.2rem',
