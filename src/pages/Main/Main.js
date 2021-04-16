@@ -8,8 +8,8 @@ import { purchaseLottoList } from '../../services/Main';
 import { Styled } from './Main.style';
 
 class Main extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       moneyInput: '',

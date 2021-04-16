@@ -38,4 +38,8 @@ class WinningTable extends Component {
   }
 }
 
+WinningTable.defaultProps = {
+  winningResult: {},
+};
+
 export default WinningTable;

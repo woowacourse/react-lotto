@@ -24,4 +24,8 @@ class Modal extends Component {
 
 Modal.Title = ({ children }) => <Styled.Title>{children}</Styled.Title>;
 
+Modal.defaultProps = {
+  onClose: () => {},
+};
+
 export default Modal;

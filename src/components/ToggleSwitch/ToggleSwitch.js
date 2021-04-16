@@ -7,17 +7,21 @@ class ToggleSwitch extends Component {
   }
 
   render() {
+    const { isChecked, onChange, title } = this.props;
+
     return (
       <Styled.ToggleSwitch>
-        <Styled.ToggleCheckbox
-          type="checkbox"
-          value={this.props.isChecked}
-          onChange={this.props.onChange}
-        />
-        <Styled.ToggleText>{this.props.title}</Styled.ToggleText>
+        <Styled.ToggleCheckbox type="checkbox" value={isChecked} onChange={onChange} />
+        <Styled.ToggleText>{title}</Styled.ToggleText>
       </Styled.ToggleSwitch>
     );
   }
 }
+
+ToggleSwitch.defaultProps = {
+  isChecked: false,
+  onChange: () => {},
+  title: '',
+};
 
 export default ToggleSwitch;

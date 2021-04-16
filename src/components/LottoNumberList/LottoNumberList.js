@@ -46,6 +46,7 @@ class LottoNumberList extends Component {
 LottoNumberList.defaultProps = {
   lottoList: {},
   winningNumber: {},
+  bonusNumber: null,
 };
 
 export default LottoNumberList;
