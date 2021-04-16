@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import LottoIconList from './LottoIconList';
+import LottoDetailList from './LottoDetailList';
 import PurchaseCountMessage from './PurchaseCountMessage';
 import ToggleButton from './ToggleButton';
 
@@ -24,17 +25,24 @@ class PurchaseResult extends Component {
     };
   }
 
+  setIsToggled = isToggled => {
+    this.setState({
+      isToggled,
+    });
+  };
+
   render() {
     const { isToggled } = this.state;
+
     return (
       <PurchaseResultSection aria-label="purchase-lotto">
         <PurchaseResultMessageWrapper>
           <PurchaseCountMessage lottoCount={this.props.lottos.length} />
-          <ToggleButton />
+          <ToggleButton setIsToggled={this.setIsToggled} />
         </PurchaseResultMessageWrapper>
 
         {isToggled ? (
-          ''
+          <LottoDetailList lottos={this.props.lottos} />
         ) : (
           <LottoIconList lottoCount={this.props.lottos.length} />
         )}

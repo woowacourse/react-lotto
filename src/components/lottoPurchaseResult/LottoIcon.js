@@ -8,6 +8,7 @@ const LottoLi = styled.li`
   font-size: 2.25rem;
   line-height: 2.5rem;
 `;
+
 class LottoIcon extends Component {
   render() {
     return (

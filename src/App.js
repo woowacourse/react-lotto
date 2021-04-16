@@ -41,7 +41,7 @@ class App extends Component {
         lotto.add(getRandomNumber(1, 45));
       }
 
-      return lotto;
+      return [...lotto].sort((a, b) => a - b);
     });
 
     this.setLottos(newLottos);
