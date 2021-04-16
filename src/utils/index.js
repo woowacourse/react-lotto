@@ -1,3 +1,5 @@
+export { calculateEarningRate, getRanking, countMatchedNumbers } from "./lotto";
+
 export const shuffle = (arr) => {
   const newArr = [...arr];
 
@@ -8,6 +10,8 @@ export const shuffle = (arr) => {
 
   return newArr;
 };
+
+export const deepCopyJSONObject = (obj) => JSON.parse(JSON.stringify(obj));
 
 export const createDistinctRandomIntegers = (from, to, length) => {
   const fullLength = to - from + 1;
@@ -35,10 +39,4 @@ export const isDistinctNumbers = (numbersArray) => {
   const numbersSet = new Set(numbersArray);
 
   return numbersSet.size === numbersArray.length;
-};
-
-export const countMatchedNumbers = (numbers1, numbers2) => {
-  const numbers = [...numbers1, ...numbers2];
-  const numbersSet = new Set(numbers);
-  return numbers.length - numbersSet.size;
 };

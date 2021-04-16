@@ -1,0 +1,35 @@
+import { PRIZE_TABLE, RANKINGS } from "../constants";
+
+export const countMatchedNumbers = (numbers1, numbers2) => {
+  const numbers = [...numbers1, ...numbers2];
+  const numbersSet = new Set(numbers);
+  return numbers.length - numbersSet.size;
+};
+
+export const getRanking = (lottoNumber, winningNumber, bonusNumber) => {
+  const numOfMatched = countMatchedNumbers(lottoNumber, winningNumber);
+
+  switch (numOfMatched) {
+    case 3:
+      return RANKINGS.RANKING5;
+    case 4:
+      return RANKINGS.RANKING4;
+    case 5:
+      if (countMatchedNumbers(lottoNumber, [bonusNumber])) {
+        return RANKINGS.RANKING2;
+      }
+      return RANKINGS.RANKING3;
+    case 6:
+      return RANKINGS.RANKING1;
+    default:
+      return RANKINGS.NO_PRIZE;
+  }
+};
+
+export const calculateEarningRate = (rankCount, price) => {
+  const totalPrize = Object.values(RANKINGS).reduce((acc, ranking) => {
+    return acc + rankCount[ranking] * PRIZE_TABLE[ranking].prize;
+  }, 0);
+
+  return Math.round(((totalPrize - price) / price) * 100);
+};
