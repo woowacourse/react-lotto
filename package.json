@@ -1,7 +1,7 @@
 {
   "name": "react-lotto",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "./src/index.js",
   "repository": "https://github.com/yujo11/react-lotto.git",
   "license": "MIT",
   "contributors": [
@@ -17,9 +17,9 @@
     }
   ],
   "scripts": {
-    "prod": "webpack serve --mode=production",
-    "dev": "webpack serve --mode=development",
-    "build": "webpack --mode=production",
+    "prod": "NODE_ENV=production webpack serve",
+    "dev": "NODE_ENV=development webpack serve",
+    "build": "NODE_ENV=production webpack",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -57,13 +57,13 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "postcss-cli": "^8.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "tailwind": "^4.0.0"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
-  }
+    "*.{js,jsx}": "eslint --cache",
+    "*.{js,jsx,css,md,html,json}": "prettier --write"
+  },
+  "browserslist": "> 1% and last 2 versions"
 }

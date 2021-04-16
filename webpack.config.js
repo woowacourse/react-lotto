@@ -4,8 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = (env, argv) => {
-  const isDevelopment = argv.mode !== 'production';
+module.exports = () => {
+  const isDevelopment = process.env.NODE_ENV !== 'production';
 
   return {
     entry: './src/index.js',
@@ -53,6 +53,6 @@ module.exports = (env, argv) => {
       hints: isDevelopment ? 'warning' : 'error',
     },
     // Check this out: https://github.com/webpack/webpack-dev-server/issues/2758
-    target: 'web',
+    target: isDevelopment ? 'web' : 'browserslist',
   };
 };
