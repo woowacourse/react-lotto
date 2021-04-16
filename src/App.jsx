@@ -28,7 +28,7 @@ export default class App extends React.Component {
       <main className="m-16 p-9 max-w-screen-sm mx-auto bg-gray-200 ">
         <h1 className="text-center text-3xl	font-bold ">🎱 행운의 로또 </h1>
         <PurchaseForm setTickets={this.setTickets} />
-        <TicketDetail />
+        <TicketDetail tickets={this.state.tickets} />
         <WinningNumberForm />
         {/* <Modal /> */}
       </main>

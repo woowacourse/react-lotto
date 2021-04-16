@@ -14,7 +14,7 @@ const generateLottoNumbers = () => {
     randomNumbers.add(getRandomNumber());
   }
 
-  return Array.from(randomNumbers);
+  return Array.from(randomNumbers).sort((a, b) => a - b);
 };
 
 export default generateLottoNumbers;
