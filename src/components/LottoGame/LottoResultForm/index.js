@@ -7,7 +7,6 @@ export default class LottoResultForm extends Component {
   constructor(props) {
     super(props);
 
-    this.input = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 

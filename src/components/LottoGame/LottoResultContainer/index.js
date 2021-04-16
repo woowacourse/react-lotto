@@ -41,7 +41,7 @@ export default class LottoResultContainer extends Component {
         </p>
 
         <div className="flex justify-center mt-5">
-          <button type="button" className="result-modal__restart-button btn btn-cyan">
+          <button type="button" className="result-modal__restart-button btn btn-cyan" onClick={this.props.restartGame}>
             다시 시작하기
           </button>
         </div>

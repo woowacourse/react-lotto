@@ -21,20 +21,30 @@ export default class LottoGame extends Component {
     super();
 
     this.state = {
-      purchaseAmount: 0,
+      purchaseAmount: '',
+      isPurchaseAmountSubmitted: false,
       lottoTickets: [],
       resultNumbers: { winningNumbers: [], bonusNumber: 0 },
       isModalOpened: false,
     };
 
+    this.handleChange = this.handleChange.bind(this);
+    this.submitPurchaseAmount = this.submitPurchaseAmount.bind(this);
     this.publishLottoTickets = this.publishLottoTickets.bind(this);
     this.setResultNumbers = this.setResultNumbers.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
+    this.restartGame = this.restartGame.bind(this);
   }
 
-  isPurchaseAmountSubmitted() {
-    return this.state.purchaseAmount !== 0;
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  submitPurchaseAmount() {
+    this.setState({ isPurchaseAmountSubmitted: true });
   }
 
   publishLottoTickets(purchaseAmount) {
@@ -105,6 +115,16 @@ export default class LottoGame extends Component {
     return earningRate;
   }
 
+  restartGame() {
+    this.setState({
+      purchaseAmount: '',
+      isPurchaseAmountSubmitted: false,
+      lottoTickets: [],
+      resultNumbers: { winningNumbers: [], bonusNumber: 0 },
+      isModalOpened: false,
+    });
+  }
+
   openResultModal() {
     this.setState({ isModalOpened: true });
   }
@@ -120,18 +140,21 @@ export default class LottoGame extends Component {
           <div className="w-full">
             <h1 className="text-center">🎱 행운의 로또</h1>
             <PurchaseAmountForm
+              purchaseAmount={this.state.purchaseAmount}
+              isPurchaseAmountSubmitted={this.state.isPurchaseAmountSubmitted}
+              handleChange={this.handleChange}
               publishLottoTickets={this.publishLottoTickets}
-              isPurchaseAmountSubmitted={this.isPurchaseAmountSubmitted()}
+              submitPurchaseAmount={this.submitPurchaseAmount}
             />
-            {this.isPurchaseAmountSubmitted() && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
-            {this.isPurchaseAmountSubmitted() && (
+            {this.state.isPurchaseAmountSubmitted && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
+            {this.state.isPurchaseAmountSubmitted && (
               <LottoResultForm setResultNumbers={this.setResultNumbers} openResultModal={this.openResultModal} />
             )}
           </div>
         </div>
         {this.state.isModalOpened && (
           <Modal
-            container={<LottoResultContainer lottoResult={this.getLottoResult()} />}
+            container={<LottoResultContainer restartGame={this.restartGame} lottoResult={this.getLottoResult()} />}
             closeModal={this.closeResultModal}
           />
         )}

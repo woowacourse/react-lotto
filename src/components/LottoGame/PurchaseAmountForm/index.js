@@ -6,20 +6,20 @@ export default class PurchaseAmountForm extends Component {
   constructor(props) {
     super(props);
 
-    this.input = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    const purchaseAmount = this.input.current.value;
+    const purchaseAmount = event.target['purchaseAmount'].value;
     if (!isValidPurchaseAmount(purchaseAmount)) {
       alert(MESSAGE.INVALID_PURCHASE_AMOUNT);
       return;
     }
 
     this.props.publishLottoTickets(purchaseAmount);
+    this.props.submitPurchaseAmount();
   }
 
   render() {
@@ -30,10 +30,12 @@ export default class PurchaseAmountForm extends Component {
           <input
             id="purchase-price-input-form__input"
             step="any"
+            name="purchaseAmount"
             type="number"
             className="w-full mr-2 pl-2"
             placeholder="구입 금액"
-            ref={this.input}
+            value={this.props.purchaseAmount}
+            onChange={this.props.handleChange}
             disabled={this.props.isPurchaseAmountSubmitted}
             required
           />
