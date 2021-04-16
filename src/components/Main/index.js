@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PurchaseForm from './PurchaseForm';
 import LottoListSection from './LottoListSection';
 import WinningNumberForm from './WinningNumberForm';
+import LotteryCountDown from './LotteryCountDown';
 
 export default class Main extends Component {
   state = {
@@ -38,6 +39,10 @@ export default class Main extends Component {
           setWinningNumbers={this.setWinningNumbers}
           setBonusNumber={this.setBonusNumber}
           openModal={this.props.openModal}
+        />
+        <LotteryCountDown
+          announcementDate={this.props.announcementDate}
+          setAnnouncementDate={this.props.setAnnouncementDate}
         />
       </main>
     );

@@ -13,35 +13,35 @@ export default class ResultSection extends Component {
           </tr>
           <tr className="text-center">
             <td className="p-2">3개</td>
-            <td className="p-2">5,000</td>
+            <td className="p-2">{LOTTO_VALUE.WINNING_PRIZE.FIFTH.toLocaleString()}</td>
             <td className="p-2">
               <span>{this.props.winningCounts[LOTTO_VALUE.RANK.FIFTH]}</span>개
             </td>
           </tr>
           <tr className="text-center">
             <td className="p-2">4개</td>
-            <td className="p-2">50,000</td>
+            <td className="p-2">{LOTTO_VALUE.WINNING_PRIZE.FOURTH.toLocaleString()}</td>
             <td className="p-2">
               <span>{this.props.winningCounts[LOTTO_VALUE.RANK.FOURTH]}</span>개
             </td>
           </tr>
           <tr className="text-center">
             <td className="p-2">5개</td>
-            <td className="p-2">1,500,000</td>
+            <td className="p-2">{LOTTO_VALUE.WINNING_PRIZE.THIRD.toLocaleString()}</td>
             <td className="p-2">
               <span>{this.props.winningCounts[LOTTO_VALUE.RANK.THIRD]}</span>개
             </td>
           </tr>
           <tr className="text-center">
             <td className="p-2">5개 + 보너스볼</td>
-            <td className="p-2">30,000,000</td>
+            <td className="p-2">{LOTTO_VALUE.WINNING_PRIZE.SECOND.toLocaleString()}</td>
             <td className="p-2">
               <span>{this.props.winningCounts[LOTTO_VALUE.RANK.SECOND]}</span>개
             </td>
           </tr>
           <tr className="text-center">
             <td className="p-2">6개</td>
-            <td className="p-2">2,000,000,000</td>
+            <td className="p-2">{LOTTO_VALUE.WINNING_PRIZE.FIRST.toLocaleString()}</td>
             <td className="p-2">
               <span>{this.props.winningCounts[LOTTO_VALUE.RANK.FIRST]}</span>개
             </td>

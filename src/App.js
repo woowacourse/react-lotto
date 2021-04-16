@@ -3,6 +3,7 @@ import Main from './components/Main';
 import Modal from './components/Modal';
 import './css/index.css';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
+import { getAnnouncementDate } from './utils/lottoUtils';
 
 export default class App extends Component {
   state = {
@@ -16,6 +17,7 @@ export default class App extends Component {
     },
     lottoCount: 0,
     mainComponentKey: new Date(),
+    announcementDate: getAnnouncementDate(),
   };
 
   initialState = this.state;
@@ -43,6 +45,10 @@ export default class App extends Component {
     });
   };
 
+  setAnnouncementDate = (announcementDate) => {
+    this.setState({ announcementDate: announcementDate });
+  };
+
   openModal = () => {
     this.setState({
       isModalOpened: true,
@@ -61,6 +67,8 @@ export default class App extends Component {
     return (
       <div className="app d-flex justify-center items-center">
         <Main
+          announcementDate={this.state.announcementDate}
+          setAnnouncementDate={this.setAnnouncementDate}
           isModalOpened={this.state.isModalOpened}
           openModal={this.openModal}
           increaseWinningCounts={this.increaseWinningCounts}

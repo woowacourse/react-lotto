@@ -67,3 +67,10 @@ export const MESSAGE = {
     DUPLICATED_WINNING_NUMBERS: '당첨 번호는 중복될 수 없습니다.',
   },
 };
+
+export const ANNOUNCE_DATE = {
+  DAY_INDEX: 6, // 토요일
+  HOUR: 20,
+  MINUTE: 45,
+  SECOND: 0,
+};
