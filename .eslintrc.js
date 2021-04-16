@@ -11,7 +11,11 @@ module.exports = {
     },
     ecmaVersion: 2021,
     sourceType: 'module',
+    babelOptions: {
+      configFile: './babel.config.js',
+    },
   },
-  plugins: ['react'],
+  plugins: ['react', '@babel'],
   rules: {},
+  ignorePatterns: ['build/**/*'],
 };
