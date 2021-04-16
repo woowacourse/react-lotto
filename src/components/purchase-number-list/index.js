@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ToggleButton from '../util-component/toggle';
 import PurchaseNumberItem from './purchase-number-item';
 
@@ -25,6 +26,7 @@ class PurchaseNumberList extends React.Component {
         <ul>
           {this.props.receipt.map((ticket) => (
             <PurchaseNumberItem
+              key={uuidv4()}
               ticketNumbers={ticket}
               toggled={this.state.showBalls}
             ></PurchaseNumberItem>

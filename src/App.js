@@ -2,12 +2,7 @@ import React from 'react';
 import MoneyInput from './components/money-input';
 import PurchaseNumberList from './components/purchase-number-list';
 import WinningNumber from './components/winning-number';
-import {
-  LOTTERY_BALL_LENGTH,
-  LOTTERY_PRICE,
-  MAX_LOTTO_NUMBER,
-  MIN_LOTTO_NUMBER,
-} from './constants/number';
+import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import { getRandomNumber } from './utils/random-number';
 
 class App extends React.Component {
