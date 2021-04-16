@@ -3,6 +3,7 @@ import Styled from './EnterWinning.style';
 import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
 import { initObject, isUniqueArray } from '../../utils';
 import Button from '../../components/Button/Button';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 class EnterWinning extends Component {
   constructor(props) {
@@ -60,7 +61,7 @@ class EnterWinning extends Component {
 
     return (
       <div>
-        <h2>당첨 번호 입력</h2>
+        <PageTitle>당첨 번호 입력</PageTitle>
         <p>지난 주 당첨번호를 입력해주세요</p>
         <form onSubmit={this.handleSubmitWinningNumber}>
           <Styled.InputGroup>

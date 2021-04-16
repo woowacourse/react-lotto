@@ -9,7 +9,6 @@ const Styled = {
     margin-right: 0.4em;
     border-radius: 50%;
     text-align: center;
-    font-weight: bold;
     background-color: ${({ number, disabled }) => {
       if (disabled) return 'none';
 

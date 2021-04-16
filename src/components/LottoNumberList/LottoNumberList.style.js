@@ -7,6 +7,9 @@ const Styled = {
     padding: 0;
   `,
   Lotto: styled.li`
+    display: flex;
+    align-items: center;
+
     &::before {
       content: '🎟️';
       font-size: 1.5rem;

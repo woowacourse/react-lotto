@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
+import PageTitle from '../../components/PageTitle/PageTitle';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { ALERT_MESSAGE, LOTTO, PATH } from '../../constants';
 import { getRandomId, shuffle } from '../../utils';
@@ -81,7 +82,7 @@ class Main extends Component {
 
     return (
       <>
-        <h2>로또 구매</h2>
+        <PageTitle>로또 구매</PageTitle>
         <Styled.Form onSubmit={this.handleSubmitMoneyInput}>
           <Styled.MoneyInput
             type="number"
