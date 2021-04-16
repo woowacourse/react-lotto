@@ -48,13 +48,15 @@ class App extends Component {
   };
 
   render() {
+    const { lottos } = this.state;
+
     return (
       <main style={{ maxWidth: '450px', margin: '0 auto' }}>
         <MainTitle>🎱 행운의 로또</MainTitle>
         <MainWrapper>
           <div style={{ width: '100%' }}>
             <LottoPurchaseForm createLottos={this.createLottos} />
-            <PurchaseResult />
+            {lottos.length > 0 && <PurchaseResult lottos={lottos} />}
           </div>
         </MainWrapper>
       </main>
