@@ -11,8 +11,9 @@ class PriceInput extends Component {
   handleSubmitPrice(event) {
     event.preventDefault();
 
-    this.props.onSubmitPrice(event);
-    event.target.price.value = '';
+    const $priceInput = event.target.price;
+    this.props.onPurchaseLottos($priceInput.valueAsNumber);
+    $priceInput.value = '';
   }
 
   render() {

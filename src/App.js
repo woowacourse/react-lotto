@@ -10,16 +10,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { price: 0, lottos: [], winningNumbers: {}, isResultModalOpen: false };
-    this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
-    this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
+    this.purchaseLottos = this.purchaseLottos.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
   }
 
-  handleSubmitPrice(event) {
-    const price = event.target.price.valueAsNumber;
-
+  purchaseLottos(price) {
     this.setState({ price }, this.createLottos);
   }
 
