@@ -50,7 +50,7 @@ export default class ResultModal extends Component {
 
   getRateOfReturn(result) {
     const totalPrize = Object.keys(result).reduce(
-      (totalPrize, curCount) => totalPrize + WINNING_PRIZE_INFO[curCount].PRIZE * result[curCount],
+      (sum, curCount) => sum + WINNING_PRIZE_INFO[curCount].PRIZE * result[curCount],
       0,
     );
 
@@ -58,7 +58,9 @@ export default class ResultModal extends Component {
   }
 
   onCloseModalWithDimmed({ target }) {
-    target.classList.contains('ResultModal') && this.props.closeResultModal();
+    if (target.classList.contains('ResultModal')) {
+      this.props.closeResultModal();
+    }
   }
 
   render() {
@@ -115,4 +117,5 @@ ResultModal.propTypes = {
     bonusNumber: PropTypes.number.isRequired,
   }),
   closeResultModal: PropTypes.func.isRequired,
+  restart: PropTypes.func.isRequired,
 };
