@@ -52,7 +52,7 @@ export default class LottoGame extends Component {
   }
 
   setLottoTickets() {
-    const amountOfLottoTicket = this.state.purchaseAmount / 1000;
+    const amountOfLottoTicket = this.state.purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
       .map(() => this.generateLottoNumbers());
@@ -78,12 +78,11 @@ export default class LottoGame extends Component {
       [WINNING_RANK.THIRD]: 0,
       [WINNING_RANK.FOURTH]: 0,
       [WINNING_RANK.FIFTH]: 0,
-      [WINNING_RANK.NONE]: 0,
     };
 
     this.state.lottoTickets.forEach(ticket => {
       const rank = this.getRank(ticket);
-      rankCount[rank]++;
+      rank && rankCount[rank]++;
     });
 
     return rankCount;
@@ -99,7 +98,11 @@ export default class LottoGame extends Component {
 
   getEarningRate(rankCount) {
     const totalProfit = Object.entries(rankCount).reduce((acc, [rank, count]) => acc + PROFITS[rank] * count, 0);
-    return Number(((totalProfit / (this.state.purchaseAmount * UNIT_AMOUNT)) * 100).toFixed(2));
+    const earningRate = Number(
+      (((totalProfit - this.state.purchaseAmount) / this.state.purchaseAmount) * 100).toFixed(2)
+    );
+
+    return earningRate;
   }
 
   openResultModal() {

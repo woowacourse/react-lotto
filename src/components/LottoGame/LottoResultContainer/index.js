@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { HIT_COUNT_BY_RANK, PROFITS } from '../../../constants/standard';
 
-class WinningScoreItem extends Component {
+class RankCountItem extends Component {
   render() {
     return (
       <tr className="text-center">
-        <td className="p-3">3개</td>
-        <td className="p-3">5,000</td>
-        <td className="result-modal__rank-count p-3">n개</td>
+        <td className="p-3">{HIT_COUNT_BY_RANK[this.props.rank]}</td>
+        <td className="p-3">{PROFITS[this.props.rank]}</td>
+        <td className="result-modal__rank-count p-3">{this.props.rankCount}</td>
       </tr>
     );
   }
@@ -28,13 +29,15 @@ export default class LottoResultContainer extends Component {
               </tr>
             </thead>
             <tbody>
-              <WinningScoreItem />
+              {Object.entries(this.props.lottoResult.rankCount).map(([rank, rankCount]) => (
+                <RankCountItem rank={rank} rankCount={rankCount} key={rank} />
+              ))}
             </tbody>
           </table>
         </div>
 
         <p id="result-modal__total-yield" className="text-center font-bold">
-          당신의 총 수익률은 %입니다.
+          당신의 총 수익률은 {this.props.lottoResult.earningRate}%입니다.
         </p>
 
         <div className="flex justify-center mt-5">
