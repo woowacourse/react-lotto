@@ -1,3 +1,4 @@
+import { Lottery } from '../models';
 import { getRandomNumbers, idMaker, LOTTERY } from '../utils';
 
 export default class LotteryMachine {
@@ -5,14 +6,16 @@ export default class LotteryMachine {
     const lotteryAmount = money / LOTTERY.PRICE;
     const lotteries = Array(lotteryAmount)
       .fill(0)
-      .map(() => ({
-        id: idMaker.next().value,
-        numbers: getRandomNumbers({
+      .map(() => {
+        const id = idMaker.next().value;
+        const numbers = getRandomNumbers({
           min: LOTTERY.MIN_NUMBER,
           max: LOTTERY.MAX_NUMBER,
           size: LOTTERY.NUMBER_COUNT,
-        }),
-      }));
+        });
+
+        return new Lottery(id, numbers);
+      });
 
     return lotteries;
   }

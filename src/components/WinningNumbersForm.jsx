@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { hasDuplicatedNumber, idMaker, LOTTERY, MESSAGE } from "../utils";
+import React, { Component } from 'react';
+import { hasDuplicatedNumber, LOTTERY, MESSAGE } from '../utils';
 
 class WinningNumbersForm extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class WinningNumbersForm extends Component {
     };
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
 
     const inputNumbers = [...this.state.winningNumbers, this.state.bonusNumber];
@@ -24,9 +24,12 @@ class WinningNumbersForm extends Component {
       return;
     }
 
-    $input.innerText = "";
+    $input.innerText = '';
     this.setState({ isSubmit: true });
-    //부모로 부터 받은 modal render함수를 호출
+    this.props.setWinningResult(
+      this.state.winningNumbers,
+      this.state.bonusNumber
+    );
   };
 
   handleWinningNumberChange = ({ target }) => {
@@ -36,7 +39,7 @@ class WinningNumbersForm extends Component {
         return number;
       }
 
-      return target.value;
+      return Number(target.value);
     });
 
     this.setState({ winningNumbers });
