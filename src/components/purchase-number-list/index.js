@@ -1,5 +1,5 @@
 import React from 'react';
-import ToggleButton from '../../utils/toggle';
+import ToggleButton from '../util-component/toggle';
 import PurchaseNumberItem from './purchase-number-item';
 
 class PurchaseNumberList extends React.Component {

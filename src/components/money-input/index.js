@@ -1,6 +1,7 @@
 import React from 'react';
-import NumberInput from '../../utils/number-input/index';
-import Button from '../../utils/button/index';
+import NumberInput from '../util-component/number-input';
+import Button from '../util-component/button';
+import { LOTTERY_PRICE } from '../../constants/number';
 
 class MoneyInput extends React.Component {
   constructor(props) {
@@ -9,7 +10,9 @@ class MoneyInput extends React.Component {
 
   onMoneyInputSubmit(e) {
     e.preventDefault();
-    this.props.handleSubmit();
+    const money = Number(e.target.amount.value);
+    const ticketCount = Math.floor(money / LOTTERY_PRICE);
+    this.props.onHandleSubmit(money, ticketCount);
   }
 
   render() {
@@ -17,6 +20,7 @@ class MoneyInput extends React.Component {
       <form onSubmit={(e) => this.onMoneyInputSubmit(e)}>
         <NumberInput
           customClass='money-input'
+          name='amount'
           min='1000'
           max='1000000'
           placeholder='구입 금액을 입력해주세요.'
