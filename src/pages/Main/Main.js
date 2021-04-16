@@ -4,7 +4,7 @@ import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { ALERT_MESSAGE, LOTTO, PATH } from '../../constants';
-import { getRandomId, shuffle } from '../../utils';
+import { purchaseLottoList } from '../../services/Main';
 import { Styled } from './Main.style';
 
 class Main extends Component {
@@ -23,34 +23,11 @@ class Main extends Component {
     this.handleClickEnterWinning = this.handleClickEnterWinning.bind(this);
   }
 
-  generateLotto(baseNumberList) {
-    const lottoId = getRandomId();
-    const lottoNumberList = shuffle(baseNumberList)
-      .slice(0, LOTTO.COUNT)
-      .sort((a, b) => a - b);
-
-    return { [lottoId]: lottoNumberList };
-  }
-
-  purchaseLottoList() {
-    const { moneyInput } = this.state;
-
-    const count = Math.floor(moneyInput / LOTTO.PRICE);
-    const baseNumberList = Array.from({ length: LOTTO.MAX_NUMBER }, (_, index) => index + 1);
-    let newLottoList = {};
-
-    Array.from({ length: count }, () => {
-      const lotto = this.generateLotto(baseNumberList);
-      newLottoList = { ...newLottoList, ...lotto };
-    });
-
-    this.setState({ lottoList: newLottoList });
-  }
-
   handleSubmitMoneyInput(event) {
     event.preventDefault();
 
-    this.purchaseLottoList();
+    const newLottoList = purchaseLottoList(this.state.moneyInput);
+    this.setState({ lottoList: newLottoList });
   }
 
   handleChangeMoneyInput(event) {
