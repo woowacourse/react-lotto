@@ -22,4 +22,6 @@ class Modal extends Component {
   }
 }
 
+Modal.Title = ({ children }) => <Styled.Title>{children}</Styled.Title>;
+
 export default Modal;

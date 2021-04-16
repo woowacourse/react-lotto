@@ -7,6 +7,8 @@ import Modal from '../../components/Modal/Modal';
 import { RANKING, RANKING_TABLE, WINNING_TABLE } from '../../constants';
 import { getIntersectionCount, currencyFormat, initObject } from '../../utils';
 import Styled from './Result.style';
+import WinningTable from '../../components/WinningTable/WinningTable';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 class Result extends Component {
   constructor(props) {
@@ -85,7 +87,7 @@ class Result extends Component {
 
     return (
       <>
-        <h2>얼마나 잃었을까요?</h2>
+        <PageTitle>얼마나 잃었을까요?</PageTitle>
         <Styled.WinningNumber>
           {Object.values(winningNumber).map((number) => (
             <LottoNumberItem key={`winning-number-${number}`}>{number}</LottoNumberItem>
@@ -94,33 +96,19 @@ class Result extends Component {
           <LottoNumberItem>{bonusNumber}</LottoNumberItem>
         </Styled.WinningNumber>
         <LottoNumberList lottoList={lottoList} />
-        <Button onClick={this.handleOpenDetail}>결과 확인</Button>
-        <Link to="/">
-          <Button>다시 시작</Button>
-        </Link>
+        <Styled.ButtonContainer>
+          <Button onClick={this.handleOpenDetail}>✨ 결과 확인</Button>
+          <Link to="/">
+            <Button bgColor="#d6d6d6">↪️ 다시 시작</Button>
+          </Link>
+        </Styled.ButtonContainer>
         {isModalOpen && (
           <Modal onClose={this.handleCloseDetail}>
-            <table>
-              <thead>
-                <tr>
-                  <th>일치 갯수</th>
-                  <th>당첨금</th>
-                  <th>당첨 갯수</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(winningResult).map(([ranking, winningCount]) => (
-                  <tr key={ranking}>
-                    <td>{WINNING_TABLE[ranking].MATCH_CONDITION}</td>
-                    <td>{currencyFormat(WINNING_TABLE[ranking].PRIZE)}</td>
-                    <td>
-                      <span>{winningCount}</span>개
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>당신의 수익률을 {profitRate}%입니다.</div>
+            <Modal.Title>당첨 결과 상세 보기</Modal.Title>
+            <WinningTable winningResult={winningResult} />
+            <Styled.ProfitRateMessage>
+              💸당신의 수익률을 <strong>{profitRate}%</strong>입니다💸
+            </Styled.ProfitRateMessage>
           </Modal>
         )}
       </>

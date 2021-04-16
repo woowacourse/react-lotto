@@ -17,10 +17,11 @@ const Styled = {
     position: relative;
     z-index: 2;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
     background-color: white;
     min-height: 300px;
-    padding: 1rem;
+    padding: 1.6rem;
+    border-radius: 10px;
   `,
   CloseButton: styled.button`
     margin: 10px;
@@ -44,6 +45,9 @@ const Styled = {
       stroke-width: 5;
       pointer-events: none;
     }
+  `,
+  Title: styled.h3`
+    font-size: 1.7em;
   `,
 };
 

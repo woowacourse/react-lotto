@@ -33,26 +33,31 @@ export const RANKING = {
 
 export const WINNING_TABLE = {
   [RANKING.FIRST]: {
+    TITLE: '1등',
     MATCH_CONDITION: '6개',
     PRIZE: 2000000000,
   },
 
   [RANKING.SECOND]: {
+    TITLE: '2등',
     MATCH_CONDITION: '5개 + 보너스볼',
     PRIZE: 30000000,
   },
 
   [RANKING.THIRD]: {
+    TITLE: '3등',
     MATCH_CONDITION: '5개',
     PRIZE: 1500000,
   },
 
   [RANKING.FOURTH]: {
+    TITLE: '4등',
     MATCH_CONDITION: '4개',
     PRIZE: 50000,
   },
 
   [RANKING.FIFTH]: {
+    TITLE: '5등',
     MATCH_CONDITION: '3개',
     PRIZE: 5000,
   },
