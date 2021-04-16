@@ -1,57 +1,16 @@
 import React, { Component } from "react";
-import styled from "@emotion/styled";
-
-import ErrorMessageBox from "./common/ErrorMessageBox";
-import LottoContext from "../contexts/LottoContext";
-import { isDistinctNumbers } from "../utils";
-import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../constants";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Header = styled.h2`
-  font-size: 16px;
-  font-weight: normal;
-`;
-
-const NumberContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const InputHeader = styled.h3`
-  text-align: center;
-`;
-
-const InputBoxes = styled.div`
-  display: flex;
-`;
-
-const InputBox = styled.input`
-  width: 40px;
-  height: 36px;
-  &:not(:last-child) {
-    margin-right: 7px;
-  }
-  text-align: center;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  margin-top: 30px;
-  padding: 10px 0;
-  background-color: #00bcd4;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background-color: #018c9e;
-  }
-`;
+import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
+import { isDistinctNumbers } from "../../@shared/utils/common";
+import ErrorMessageBox from "../common/ErrorMessageBox";
+import {
+  Button,
+  Container,
+  Header,
+  InputBox,
+  InputBoxes,
+  InputHeader,
+  NumberContainer,
+} from "./style";
 
 export default class WinningNumberInput extends Component {
   constructor(props) {
@@ -126,5 +85,3 @@ export default class WinningNumberInput extends Component {
     );
   }
 }
-
-WinningNumberInput.contextType = LottoContext;

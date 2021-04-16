@@ -1,21 +1,11 @@
 import React, { Component } from "react";
-import styled from "@emotion/styled";
 import { Global } from "@emotion/react";
 
-import GlobalStyles from "../styles/GlobalStyles";
-import LottoContext from "../contexts/LottoContext";
-import Main from "./Main";
-import ResultModal from "./ResultModal";
+import { Container, GlobalStyles } from "./style";
+import { deepCopyJSONObject } from "../../@shared/utils/common";
+import { INITIAL_RESULT } from "../../@shared/constants/lotto";
 
-import { INITIAL_RESULT } from "../constants";
-
-import { createLottoResult, createLottos, deepCopyJSONObject } from "../utils";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import { createLottoResult, createLottos } from "./utils";
 
 export default class App extends Component {
   constructor(props) {
@@ -27,7 +17,7 @@ export default class App extends Component {
       lottoResult: deepCopyJSONObject(INITIAL_RESULT),
     };
 
-    this.state = JSON.parse(JSON.stringify(this.initialState));
+    this.state = deepCopyJSONObject(this.initialState);
     this.action = {
       updateLottos: (lottoCount) => {
         const lottos = createLottos(lottoCount);
@@ -64,15 +54,11 @@ export default class App extends Component {
     return (
       <>
         <Global styles={GlobalStyles} />
-        <LottoContext.Provider
-          value={{ state: this.state, action: this.action }}
-        >
-          <Container>
-            <h1>🎱 행운의 로또</h1>
-            <Main />
-            {this.state.isModalOpen && <ResultModal />}
-          </Container>
-        </LottoContext.Provider>
+        <Container>
+          <h1>🎱 행운의 로또</h1>
+          <Main />
+          {this.state.isModalOpen && <ResultModal />}
+        </Container>
       </>
     );
   }

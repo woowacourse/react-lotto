@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 
-import LottoContext from "../contexts/LottoContext";
-import Lotto from "./Lotto";
-
-const TicketList = styled.ul`
-  ${({ isNumberVisible }) =>
-    !isNumberVisible ? "display: flex; flex-wrap: wrap;" : ""}
-`;
+import { TicketList } from "./style";
+import Lotto from "../Lotto";
 
 export default class LottoBox extends Component {
   render() {
@@ -29,5 +23,3 @@ export default class LottoBox extends Component {
 LottoBox.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
 };
-
-LottoBox.contextType = LottoContext;

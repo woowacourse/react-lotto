@@ -1,19 +1,10 @@
 import React, { Component } from "react";
-import styled from "@emotion/styled";
 
-import LottoContext from "../contexts/LottoContext";
-import LottoBox from "./LottoBox";
-import Toggle from "./common/Toggle";
-import { GUIDE_MESSAGE } from "../constants";
+import { Header } from "./style";
 
-const Header = styled.h2`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  font-size: 16px;
-  font-weight: normal;
-  align-items: center;
-`;
+import Toggle from "../common/Toggle";
+import LottoBox from "../LottoBox";
+import { GUIDE_MESSAGE } from "../../@shared/constants/messages";
 
 export default class LottoContainer extends Component {
   constructor(props) {
@@ -46,5 +37,3 @@ export default class LottoContainer extends Component {
     );
   }
 }
-
-LottoContainer.contextType = LottoContext;

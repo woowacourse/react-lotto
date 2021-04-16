@@ -1,38 +1,10 @@
 import React, { Component, createRef } from "react";
-import styled from "@emotion/styled";
+import { LOTTO_PRICE } from "../../@shared/constants/lotto";
+import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
+import { isDivisible } from "../../@shared/utils/common";
+import ErrorMessageBox from "../common/ErrorMessageBox";
 
-import LottoContext from "../contexts/LottoContext";
-import ErrorMessageBox from "./common/ErrorMessageBox";
-import { isDivisible } from "../utils";
-import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../constants";
-
-const Container = styled.div`
-  display: flex;
-  margin-top: 0.5rem;
-`;
-
-const Form = styled.form`
-  width: 100%;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-`;
-
-const Button = styled.button`
-  width: 80px;
-  margin-left: 5px;
-  padding: 10px 0;
-  background-color: #00bcd4;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background-color: #018c9e;
-  }
-`;
+import { Button, Container, Form, Input } from "./style";
 
 export default class PurchaseInput extends Component {
   constructor(props) {
@@ -87,5 +59,3 @@ export default class PurchaseInput extends Component {
     );
   }
 }
-
-PurchaseInput.contextType = LottoContext;

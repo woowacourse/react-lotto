@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import styled from "@emotion/styled";
-
-import PurchaseInput from "./PurchaseInput";
-import WinningNumberInput from "./WinningNumberInput";
-
-import LottoContext from "../contexts/LottoContext";
-import LottoContainer from "./LottoContainer";
-
-const MainContainer = styled.main`
-  width: 23vw;
-  min-width: 400px;
-`;
+import LottoContainer from "../LottoContainer";
+import PurchaseInput from "../PurchaseInput";
+import WinningNumberInput from "../WinningNumber";
+import { MainContainer } from "./style";
 
 export default class Main extends Component {
   render() {
@@ -25,5 +17,3 @@ export default class Main extends Component {
     );
   }
 }
-
-Main.contextType = LottoContext;

@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
-const GlobalStyles = css`
+export const GlobalStyles = css`
   * {
     box-sizing: border-box;
   }
@@ -33,4 +34,8 @@ const GlobalStyles = css`
   }
 `;
 
-export default GlobalStyles;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

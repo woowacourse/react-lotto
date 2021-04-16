@@ -38,3 +38,9 @@ export const isDistinctNumbers = (numbersArray) => {
 
   return numbersSet.size === numbersArray.length;
 };
+
+export const countMatchedNumbers = (numbers1, numbers2) => {
+  const numbers = [...numbers1, ...numbers2];
+  const numbersSet = new Set(numbers);
+  return numbers.length - numbersSet.size;
+};

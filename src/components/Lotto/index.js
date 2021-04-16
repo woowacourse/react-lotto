@@ -1,25 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 
-const List = styled.li`
-  display: flex;
-  align-items: center;
-`;
-
-const TicketIcon = styled.span`
-  margin-right: 10px;
-  font-size: 24px;
-`;
+import { List, TicketIcon } from "./style";
 
 export default class Lotto extends Component {
   render() {
+    const { isNumberVisible, lottoNumbers } = this.props;
     return (
       <List>
         <TicketIcon>🎟️</TicketIcon>
-        {this.props.isNumberVisible && (
-          <span>{this.props.lottoNumbers.join(", ")}</span>
-        )}
+        {isNumberVisible && <span>{lottoNumbers.join(", ")}</span>}
       </List>
     );
   }

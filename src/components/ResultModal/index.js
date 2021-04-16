@@ -1,39 +1,10 @@
 import React, { Component, createRef } from "react";
-import styled from "@emotion/styled";
+import { GUIDE_MESSAGE } from "../../@shared/constants/messages";
+import { PRIZE_TABLE, RANKINGS } from "../../@shared/constants/prizeTable";
 
-import LottoContext from "../contexts/LottoContext";
-import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../constants";
-import BoldText from "./common/BoldText";
-import Modal from "./common/Modal";
-
-const ResultTable = styled.table`
-  border-collapse: collapse;
-  width: 100%;
-
-  & td,
-  & th {
-    border-bottom: 1px solid gainsboro;
-    padding: 10px 0;
-  }
-`;
-
-const Button = styled.button`
-  width: 120px;
-  padding: 10px 0;
-  background-color: #00bcd4;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #018c9e;
-  }
-`;
-
-const TableRow = styled.tr`
-  text-align: center;
-`;
+import Modal from "../common/Modal";
+import BoldText from "../common/BoldText";
+import { Button, ResultTable, TableRow } from "./style";
 
 export default class ResultModal extends Component {
   constructor(props) {
@@ -84,5 +55,3 @@ export default class ResultModal extends Component {
     );
   }
 }
-
-ResultModal.contextType = LottoContext;

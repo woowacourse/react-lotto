@@ -2,16 +2,13 @@ import {
   LOTTO_LENGTH,
   LOTTO_PRICE,
   LOTTO_RANGE,
-  PRIZE_TABLE,
-  RANKINGS,
-} from "../constants";
-import { createDistinctRandomIntegers, deepCopyJSONObject } from "./common";
-
-export const countMatchedNumbers = (numbers1, numbers2) => {
-  const numbers = [...numbers1, ...numbers2];
-  const numbersSet = new Set(numbers);
-  return numbers.length - numbersSet.size;
-};
+} from "../../@shared/constants/lotto";
+import { PRIZE_TABLE, RANKINGS } from "../../@shared/constants/prizeTable";
+import {
+  countMatchedNumbers,
+  createDistinctRandomIntegers,
+  deepCopyJSONObject,
+} from "../../@shared/utils/common";
 
 export const getRanking = (lottoNumber, winningNumber, bonusNumber) => {
   const numOfMatched = countMatchedNumbers(lottoNumber, winningNumber);
