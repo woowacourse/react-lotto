@@ -21,11 +21,10 @@ class WinningNumbersContainer extends Component {
   handleSubmitWinningNumbers(event) {
     event.preventDefault();
 
-    const main = [...event.target['main-number']].map(($input) => $input.valueAsNumber);
-    const bonus = event.target['bonus-number'].valueAsNumber;
+    const mainNumbers = [...event.target['main-number']].map(($input) => $input.valueAsNumber);
+    const bonusNumber = event.target['bonus-number'].valueAsNumber;
 
-    this.props.onSubmitWinningNumbers({ main, bonus });
-    this.props.onOpenResultModal();
+    this.props.onShowResult({ mainNumbers, bonusNumber });
   }
 
   render() {
