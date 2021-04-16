@@ -1,7 +1,8 @@
+import './index.css';
+import './css/index.css';
 import React, { Component } from 'react';
 import Main from './components/Main';
 import Modal from './components/Modal';
-import './css/index.css';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
 
