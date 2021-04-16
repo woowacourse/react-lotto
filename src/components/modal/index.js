@@ -1,5 +1,7 @@
 import React from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
+import PurchaseNumberItem from '../receipt/purchase-number-item';
+import './style.scss';
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -8,10 +10,19 @@ class Modal extends React.Component {
   render() {
     return (
       <>
-        <div className='modal-inner'>
-          <h1>결과 확인하기</h1>
+        <div className='modal'>
+          <div className='modal-inner'>
+            <h1>결과 확인하기</h1>
+            {this.props.winningNumber}
+            {this.props.receipt.map((ticket) => (
+              <PurchaseNumberItem
+                key={uuidv4()}
+                ticketNumbers={ticket}
+                toggled={true}
+              ></PurchaseNumberItem>
+            ))}
+          </div>
         </div>
-        <div className='dimmer'></div>
       </>
     );
   }

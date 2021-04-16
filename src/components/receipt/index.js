@@ -1,9 +1,8 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import PurchaseNumberList from './purchse-number-list';
 import ToggleButton from '../util-component/toggle';
-import PurchaseNumberItem from './purchase-number-item';
 
-class PurchaseNumberList extends React.Component {
+class Receipt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,18 +22,13 @@ class PurchaseNumberList extends React.Component {
       <div>
         <p>구입한 로또 번호</p>
         <ToggleButton onHandleToggle={this.handleToggle} />
-        <ul>
-          {this.props.receipt.map((ticket) => (
-            <PurchaseNumberItem
-              key={uuidv4()}
-              ticketNumbers={ticket}
-              toggled={this.state.showBalls}
-            ></PurchaseNumberItem>
-          ))}
-        </ul>
+        <PurchaseNumberList
+          receipt={this.props.receipt}
+          showBalls={this.state.showBalls}
+        ></PurchaseNumberList>
       </div>
     );
   }
 }
 
-export default PurchaseNumberList;
+export default Receipt;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './components/modal';
 import MoneyInput from './components/money-input';
-import PurchaseNumberList from './components/purchase-number-list';
+import Receipt from './components/receipt';
 import WinningNumber from './components/winning-number';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import { getRandomNumber } from './utils/random-number';
@@ -61,7 +61,7 @@ class App extends React.Component {
         ></MoneyInput>
         {this.state.isMoneyInputValid && (
           <>
-            <PurchaseNumberList receipt={this.state.receipt}></PurchaseNumberList>
+            <Receipt receipt={this.state.receipt}></Receipt>
             <WinningNumber
               onHandleSubmit={(winningNumbers) => this.handleWinningNumberSubmit(winningNumbers)}
               onModalButtonClick={() => this.handleModalButtonClick()}
@@ -70,7 +70,7 @@ class App extends React.Component {
         )}
         {this.state.isModalOpen && (
           <>
-            <Modal></Modal>
+            <Modal winningNumber={this.state.winningNumber} receipt={this.state.receipt}></Modal>
           </>
         )}
       </>
