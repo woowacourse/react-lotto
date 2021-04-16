@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import { RESULT_COUNT_DOWN_TIME, LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules';
-import dummyDrawNumber from '../constants/dummyData.json';
+import { LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules';
+import Animation from './Animation.js';
 import '../css/draw-number.css';
 import '../css/lotto-ball.css';
+import dummyDrawNumber from '../constants/dummyData.json';
+import countDown from '../animations/countDown.json';
 
 const WINNING_NUMBER_KEY = (i) => `drwtNo${i}`;
 const BONUS_NUMBER_KEY = 'bnusNo';
 const DRAW_NTH_KEY = 'drwNo';
 const DRAW_DATE_KEY = 'drwNoDate';
+const COUNT_DOWN_ANIMATION_DURATION = 3000;
 
 export default class WinningNumbers extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isShowingWinningNumbers: false,
+      shouldPlayAnimation: true,
     };
-    this.showWinningNumbers = this.showWinningNumbers.bind(this);
+    this.destroyAnimation = this.destroyAnimation.bind(this);
     this.drawNumber = this.getDrawNumber();
     this.props.setDrawNumber({ drawNumber: this.drawNumber });
   }
 
   componentDidMount() {
-    setTimeout(this.showWinningNumbers, RESULT_COUNT_DOWN_TIME);
+    setTimeout(this.destroyAnimation, COUNT_DOWN_ANIMATION_DURATION);
+  }
+
+  destroyAnimation() {
+    this.setState({ shouldPlayAnimation: false });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -35,31 +42,34 @@ export default class WinningNumbers extends Component {
     };
   }
 
-  showWinningNumbers() {
-    this.setState({ isShowingWinningNumbers: true });
-  }
-
   render() {
-    return this.state.isShowingWinningNumbers ? (
+    return this.state.shouldPlayAnimation ? (
+      <Animation animationData={countDown} speed={1} height="140px" />
+    ) : (
+      <DrawNumber drawNumber={this.drawNumber} onShowWinningResult={this.props.onShowWinningResult} />
+    );
+  }
+}
+
+class DrawNumber extends Component {
+  render() {
+    const { winningNumbers, bonusNumber } = this.props.drawNumber;
+    return (
       <div className="draw-number-wrapper">
         <h2 className="draw-number-title">
           {dummyDrawNumber[DRAW_NTH_KEY]}회차 당첨번호 {dummyDrawNumber[DRAW_DATE_KEY].split('-').join('.')}
         </h2>
         <section className="draw-number-section">
-          {this.drawNumber.winningNumbers.map((v) => (
+          {winningNumbers.map((v) => (
             <LottoBall key={v} number={v} />
           ))}
           <span className="plus-sign">+</span>
           <span className="bonus-number-title">보너스번호</span>
-          <LottoBall key={this.drawNumber.bonusNumber} number={this.drawNumber.bonusNumber} />
+          <LottoBall key={bonusNumber} number={bonusNumber} />
         </section>
         <button type="button" className="open-result-button" onClick={this.props.onShowWinningResult}>
           당첨결과 확인하기
         </button>
-      </div>
-    ) : (
-      <div>
-        <span>잠시 후에 공개됩니다.</span>
       </div>
     );
   }

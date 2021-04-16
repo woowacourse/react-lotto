@@ -67,29 +67,31 @@ export default class App extends Component {
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
-      <div className="app">
-        <h1 className="header">행운의 로또</h1>
-        <main>
-          <PurchaseAmount
-            lottoBundle={lottoBundle}
-            onPurchaseLotto={this.onPurchaseLotto}
-            isReset={isReset}
-            didReset={this.didReset}
-          />
-          {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
-          {isPurchased && (
-            <WinningNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
-          )}
-          {isShowingWinningResult && (
-            <WinningResult
+      <>
+        <div className="app">
+          <h1 className="header">행운의 로또</h1>
+          <main>
+            <PurchaseAmount
               lottoBundle={lottoBundle}
-              drawNumber={drawNumber}
-              onCloseWinningResult={this.onCloseWinningResult}
-              onReset={this.onReset}
+              onPurchaseLotto={this.onPurchaseLotto}
+              isReset={isReset}
+              didReset={this.didReset}
             />
-          )}
-        </main>
-      </div>
+            {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
+            {isPurchased && (
+              <WinningNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
+            )}
+          </main>
+        </div>
+        {isShowingWinningResult && (
+          <WinningResult
+            lottoBundle={lottoBundle}
+            drawNumber={drawNumber}
+            onCloseWinningResult={this.onCloseWinningResult}
+            onReset={this.onReset}
+          />
+        )}
+      </>
     );
   }
 }

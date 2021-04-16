@@ -1,5 +1,4 @@
 .draw-number-wrapper {
-  margin-top: 3rem;
 }
 
 .draw-number-section {
@@ -9,7 +8,7 @@
 }
 
 .draw-number-title {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-size: 0.9rem;
   text-align: center;
   color: #333;
@@ -29,7 +28,7 @@
 
 .open-result-button {
   display: block;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   width: 100%;
   height: 36px;
   min-width: 64px;

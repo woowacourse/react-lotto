@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import Lottie from 'lottie-react-web';
-// import congrat from '../animations/congrat.json';
 import '../css/purchase-amount.css';
 import { LOTTO_UNIT_PRICE, MIN_MONETARY_UNIT } from '../constants/lottoRules.js';
 import { MESSAGE } from '../constants/display.js';
@@ -99,16 +97,3 @@ export default class PurchaseAmount extends Component {
     );
   }
 }
-
-// // TODO: 애니메이션 추가
-// const isPurchased = Boolean(this.props.lottoBundle.length);
-
-// const lottie = (
-//   <Lottie
-//     speed={isPurchased ? 1 : 0}
-//     options={{
-//       animationData: congrat,
-//       loop: false,
-//     }}
-//   />
-// );

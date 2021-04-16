@@ -1,13 +1,13 @@
 .app {
   position: absolute;
-  top: 4rem;
+  top: 3rem;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.005);
   padding: 3.5rem 2.5rem;
   border-radius: 1.5rem;
   width: 400px;
-  min-height: 500px;
+  min-height: 440px;
   box-shadow: 6px 10px 20px rgb(0, 0, 0, 0.15);
 }
 

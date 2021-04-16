@@ -9,8 +9,6 @@
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   transition: opacity 0.25s ease;
-  z-index: 2;
-  border-radius: 1.5rem;
 }
 
 .winning-result.open {
@@ -22,12 +20,15 @@
 .winning-result-inner {
   transition: top 0.25s ease;
   max-width: 350px;
-  margin: auto;
+  margin: 0 auto;
+  height: fit-content;
   overflow: auto;
   padding: 30px;
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   position: relative;
+  z-index: 2;
+  top: 3rem;
 }
 
 .winning-result-title {
@@ -110,6 +111,10 @@ svg {
 
 .reset-button:focus {
   outline-color: #c93c4a;
+}
+
+.coin-animation {
+  margin: 10rem auto 0;
 }
 
 @media screen and (max-width: 768px) {
