@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+
 class ToggleButton extends React.Component {
   constructor(props) {
     super(props);

@@ -1,4 +1,5 @@
 import React from 'react';
+
 class NumberInput extends React.Component {
   constructor(props) {
     super(props);
