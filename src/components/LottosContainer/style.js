@@ -20,6 +20,7 @@ const ToggleSwitch = styled.input``;
 
 const LottoWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: ${({ isSwitchOn }) => (isSwitchOn ? 'column' : 'row')};
 `;
 
