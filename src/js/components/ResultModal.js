@@ -4,6 +4,12 @@ import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } f
 import './ResultModal.scss';
 
 export default class ResultModal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onCloseModalWithDimmed = this.onCloseModalWithDimmed.bind(this);
+  }
+
   getNumbersMatchCount(lottoTicket) {
     return lottoTicket.reduce(
       (matchCount, lottoNumber) =>
@@ -51,17 +57,21 @@ export default class ResultModal extends Component {
     return (totalPrize / (this.props.lottoList.length * LOTTO.PRICE) - 1) * 100;
   }
 
+  onCloseModalWithDimmed({ target }) {
+    target.classList.contains('ResultModal') && this.props.closeResultModal();
+  }
+
   render() {
     const result = this.getResult();
 
     return (
-      <section className="ResultModal" role="dialog">
+      <section className="ResultModal" role="dialog" onClick={this.onCloseModalWithDimmed}>
         <div className="modal-inner">
-          <div className="modal-close">
+          <button type="button" className="modal-close" onClick={this.props.closeResultModal}>
             <svg viewBox="0 0 40 40">
               <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
-          </div>
+          </button>
 
           <h2>🏆 당첨 통계 🏆</h2>
           <div>
@@ -89,7 +99,7 @@ export default class ResultModal extends Component {
             </table>
           </div>
           <p className="rate-of-return-message">당신의 총 수익률은 {this.getRateOfReturn(result)}%입니다.</p>
-          <button className="restart-btn" type="reset">
+          <button className="restart-btn" type="reset" onClick={this.props.restart}>
             다시 시작하기
           </button>
         </div>
@@ -104,4 +114,5 @@ ResultModal.propTypes = {
     numbers: PropTypes.array.isRequired,
     bonusNumber: PropTypes.number.isRequired,
   }),
+  closeResultModal: PropTypes.func.isRequired,
 };

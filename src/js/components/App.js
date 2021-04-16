@@ -21,6 +21,8 @@ class App extends Component {
     this.createLottoList = this.createLottoList.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
+    this.closeResultModal = this.closeResultModal.bind(this);
+    this.restart = this.restart.bind(this);
   }
 
   createLotto() {
@@ -47,6 +49,18 @@ class App extends Component {
     this.setState({ isShowModal: true });
   }
 
+  closeResultModal() {
+    this.setState({ isShowModal: false });
+  }
+
+  restart() {
+    this.setState({
+      lottoList: [],
+      winningNumber: {},
+      isShowModal: false,
+    });
+  }
+
   render() {
     return (
       <>
@@ -62,7 +76,12 @@ class App extends Component {
             </>
           )}
           {this.state.isShowModal && (
-            <ResultModal lottoList={this.state.lottoList} winningNumber={this.state.winningNumber} />
+            <ResultModal
+              lottoList={this.state.lottoList}
+              winningNumber={this.state.winningNumber}
+              closeResultModal={this.closeResultModal}
+              restart={this.restart}
+            />
           )}
         </main>
       </>

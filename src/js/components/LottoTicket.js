@@ -6,7 +6,7 @@ export default class LottoTicket extends Component {
   render() {
     return (
       <div className="LottoTicket">
-        <span className="lotto-ticket-emoji">🎟</span>
+        <span className="lotto-ticket-emoji">🎟️</span>
         <p className={this.props.isShowNumber ? '' : 'd-none'}>{this.props.lottoNumbers.join(', ')}</p>
       </div>
     );

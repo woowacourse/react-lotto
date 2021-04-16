@@ -89,7 +89,7 @@ export default class WinningNumberForm extends Component {
   render() {
     return (
       <section className="WinningNumberForm">
-        <h2>당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
+        <h2>당첨 번호 6개와 보너스 번호 1개를 입력해주세요.</h2>
         <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber}>
           <div className="number-input-box">
             <section className="numbers-box">

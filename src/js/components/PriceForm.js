@@ -28,6 +28,7 @@ export default class PriceForm extends Component {
     }
 
     this.props.createLottoList(Math.floor(price / LOTTO.PRICE));
+    event.target.reset();
   }
 
   render() {
