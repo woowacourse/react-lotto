@@ -7,7 +7,7 @@ class RankCountItem extends Component {
       <tr className="text-center">
         <td className="p-3">{HIT_COUNT_BY_RANK[this.props.rank]}</td>
         <td className="p-3">{PROFITS[this.props.rank]}</td>
-        <td className="result-modal__rank-count p-3">{this.props.rankCount}</td>
+        <td className="p-3">{this.props.rankCount}</td>
       </tr>
     );
   }
@@ -36,12 +36,10 @@ export default class LottoResultContainer extends Component {
           </table>
         </div>
 
-        <p id="result-modal__total-yield" className="text-center font-bold">
-          당신의 총 수익률은 {this.props.lottoResult.earningRate}%입니다.
-        </p>
+        <p className="text-center font-bold">당신의 총 수익률은 {this.props.lottoResult.earningRate}%입니다.</p>
 
         <div className="flex justify-center mt-5">
-          <button type="button" className="result-modal__restart-button btn btn-cyan" onClick={this.props.restartGame}>
+          <button type="button" className="btn btn-cyan" onClick={this.props.restartGame}>
             다시 시작하기
           </button>
         </div>

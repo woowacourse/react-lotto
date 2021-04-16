@@ -21,12 +21,16 @@ export default class LottoGame extends Component {
   constructor() {
     super();
 
-    this.state = {
+    this.initState = {
       purchaseAmount: '',
       isPurchaseAmountSubmitted: false,
       lottoTickets: [],
       resultNumbers: { winningNumbers: [], bonusNumber: 0 },
       isModalOpened: false,
+    };
+
+    this.state = {
+      ...this.initState,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -52,6 +56,15 @@ export default class LottoGame extends Component {
     this.setState({ purchaseAmount }, this.setLottoTickets);
   }
 
+  setLottoTickets() {
+    const amountOfLottoTicket = this.state.purchaseAmount / UNIT_AMOUNT;
+    const lottoTickets = Array(amountOfLottoTicket)
+      .fill()
+      .map(() => this.generateLottoNumbers());
+
+    this.setState({ lottoTickets });
+  }
+
   generateLottoNumbers() {
     const ticketNumbers = new Set();
 
@@ -60,15 +73,6 @@ export default class LottoGame extends Component {
     }
 
     return [...ticketNumbers].sort((a, b) => a - b);
-  }
-
-  setLottoTickets() {
-    const amountOfLottoTicket = this.state.purchaseAmount / UNIT_AMOUNT;
-    const lottoTickets = Array(amountOfLottoTicket)
-      .fill()
-      .map(() => this.generateLottoNumbers());
-
-    this.setState({ lottoTickets });
   }
 
   setResultNumbers(resultNumbers) {
@@ -118,11 +122,7 @@ export default class LottoGame extends Component {
 
   restartGame() {
     this.setState({
-      purchaseAmount: '',
-      isPurchaseAmountSubmitted: false,
-      lottoTickets: [],
-      resultNumbers: { winningNumbers: [], bonusNumber: 0 },
-      isModalOpened: false,
+      ...this.initState,
     });
   }
 

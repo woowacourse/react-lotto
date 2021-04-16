@@ -24,11 +24,10 @@ export default class PurchaseAmountForm extends Component {
 
   render() {
     return (
-      <form id="purchase-price-input-form" className="mt-5" onSubmit={this.handleSubmit}>
+      <form className="mt-5" onSubmit={this.handleSubmit}>
         <div className="mb-2 d-inline-block">구입할 금액을 입력해주세요.</div>
         <div className="flex">
           <input
-            id="purchase-price-input-form__input"
             step="any"
             name="purchaseAmount"
             type="number"
@@ -39,11 +38,7 @@ export default class PurchaseAmountForm extends Component {
             disabled={this.props.isPurchaseAmountSubmitted}
             required
           />
-          <button
-            id="purchase-price-input-form__button"
-            className="btn btn-cyan"
-            disabled={this.props.isPurchaseAmountSubmitted}
-          >
+          <button className="btn btn-cyan" disabled={this.props.isPurchaseAmountSubmitted}>
             확인
           </button>
         </div>
