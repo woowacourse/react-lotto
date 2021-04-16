@@ -15,7 +15,7 @@ const Header = styled.h2`
   align-items: center;
 `;
 
-export default class LottoDisplay extends Component {
+export default class LottoContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,4 +47,4 @@ export default class LottoDisplay extends Component {
   }
 }
 
-LottoDisplay.contextType = LottoContext;
+LottoContainer.contextType = LottoContext;
