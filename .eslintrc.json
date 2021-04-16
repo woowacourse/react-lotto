@@ -23,6 +23,7 @@
     "react/prefer-stateless-function": "off",
     "react/prop-types": "off",
     "react/destructuring-assignment": "off",
-    "max-classes-per-file": ["error", 2]
+    "max-classes-per-file": ["error", 2],
+    "react/sort-comp": "off"
   }
 }

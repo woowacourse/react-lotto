@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
   LOTTO_UNIT_PRICE,
-  WINNING_NUMBERS,
-  WINNING_BONUS_NUMBER,
   BONUS_CHECK_REQUIRED_COUNT,
   BONUS_COUNT,
   RESULT_TABLE_KEY_LIST,
@@ -29,11 +27,12 @@ export default class WinningResult extends Component {
 
   getMatchCount() {
     const matchCount = {};
+    const { winningNumbers, bonusNumber } = this.props.drawNumber;
 
     this.props.lottoBundle.forEach((lotto) => {
-      let numOfMatch = lotto.reduce((acc, cur) => acc + Number(WINNING_NUMBERS.includes(cur)), 0);
+      let numOfMatch = lotto.reduce((acc, cur) => acc + Number(winningNumbers.includes(cur)), 0);
 
-      if (numOfMatch === BONUS_CHECK_REQUIRED_COUNT && lotto.includes(WINNING_BONUS_NUMBER)) {
+      if (numOfMatch === BONUS_CHECK_REQUIRED_COUNT && lotto.includes(bonusNumber)) {
         numOfMatch += BONUS_COUNT;
       }
       matchCount[numOfMatch] = matchCount[numOfMatch] === undefined ? 1 : matchCount[numOfMatch] + 1;

@@ -12,11 +12,13 @@ export default class App extends Component {
     super();
     this.state = {
       lottoBundle: [],
+      drawNumber: {},
       isShowingWinningResult: false,
       isReset: false,
     };
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
+    this.setDrawNumber = this.setDrawNumber.bind(this);
     this.onShowWinningResult = this.onShowWinningResult.bind(this);
     this.onCloseWinningResult = this.onCloseWinningResult.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -25,6 +27,10 @@ export default class App extends Component {
 
   onPurchaseLotto({ numOfLotto }) {
     this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => this.createLotto()) });
+  }
+
+  setDrawNumber({ drawNumber }) {
+    this.setState({ drawNumber });
   }
 
   onShowWinningResult() {
@@ -57,7 +63,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { isReset, lottoBundle, isShowingWinningResult } = this.state;
+    const { lottoBundle, drawNumber, isShowingWinningResult, isReset } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
@@ -65,16 +71,19 @@ export default class App extends Component {
         <h1 className="header">🎱 행운의 로또</h1>
         <main>
           <PurchaseAmount
-            isReset={isReset}
-            didReset={this.didReset}
             lottoBundle={lottoBundle}
             onPurchaseLotto={this.onPurchaseLotto}
+            isReset={isReset}
+            didReset={this.didReset}
           />
           {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
-          {isPurchased && <WinningNumbers onShowWinningResult={this.onShowWinningResult} />}
+          {isPurchased && (
+            <WinningNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
+          )}
           {isShowingWinningResult && (
             <WinningResult
               lottoBundle={lottoBundle}
+              drawNumber={drawNumber}
               onCloseWinningResult={this.onCloseWinningResult}
               onReset={this.onReset}
             />

@@ -9,9 +9,6 @@ export const BONUS_NUMBER_LENGTH = 1;
 
 export const RESULT_COUNT_DOWN_TIME = 500;
 
-export const WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
-export const WINNING_BONUS_NUMBER = 7;
-
 export const BONUS_CHECK_REQUIRED_COUNT = 5;
 export const BONUS_COUNT = 0.5;
 

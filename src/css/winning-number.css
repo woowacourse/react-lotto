@@ -1,3 +1,32 @@
+.draw-result-wrapper {
+  display: flex;
+}
+
+.winning-number-section {
+  flex-grow: 1;
+}
+
+.bonus-number-section {
+  flex-grow: 1;
+}
+
+.draw-result-title {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: large;
+  text-align: center;
+}
+
+.draw-result-number {
+  display: flex;
+  justify-content: center;
+}
+
+.lotto-number {
+  margin-right: 3px;
+  text-align: center;
+}
+
 .open-result-button {
   display: block;
   margin-top: 1.25rem;
