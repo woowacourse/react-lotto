@@ -1,39 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../constants/lottoData';
 import './ResultModal.scss';
-
-const BONUS_COUNT = 0.5;
-const NUMBER_COUNT = 1;
-const WINNING_COUNT = {
-  SIX: 6,
-  FIVE_AND_BONUS: 5.5,
-  FIVE: 5,
-  FOUR: 4,
-  THREE: 3,
-};
-
-const WINNING_PRIZE_INFO = {
-  [WINNING_COUNT.SIX]: {
-    PRIZE: 2000000000,
-    DESCRIPTION: '6개',
-  },
-  [WINNING_COUNT.FIVE_AND_BONUS]: {
-    PRIZE: 30000000,
-    DESCRIPTION: '5개 + 보너스볼',
-  },
-  [WINNING_COUNT.FIVE]: {
-    PRIZE: 1500000,
-    DESCRIPTION: '5개',
-  },
-  [WINNING_COUNT.FOUR]: {
-    PRIZE: 50000,
-    DESCRIPTION: '4개',
-  },
-  [WINNING_COUNT.THREE]: {
-    PRIZE: 5000,
-    DESCRIPTION: '3개',
-  },
-};
 
 export default class ResultModal extends Component {
   getNumbersMatchCount(lottoTicket) {
@@ -74,6 +42,15 @@ export default class ResultModal extends Component {
     return result;
   }
 
+  getRateOfReturn(result) {
+    const totalPrize = Object.keys(result).reduce(
+      (totalPrize, curCount) => totalPrize + WINNING_PRIZE_INFO[curCount].PRIZE * result[curCount],
+      0,
+    );
+
+    return (totalPrize / (this.props.lottoList.length * LOTTO.PRICE) - 1) * 100;
+  }
+
   render() {
     const result = this.getResult();
 
@@ -103,7 +80,7 @@ export default class ResultModal extends Component {
                     return (
                       <tr key={matchCount}>
                         <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
-                        <td>{WINNING_PRIZE_INFO[matchCount].PRIZE}</td>
+                        <td>{WINNING_PRIZE_INFO[matchCount].PRIZE.toLocaleString('ko-KR')} 원</td>
                         <td>{result[matchCount]}장</td>
                       </tr>
                     );
@@ -111,7 +88,7 @@ export default class ResultModal extends Component {
               </tbody>
             </table>
           </div>
-          <p className="rate-of-return-message">당신의 총 수익률은 %입니다.</p>
+          <p className="rate-of-return-message">당신의 총 수익률은 {this.getRateOfReturn(result)}%입니다.</p>
           <button className="restart-btn" type="reset">
             다시 시작하기
           </button>
