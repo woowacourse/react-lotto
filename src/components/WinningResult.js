@@ -134,8 +134,8 @@ class TableRow extends Component {
       <tr className="table-row">
         <td className="table-data">{RESULT_TABLE_DATA[numOfMatch].DESCRIPTION}</td>
         <td className="table-data">
-          {lotto.map((number) => (
-            <LottoBall number={number} drawNumbers={drawNumbers} />
+          {lotto.map((v, i) => (
+            <LottoBall key={String.fromCharCode(97 + i)} number={v} drawNumbers={drawNumbers} />
           ))}
         </td>
       </tr>
