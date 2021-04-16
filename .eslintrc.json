@@ -7,7 +7,6 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "ignorePatterns": ["cypress/"],
   "parser": "babel-eslint",
   "rules": {
     "no-new": "off",

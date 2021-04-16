@@ -19,14 +19,15 @@
 
 .winning-result-inner {
   transition: top 0.25s ease;
-  max-width: 350px;
+  max-width: 400px;
   margin: 0 auto;
   height: fit-content;
-  overflow: auto;
-  padding: 30px;
+  max-height: 90%;
+  padding: 2.5rem;
   background: #fff;
   border-radius: 0.5rem;
   position: relative;
+  overflow: auto;
   z-index: 2;
   top: 3rem;
 }
@@ -55,13 +56,40 @@
 
 .table-head,
 .table-data {
+  min-width: 2rem;
   text-align: center;
-  padding: 0.6rem;
+  padding: 0.75rem;
   border-bottom: 1px solid gainsboro;
 }
 
-.winning-result-rate-of-return {
-  text-align: center;
+.profit,
+.rate-of-return {
+  text-align: end;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.profit {
+  margin-top: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.rate-of-return {
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  display: inline-block;
+  min-width: 4rem;
+  text-align: start;
+  font-weight: bold;
+}
+
+.value {
+  display: inline-block;
+  width: 4.5rem;
+  text-align: end;
   font-weight: bold;
 }
 
@@ -70,7 +98,7 @@
   right: 10px;
   top: 10px;
   margin: 20px;
-  width: 24px;
+  width: 2rem;
   cursor: pointer;
   background: none;
   border: none;
@@ -78,6 +106,9 @@
 
 .close-button:active .close-x {
   stroke: #ee8791;
+}
+
+.close-button:focus {
   outline-color: #ee8791;
 }
 
