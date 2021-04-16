@@ -9,8 +9,8 @@ const Styled = {
     margin-right: 0.4em;
     border-radius: 50%;
     text-align: center;
-    background-color: ${({ number, disabled }) => {
-      if (disabled) return 'none';
+    background-color: ${({ number, enabled }) => {
+      if (!enabled) return 'none';
 
       if (number < 10) return '#CF9E95';
       else if (number < 20) return '#9B9EC3';

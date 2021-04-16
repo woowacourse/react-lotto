@@ -8,7 +8,7 @@ class LottoNumberItem extends Component {
 
   render() {
     return (
-      <Styled.Container disabled={this.props.disabled} number={Number(this.props.children)}>
+      <Styled.Container enabled={this.props.enabled} number={Number(this.props.children)}>
         {this.props.children}
       </Styled.Container>
     );
@@ -16,7 +16,7 @@ class LottoNumberItem extends Component {
 }
 
 LottoNumberItem.defaultProps = {
-  disabled: false,
+  enabled: true,
 };
 
 export default LottoNumberItem;

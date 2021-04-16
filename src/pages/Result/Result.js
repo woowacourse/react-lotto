@@ -5,7 +5,7 @@ import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import LottoNumberItem from '../../components/LottoNumberItem/LottoNumberItem';
 import Modal from '../../components/Modal/Modal';
 import { RANKING, RANKING_TABLE, WINNING_TABLE } from '../../constants';
-import { getIntersectionCount, currencyFormat, initObject } from '../../utils';
+import { getIntersectionCount, initObject } from '../../utils';
 import Styled from './Result.style';
 import WinningTable from '../../components/WinningTable/WinningTable';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -95,7 +95,11 @@ class Result extends Component {
           <Styled.PlusIcon>➕</Styled.PlusIcon>
           <LottoNumberItem>{bonusNumber}</LottoNumberItem>
         </Styled.WinningNumber>
-        <LottoNumberList lottoList={lottoList} />
+        <LottoNumberList
+          lottoList={lottoList}
+          winningNumber={winningNumber}
+          bonusNumber={bonusNumber}
+        />
         <Styled.ButtonContainer>
           <Button onClick={this.handleOpenDetail}>✨ 결과 확인</Button>
           <Link to="/">
