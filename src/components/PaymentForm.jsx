@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from '../utils';
+import React, { Component } from "react";
+import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
 class PaymentForm extends Component {
   constructor(props) {
@@ -13,11 +13,18 @@ class PaymentForm extends Component {
   }
 
   handleInputCheck = ({ target }) => {
-    const value = Number(target.value);
+    if (target.value === "") {
+      this.props.setMoney(null);
+      return;
+    }
+
+    const money = Number(target.value);
     const $message = this.messageRef.current;
 
-    if (this.isValidPayment(value)) {
-      $message.innerText = '';
+    this.props.setMoney(money);
+
+    if (this.isValidPayment(money)) {
+      $message.innerText = "";
 
       return;
     }
@@ -25,11 +32,10 @@ class PaymentForm extends Component {
     $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
-    const $button = event.target[SELECTOR.ID.PAYMENT_SUBMIT];
     const $message = this.messageRef.current;
     const money = Number($input.value);
 
@@ -40,11 +46,11 @@ class PaymentForm extends Component {
     }
 
     this.props.setLotteries(money);
-    $input.disabled = true;
-    $button.disabled = true;
   };
 
   render() {
+    const { money } = this.props;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor={SELECTOR.ID.PAYMENT_INPUT}>
@@ -57,8 +63,14 @@ class PaymentForm extends Component {
             placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}
+            value={money ? money : ""}
+            disabled={this.props.lotteries.length !== 0}
           />
-          <button id={SELECTOR.ID.PAYMENT_SUBMIT} type="submit">
+          <button
+            id={SELECTOR.ID.PAYMENT_SUBMIT}
+            type="submit"
+            disabled={this.props.lotteries.length !== 0}
+          >
             확인
           </button>
         </div>
