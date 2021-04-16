@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../constants/lottoData';
+import { toFixedNumber } from '../utils/format';
 import './ResultModal.scss';
 
 export default class ResultModal extends Component {
@@ -100,7 +101,9 @@ export default class ResultModal extends Component {
               </tbody>
             </table>
           </div>
-          <p className="rate-of-return-message">당신의 총 수익률은 {this.getRateOfReturn(result)}%입니다.</p>
+          <p className="rate-of-return-message">
+            당신의 총 수익률은 {toFixedNumber(this.getRateOfReturn(result), 2)}%입니다.
+          </p>
           <button className="restart-btn" type="reset" onClick={this.props.restart}>
             다시 시작하기
           </button>
