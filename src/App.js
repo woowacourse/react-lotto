@@ -78,7 +78,7 @@ class App extends Component {
         <Container>
           <Title>🎰 개미 로또</Title>
           <PriceInput
-            isPriceInputDisabled={this.state.isPriceInputDisabled}
+            isDisabled={this.state.isPurchaseDone}
             onPurchaseLottos={this.purchaseLottos}
             onUpdatePrice={this.handleUpdatePrice}
           />

@@ -33,4 +33,11 @@ const SubmitButton = styled.button`
   background-color: #ffa02b;
 `;
 
-export { Root, Form, Label, InputWrapper, Input, SubmitButton };
+const InputErrorMessage = styled.div`
+  width: 100%;
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 2px;
+`;
+
+export { Root, Form, Label, InputWrapper, Input, SubmitButton, InputErrorMessage };
