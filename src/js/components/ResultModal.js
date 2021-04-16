@@ -1,8 +1,82 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './ResultModal.scss';
 
+const BONUS_COUNT = 0.5;
+const NUMBER_COUNT = 1;
+const WINNING_COUNT = {
+  SIX: 6,
+  FIVE_AND_BONUS: 5.5,
+  FIVE: 5,
+  FOUR: 4,
+  THREE: 3,
+};
+
+const WINNING_PRIZE_INFO = {
+  [WINNING_COUNT.SIX]: {
+    PRIZE: 2000000000,
+    DESCRIPTION: '6개',
+  },
+  [WINNING_COUNT.FIVE_AND_BONUS]: {
+    PRIZE: 30000000,
+    DESCRIPTION: '5개 + 보너스볼',
+  },
+  [WINNING_COUNT.FIVE]: {
+    PRIZE: 1500000,
+    DESCRIPTION: '5개',
+  },
+  [WINNING_COUNT.FOUR]: {
+    PRIZE: 50000,
+    DESCRIPTION: '4개',
+  },
+  [WINNING_COUNT.THREE]: {
+    PRIZE: 5000,
+    DESCRIPTION: '3개',
+  },
+};
+
 export default class ResultModal extends Component {
+  getNumbersMatchCount(lottoTicket) {
+    return lottoTicket.reduce(
+      (matchCount, lottoNumber) =>
+        this.props.winningNumber.numbers.includes(lottoNumber) ? matchCount + NUMBER_COUNT : matchCount,
+      0,
+    );
+  }
+
+  getBonusNumberMatchCount(lottoTicket) {
+    return lottoTicket.includes(this.props.winningNumber.bonusNumber) ? BONUS_COUNT : 0;
+  }
+
+  getResult() {
+    const result = {
+      [WINNING_COUNT.SIX]: 0,
+      [WINNING_COUNT.FIVE_AND_BONUS]: 0,
+      [WINNING_COUNT.FIVE]: 0,
+      [WINNING_COUNT.FOUR]: 0,
+      [WINNING_COUNT.THREE]: 0,
+    };
+
+    this.props.lottoList.forEach((lottoTicket) => {
+      let matchCount = this.getNumbersMatchCount(lottoTicket);
+
+      if (matchCount < WINNING_COUNT.THREE) {
+        return;
+      }
+
+      if (matchCount === WINNING_COUNT.FIVE) {
+        matchCount += this.getBonusNumberMatchCount(lottoTicket);
+      }
+
+      result[matchCount] += 1;
+    });
+
+    return result;
+  }
+
   render() {
+    const result = this.getResult();
+
     return (
       <section className="ResultModal" role="dialog">
         <div className="modal-inner">
@@ -23,31 +97,17 @@ export default class ResultModal extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>3개</td>
-                  <td>5,000</td>
-                  <td>n개</td>
-                </tr>
-                <tr>
-                  <td>4개</td>
-                  <td>50,000</td>
-                  <td>n개</td>
-                </tr>
-                <tr>
-                  <td>5개</td>
-                  <td>1,500,000</td>
-                  <td>n개</td>
-                </tr>
-                <tr>
-                  <td>5개 + 보너스볼</td>
-                  <td>30,000,000</td>
-                  <td>n개</td>
-                </tr>
-                <tr>
-                  <td>6개</td>
-                  <td>2,000,000,000</td>
-                  <td>n개</td>
-                </tr>
+                {Object.keys(result)
+                  .sort()
+                  .map((matchCount) => {
+                    return (
+                      <tr key={matchCount}>
+                        <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
+                        <td>{WINNING_PRIZE_INFO[matchCount].PRIZE}</td>
+                        <td>{result[matchCount]}장</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -60,3 +120,11 @@ export default class ResultModal extends Component {
     );
   }
 }
+
+ResultModal.propTypes = {
+  lottoList: PropTypes.array.isRequired,
+  winningNumber: PropTypes.shape({
+    numbers: PropTypes.array.isRequired,
+    bonusNumber: PropTypes.number.isRequired,
+  }),
+};

@@ -61,7 +61,9 @@ class App extends Component {
               <WinningNumberForm setWinningNumber={this.setWinningNumber} openResultModal={this.openResultModal} />
             </>
           )}
-          {this.state.isShowModal && <ResultModal />}
+          {this.state.isShowModal && (
+            <ResultModal lottoList={this.state.lottoList} winningNumber={this.state.winningNumber} />
+          )}
         </main>
       </>
     );

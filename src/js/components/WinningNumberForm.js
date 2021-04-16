@@ -64,7 +64,12 @@ export default class WinningNumberForm extends Component {
       return;
     }
 
-    this.props.setWinningNumber(this.getWinningNumberInputValue());
+    const { numbers, bonusNumber } = this.getWinningNumberInputValue();
+
+    this.props.setWinningNumber({
+      numbers: numbers.map((number) => Number(number)),
+      bonusNumber: Number(bonusNumber),
+    });
     this.props.openResultModal();
   }
 
