@@ -13,13 +13,20 @@ class App extends React.Component {
       isModalOpen: false,
       moneyAmount: 0,
       receipt: [],
+      winningNumber: [],
     };
   }
 
-  handleSubmit(money) {
+  handleMoneySubmit(money) {
     this.setState({
       isMoneyInputValid: true,
       moneyAmount: money,
+    });
+  }
+
+  handleWinningNumberSubmit(winningNumbers) {
+    this.setState({
+      winningNumber: winningNumbers,
     });
   }
 
@@ -41,14 +48,16 @@ class App extends React.Component {
       <>
         <MoneyInput
           onHandleSubmit={(money, ticketCount) => {
-            this.handleSubmit(money);
+            this.handleMoneySubmit(money);
             this.makeReceipt(ticketCount);
           }}
         ></MoneyInput>
         {this.state.isMoneyInputValid && (
           <>
             <PurchaseNumberList receipt={this.state.receipt}></PurchaseNumberList>
-            <WinningNumber></WinningNumber>
+            <WinningNumber
+              onHandleSubmit={(winningNumbers) => this.handleWinningNumberSubmit(winningNumbers)}
+            ></WinningNumber>
           </>
         )}
       </>

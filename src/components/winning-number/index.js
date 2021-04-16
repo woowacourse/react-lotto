@@ -9,14 +9,28 @@ class WinningNumber extends React.Component {
     super(props);
   }
 
+  onWinningNumberSubmit(e) {
+    e.preventDefault();
+
+    // TODO: 깔끔한 방법 찾기
+    const winningNumbers = [];
+    e.target
+      .querySelectorAll('.winning-number')
+      .forEach((winningNumberInput) => winningNumbers.push(Number(winningNumberInput.value)));
+    winningNumbers.push(Number(e.target.querySelector('.bonus-number').value));
+
+    this.props.onHandleSubmit(winningNumbers);
+  }
+
   render() {
     return (
-      <div>
-        {[...Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH)].map(() => {
-          return <NumberInput min='1' max='45' key={uuidv4()} />;
+      <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
+        {[...Array(LOTTERY_BALL_LENGTH)].map(() => {
+          return <NumberInput min='1' max='45' key={uuidv4()} customClass={'winning-number'} />;
         })}
+        <NumberInput min='1' max='45' key={uuidv4()} customClass={'bonus-number'} />
         <Button buttonText='결과 확인하기'></Button>
-      </div>
+      </form>
     );
   }
 }
