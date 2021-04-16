@@ -15,6 +15,13 @@ export default class App extends Component {
       [LOTTO_VALUE.RANK.FIFTH]: 0,
     },
     lottoCount: 0,
+    mainComponentKey: new Date(),
+  };
+
+  initialState = this.state;
+
+  resetState = () => {
+    this.setState({ ...this.initialState, mainComponentKey: new Date() });
   };
 
   setWinningCounts = (rank) => {
@@ -52,12 +59,14 @@ export default class App extends Component {
           setWinningCounts={this.setWinningCounts}
           lottoCount={this.state.lottoCount}
           setLottoCount={this.setLottoCount}
+          key={this.state.mainComponentKey}
         />
         {this.state.isModalOpened && (
           <Modal
             closeModal={this.closeModal}
             winningCounts={this.state.winningCounts}
             paidMoney={this.state.lottoCount * LOTTO_PRICE}
+            resetAllState={this.resetState}
           />
         )}
       </div>

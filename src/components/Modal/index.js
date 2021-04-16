@@ -37,7 +37,11 @@ export default class Modal extends Component {
             paidMoney={this.props.paidMoney}
             winningCounts={this.props.winningCounts}
           />
-          <button type="button" className="restart-button basic-button mt-5">
+          <button
+            type="button"
+            className="restart-button basic-button mt-5"
+            onClick={this.props.resetAllState}
+          >
             다시 시작하기
           </button>
         </div>
