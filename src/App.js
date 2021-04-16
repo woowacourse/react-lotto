@@ -15,6 +15,7 @@ class App extends React.Component {
       moneyAmount: 0,
       receipt: [],
       winningNumber: [],
+      bonusNumber: 0,
     };
   }
 
@@ -25,9 +26,10 @@ class App extends React.Component {
     });
   }
 
-  handleWinningNumberSubmit(winningNumbers) {
+  handleWinningNumberSubmit(winningNumbers, bonusNumber) {
     this.setState({
       winningNumber: winningNumbers,
+      bonusNumber: bonusNumber,
     });
   }
 
@@ -63,14 +65,20 @@ class App extends React.Component {
           <>
             <Receipt receipt={this.state.receipt}></Receipt>
             <WinningNumber
-              onHandleSubmit={(winningNumbers) => this.handleWinningNumberSubmit(winningNumbers)}
+              onHandleSubmit={(winningNumbers, bonusNumber) =>
+                this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
+              }
               onModalButtonClick={() => this.handleModalButtonClick()}
             ></WinningNumber>
           </>
         )}
         {this.state.isModalOpen && (
           <>
-            <Modal winningNumber={this.state.winningNumber} receipt={this.state.receipt}></Modal>
+            <Modal
+              winningNumber={this.state.winningNumber}
+              bonusNumber={this.state.bonusNumber}
+              receipt={this.state.receipt}
+            ></Modal>
           </>
         )}
       </>

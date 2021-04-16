@@ -17,9 +17,9 @@ class WinningNumber extends React.Component {
     e.target
       .querySelectorAll('.winning-number')
       .forEach((winningNumberInput) => winningNumbers.push(Number(winningNumberInput.value)));
-    winningNumbers.push(Number(e.target.querySelector('.bonus-number').value));
+    const bonusNumber = Number(e.target.querySelector('.bonus-number').value);
 
-    this.props.onHandleSubmit(winningNumbers);
+    this.props.onHandleSubmit(winningNumbers, bonusNumber);
     this.props.onModalButtonClick();
   }
 

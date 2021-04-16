@@ -7,6 +7,15 @@ class Modal extends React.Component {
     super(props);
   }
 
+  countWinningBall(ticket) {
+    return ticket.filter((ball) => this.props.winningNumber.includes(ball)).length;
+  }
+
+  countBonusBall(ticket) {
+    const winningBonusBall = ticket.find((ball) => ball === this.props.bonusNumber);
+    return winningBonusBall && winningBonusBall.length;
+  }
+
   render() {
     return (
       <>
@@ -17,9 +26,12 @@ class Modal extends React.Component {
             {this.props.receipt.map((ticket) => (
               <PurchaseNumberItem
                 key={uuidv4()}
+                bonusNumber={this.props.bonusNumber}
                 winningNumber={this.props.winningNumber}
                 ticketNumbers={ticket}
                 toggled={true}
+                winningBallCount={this.countWinningBall(ticket)}
+                bonusBallCount={this.countBonusBall(ticket)}
               ></PurchaseNumberItem>
             ))}
           </div>
