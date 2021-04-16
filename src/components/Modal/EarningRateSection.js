@@ -16,7 +16,7 @@ export default class EarningRateSection extends Component {
     const earnedMoney = this.getEarnedMoney();
     const paidMoney = this.props.paidMoney;
 
-    return ((earnedMoney - paidMoney) / paidMoney) * 100;
+    return Math.floor(((earnedMoney - paidMoney) / paidMoney) * 100);
   };
 
   render() {

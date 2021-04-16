@@ -43,6 +43,13 @@ export const LOTTO_VALUE = {
     FOURTH: 50000,
     FIFTH: 5000,
   },
+
+  MATCHED_COUNT: {
+    FIRST: 6,
+    THIRD: 5,
+    FORTH: 4,
+    FIFTH: 3,
+  },
 };
 
 export const PRIZE_BY_RANK = {

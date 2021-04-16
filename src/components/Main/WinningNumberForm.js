@@ -1,13 +1,8 @@
 import { Component } from 'react';
 import { ID, MESSAGE } from '../../constants';
+import { isDuplicatedArray } from '../../utils';
 
 export default class WinningNumberForm extends Component {
-  isDuplicatedWinningNumbers(winningNumbers, bonusNumber) {
-    return (
-      winningNumbers.length !== new Set(winningNumbers).size || winningNumbers.includes(bonusNumber)
-    );
-  }
-
   onSubmitWinningNumberForm = (event) => {
     event.preventDefault();
 
@@ -23,7 +18,7 @@ export default class WinningNumberForm extends Component {
       event.target.elements[ID.MAIN.WINNING_NUMBER_FORM.BONUS_NUMBER_FIELDSET].elements;
     const [bonusNumber] = Array.from(bonusNumberInput).map(($input) => $input.valueAsNumber);
 
-    if (this.isDuplicatedWinningNumbers(winningNumbers, bonusNumber)) {
+    if (isDuplicatedArray([...winningNumbers, bonusNumber])) {
       alert(MESSAGE.ALERT.DUPLICATED_WINNING_NUMBERS);
       return;
     }
