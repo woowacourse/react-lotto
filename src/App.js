@@ -29,9 +29,12 @@ class App extends React.Component {
   }
 
   makeAutoTicket() {
-    return [...Array(LOTTERY_BALL_LENGTH)].map(() =>
-      getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
-    );
+    const uniqueTicket = new Set();
+    while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
+      uniqueTicket.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+    }
+
+    return [...uniqueTicket];
   }
 
   makeReceipt(ticketCount) {
@@ -49,7 +52,7 @@ class App extends React.Component {
         ></MoneyInput>
         {this.state.isMoneyInputValid && (
           <>
-            <PurchaseNumberList></PurchaseNumberList>
+            <PurchaseNumberList receipt={this.state.receipt}></PurchaseNumberList>
             <WinningNumber></WinningNumber>
           </>
         )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import LotteryBall from '../lottery-ball';
 import './style.scss';
 
@@ -8,11 +9,14 @@ class PurchaseNumberItem extends React.Component {
   }
 
   render() {
-    const ticket = [1, 2, 3, 4, 5, 6, 7];
     return (
       <li className='purchase-number-item'>
-        {ticket.map((number, idx) => (
-          <LotteryBall key={idx} numberValue={number} toggled={this.props.toggled}></LotteryBall>
+        {this.props.ticketNumbers.map((number) => (
+          <LotteryBall
+            key={uuidv4()}
+            numberValue={number}
+            toggled={this.props.toggled}
+          ></LotteryBall>
         ))}
       </li>
     );
