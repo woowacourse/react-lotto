@@ -7,19 +7,9 @@ import LottoContext from "../contexts/LottoContext";
 import Main from "./Main";
 import Modal from "./Modal";
 
-import {
-  LOTTO_PRICE,
-  LOTTO_RANGE,
-  LOTTO_LENGTH,
-  INITIAL_RESULT,
-} from "../constants";
+import { INITIAL_RESULT } from "../constants";
 
-import {
-  calculateEarningRate,
-  createDistinctRandomIntegers,
-  deepCopyJSONObject,
-  getRanking,
-} from "../utils";
+import { createLottoResult, createLottos, deepCopyJSONObject } from "../utils";
 
 const Container = styled.div`
   display: flex;
@@ -39,29 +29,19 @@ export default class App extends Component {
 
     this.state = JSON.parse(JSON.stringify(this.initialState));
     this.action = {
-      createLottos: (lottoCount) => {
-        const lottos = Array.from({ length: lottoCount }, () =>
-          createDistinctRandomIntegers(
-            LOTTO_RANGE.FROM,
-            LOTTO_RANGE.TO,
-            LOTTO_LENGTH
-          )
-        );
+      updateLottos: (lottoCount) => {
+        const lottos = createLottos(lottoCount);
 
         this.setState({ lottos });
       },
 
       updateLottoResult: (winningNumbers, bonusNumber) => {
-        const result = deepCopyJSONObject(INITIAL_RESULT);
-
-        const price = this.state.lottos.length * LOTTO_PRICE;
-
-        this.state.lottos.forEach((lotto) => {
-          const ranking = getRanking(lotto, winningNumbers, bonusNumber);
-          result.rankCount[ranking] += 1;
-        });
-
-        result.earningRate = calculateEarningRate(result.rankCount, price);
+        const result = createLottoResult(
+          INITIAL_RESULT,
+          this.state.lottos,
+          winningNumbers,
+          bonusNumber
+        );
 
         this.setState({ lottoResult: result });
       },

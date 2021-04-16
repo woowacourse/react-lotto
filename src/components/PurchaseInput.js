@@ -56,10 +56,10 @@ export default class PurchaseInput extends Component {
       },
       () => {
         if (this.state.isValidInput) {
-          this.context.action.createLottos(payment / LOTTO_PRICE);
+          this.context.action.updateLottos(payment / LOTTO_PRICE);
           this.formRef.current.reset();
         } else {
-          this.context.action.createLottos(0);
+          this.context.action.updateLottos(0);
         }
       }
     );

@@ -1,4 +1,11 @@
-import { PRIZE_TABLE, RANKINGS } from "../constants";
+import {
+  LOTTO_LENGTH,
+  LOTTO_PRICE,
+  LOTTO_RANGE,
+  PRIZE_TABLE,
+  RANKINGS,
+} from "../constants";
+import { createDistinctRandomIntegers, deepCopyJSONObject } from "./common";
 
 export const countMatchedNumbers = (numbers1, numbers2) => {
   const numbers = [...numbers1, ...numbers2];
@@ -32,4 +39,28 @@ export const calculateEarningRate = (rankCount, price) => {
   }, 0);
 
   return Math.round(((totalPrize - price) / price) * 100);
+};
+
+export const createLottoResult = (
+  initResult,
+  lottos,
+  winningNumbers,
+  bonusNumber
+) => {
+  const result = deepCopyJSONObject(initResult);
+  const payment = lottos.length * LOTTO_PRICE;
+  lottos.forEach((lotto) => {
+    const ranking = getRanking(lotto, winningNumbers, bonusNumber);
+    result.rankCount[ranking] += 1;
+  });
+  result.earningRate = calculateEarningRate(result.rankCount, payment);
+
+  return result;
+};
+
+export const createLottos = (lottoCount) => {
+  const lottos = Array.from({ length: lottoCount }, () =>
+    createDistinctRandomIntegers(LOTTO_RANGE.FROM, LOTTO_RANGE.TO, LOTTO_LENGTH)
+  );
+  return lottos;
 };

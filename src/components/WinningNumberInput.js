@@ -75,7 +75,6 @@ export default class WinningNumberInput extends Component {
 
     this.setState(
       {
-        ...this.state,
         isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
       },
       () => {
