@@ -28,8 +28,8 @@ export default class ResultModal extends Component {
             </TableRow>
           </thead>
           <tbody>
-            {Object.values(RANKINGS).map((ranking) => (
-              <TableRow key={ranking}>
+            {Object.values(RANKINGS).map((ranking, index) => (
+              <TableRow key={`${index}-ranking`}>
                 <td>{PRIZE_TABLE[ranking].condition}</td>
                 <td>{PRIZE_TABLE[ranking].prize}원</td>
                 <td>{rankCount[ranking]}개</td>

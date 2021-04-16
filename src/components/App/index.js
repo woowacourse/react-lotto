@@ -5,7 +5,7 @@ import { Container, GlobalStyles } from "./style";
 import { deepCopyJSONObject } from "../../@shared/utils/common";
 import { INITIAL_RESULT } from "../../@shared/constants/lotto";
 
-import { createLottoResult, createLottos } from "./utils";
+import { createLottoResult, createLottos } from "./service";
 import Main from "../Main";
 import ResultModal from "../ResultModal";
 
