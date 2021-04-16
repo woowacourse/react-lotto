@@ -17,6 +17,7 @@ class Modal extends React.Component {
             {this.props.receipt.map((ticket) => (
               <PurchaseNumberItem
                 key={uuidv4()}
+                winningNumber={this.props.winningNumber}
                 ticketNumbers={ticket}
                 toggled={true}
               ></PurchaseNumberItem>

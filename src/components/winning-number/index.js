@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import NumberInput from '../util-component/number-input/index';
 import Button from '../util-component/button/index';
-import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
+import { LOTTERY_BALL_LENGTH } from '../../constants/number';
 
 class WinningNumber extends React.Component {
   constructor(props) {
