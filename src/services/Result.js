@@ -12,7 +12,7 @@ const getRanking = (lotto, { winningNumberList, bonusNumber }) => {
   return RANKING_TABLE[matchCount] || RANKING.NO_PRIZE;
 };
 
-export const getWinningResult = (lottoList, { winningNumber, bonusNumber }) => {
+export const getWinningResult = (lottoList = {}, { winningNumber = {}, bonusNumber = null }) => {
   const winningNumberList = Object.values(winningNumber);
 
   let winningResult = initObject(

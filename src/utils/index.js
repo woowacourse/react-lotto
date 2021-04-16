@@ -38,3 +38,5 @@ export const initObject = (keyList, value) => {
 };
 
 export const isUniqueArray = (array) => array.length === new Set(array).size;
+
+export const isEmptyObject = (obj) => Object.entries(obj).length <= 0;

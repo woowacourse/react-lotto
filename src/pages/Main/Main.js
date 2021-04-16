@@ -5,6 +5,7 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import ToggleSwitch from '../../components/ToggleSwitch/ToggleSwitch';
 import { ALERT_MESSAGE, LOTTO, PATH } from '../../constants';
 import { purchaseLottoList } from '../../services/Main';
+import { isEmptyObject } from '../../utils';
 import { Styled } from './Main.style';
 
 class Main extends Component {
@@ -42,7 +43,7 @@ class Main extends Component {
     const { lottoList, moneyInput } = this.state;
     const { history } = this.props;
 
-    if (!moneyInput || Object.entries(lottoList).length <= 0) {
+    if (!moneyInput || isEmptyObject(lottoList)) {
       alert(ALERT_MESSAGE.NO_PURCHASED_LOTTO);
       return;
     }
@@ -60,6 +61,7 @@ class Main extends Component {
     return (
       <>
         <PageTitle>로또 구매</PageTitle>
+
         <Styled.Form onSubmit={this.handleSubmitMoneyInput}>
           <Styled.MoneyInput
             type="number"
@@ -75,6 +77,7 @@ class Main extends Component {
             구입
           </Button>
         </Styled.Form>
+
         <Styled.LottoListTop>
           <Styled.LottoCountContainer>
             현재 구입한 로또 <Styled.LottoCount>{lottoCount}</Styled.LottoCount>개
@@ -85,7 +88,9 @@ class Main extends Component {
             onChange={this.handleToggleSwitch}
           />
         </Styled.LottoListTop>
+
         {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
+
         <Button onClick={this.handleClickEnterWinning}>🤩 당첨 번호 입력</Button>
       </>
     );

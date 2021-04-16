@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Styled from './Result.style';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
@@ -33,13 +33,16 @@ class Result extends Component {
 
   render() {
     const { isModalOpen } = this.state;
-    const { lottoList, moneyInput, winningNumber, bonusNumber } = this.props?.location?.state;
+    const { lottoList = {}, moneyInput = null, winningNumber = {}, bonusNumber = null } =
+      this.props.location.state || {};
     const winningResult = getWinningResult(lottoList, { winningNumber, bonusNumber });
     const profitRate = getProfitRate(winningResult, moneyInput);
 
     return (
       <>
+        {!this.props.location.state && <Redirect to="/" />}
         <PageTitle>얼마나 잃었을까요?</PageTitle>
+
         <Styled.WinningNumber>
           {Object.values(winningNumber).map((number) => (
             <LottoNumberItem key={`winning-number-${number}`}>{number}</LottoNumberItem>
@@ -47,17 +50,20 @@ class Result extends Component {
           <Styled.PlusIcon>➕</Styled.PlusIcon>
           <LottoNumberItem>{bonusNumber}</LottoNumberItem>
         </Styled.WinningNumber>
+
         <LottoNumberList
           lottoList={lottoList}
           winningNumber={winningNumber}
           bonusNumber={bonusNumber}
         />
+
         <Styled.ButtonContainer>
           <Button onClick={this.handleOpenDetail}>✨ 결과 확인</Button>
           <Link to="/">
             <Button bgColor="#d6d6d6">↪️ 다시 시작</Button>
           </Link>
         </Styled.ButtonContainer>
+
         {isModalOpen && (
           <Modal onClose={this.handleCloseDetail}>
             <Modal.Title>당첨 결과 상세 보기</Modal.Title>

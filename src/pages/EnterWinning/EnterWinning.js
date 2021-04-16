@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Styled from './EnterWinning.style';
 import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
-import { initObject, isUniqueArray } from '../../utils';
+import { initObject, isEmptyObject, isUniqueArray } from '../../utils';
 import Button from '../../components/Button/Button';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -60,8 +61,10 @@ class EnterWinning extends Component {
     const { winningNumber, bonusNumber } = this.state;
 
     return (
-      <div>
+      <>
+        {!this.props.location.state && <Redirect to="/" />}
         <PageTitle>당첨 번호 입력</PageTitle>
+
         <p>지난 주 당첨번호를 입력해주세요</p>
         <form onSubmit={this.handleSubmitWinningNumber}>
           <Styled.InputGroup>
@@ -74,7 +77,7 @@ class EnterWinning extends Component {
                   min={LOTTO.MIN_NUMBER}
                   max={LOTTO.MAX_NUMBER}
                   name={key}
-                  aria-label=""
+                  aria-label={`${index + 1}번째 당첨 번호`}
                   value={winningNumber[key]}
                   onChange={this.handleChangeWinningNumber}
                   required
@@ -82,7 +85,9 @@ class EnterWinning extends Component {
                 />
               ))}
             </Styled.Fieldset>
+
             <Styled.PlusIcon>➕</Styled.PlusIcon>
+
             <label htmlFor="bonus-number" hidden>
               보너스 번호
             </label>
@@ -99,7 +104,7 @@ class EnterWinning extends Component {
           </Styled.InputGroup>
           <Button>🥁 당첨 결과 확인</Button>
         </form>
-      </div>
+      </>
     );
   }
 }
