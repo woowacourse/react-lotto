@@ -60,7 +60,7 @@ export default class WinningResult extends Component {
               <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
           </button>
-          <h2 className="winning-result-title">🏆 당첨 결과 🏆</h2>
+          <h2 className="winning-result-title">당첨결과</h2>
           <div className="result-table-wrapper">
             <table className="result-table">
               <thead>

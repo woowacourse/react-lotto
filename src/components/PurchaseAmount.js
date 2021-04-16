@@ -74,7 +74,7 @@ export default class PurchaseAmount extends Component {
   render() {
     return (
       <div>
-        <form className="purchase-amount-container" onSubmit={this.onSubmit}>
+        <form className="purchase-amount-form" onSubmit={this.onSubmit}>
           <label htmlFor="purchase-amount-input" className="purchase-amount-label">
             <span className="purchase-amount-text">구입할 금액을 입력해주세요.</span>
             <input
@@ -88,11 +88,13 @@ export default class PurchaseAmount extends Component {
               required
             />
           </label>
-          <button type="submit" className="purchase-amount-submit-button" disabled={this.state.isSubmitButtonDisabled}>
-            확인
-          </button>
-          <div>{this.state.validationMessage}</div>
+          <div className="purchase-button-wrapper">
+            <button type="submit" className="purchase-button" disabled={this.state.isSubmitButtonDisabled}>
+              구매
+            </button>
+          </div>
         </form>
+        <div className="validation-message">{this.state.validationMessage}</div>
       </div>
     );
   }

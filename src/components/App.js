@@ -68,7 +68,7 @@ export default class App extends Component {
 
     return (
       <div className="app">
-        <h1 className="header">🎱 행운의 로또</h1>
+        <h1 className="header">행운의 로또</h1>
         <main>
           <PurchaseAmount
             lottoBundle={lottoBundle}

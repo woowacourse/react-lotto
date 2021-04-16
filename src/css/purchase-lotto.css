@@ -1,14 +1,14 @@
-.purchase-lotto-container {
+.purchase-lotto-wrapper {
   margin-top: 2.25rem;
 }
 
-.number-of-lotto-text {
-  flex: 1 1 auto;
-  margin-top: 0;
-  margin-bottom: 0;
+.number-of-lotto {
+  font-weight: 800;
+  padding: 0 0.25rem;
 }
 
 .display-section {
+  margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
 }
@@ -22,7 +22,7 @@
 }
 
 .display-section.toggle .lotto-number {
-  display: inline;
+  display: inline-block;
 }
 
 .lotto {
@@ -30,9 +30,9 @@
   align-items: center;
 }
 
-.lotto-emoji {
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
+.lotto-image {
+  width: 2.25rem;
+  margin: 0 0.2rem;
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
@@ -43,6 +43,10 @@
 }
 
 /* 토글 버튼 */
+
+.toggle-button-wrapper {
+  text-align: end;
+}
 
 .toggle-button-label {
   z-index: 0;
@@ -70,17 +74,17 @@
 }
 
 /* Span */
-.toggle-text {
+.toggle-button-text {
   display: inline-block;
   width: 100%;
   cursor: pointer;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.85rem;
   line-height: 1.5rem;
 }
 
 /* Track */
-.toggle-text::before {
+.toggle-button-text::before {
   content: '';
   float: right;
   display: inline-block;
@@ -93,7 +97,7 @@
   transition: background-color 0.2s, opacity 0.2s;
 }
 
-.toggle-text::after {
+.toggle-button-text::after {
   content: '';
   position: absolute;
   top: 0.5px;
@@ -108,15 +112,15 @@
 
 #toggle-button:checked {
   right: -10px;
-  background-color: rgb(0, 188, 212);
+  background-color: rgb(238, 135, 145);
 }
 
 #toggle-button:checked + span::before {
-  background-color: rgba(0, 188, 212, 0.6);
+  background-color: rgba(238, 135, 145, 0.3);
 }
 
 #toggle-button:checked + span::after {
-  background-color: rgb(0, 188, 212);
+  background-color: rgb(238, 135, 145);
   transform: translateX(16px);
 }
 
@@ -140,7 +144,7 @@
 }
 
 #toggle-button:active + span::before {
-  background-color: rgba(0, 188, 212, 0.6);
+  background-color: rgba(238, 135, 145, 0.3);
 }
 
 #toggle-button:checked:active + span::before {

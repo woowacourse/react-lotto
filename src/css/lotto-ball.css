@@ -1,0 +1,39 @@
+.lotto-ball {
+  margin: 0 0.25rem;
+  padding: 0.25rem;
+  text-align: center;
+  border-width: 5px;
+  border-style: double;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  border-radius: 10rem;
+  cursor: default;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.8rem;
+}
+
+.not-matched {
+  opacity: 0.5;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+}
+
+.zeros {
+  border-color: #ffc3c8;
+}
+
+.tens {
+  border-color: #fc8d98;
+}
+.twenties {
+  border-color: #ff818e;
+}
+
+.thirties {
+  border-color: #ff495b;
+}
+
+.forties {
+  border-color: #c11c2d;
+}
