@@ -5,6 +5,12 @@ export const LOTTO_NUMBER_COUNT = 6;
 export const BONUS_NUMBER_COUNT = 1;
 export const WINNING_NUMBER_COUNT = LOTTO_NUMBER_COUNT + BONUS_NUMBER_COUNT;
 
+export const ANNOUNCE_TIME = {
+  DAY: 6,
+  HOUR: 20,
+  MINUTE: 45,
+};
+
 export const HIT_COUNT = {
   NONE: 0,
   ONE: 1,

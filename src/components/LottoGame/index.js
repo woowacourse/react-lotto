@@ -3,6 +3,7 @@ import PurchaseAmountForm from './PurchaseAmountForm';
 import LottoTicketList from './LottoTicketList';
 import LottoResultForm from './LottoResultForm';
 import LottoResultContainer from './LottoResultContainer';
+import AnnouncementTime from './AnnouncementTime';
 import Modal from '../Modal';
 import { getRandomNumber } from '../../utils/getRandomNumber';
 import {
@@ -146,6 +147,7 @@ export default class LottoGame extends Component {
               publishLottoTickets={this.publishLottoTickets}
               submitPurchaseAmount={this.submitPurchaseAmount}
             />
+            {this.state.isPurchaseAmountSubmitted && <AnnouncementTime />}
             {this.state.isPurchaseAmountSubmitted && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
             {this.state.isPurchaseAmountSubmitted && (
               <LottoResultForm setResultNumbers={this.setResultNumbers} openResultModal={this.openResultModal} />
