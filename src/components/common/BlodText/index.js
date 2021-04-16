@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
-
-const Text = styled.p`
-  font-weight: bold;
-`;
+import { Text } from "./style";
 
 export default class BoldText extends Component {
   render() {

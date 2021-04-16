@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-
-import { Header } from "./style";
+import PropTypes from "prop-types";
 
 import Toggle from "../common/Toggle";
 import LottoBox from "../LottoBox";
+import { Header } from "./style";
 import { GUIDE_MESSAGE } from "../../@shared/constants/messages";
 
 export default class LottoContainer extends Component {
@@ -24,7 +24,9 @@ export default class LottoContainer extends Component {
   }
 
   render() {
-    const lottoCount = this.context.state.lottos.length;
+    const { lottos } = this.props;
+    const lottoCount = lottos.length;
+    const { isToggled } = this.state;
 
     return (
       <div>
@@ -32,8 +34,12 @@ export default class LottoContainer extends Component {
           <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottoCount)}</span>
           <Toggle text={"번호 보기"} onToggle={this.onToggle} />
         </Header>
-        <LottoBox isNumberVisible={this.state.isToggled} />
+        <LottoBox isNumberVisible={isToggled} lottos={lottos} />
       </div>
     );
   }
 }
+
+LottoContainer.propTypes = {
+  lottos: PropTypes.array.isRequired,
+};

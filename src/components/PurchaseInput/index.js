@@ -1,10 +1,11 @@
 import React, { Component, createRef } from "react";
+import PropTypes from "prop-types";
+
 import { LOTTO_PRICE } from "../../@shared/constants/lotto";
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
 import { isDivisible } from "../../@shared/utils/common";
-import ErrorMessageBox from "../common/ErrorMessageBox";
-
 import { Button, Container, Form, Input } from "./style";
+import ErrorMessageBox from "../common/ErrorMessageBox";
 
 export default class PurchaseInput extends Component {
   constructor(props) {
@@ -27,17 +28,19 @@ export default class PurchaseInput extends Component {
         isValidInput: isDivisible(payment, LOTTO_PRICE),
       },
       () => {
+        const { updateLottos } = this.props;
         if (this.state.isValidInput) {
-          this.context.action.updateLottos(payment / LOTTO_PRICE);
+          updateLottos(payment / LOTTO_PRICE);
           this.formRef.current.reset();
         } else {
-          this.context.action.updateLottos(0);
+          updateLottos(0);
         }
       }
     );
   }
 
   render() {
+    const { isValidInput } = this.state;
     return (
       <Form onSubmit={this.onSubmit} ref={this.formRef}>
         <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
@@ -52,10 +55,14 @@ export default class PurchaseInput extends Component {
           />
           <Button type="submit">확인</Button>
         </Container>
-        {!this.state.isValidInput && (
+        {!isValidInput && (
           <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
         )}
       </Form>
     );
   }
 }
+
+PurchaseInput.propTypes = {
+  updateLottos: PropTypes.func.isRequired,
+};

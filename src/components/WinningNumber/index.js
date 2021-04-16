@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
 import { isDistinctNumbers } from "../../@shared/utils/common";
 import ErrorMessageBox from "../common/ErrorMessageBox";
@@ -39,13 +41,16 @@ export default class WinningNumberInput extends Component {
       () => {
         if (!this.state.isValidInput) return;
 
-        this.context.action.updateLottoResult(winningNumbers, bonusNumber);
-        this.context.action.openModal();
+        const { updateLottoResult, openModal } = this.props;
+
+        updateLottoResult(winningNumbers, bonusNumber);
+        openModal();
       }
     );
   }
 
   render() {
+    const { isValidInput } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
@@ -77,7 +82,7 @@ export default class WinningNumberInput extends Component {
             ></InputBox>
           </NumberContainer>
         </Container>
-        {!this.state.isValidInput && (
+        {!isValidInput && (
           <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
         )}
         <Button type="submit">확인</Button>
@@ -85,3 +90,8 @@ export default class WinningNumberInput extends Component {
     );
   }
 }
+
+WinningNumberInput.propTypes = {
+  updateLottoResult: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+};

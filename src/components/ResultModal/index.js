@@ -1,33 +1,23 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { GUIDE_MESSAGE } from "../../@shared/constants/messages";
 import { PRIZE_TABLE, RANKINGS } from "../../@shared/constants/prizeTable";
-
-import Modal from "../common/Modal";
-import BoldText from "../common/BoldText";
 import { Button, ResultTable, TableRow } from "./style";
+import Modal from "../common/Modal";
+import BoldText from "../common/BlodText";
 
 export default class ResultModal extends Component {
-  constructor(props) {
-    super(props);
-
-    this.modalCloseSvgRef = createRef();
-    this.onMouseDown = this.onMouseDown.bind(this);
-  }
-
-  onMouseDown(event) {
-    if (
-      event.currentTarget === event.target ||
-      event.target === this.modalCloseSvgRef.current
-    ) {
-      this.context.action.closeModal();
-    }
-  }
-
   render() {
-    const { rankCount, earningRate } = this.context.state.lottoResult;
+    const {
+      state: {
+        lottoResult: { rankCount, earningRate },
+      },
+      action: { clear, closeModal },
+    } = this.props;
 
     return (
-      <Modal onMouseDown={this.onMouseDown} ref={this.modalCloseSvgRef}>
+      <Modal closeModal={closeModal}>
         <h2>🏆 당첨 통계 🏆</h2>
         <ResultTable>
           <thead>
@@ -48,10 +38,15 @@ export default class ResultModal extends Component {
           </tbody>
         </ResultTable>
         <BoldText text={GUIDE_MESSAGE.EARNING_RATE(earningRate)}></BoldText>
-        <Button type="button" onClick={this.context.action.clear}>
+        <Button type="button" onClick={clear}>
           다시 시작하기
         </Button>
       </Modal>
     );
   }
 }
+
+ResultModal.propTypes = {
+  state: PropTypes.object.isRequired,
+  action: PropTypes.object.isRequired,
+};

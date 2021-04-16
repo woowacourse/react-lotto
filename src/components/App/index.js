@@ -6,6 +6,8 @@ import { deepCopyJSONObject } from "../../@shared/utils/common";
 import { INITIAL_RESULT } from "../../@shared/constants/lotto";
 
 import { createLottoResult, createLottos } from "./utils";
+import Main from "../Main";
+import ResultModal from "../ResultModal";
 
 export default class App extends Component {
   constructor(props) {
@@ -56,8 +58,10 @@ export default class App extends Component {
         <Global styles={GlobalStyles} />
         <Container>
           <h1>🎱 행운의 로또</h1>
-          <Main />
-          {this.state.isModalOpen && <ResultModal />}
+          <Main state={this.state} action={this.action} />
+          {this.state.isModalOpen && (
+            <ResultModal state={this.state} action={this.action} />
+          )}
         </Container>
       </>
     );

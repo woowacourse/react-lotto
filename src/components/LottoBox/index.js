@@ -6,13 +6,15 @@ import Lotto from "../Lotto";
 
 export default class LottoBox extends Component {
   render() {
+    const { isNumberVisible, lottos } = this.props;
+
     return (
-      <TicketList isNumberVisible={this.props.isNumberVisible}>
-        {this.context.state.lottos.map((lottoNumbers, index) => (
+      <TicketList isNumberVisible={isNumberVisible}>
+        {lottos.map((lottoNumbers, index) => (
           <Lotto
             key={lottoNumbers.toString() + index}
             lottoNumbers={lottoNumbers}
-            isNumberVisible={this.props.isNumberVisible}
+            isNumberVisible={isNumberVisible}
           />
         ))}
       </TicketList>
@@ -22,4 +24,5 @@ export default class LottoBox extends Component {
 
 LottoBox.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
+  lottos: PropTypes.array.isRequired,
 };

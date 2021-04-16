@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-const Switch = styled.label`
+export const Switch = styled.label`
   z-index: 0;
   position: relative;
 
@@ -46,7 +44,7 @@ const Switch = styled.label`
   }
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -82,7 +80,7 @@ const Input = styled.input`
   }
 `;
 
-const Text = styled.span`
+export const Text = styled.span`
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -116,21 +114,3 @@ const Text = styled.span`
     transition: background-color 0.2s, transform 0.2s;
   }
 `;
-
-export default class Toggle extends Component {
-  render() {
-    const { text, onToggle } = this.props;
-
-    return (
-      <Switch htmlFor="lotto-numbers-toggle">
-        <Input type="checkbox" id="lotto-numbers-toggle" onChange={onToggle} />
-        <Text>{text}</Text>
-      </Switch>
-    );
-  }
-}
-
-Toggle.propTypes = {
-  text: PropTypes.string.isRequired,
-  onToggle: PropTypes.func.isRequired,
-};
