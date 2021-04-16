@@ -6,7 +6,6 @@ class PriceInput extends Component {
     super(props);
 
     this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
-    this.formRef = React.createRef();
   }
 
   handleSubmitPrice(event) {
@@ -17,18 +16,14 @@ class PriceInput extends Component {
     $priceInput.value = '';
   }
 
-  resetForm() {
-    this.formRef.current.reset();
-  }
-
   render() {
     return (
       <Root>
-        <Form onSubmit={this.handleSubmitPrice} ref={this.formRef}>
+        <Form onSubmit={this.handleSubmitPrice}>
           <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
           <InputWrapper>
             <Input type="number" min="1000" id="price" placeholder="구입 금액" required />
-            <SubmitButton>확인</SubmitButton>
+            <SubmitButton disabled={this.props.isPriceInputDisabled}>확인</SubmitButton>
           </InputWrapper>
         </Form>
       </Root>

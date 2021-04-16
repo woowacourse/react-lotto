@@ -16,8 +16,6 @@ class WinningNumbersContainer extends Component {
     super(props);
 
     this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
-
-    this.formRef = React.createRef();
   }
 
   handleSubmitWinningNumbers(event) {
@@ -29,18 +27,15 @@ class WinningNumbersContainer extends Component {
     this.props.onShowResult({ mainNumbers, bonusNumber });
   }
 
-  resetForm() {
-    this.formRef.current.reset();
-  }
-
   render() {
     const numberInputs = Array.from({ length: Lotto.NUMBERS_LENGTH }, (_, idx) => (
       <NumberInput key={idx} type="number" name="main-number" min="1" max="45" required />
     ));
+
     return (
       <Root>
         <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
-        <Form onSubmit={this.handleSubmitWinningNumbers} ref={this.formRef}>
+        <Form onSubmit={this.handleSubmitWinningNumbers}>
           <FlexContainer>
             <NumbersContainer>
               <NumberInputType>당첨번호</NumberInputType>

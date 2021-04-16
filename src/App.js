@@ -13,6 +13,8 @@ const initialState = {
     mainNumbers: [],
     bonusNumber: null,
   },
+  isPurchaseDone: false,
+  isPriceInputDisabled: false,
   isSwitchOn: false,
   isResultModalOpen: false,
 };
@@ -23,18 +25,23 @@ class App extends Component {
 
     this.state = initialState;
 
+    this.handleUpdatePrice = this.handleUpdatePrice.bind(this);
     this.purchaseLottos = this.purchaseLottos.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
-    this.resetGame = this.resetGame.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+  }
 
-    this.priceInput = React.createRef();
-    this.winningNumbersContainer = React.createRef();
+  handleUpdatePrice(event) {
+    const price = event.target.value;
+    this.setState({
+      price,
+    });
   }
 
   purchaseLottos(price) {
-    this.setState({ price }, this.createLottos);
+    this.setState({ price, isPurchaseDone: true, isPriceInputDisabled: false }, this.createLottos);
   }
 
   createLottos() {
@@ -55,16 +62,14 @@ class App extends Component {
     });
   }
 
-  resetGame() {
-    this.setState(initialState);
-    this.priceInput.current.resetForm();
-    this.winningNumbersContainer.current.resetForm();
-  }
-
   closeResultModal() {
     this.setState({
       isResultModalOpen: false,
     });
+  }
+
+  resetGame() {
+    this.setState(initialState);
   }
 
   render() {
@@ -72,25 +77,29 @@ class App extends Component {
       <Root>
         <Container>
           <Title>🎰 개미 로또</Title>
-          <PriceInput onPurchaseLottos={this.purchaseLottos} ref={this.priceInput} />
-          <LottosContainer
-            lottos={this.state.lottos}
-            onToggleDisplay={this.toggleDisplay}
-            isSwitchOn={this.state.isSwitchOn}
+          <PriceInput
+            isPriceInputDisabled={this.state.isPriceInputDisabled}
+            onPurchaseLottos={this.purchaseLottos}
+            onUpdatePrice={this.handleUpdatePrice}
           />
-          <WinningNumbersContainer
-            winningNumbers={this.state.winningNumbers}
-            onShowResult={this.openResultModal}
-            ref={this.winningNumbersContainer}
-          />
+          {this.state.isPurchaseDone ? (
+            <>
+              <LottosContainer
+                lottos={this.state.lottos}
+                isSwitchOn={this.state.isSwitchOn}
+                onToggleDisplay={this.toggleDisplay}
+              />
+              <WinningNumbersContainer winningNumbers={this.state.winningNumbers} onShowResult={this.openResultModal} />
+            </>
+          ) : null}
         </Container>
         <ResultModal
           isOpen={this.state.isResultModalOpen}
-          onResetGame={this.resetGame}
-          onCloseModal={this.closeResultModal}
           price={this.state.price}
           lottos={this.state.lottos}
           winningNumbers={this.state.winningNumbers}
+          onResetGame={this.resetGame}
+          onCloseModal={this.closeResultModal}
         />
       </Root>
     );
