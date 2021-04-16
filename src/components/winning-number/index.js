@@ -20,6 +20,7 @@ class WinningNumber extends React.Component {
     winningNumbers.push(Number(e.target.querySelector('.bonus-number').value));
 
     this.props.onHandleSubmit(winningNumbers);
+    this.props.onModalButtonClick();
   }
 
   render() {

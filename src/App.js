@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from './components/modal';
 import MoneyInput from './components/money-input';
 import PurchaseNumberList from './components/purchase-number-list';
 import WinningNumber from './components/winning-number';
@@ -30,6 +31,12 @@ class App extends React.Component {
     });
   }
 
+  handleModalButtonClick() {
+    this.setState({
+      isModalOpen: true,
+    });
+  }
+
   makeAutoTicket() {
     const uniqueTicket = new Set();
     while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
@@ -57,7 +64,13 @@ class App extends React.Component {
             <PurchaseNumberList receipt={this.state.receipt}></PurchaseNumberList>
             <WinningNumber
               onHandleSubmit={(winningNumbers) => this.handleWinningNumberSubmit(winningNumbers)}
+              onModalButtonClick={() => this.handleModalButtonClick()}
             ></WinningNumber>
+          </>
+        )}
+        {this.state.isModalOpen && (
+          <>
+            <Modal></Modal>
           </>
         )}
       </>
