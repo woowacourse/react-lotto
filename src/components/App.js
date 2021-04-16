@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PurchaseAmount from './PurchaseAmount.js';
 import PurchaseLotto from './PurchaseLotto.js';
-import WinningNumbers from './WinningNumbers.js';
+import DrawNumbers from './DrawNumbers.js';
 import WinningResult from './WinningResult.js';
 import getRandomNumber from '../utils/getRandomNumber.js';
 import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules.js';
@@ -14,7 +14,7 @@ export default class App extends Component {
       lottoBundle: [],
       drawNumber: {},
       isShowingWinningResult: false,
-      isReset: false,
+      shouldReset: false,
     };
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
@@ -42,11 +42,11 @@ export default class App extends Component {
   }
 
   onReset() {
-    this.setState({ lottoBundle: [], isShowingWinningResult: false, isReset: true });
+    this.setState({ lottoBundle: [], isShowingWinningResult: false, shouldReset: true });
   }
 
   didReset() {
-    this.setState({ isReset: false });
+    this.setState({ shouldReset: false });
   }
 
   createLotto(array = []) {
@@ -63,7 +63,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { lottoBundle, drawNumber, isShowingWinningResult, isReset } = this.state;
+    const { lottoBundle, drawNumber, isShowingWinningResult, shouldReset } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
@@ -74,12 +74,12 @@ export default class App extends Component {
             <PurchaseAmount
               lottoBundle={lottoBundle}
               onPurchaseLotto={this.onPurchaseLotto}
-              isReset={isReset}
+              shouldReset={shouldReset}
               didReset={this.didReset}
             />
             {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
             {isPurchased && (
-              <WinningNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
+              <DrawNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
             )}
           </main>
         </div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules';
 import Animation from './Animation.js';
 import '../css/draw-number.css';
@@ -12,7 +12,7 @@ const DRAW_NTH_KEY = 'drwNo';
 const DRAW_DATE_KEY = 'drwNoDate';
 const COUNT_DOWN_ANIMATION_DURATION = 3000;
 
-export default class WinningNumbers extends Component {
+export default class DrawNumbers extends Component {
   constructor(props) {
     super(props);
 

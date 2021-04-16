@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { LOTTO_UNIT_PRICE, BONUS_CHECK_REQUIRED_COUNT, BONUS_COUNT, RESULT_TABLE_DATA } from '../constants/lottoRules';
 import '../css/winning-result.css';
 import '../css/lotto-ball.css';

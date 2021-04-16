@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { LOTTO_NUMBER_SEPARATOR } from '../constants/display.js';
 import '../css/purchase-lotto.css';
 import lottoImage from '../images/ticket.png';
