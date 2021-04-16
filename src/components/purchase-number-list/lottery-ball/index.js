@@ -7,7 +7,9 @@ class LotteryBall extends React.Component {
   }
 
   render() {
-    return <span className='lottery-ball'>{this.props.numberValue}</span>;
+    return (
+      <span className='lottery-ball'>{this.props.toggled ? this.props.numberValue : '*'}</span>
+    );
   }
 }
 

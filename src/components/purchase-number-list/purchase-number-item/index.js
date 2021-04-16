@@ -12,7 +12,7 @@ class PurchaseNumberItem extends React.Component {
     return (
       <li className='purchase-number-item'>
         {ticket.map((number, idx) => (
-          <LotteryBall key={idx} numberValue={number}></LotteryBall>
+          <LotteryBall key={idx} numberValue={number} toggled={this.props.toggled}></LotteryBall>
         ))}
       </li>
     );

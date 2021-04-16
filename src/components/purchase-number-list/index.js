@@ -23,7 +23,7 @@ class PurchaseNumberList extends React.Component {
         <p>구입한 로또 번호</p>
         <ToggleButton onHandleToggle={this.handleToggle} />
         <ul>
-          <PurchaseNumberItem></PurchaseNumberItem>
+          <PurchaseNumberItem toggled={this.state.showBalls}></PurchaseNumberItem>
         </ul>
       </div>
     );
