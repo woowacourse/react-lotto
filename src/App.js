@@ -24,7 +24,11 @@ export default class App extends Component {
     this.setState({ ...this.initialState, mainComponentKey: new Date() });
   };
 
-  setWinningCounts = (rank) => {
+  setWinningCounts = (winningCounts) => {
+    this.setState({ winningCounts: winningCounts });
+  };
+
+  increaseWinningCounts = (rank) => {
     this.setState((prevState) => ({
       winningCounts: {
         ...prevState.winningCounts,
@@ -49,13 +53,17 @@ export default class App extends Component {
     this.setState({
       isModalOpened: false,
     });
+
+    this.setWinningCounts(this.initialState.winningCounts);
   };
 
   render() {
     return (
       <div className="app d-flex justify-center items-center">
         <Main
+          isModalOpened={this.state.isModalOpened}
           openModal={this.openModal}
+          increaseWinningCounts={this.increaseWinningCounts}
           setWinningCounts={this.setWinningCounts}
           lottoCount={this.state.lottoCount}
           setLottoCount={this.setLottoCount}

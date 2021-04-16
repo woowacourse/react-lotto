@@ -33,7 +33,8 @@ export default class LottoListSection extends Component {
               isToggled={this.state.toggle}
               winningNumbers={this.props.winningNumbers}
               bonusNumber={this.props.bonusNumber}
-              setWinningCounts={this.props.setWinningCounts}
+              increaseWinningCounts={this.props.increaseWinningCounts}
+              isModalOpened={this.props.isModalOpened}
             />
           ))}
         </ul>
