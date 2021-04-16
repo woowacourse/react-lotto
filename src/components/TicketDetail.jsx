@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TicketDetail.css';
 export default class TicketDetail extends React.Component {
+  static propTypes = {
+    tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -46,7 +50,3 @@ export default class TicketDetail extends React.Component {
     );
   }
 }
-
-TicketDetail.propTypes = {
-  tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-};

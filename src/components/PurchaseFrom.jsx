@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { LOTTO } from '../utils/constants';
 
 export default class PurchaseForm extends React.Component {
+  static propTypes = {
+    setTickets: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -61,7 +65,3 @@ export default class PurchaseForm extends React.Component {
     );
   }
 }
-
-PurchaseForm.propTypes = {
-  setTickets: PropTypes.func.isRequired,
-};
