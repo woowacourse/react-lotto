@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import WinningNumberInput from './WinningNumberInput';
 import { LOTTO } from '../constants/lottoData';
@@ -35,7 +35,7 @@ const validateWinningNumber = (winningNumberList) => {
   return { isCompletedInput: true, checkMessage: SUCCESS_MESSAGE.INPUT_WINNING_NUMBER };
 };
 
-export default class WinningNumberForm extends Component {
+export default class WinningNumberForm extends PureComponent {
   constructor(props) {
     super(props);
 

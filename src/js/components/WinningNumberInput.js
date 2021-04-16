@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './WinningNumberInput.scss';
 
-export default class WinningNumberInput extends Component {
+export default class WinningNumberInput extends PureComponent {
   render() {
     return (
       <label className="WinningNumberInput">
