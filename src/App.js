@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import LottoPurchaseForm from './components/LottoPurchaseForm';
 import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
+import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
 
 import { getRandomNumber } from './utils';
 
@@ -57,6 +58,7 @@ class App extends Component {
           <div style={{ width: '100%' }}>
             <LottoPurchaseForm createLottos={this.createLottos} />
             {lottos.length > 0 && <PurchaseResult lottos={lottos} />}
+            {lottos.length > 0 && <WinningNumberForm />}
           </div>
         </MainWrapper>
       </main>
