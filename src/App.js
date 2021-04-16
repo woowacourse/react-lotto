@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Main from './components/Main';
 import Modal from './components/Modal';
 import './css/index.css';
-import { LOTTO_VALUE } from './constants';
+import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 
 export default class App extends Component {
   state = {
@@ -18,12 +18,12 @@ export default class App extends Component {
   };
 
   setWinningCounts = (rank) => {
-    this.setState({
+    this.setState((prevState) => ({
       winningCounts: {
-        ...this.state.winningCounts,
-        [rank]: this.state.winningCounts[rank] + 1,
+        ...prevState.winningCounts,
+        [rank]: prevState.winningCounts[rank] + 1,
       },
-    });
+    }));
   };
 
   setLottoCount = (count) => {
@@ -54,7 +54,11 @@ export default class App extends Component {
           setLottoCount={this.setLottoCount}
         />
         {this.state.isModalOpened && (
-          <Modal closeModal={this.closeModal} winningCounts={this.state.winningCounts} />
+          <Modal
+            closeModal={this.closeModal}
+            winningCounts={this.state.winningCounts}
+            paidMoney={this.state.lottoCount * LOTTO_PRICE}
+          />
         )}
       </div>
     );

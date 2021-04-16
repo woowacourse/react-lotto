@@ -33,7 +33,10 @@ export default class Modal extends Component {
           </button>
           <h1 className="text-center m-0">💵 당첨 결과</h1>
           <ResultSection winningCounts={this.props.winningCounts} />
-          <EarningRateSection />
+          <EarningRateSection
+            paidMoney={this.props.paidMoney}
+            winningCounts={this.props.winningCounts}
+          />
           <button type="button" className="restart-button basic-button mt-5">
             다시 시작하기
           </button>

@@ -30,7 +30,6 @@ export default class WinningNumberForm extends Component {
 
     this.props.setWinningNumbers(winningNumbers);
     this.props.setBonusNumber(bonusNumber);
-
     this.props.openModal();
   };
 
