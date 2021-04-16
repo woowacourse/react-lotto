@@ -1,11 +1,15 @@
 import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import LottoContext from "../contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../utils";
 import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../constants";
+
+const Container = styled.div`
+  display: flex;
+  margin-top: 0.5rem;
+`;
 
 const Form = styled.form`
   width: 100%;
@@ -65,12 +69,7 @@ export default class PurchaseInput extends Component {
     return (
       <Form onSubmit={this.onSubmit} ref={this.formRef}>
         <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
-        <div
-          css={css`
-            display: flex;
-            margin-top: 0.5rem;
-          `}
-        >
+        <Container>
           <Input
             id="purchase-input"
             name="purchase-input"
@@ -80,7 +79,7 @@ export default class PurchaseInput extends Component {
             required
           />
           <Button type="submit">확인</Button>
-        </div>
+        </Container>
         {!this.state.isValidInput && (
           <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
         )}

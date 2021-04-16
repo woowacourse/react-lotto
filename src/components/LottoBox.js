@@ -1,24 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 import LottoContext from "../contexts/LottoContext";
-
 import Lotto from "./Lotto";
+
+const TicketList = styled.ul`
+  ${({ isNumberVisible }) =>
+    !isNumberVisible ? "display: flex; flex-wrap: wrap;" : ""}
+`;
 
 export default class LottoBox extends Component {
   render() {
     return (
-      <ul
-        css={
-          this.props.isNumberVisible
-            ? {}
-            : css`
-                display: flex;
-                flex-wrap: wrap;
-              `
-        }
-      >
+      <TicketList isNumberVisible={this.props.isNumberVisible}>
         {this.context.state.lottos.map((lottoNumbers, index) => (
           <Lotto
             key={lottoNumbers.toString() + index}
@@ -26,7 +21,7 @@ export default class LottoBox extends Component {
             isNumberVisible={this.props.isNumberVisible}
           />
         ))}
-      </ul>
+      </TicketList>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import LottoContext from "../contexts/LottoContext";
 import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../constants";
+import BoldText from "./common/BoldText";
 
 const ModalContainer = styled.div`
   opacity: 1;
@@ -79,6 +79,10 @@ const Button = styled.button`
   }
 `;
 
+const TableRow = styled.tr`
+  text-align: center;
+`;
+
 export default class Modal extends Component {
   constructor(props) {
     super(props);
@@ -107,43 +111,26 @@ export default class Modal extends Component {
               <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </Svg>
           </ModalClose>
-
           <h2>🏆 당첨 통계 🏆</h2>
-
           <ResultTable>
             <thead>
-              <tr
-                css={css`
-                  text-align: center;
-                `}
-              >
+              <TableRow>
                 <th>일치 갯수</th>
                 <th>당첨금</th>
                 <th>당첨 갯수</th>
-              </tr>
+              </TableRow>
             </thead>
             <tbody>
               {Object.values(RANKINGS).map((ranking) => (
-                <tr
-                  css={css`
-                    text-align: center;
-                  `}
-                  key={ranking}
-                >
+                <TableRow key={ranking}>
                   <td>{PRIZE_TABLE[ranking].condition}</td>
                   <td>{PRIZE_TABLE[ranking].prize}원</td>
                   <td>{rankCount[ranking]}개</td>
-                </tr>
+                </TableRow>
               ))}
             </tbody>
           </ResultTable>
-          <p
-            css={css`
-              font-weight: bold;
-            `}
-          >
-            {GUIDE_MESSAGE.EARNING_RATE(earningRate)}
-          </p>
+          <BoldText text={GUIDE_MESSAGE.EARNING_RATE(earningRate)}></BoldText>
           <Button type="button" onClick={this.context.action.clear}>
             다시 시작하기
           </Button>

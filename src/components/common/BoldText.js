@@ -3,16 +3,15 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 const Text = styled.p`
-  color: red;
-  text-align: center;
-  margin-bottom: 0;
+  font-weight: bold;
 `;
-export default class ErrorMessageBox extends Component {
+
+export default class BoldText extends Component {
   render() {
     return <Text>{this.props.text}</Text>;
   }
 }
 
-ErrorMessageBox.propTypes = {
+BoldText.propTypes = {
   text: PropTypes.string.isRequired,
 };
