@@ -58,7 +58,7 @@ class ResultModal extends Component {
   }
 
   closeModal() {
-    this.props.closeModal();
+    this.props.onCloseModal();
   }
 
   render() {
@@ -112,7 +112,7 @@ class ResultModal extends Component {
               </Tbody>
             </Table>
             <EarningRate>당신의 총 수익률은 {earningRate}%입니다.</EarningRate>
-            <RestartButton>다시 시작하기</RestartButton>
+            <RestartButton onClick={this.props.onResetGame}>다시 시작하기</RestartButton>
           </ModalInner>
         </Modal>
       </Root>
