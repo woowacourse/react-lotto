@@ -15,8 +15,7 @@ class App extends Component {
 
     this.createLottoList = this.createLottoList.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
-    this.openResultModal = this.openResultModal.bind(this);
-    this.closeResultModal = this.closeResultModal.bind(this);
+    this.setIsResultModalShow = this.setIsResultModalShow.bind(this);
     this.restart = this.restart.bind(this);
   }
 
@@ -24,7 +23,7 @@ class App extends Component {
     return {
       lottoList: [],
       winningNumber: {},
-      isShowModal: false,
+      isResultModalShow: false,
     };
   }
 
@@ -48,12 +47,8 @@ class App extends Component {
     this.setState({ winningNumber });
   }
 
-  openResultModal() {
-    this.setState({ isShowModal: true });
-  }
-
-  closeResultModal() {
-    this.setState({ isShowModal: false });
+  setIsResultModalShow(isResultModalShow) {
+    this.setState({ isResultModalShow });
   }
 
   restart() {
@@ -71,14 +66,17 @@ class App extends Component {
           {this.state.lottoList.length > 0 && (
             <>
               <PurchasedLotto lottoList={this.state.lottoList} />
-              <WinningNumberForm setWinningNumber={this.setWinningNumber} openResultModal={this.openResultModal} />
+              <WinningNumberForm
+                setWinningNumber={this.setWinningNumber}
+                setIsResultModalShow={this.setIsResultModalShow}
+              />
             </>
           )}
-          {this.state.isShowModal && (
+          {this.state.isResultModalShow && (
             <ResultModal
               lottoList={this.state.lottoList}
               winningNumber={this.state.winningNumber}
-              closeResultModal={this.closeResultModal}
+              setIsResultModalShow={this.setIsResultModalShow}
               restart={this.restart}
             />
           )}

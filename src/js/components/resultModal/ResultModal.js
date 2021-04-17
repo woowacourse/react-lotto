@@ -59,8 +59,8 @@ export default class ResultModal extends Component {
   }
 
   onCloseModalWithDimmed({ target }) {
-    if (target.classList.contains('ResultModal')) {
-      this.props.closeResultModal();
+    if (target.classList.contains('ResultModal') || target.closest('.modal-close')) {
+      this.props.setIsResultModalShow(false);
     }
   }
 
@@ -70,7 +70,7 @@ export default class ResultModal extends Component {
     return (
       <section className="ResultModal" role="dialog" onClick={this.onCloseModalWithDimmed}>
         <div className="modal-inner">
-          <button type="button" className="modal-close" onClick={this.props.closeResultModal}>
+          <button type="button" className="modal-close">
             <svg viewBox="0 0 40 40">
               <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
@@ -117,6 +117,6 @@ ResultModal.propTypes = {
     numbers: PropTypes.array.isRequired,
     bonusNumber: PropTypes.number.isRequired,
   }),
-  closeResultModal: PropTypes.func.isRequired,
+  setIsResultModalShow: PropTypes.func.isRequired,
   restart: PropTypes.func.isRequired,
 };

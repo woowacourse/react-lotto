@@ -70,7 +70,7 @@ export default class WinningNumberForm extends PureComponent {
       numbers: numbers.map((number) => Number(number)),
       bonusNumber: Number(bonusNumber),
     });
-    this.props.openResultModal();
+    this.props.setIsResultModalShow(true);
   }
 
   onChangeNumber({ target }) {
@@ -133,5 +133,5 @@ export default class WinningNumberForm extends PureComponent {
 
 WinningNumberForm.propTypes = {
   setWinningNumber: PropTypes.func.isRequired,
-  openResultModal: PropTypes.func.isRequired,
+  setIsResultModalShow: PropTypes.func.isRequired,
 };
