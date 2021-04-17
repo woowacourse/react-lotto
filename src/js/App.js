@@ -13,6 +13,7 @@ class App extends Component {
 
     this.state = this.initState();
 
+    this.handlePriceChange = this.handlePriceChange.bind(this);
     this.createLottoList = this.createLottoList.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
     this.setIsResultModalShow = this.setIsResultModalShow.bind(this);
@@ -24,7 +25,12 @@ class App extends Component {
       lottoList: [],
       winningNumber: {},
       isResultModalShow: false,
+      price: '',
     };
+  }
+
+  handlePriceChange(price) {
+    this.setState({ price });
   }
 
   createLotto() {
@@ -62,7 +68,11 @@ class App extends Component {
           <h1>🎱 행운의 로또</h1>
         </header>
         <main>
-          <PriceForm createLottoList={this.createLottoList} />
+          <PriceForm
+            createLottoList={this.createLottoList}
+            onPriceChange={this.handlePriceChange}
+            price={this.state.price}
+          />
           {this.state.lottoList.length > 0 && (
             <>
               <PurchasedLotto lottoList={this.state.lottoList} />
