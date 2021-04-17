@@ -28,12 +28,12 @@
 
 ### Step2
 
-- [ ] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
+- [x] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
 
 ### 공통 심화
 
-- [ ] UI를 통해 **실시간으로** 당첨 번호 발표까지 남은 시간을 제공합니다.
-- [ ] 다시 시작하기 버튼을 누르면 당첨 번호 발표 시간도 사라진다.
+- [x] UI를 통해 **실시간으로** 당첨 번호 발표까지 남은 시간을 제공합니다.
+- [x] 다시 시작하기 버튼을 누르면 당첨 번호 발표 시간도 사라진다.
 
 ## 👏 Contributing
 

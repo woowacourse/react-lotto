@@ -5,6 +5,8 @@ import LottoContainer from "../LottoContainer";
 import PurchaseInput from "../PurchaseInput";
 import WinningNumberInput from "../WinningNumber";
 import { MainContainer } from "./style";
+import Timer from "../common/Timer";
+import { getNextSaturday } from "./service";
 
 const Main = ({
   state: { lottos },
@@ -13,6 +15,7 @@ const Main = ({
   return (
     <MainContainer>
       <PurchaseInput updateLottos={updateLottos} />
+      {lottos.length !== 0 && <Timer targetTime={getNextSaturday()} />}
       {lottos.length !== 0 && <LottoContainer lottos={lottos} />}
       {lottos.length !== 0 && (
         <WinningNumberInput
