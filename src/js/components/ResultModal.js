@@ -89,15 +89,13 @@ export default class ResultModal extends Component {
               <tbody>
                 {Object.keys(result)
                   .sort()
-                  .map((matchCount) => {
-                    return (
-                      <tr key={matchCount}>
-                        <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
-                        <td>{WINNING_PRIZE_INFO[matchCount].PRIZE.toLocaleString('ko-KR')} 원</td>
-                        <td>{result[matchCount]}장</td>
-                      </tr>
-                    );
-                  })}
+                  .map((matchCount) => (
+                    <tr key={matchCount}>
+                      <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
+                      <td>{WINNING_PRIZE_INFO[matchCount].PRIZE.toLocaleString('ko-KR')} 원</td>
+                      <td>{result[matchCount]}장</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
