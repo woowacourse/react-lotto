@@ -7,8 +7,6 @@ class PaymentForm extends Component {
     this.messageRef = React.createRef();
   }
 
-  //TODO: 필드 범위 (private, public) 얘기해보기
-
   handleInputCheck = ({ target }) => {
     if (target.value === '') {
       this.props.setMoney(null);
