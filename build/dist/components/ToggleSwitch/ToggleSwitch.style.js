@@ -1,0 +1,11 @@
+var _templateObject, _templateObject2, _templateObject3;
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+import styled from '../../pkg/@emotion/styled.js';
+var Styled = {
+  ToggleSwitch: styled.label(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    z-index: 0;\n    position: relative;\n  "]))),
+  ToggleCheckbox: styled.input(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    appearance: none;\n    z-index: -1;\n    position: absolute;\n    right: 6px;\n    top: -8px;\n    display: block;\n    margin: 0;\n    border-radius: 50%;\n    width: 40px;\n    height: 40px;\n    outline: none;\n    opacity: 0;\n    transform: scale(1);\n    pointer-events: none;\n    transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;\n\n    &:checked {\n      right: -10px;\n      background-color: rgb(0, 188, 212);\n    }\n\n    &:checked + span::before {\n      background-color: rgba(0, 188, 212, 0.6);\n    }\n\n    &:checked + span::after {\n      background-color: rgb(0, 188, 212);\n      transform: translateX(16px);\n    }\n  "]))),
+  ToggleText: styled.span(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    display: inline-block;\n    cursor: pointer;\n\n    &::before {\n      content: '';\n      float: right;\n      display: inline-block;\n      margin: 5px 0 5px 10px;\n      border-radius: 7px;\n      width: 36px;\n      height: 14px;\n      background-color: rgba(0, 0, 0, 0.38);\n      vertical-align: top;\n      transition: background-color 0.2s, opacity 0.2s;\n    }\n\n    &::after {\n      content: '';\n      position: absolute;\n      top: 2px;\n      right: 16px;\n      border-radius: 50%;\n      width: 20px;\n      height: 20px;\n      background-color: white;\n      box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),\n        0 1px 5px 0 rgb(0 0 0 / 12%);\n      transition: background-color 0.2s, transform 0.2s;\n    }\n  "])))
+};
+export default Styled;
