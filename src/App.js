@@ -3,9 +3,9 @@ import Modal from './components/modal';
 import MoneyInput from './components/money-input';
 import Receipt from './components/receipt';
 import WinningNumber from './components/winning-number';
+import Canvas from './components/canvas';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import { getRandomNumber } from './utils/random-number';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +17,7 @@ class App extends React.Component {
       winningNumber: [],
       bonusNumber: 0,
     };
+    this.MoneyInputRef = React.createRef();
   }
 
   handleMoneySubmit(money) {
@@ -39,6 +40,14 @@ class App extends React.Component {
     });
   }
 
+  handleResetButtonClick() {
+    this.setState({
+      isMoneyInputValid: false,
+      isModalOpen: false,
+    });
+    this.MoneyInputRef.current.resetMoneyForm();
+  }
+
   makeAutoTicket() {
     const uniqueTicket = new Set();
     while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
@@ -56,6 +65,7 @@ class App extends React.Component {
     return (
       <>
         <MoneyInput
+          ref={this.MoneyInputRef}
           onHandleSubmit={(money, ticketCount) => {
             this.handleMoneySubmit(money);
             this.makeReceipt(ticketCount);
@@ -78,6 +88,7 @@ class App extends React.Component {
               winningNumber={this.state.winningNumber}
               bonusNumber={this.state.bonusNumber}
               receipt={this.state.receipt}
+              onResetButtonClick={() => this.handleResetButtonClick()}
             ></Modal>
           </>
         )}

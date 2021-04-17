@@ -6,6 +6,7 @@ import { LOTTERY_PRICE } from '../../constants/number';
 class MoneyInput extends React.Component {
   constructor(props) {
     super(props);
+    this.formRef = React.createRef();
   }
 
   onMoneyInputSubmit(e) {
@@ -15,9 +16,13 @@ class MoneyInput extends React.Component {
     this.props.onHandleSubmit(money, ticketCount);
   }
 
+  resetMoneyForm() {
+    this.formRef.current.reset();
+  }
+
   render() {
     return (
-      <form onSubmit={(e) => this.onMoneyInputSubmit(e)}>
+      <form ref={this.formRef} onSubmit={(e) => this.onMoneyInputSubmit(e)}>
         <NumberInput
           customClass='money-input'
           name='amount'

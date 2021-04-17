@@ -1,6 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PurchaseNumberItem from '../receipt/purchase-number-item';
+import Button from '../util-component/button';
 import './style.scss';
 class Modal extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Modal extends React.Component {
                 bonusBallCount={this.countBonusBall(ticket)}
               ></PurchaseNumberItem>
             ))}
+            <Button onClick={this.props.onResetButtonClick} buttonText='다시 시작하기'></Button>
           </div>
         </div>
       </>

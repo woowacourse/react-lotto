@@ -6,8 +6,11 @@ class Button extends React.Component {
   }
 
   render() {
+    const { buttonText, customClass, ...attributes } = this.props;
     return (
-      <button className={`submit-button ${this.props.customClass}`}>{this.props.buttonText}</button>
+      <button className={`submit-button ${customClass}`} {...attributes}>
+        {buttonText}
+      </button>
     );
   }
 }
