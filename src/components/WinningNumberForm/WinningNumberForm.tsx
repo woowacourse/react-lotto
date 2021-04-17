@@ -11,6 +11,7 @@ import {
 } from '../../services/validation';
 
 type Props = {
+  formRef: React.RefObject<HTMLFormElement>;
   handleWinningNumber: (winningNumber: WinningNumber) => void;
 };
 
@@ -20,7 +21,7 @@ type State = {
   [key: string]: number;
 };
 
-export default class WinningNumberInput extends Component<Props, State> {
+export default class WinningNumberForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -71,7 +72,7 @@ export default class WinningNumberInput extends Component<Props, State> {
 
   render() {
     return (
-      <WinningNumberFormWrapper onSubmit={this.handleSubmit}>
+      <WinningNumberFormWrapper onSubmit={this.handleSubmit} ref={this.props.formRef}>
         <label className="input-label">당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
         <Wrapper className="winning-number-input-wrapper" display="flex">
           <div>

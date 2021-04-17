@@ -7,7 +7,12 @@ import ResultTableRow from './ResultTableRow/ResultTableRow';
 import { getTotalProfit, getWinnerCounts } from '../../services/game';
 import TICKET from '../../constants/ticket';
 
-type Props = { handleModalClose: () => void; tickets: Ticket[]; winningNumber: WinningNumber };
+type Props = {
+  handleModalClose: () => void;
+  resetGame: () => void;
+  tickets: Ticket[];
+  winningNumber: WinningNumber;
+};
 
 type State = {
   profit: number;
@@ -71,7 +76,7 @@ export default class ResultModal extends Component<Props, State> {
           </Wrapper>
           <p className="profit">수익률은 {this.state.profit}% 입니다.</p>
           <Wrapper display="flex">
-            <Button type="reset" fullWidth>
+            <Button type="reset" fullWidth onClick={this.props.resetGame}>
               다시 시작하기
             </Button>
           </Wrapper>
