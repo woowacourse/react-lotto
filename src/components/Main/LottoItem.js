@@ -17,7 +17,8 @@ export default class LottoItem extends Component {
     }
   }
 
-  getMachedCount = () => {
+  // 일치하는 개수를 구하는 연산식
+  getMatchedCount = () => {
     return (
       this.props.winningNumbers.length +
       this.state.numbers.length -
@@ -26,8 +27,7 @@ export default class LottoItem extends Component {
   };
 
   increaseWinningCounts = () => {
-    // 일치하는 개수를 구하는 연산식
-    const matchedCount = this.getMachedCount();
+    const matchedCount = this.getMatchedCount();
 
     if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.FIRST) {
       this.props.increaseWinningCounts(LOTTO_VALUE.RANK.FIRST);

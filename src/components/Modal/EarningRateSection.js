@@ -1,10 +1,6 @@
 import { Component } from 'react';
 import { PRIZE_BY_RANK } from '../../constants';
 export default class EarningRateSection extends Component {
-  componentDidUpdate = () => {
-    this.calculateEarningRate();
-  };
-
   getEarnedMoney = () => {
     return Object.keys(this.props.winningCounts).reduce(
       (sum, key) => sum + this.props.winningCounts[key] * PRIZE_BY_RANK[key],
