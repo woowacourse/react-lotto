@@ -6,25 +6,31 @@ import { LottoResultModal } from './components/Modal/index';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
 
+const initialState = {
+  isModalOpened: false,
+  winningCounts: {
+    [LOTTO_VALUE.RANK.FIRST]: 0,
+    [LOTTO_VALUE.RANK.SECOND]: 0,
+    [LOTTO_VALUE.RANK.THIRD]: 0,
+    [LOTTO_VALUE.RANK.FOURTH]: 0,
+    [LOTTO_VALUE.RANK.FIFTH]: 0,
+  },
+  lottoCount: 0,
+  mainComponentKey: new Date(),
+  announcementDate: getAnnouncementDate(),
+};
+
 export default class App extends Component {
   state = {
-    isModalOpened: false,
-    winningCounts: {
-      [LOTTO_VALUE.RANK.FIRST]: 0,
-      [LOTTO_VALUE.RANK.SECOND]: 0,
-      [LOTTO_VALUE.RANK.THIRD]: 0,
-      [LOTTO_VALUE.RANK.FOURTH]: 0,
-      [LOTTO_VALUE.RANK.FIFTH]: 0,
-    },
-    lottoCount: 0,
-    mainComponentKey: new Date(),
-    announcementDate: getAnnouncementDate(),
+    ...initialState,
   };
 
-  initialState = this.state;
-
   resetState = () => {
-    this.setState({ ...this.initialState, mainComponentKey: new Date() });
+    this.setState({
+      ...initialState,
+      mainComponentKey: new Date(),
+      announcementDate: getAnnouncementDate(),
+    });
   };
 
   setWinningCounts = (winningCounts) => {
@@ -61,7 +67,7 @@ export default class App extends Component {
       isModalOpened: false,
     });
 
-    this.setWinningCounts(this.initialState.winningCounts);
+    this.setWinningCounts(this.state.winningCounts);
   };
 
   render() {
