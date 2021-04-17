@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "webpack",
     "start": "webpack serve --hot"
   },
   "devDependencies": {
