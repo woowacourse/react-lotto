@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import TicketList from './components/TicketList/TicketList';
 import ResultModal from './components/ResultModal/ResultModal';
-import WinningNumberInput from './components/WinningNumberForm/WinningNumberForm';
+import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
 import { AppWrapper } from './App.styles';
 import Button from './components/common/Button';
 import { issueTickets } from './services/tickets';
@@ -21,8 +21,10 @@ type State = {
 };
 
 export default class App extends Component<{}, State> {
+  winningNumberFormRef: React.RefObject<HTMLFormElement>;
   constructor(props: {}) {
     super(props);
+    this.winningNumberFormRef = React.createRef();
 
     this.state = {
       tickets: [],
@@ -66,16 +68,33 @@ export default class App extends Component<{}, State> {
     });
   }
 
+  resetGame() {
+    this.setState({
+      tickets: [],
+      winningNumber: {
+        numbers: [],
+        bonus: 0,
+      },
+      isModalOpen: false,
+    });
+
+    this.winningNumberFormRef.current?.reset();
+  }
+
   render() {
     return (
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
         <TicketList tickets={this.state.tickets} />
-        <WinningNumberInput handleWinningNumber={this.handleWinningNumber} />
+        <WinningNumberForm
+          handleWinningNumber={this.handleWinningNumber}
+          formRef={this.winningNumberFormRef}
+        />
         {this.state.isModalOpen && (
           <ResultModal
             handleModalClose={() => this.handleModal(false)}
+            resetGame={() => this.resetGame()}
             tickets={this.state.tickets}
             winningNumber={this.state.winningNumber}
           />

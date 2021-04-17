@@ -39,6 +39,9 @@ export default class PaymentForm extends Component<Props, State> {
       return;
     }
 
+    this.setState({
+      payment: 0,
+    });
     this.props.handlePayment(this.state.payment);
   }
 
@@ -51,6 +54,7 @@ export default class PaymentForm extends Component<Props, State> {
             fullWidth
             type="number"
             onChange={this.handleInputChange}
+            value={this.state.payment === 0 ? '' : this.state.payment}
             placeholder="구입 금액"
             name="payment-input"
             required
