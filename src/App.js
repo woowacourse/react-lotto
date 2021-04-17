@@ -2,7 +2,7 @@ import './index.css';
 import './css/index.css';
 import React, { Component } from 'react';
 import { Main } from './components/Main';
-import { Modal } from './components/Modal';
+import { ResultModal } from './components/Modal';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
 
@@ -79,7 +79,7 @@ export default class App extends Component {
           key={this.state.mainComponentKey}
         />
         {this.state.isModalOpened && (
-          <Modal
+          <ResultModal
             closeModal={this.closeModal}
             winningCounts={this.state.winningCounts}
             paidMoney={this.state.lottoCount * LOTTO_PRICE}

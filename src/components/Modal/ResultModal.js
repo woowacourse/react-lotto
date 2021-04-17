@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { ResultSection, EarningRateSection } from '.';
 
-export default class Modal extends Component {
+export default class ResultModal extends Component {
   handleDimmedClick = (event) => {
     if (event.currentTarget === event.target) {
       this.props.closeModal();
