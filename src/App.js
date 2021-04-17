@@ -4,6 +4,7 @@ import PriceInput from './components/PriceInput';
 import LottosContainer from './components/LottosContainer';
 import WinningNumbersContainer from './components/WinningNumbersContainer';
 import ResultModal from './components/ResultModal';
+import AnnounceTimer from './components/AnnounceTimer';
 import Lotto from './lotto';
 
 const initialState = {
@@ -77,6 +78,7 @@ class App extends Component {
       <Root>
         <Container>
           <Title>🎰 개미 로또</Title>
+          {this.state.isPurchaseDone ? <AnnounceTimer /> : null}
           <PriceInput
             isDisabled={this.state.isPurchaseDone}
             onPurchaseLottos={this.purchaseLottos}

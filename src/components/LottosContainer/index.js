@@ -30,8 +30,10 @@ class LottosContainer extends Component {
         <FlexContainer>
           <TotalPurchase>총 {this.props.lottos.length}개를 구매하였습니다.</TotalPurchase>
           <SwitchWrapper>
-            <SwitchLabel>번호보기</SwitchLabel>
-            <ToggleSwitch type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
+            <SwitchLabel>
+              번호보기
+              <ToggleSwitch type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
+            </SwitchLabel>
           </SwitchWrapper>
         </FlexContainer>
         <LottoWrapper isSwitchOn={this.props.isSwitchOn}>{lottos}</LottoWrapper>
