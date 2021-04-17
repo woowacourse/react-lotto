@@ -29,18 +29,14 @@ class App extends Component {
   };
 
   setWinningResult = (winningNumbers, bonusNumber) => {
-    const rankCount = this.profitCalculator.getRankCount({
+    const winningResult = this.profitCalculator.getWinningResult({
       winningNumbers,
       bonusNumber,
       lotteries: this.state.lotteries,
     });
-    const earningRate = this.profitCalculator.getEarningRate(
-      rankCount,
-      this.state.lotteries
-    );
 
     this.setState({
-      winningResult: { rankCount, earningRate },
+      winningResult,
       isResultModalOpen: true,
     });
   };
