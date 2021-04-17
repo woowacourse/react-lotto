@@ -17,9 +17,11 @@ class LotteriesDetail extends Component {
     const { lotteries } = this.props;
 
     return (
-      <section>
+      <section className="mt-9">
         <div className="d-flex">
-          <span>총 {lotteries.length}개를 구매하였습니다.</span>
+          <label className="flex-auto my-0">
+            총 {lotteries.length}개를 구매하였습니다.
+          </label>
           <div className="flex-auto d-flex justify-end pr-1">
             <label className="switch">
               <input type="checkbox" onChange={this.handleNumberDisplay} />
@@ -27,11 +29,11 @@ class LotteriesDetail extends Component {
             </label>
           </div>
         </div>
-        <ul className="d-flex">
+        <ul className={`d-flex pl-0 ${isNumberVisible ? 'flex-col' : ''}`}>
           {lotteries.map(lottery => (
-            <li className="d-flex" key={lottery.id}>
-              <span>🎟️</span>
-              <span className={isNumberVisible ? '' : 'd-none'}>
+            <li className="d-flex items-center" key={lottery.id}>
+              <span className="mx-1 text-4xl">🎟️</span>
+              <span className={`ml-3 ${isNumberVisible ? '' : 'd-none'}`}>
                 {lottery.numbers.join(', ')}
               </span>
             </li>

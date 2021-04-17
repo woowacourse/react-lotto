@@ -53,34 +53,51 @@ class WinningNumbersForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="d-flex flex-col">
-        <label>지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
+      <form onSubmit={this.handleSubmit} className="mt-9">
+        <label className="flex-auto d-inline-block mb-3">
+          지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.
+        </label>
         <div className="d-flex">
-          {this.state.winningNumbers.map((_, index) => (
-            <input
-              key={index}
-              onChange={this.handleWinningNumberChange}
-              data-index={index}
-              className="mr-1"
-              type="number"
-              min={LOTTERY.MIN_NUMBER}
-              max={LOTTERY.MAX_NUMBER}
-              required
-              disabled={this.state.isSubmit}
-            ></input>
-          ))}
-          <input
-            className="ml-6"
-            onChange={this.handleBonusNumberChange}
-            type="number"
-            min={LOTTERY.MIN_NUMBER}
-            max={LOTTERY.MAX_NUMBER}
-            disabled={this.state.isSubmit}
-            required
-          ></input>
+          <div>
+            <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
+            <div>
+              {this.state.winningNumbers.map((_, index) => (
+                <input
+                  key={index}
+                  onChange={this.handleWinningNumberChange}
+                  data-index={index}
+                  className="winning-number mx-1 text-center"
+                  type="number"
+                  min={LOTTERY.MIN_NUMBER}
+                  max={LOTTERY.MAX_NUMBER}
+                  required
+                  disabled={this.state.isSubmit}
+                ></input>
+              ))}
+            </div>
+          </div>
+          <div className="bonus-number-container flex-grow">
+            <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
+            <div className="d-flex justify-center">
+              <input
+                className="bonus-number text-center"
+                onChange={this.handleBonusNumberChange}
+                type="number"
+                min={LOTTERY.MIN_NUMBER}
+                max={LOTTERY.MAX_NUMBER}
+                disabled={this.state.isSubmit}
+                required
+              />
+            </div>
+          </div>
         </div>
         <p ref={this.messageRef}></p>
-        <button type="submit">결과 확인하기</button>
+        <button
+          type="submit"
+          className="open-result-modal-button mt-5 btn btn-cyan w-100"
+        >
+          결과 확인하기
+        </button>
       </form>
     );
   }

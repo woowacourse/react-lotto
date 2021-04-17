@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { LotteryMachine, ProfitCalculator } from "../services";
-import LotteriesDetail from "./LotteriesDetail";
-import PaymentForm from "./PaymentForm";
-import WinningNumbersForm from "./WinningNumbersForm";
-import WinningResultModal from "./WinningResultModal";
+import React, { Component } from 'react';
+import { LotteryMachine, ProfitCalculator } from '../services';
+import LotteriesDetail from './LotteriesDetail';
+import PaymentForm from './PaymentForm';
+import WinningNumbersForm from './WinningNumbersForm';
+import WinningResultModal from './WinningResultModal';
 
 class App extends Component {
   constructor() {
@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({ lotteries });
   };
 
-  setMoney = (money) => {
+  setMoney = money => {
     this.setState({ money });
   };
 
@@ -62,29 +62,31 @@ class App extends Component {
     const { money, lotteries, winningResult } = this.state;
 
     return (
-      <>
-        <h1>🎱 행운의 로또</h1>
-        <PaymentForm
-          money={money}
-          lotteries={lotteries}
-          setMoney={this.setMoney}
-          setLotteries={this.setLotteries}
-        />
-        {lotteries.length > 0 && (
-          <>
-            <LotteriesDetail lotteries={lotteries} />
-            <WinningNumbersForm setWinningResult={this.setWinningResult} />
-          </>
-        )}
-        {winningResult && (
-          <WinningResultModal
-            winningResult={winningResult}
-            isModalOpen={this.state.isResultModalOpen}
-            closeModal={this.closeResultModal}
-            resetApp={this.resetApp}
+      <div id="app" className="d-flex justify-center mt-5">
+        <div className="w-100">
+          <h1 className="text-center">🎱 행운의 로또</h1>
+          <PaymentForm
+            money={money}
+            lotteries={lotteries}
+            setMoney={this.setMoney}
+            setLotteries={this.setLotteries}
           />
-        )}
-      </>
+          {lotteries.length > 0 && (
+            <>
+              <LotteriesDetail lotteries={lotteries} />
+              <WinningNumbersForm setWinningResult={this.setWinningResult} />
+            </>
+          )}
+          {winningResult && (
+            <WinningResultModal
+              winningResult={winningResult}
+              isModalOpen={this.state.isResultModalOpen}
+              closeModal={this.closeResultModal}
+              resetApp={this.resetApp}
+            />
+          )}
+        </div>
+      </div>
     );
   }
 }
