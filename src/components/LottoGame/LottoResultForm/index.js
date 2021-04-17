@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { LOTTO_NUMBER_COUNT } from '../../../constants/standard';
-import { isDuplicate, isValidRange } from '../../../utils/validator';
+import { MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_COUNT } from '../../../constants/standard';
+import { hasDuplicatedItemInList, isNumbersInValidRange } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
 
 export default class LottoResultForm extends Component {
@@ -17,12 +17,12 @@ export default class LottoResultForm extends Component {
       .map((_, idx) => Number(event.target[`winning-${idx + 1}`].value));
     const bonusNumber = Number(event.target['bonus'].value);
 
-    if (!isValidRange([...winningNumbers, bonusNumber])) {
+    if (!isNumbersInValidRange([...winningNumbers, bonusNumber], MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)) {
       alert(MESSAGE.OUT_RANGED_LOTTO_NUMBERS);
       return;
     }
 
-    if (isDuplicate([...winningNumbers, bonusNumber])) {
+    if (hasDuplicatedItemInList([...winningNumbers, bonusNumber])) {
       alert(MESSAGE.DUPLICATED_LOTTO_NUMBERS);
       return;
     }
