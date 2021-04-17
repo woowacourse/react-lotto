@@ -6,6 +6,11 @@ import './style.scss';
 class Modal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      totalPrize: 0,
+      earningRate: 0,
+    };
+    this.tempTotalPrize = 0;
   }
 
   countWinningBall(ticket) {
@@ -14,7 +19,21 @@ class Modal extends React.Component {
 
   countBonusBall(ticket) {
     const winningBonusBall = ticket.find((ball) => ball === this.props.bonusNumber);
-    return winningBonusBall && winningBonusBall.length;
+
+    return winningBonusBall ? 1 : 0;
+  }
+
+  calculateTotalPrize(prize) {
+    this.tempTotalPrize = this.tempTotalPrize + prize;
+  }
+
+  componentDidMount() {
+    this.setState({
+      totalPrize: this.tempTotalPrize,
+      earningRate: Math.floor(
+        ((this.tempTotalPrize - this.props.moneyAmount) / this.props.moneyAmount) * 100
+      ),
+    });
   }
 
   render() {
@@ -24,7 +43,8 @@ class Modal extends React.Component {
           <div className='modal-inner'>
             <Button onClick={this.props.onModalCloseButtonClick} buttonText='X'></Button>
             <h1>결과 확인하기</h1>
-            {this.props.winningNumber}
+            <p>{`${this.props.winningNumber} + ${this.props.bonusNumber}`}</p>
+            <p>{`수익률: ${this.state.earningRate}%`}</p>
             {this.props.receipt.map((ticket) => (
               <PurchaseNumberItem
                 key={uuidv4()}
@@ -34,6 +54,7 @@ class Modal extends React.Component {
                 toggled={true}
                 winningBallCount={this.countWinningBall(ticket)}
                 bonusBallCount={this.countBonusBall(ticket)}
+                onCalculateTotalPrize={(prize) => this.calculateTotalPrize(prize)}
               ></PurchaseNumberItem>
             ))}
             <Button onClick={this.props.onResetButtonClick} buttonText='다시 시작하기'></Button>

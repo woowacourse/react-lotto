@@ -10,22 +10,31 @@ class PurchaseNumberItem extends React.Component {
   }
 
   calculatePrize() {
+    let prize = 0;
     switch (this.props.winningBallCount) {
       case 3:
-        return PRIZE.FIFTH;
+        prize = PRIZE.FIFTH;
+        break;
       case 4:
-        return PRIZE.FOURTH;
+        prize = PRIZE.FOURTH;
+        break;
       case 5:
         if (this.props.bonusBallCount) {
-          return PRIZE.SECOND;
+          prize = PRIZE.SECOND;
+          break;
         }
-        return PRIZE.THIRD;
+        prize = PRIZE.THIRD;
+        break;
       case 6:
-        return PRIZE.FIRST;
+        prize = PRIZE.FIRST;
+        break;
 
       default:
-        return 0;
+        prize = 0;
     }
+
+    this.props.onCalculateTotalPrize(prize);
+    return prize;
   }
 
   calculateRank() {
@@ -36,9 +45,9 @@ class PurchaseNumberItem extends React.Component {
         return RANK.FOURTH;
       case 5:
         if (this.props.bonusBallCount) {
-          return RANK.THIRD;
+          return RANK.SECOND;
         }
-        return RANK.SECOND;
+        return RANK.THIRD;
       case 6:
         return RANK.FIRST;
 

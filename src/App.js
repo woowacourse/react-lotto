@@ -3,7 +3,6 @@ import Modal from './components/modal';
 import MoneyInput from './components/money-input';
 import Receipt from './components/receipt';
 import WinningNumber from './components/winning-number';
-import Canvas from './components/canvas';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import { getRandomNumber } from './utils/random-number';
 class App extends React.Component {
@@ -95,6 +94,7 @@ class App extends React.Component {
               winningNumber={this.state.winningNumber}
               bonusNumber={this.state.bonusNumber}
               receipt={this.state.receipt}
+              moneyAmount={this.state.moneyAmount}
               onResetButtonClick={() => this.handleResetButtonClick()}
               onModalCloseButtonClick={() => this.handleModalCloseButtonClick()}
             ></Modal>
