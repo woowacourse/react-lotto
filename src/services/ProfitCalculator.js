@@ -11,7 +11,7 @@ export default class ProfitCalculator {
     };
 
     lotteries.forEach(lottery => {
-      const rank = this.getRank({ winningNumbers, bonusNumber, lottery });
+      const rank = this._getRank({ winningNumbers, bonusNumber, lottery });
 
       if (rank) {
         rankCount[rank]++;
@@ -21,7 +21,7 @@ export default class ProfitCalculator {
     return rankCount;
   }
 
-  getRank({ winningNumbers, bonusNumber, lottery }) {
+  _getRank({ winningNumbers, bonusNumber, lottery }) {
     const rank = {
       [PRIZE.FIRST.WINNING_COUNT]: () => PRIZE.FIRST.RANK,
       [PRIZE.SECOND.WINNING_COUNT]: isBonusMatched =>
@@ -44,12 +44,12 @@ export default class ProfitCalculator {
   getEarningRate(rankCount, lotteries) {
     const spentMoney = lotteries.length * LOTTERY.PRICE;
     const earningRate =
-      (this.calculateEarning(rankCount, spentMoney) / spentMoney) * 100;
+      (this._calculateEarning(rankCount, spentMoney) / spentMoney) * 100;
 
     return Number.isInteger(earningRate) ? earningRate : earningRate.toFixed(2);
   }
 
-  calculateEarning(rankCount, spentMoney) {
+  _calculateEarning(rankCount, spentMoney) {
     const prizeMoney = {
       [PRIZE.FIRST.RANK]: PRIZE.FIRST.MONEY,
       [PRIZE.SECOND.RANK]: PRIZE.SECOND.MONEY,
