@@ -21,3 +21,7 @@ function* getId() {
 }
 
 export const idMaker = getId();
+
+export const formatMoney = number => {
+  return new Intl.NumberFormat('ko-KR').format(number);
+};

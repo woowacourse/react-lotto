@@ -6,5 +6,5 @@ export {
   MAX_PAYMENT,
   SELECTOR,
 } from './constants';
-export { getRandomNumbers, idMaker } from './util';
+export { getRandomNumbers, idMaker, formatMoney } from './util';
 export { hasDuplicatedNumber } from './validate';

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { PRIZE } from "../utils";
+import React, { Component } from 'react';
+import { formatMoney, PRIZE } from '../utils';
 
 class WinningResultModal extends Component {
   render() {
     const { rankCount, earningRate } = this.props.winningResult;
 
     return (
-      <div className={`modal ${this.props.isModalOpen ? "open" : ""}`}>
+      <div className={`modal ${this.props.isModalOpen ? 'open' : ''}`}>
         <div className="modal-inner p-10">
           <div className="modal-close" onClick={this.props.closeModal}>
             <svg viewBox="0 0 40 40">
@@ -27,21 +27,21 @@ class WinningResultModal extends Component {
               <tbody>
                 <tr className="text-center">
                   <td className="p-3">{PRIZE.FIFTH.WINNING_COUNT}개</td>
-                  <td className="p-3">5,000</td>
+                  <td className="p-3">{formatMoney(PRIZE.FIFTH.MONEY)}</td>
                   <td className="modal__winning-count p-3" data-rank="fifth">
                     {rankCount[PRIZE.FIFTH.RANK]}개
                   </td>
                 </tr>
                 <tr className="text-center">
                   <td className="p-3">{PRIZE.FOURTH.WINNING_COUNT}개</td>
-                  <td className="p-3">50,000</td>
+                  <td className="p-3">{formatMoney(PRIZE.FOURTH.MONEY)}</td>
                   <td className="modal__winning-count p-3" data-rank="fourth">
                     {rankCount[PRIZE.FOURTH.RANK]}개
                   </td>
                 </tr>
                 <tr className="text-center">
                   <td className="p-3">{PRIZE.THIRD.WINNING_COUNT}개</td>
-                  <td className="p-3">1,500,000</td>
+                  <td className="p-3">{formatMoney(PRIZE.THIRD.MONEY)}</td>
                   <td className="modal__winning-count p-3" data-rank="third">
                     {rankCount[PRIZE.THIRD.RANK]}개
                   </td>
@@ -50,14 +50,14 @@ class WinningResultModal extends Component {
                   <td className="p-3">
                     {PRIZE.SECOND.WINNING_COUNT}개 + 보너스볼
                   </td>
-                  <td className="p-3">30,000,000</td>
+                  <td className="p-3">{formatMoney(PRIZE.SECOND.MONEY)}</td>
                   <td className="modal__winning-count p-3" data-rank="second">
                     {rankCount[PRIZE.SECOND.RANK]}개
                   </td>
                 </tr>
                 <tr className="text-center">
                   <td className="p-3">{PRIZE.FIRST.WINNING_COUNT}개</td>
-                  <td className="p-3">2,000,000,000</td>
+                  <td className="p-3">{formatMoney(PRIZE.FIRST.MONEY)}</td>
                   <td className="modal__winning-count p-3" data-rank="first">
                     {rankCount[PRIZE.FIRST.RANK]}개
                   </td>
