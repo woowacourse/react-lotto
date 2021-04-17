@@ -1,12 +1,14 @@
+import { nanoid } from 'nanoid';
 import TICKET from '../constants/ticket';
 import { getRandomNumber } from '../utils/random';
 
 const generateTicket = (): Ticket => {
-  const ticket = new Set<number>();
-  while (ticket.size < TICKET.NUMBER_LIST_LENGTH) {
-    ticket.add(getRandomNumber(TICKET.MIN_NUMBER, TICKET.MAX_NUMBER));
+  const ticketNumbers = new Set<number>();
+  while (ticketNumbers.size < TICKET.NUMBER_LIST_LENGTH) {
+    ticketNumbers.add(getRandomNumber(TICKET.MIN_NUMBER, TICKET.MAX_NUMBER));
   }
-  return [...ticket];
+
+  return { id: nanoid(), numbers: [...ticketNumbers] };
 };
 
 export const issueTickets = (payment: number): Ticket[] => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TicketItemWrapper } from './TicketItem.styles';
 
 type Props = {
-  ticketNumbers: Ticket;
+  ticketNumbers: number[];
   isDetailMode: boolean;
 };
 

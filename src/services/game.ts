@@ -1,22 +1,25 @@
 import { RANK_INDEX, MATCH, PRIZE } from '../constants/game';
 
-const hasBonus = (ticket: Ticket, bonus: number): boolean => {
-  return ticket.includes(bonus);
+const hasBonus = (ticketNumbers: number[], bonus: number): boolean => {
+  return ticketNumbers.includes(bonus);
 };
 
 type Index = {
   [key: number]: number;
 };
 
-const getRankIndex = (ticket: Ticket, { numbers, bonus }: WinningNumber): number | undefined => {
+const getRankIndex = (
+  ticketNumbers: number[],
+  { numbers, bonus }: WinningNumber
+): number | undefined => {
   const rankIndexMap: Index = {
     6: RANK_INDEX.FIRST,
-    5: hasBonus(ticket, bonus) ? RANK_INDEX.SECOND : RANK_INDEX.THIRD,
+    5: hasBonus(ticketNumbers, bonus) ? RANK_INDEX.SECOND : RANK_INDEX.THIRD,
     4: RANK_INDEX.FOURTH,
     3: RANK_INDEX.FIFTH,
   };
 
-  const matchCount = ticket.reduce(
+  const matchCount = ticketNumbers.reduce(
     (acc, ticketNumber) => (numbers.includes(ticketNumber) ? acc + 1 : acc),
     0
   );
@@ -27,8 +30,8 @@ const getRankIndex = (ticket: Ticket, { numbers, bonus }: WinningNumber): number
 export const getWinnerCounts = (tickets: Ticket[], winningNumber: WinningNumber): number[] => {
   const winnerCounts = new Array(5).fill(0);
 
-  tickets.forEach(ticket => {
-    const rankIndex = getRankIndex(ticket, winningNumber);
+  tickets.forEach(({ numbers }) => {
+    const rankIndex = getRankIndex(numbers, winningNumber);
 
     if (rankIndex === undefined) return;
 
