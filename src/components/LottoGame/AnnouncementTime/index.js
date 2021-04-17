@@ -29,6 +29,10 @@ export default class AnnouncementTime extends Component {
     const diff = ANNOUNCE_TIME.DAY - now.getDay();
     const nextSaturday = new Date(year, month, date + diff, ANNOUNCE_TIME.HOUR, ANNOUNCE_TIME.MINUTE);
 
+    if (nextSaturday - now < 0) {
+      nextSaturday.setDate(nextSaturday.getDate() + 7);
+    }
+
     const leftTime = (nextSaturday - now) / (1000 * 60 * 60);
     const leftDate = Math.floor(leftTime / 24);
     const leftHour = Math.floor(leftTime % 24);
