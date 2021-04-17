@@ -21,6 +21,19 @@ class WinningNumbersContainer extends Component {
     this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
   }
 
+  moveNumberInputFocus(event) {
+    if (event.target.name !== 'main-number') return;
+
+    const currentNumberValue = event.target.valueAsNumber;
+    const currentNumberIndex = Number(event.target.dataset.index);
+
+    if (currentNumberValue >= 10) {
+      const numberInputs = [...event.currentTarget['main-number'], event.currentTarget['bonus-number']];
+
+      numberInputs[currentNumberIndex + 1].focus();
+    }
+  }
+
   handleSubmitWinningNumbers(event) {
     event.preventDefault();
 
@@ -46,7 +59,7 @@ class WinningNumbersContainer extends Component {
 
   render() {
     const numberInputs = Array.from({ length: Lotto.NUMBERS_LENGTH }, (_, idx) => (
-      <NumberInput key={idx} type="number" name="main-number" min="1" max="45" required />
+      <NumberInput key={idx} data-index={idx} type="number" name="main-number" min="1" max="45" required />
     ));
 
     const errorMessage = this.state.isNumbersDuplicated ? (
@@ -56,7 +69,7 @@ class WinningNumbersContainer extends Component {
     return (
       <Root>
         <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
-        <Form onSubmit={this.handleSubmitWinningNumbers}>
+        <Form onSubmit={this.handleSubmitWinningNumbers} onChange={this.moveNumberInputFocus}>
           <FlexContainer>
             <NumbersContainer>
               <NumberInputType>당첨번호</NumberInputType>
@@ -64,7 +77,14 @@ class WinningNumbersContainer extends Component {
             </NumbersContainer>
             <NumbersContainer>
               <NumberInputType>보너스번호</NumberInputType>
-              <NumberInput type="number" name="bonus-number" min="1" max="45" required />
+              <NumberInput
+                type="number"
+                data-index={Lotto.NUMBERS_LENGTH}
+                name="bonus-number"
+                min="1"
+                max="45"
+                required
+              />
             </NumbersContainer>
           </FlexContainer>
           {errorMessage}
