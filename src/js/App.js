@@ -11,17 +11,21 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      lottoList: [],
-      winningNumber: {},
-      isShowModal: false,
-    };
+    this.state = this.initState();
 
     this.createLottoList = this.createLottoList.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
     this.restart = this.restart.bind(this);
+  }
+
+  initState() {
+    return {
+      lottoList: [],
+      winningNumber: {},
+      isShowModal: false,
+    };
   }
 
   createLotto() {
@@ -53,11 +57,7 @@ class App extends Component {
   }
 
   restart() {
-    this.setState({
-      lottoList: [],
-      winningNumber: {},
-      isShowModal: false,
-    });
+    this.setState(this.initState());
   }
 
   render() {
