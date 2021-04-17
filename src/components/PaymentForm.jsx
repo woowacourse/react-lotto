@@ -8,9 +8,6 @@ class PaymentForm extends Component {
   }
 
   //TODO: 필드 범위 (private, public) 얘기해보기
-  isValidPayment(value) {
-    return value > 0 && value % LOTTERY.PRICE === 0;
-  }
 
   handleInputCheck = ({ target }) => {
     if (target.value === '') {
@@ -47,6 +44,10 @@ class PaymentForm extends Component {
 
     this.props.setLotteries(money);
   };
+
+  isValidPayment(value) {
+    return value > 0 && value % LOTTERY.PRICE === 0;
+  }
 
   render() {
     const { money } = this.props;

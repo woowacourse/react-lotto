@@ -18,15 +18,6 @@ class App extends Component {
     };
   }
 
-  resetApp = () => {
-    this.setState({
-      money: null,
-      lotteries: [],
-      winningResult: null,
-      isResultModalOpen: false,
-    });
-  };
-
   setLotteries = () => {
     const lotteries = this.lotteryMachine.publishLotteries(this.state.money);
 
@@ -56,6 +47,15 @@ class App extends Component {
 
   closeResultModal = () => {
     this.setState({ isResultModalOpen: false });
+  };
+
+  resetApp = () => {
+    this.setState({
+      money: null,
+      lotteries: [],
+      winningResult: null,
+      isResultModalOpen: false,
+    });
   };
 
   render() {

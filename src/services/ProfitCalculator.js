@@ -50,12 +50,6 @@ export default class ProfitCalculator {
   }
 
   calculateEarning(rankCount, spentMoney) {
-    return Object.entries(rankCount).reduce((earning, [rank, count]) => {
-      return earning + this.getPrizeMoneyForRank(rank) * count;
-    }, -spentMoney);
-  }
-
-  getPrizeMoneyForRank(rank) {
     const prizeMoney = {
       [PRIZE.FIRST.RANK]: PRIZE.FIRST.MONEY,
       [PRIZE.SECOND.RANK]: PRIZE.SECOND.MONEY,
@@ -64,6 +58,8 @@ export default class ProfitCalculator {
       [PRIZE.FIFTH.RANK]: PRIZE.FIFTH.MONEY,
     };
 
-    return prizeMoney[rank];
+    return Object.entries(rankCount).reduce((earning, [rank, count]) => {
+      return earning + prizeMoney[rank] * count;
+    }, -spentMoney);
   }
 }
