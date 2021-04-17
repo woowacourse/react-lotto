@@ -73,7 +73,7 @@ class Main extends Component {
             required
             autoFocus
           />
-          <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
+          <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''} minWidth={'80px'}>
             구입
           </Button>
         </Styled.Form>

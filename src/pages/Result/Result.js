@@ -44,11 +44,23 @@ class Result extends Component {
         <PageTitle>얼마나 잃었을까요?</PageTitle>
 
         <Styled.WinningNumber>
-          {Object.values(winningNumber).map((number) => (
-            <LottoNumberItem key={`winning-number-${number}`}>{number}</LottoNumberItem>
-          ))}
+          <Styled.NumberWrapper>
+            <Styled.NumberBorder>
+              {Object.values(winningNumber).map((number) => (
+                <LottoNumberItem key={`winning-number-${number}`}>{number}</LottoNumberItem>
+              ))}
+            </Styled.NumberBorder>
+            <Styled.NumberText>당첨 번호</Styled.NumberText>
+          </Styled.NumberWrapper>
+
           <Styled.PlusIcon>➕</Styled.PlusIcon>
-          <LottoNumberItem>{bonusNumber}</LottoNumberItem>
+
+          <Styled.NumberWrapper>
+            <Styled.NumberBorder>
+              <LottoNumberItem>{bonusNumber}</LottoNumberItem>
+            </Styled.NumberBorder>
+            <Styled.NumberText>보너스 번호</Styled.NumberText>
+          </Styled.NumberWrapper>
         </Styled.WinningNumber>
 
         <LottoNumberList
