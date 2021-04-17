@@ -15,13 +15,15 @@ const Main = ({
   return (
     <MainContainer>
       <PurchaseInput updateLottos={updateLottos} />
-      {lottos.length !== 0 && <Timer targetTime={getNextSaturday()} />}
-      {lottos.length !== 0 && <LottoContainer lottos={lottos} />}
       {lottos.length !== 0 && (
-        <WinningNumberInput
-          updateLottoResult={updateLottoResult}
-          openModal={openModal}
-        />
+        <>
+          <Timer targetTime={getNextSaturday()} />
+          <LottoContainer lottos={lottos} />
+          <WinningNumberInput
+            updateLottoResult={updateLottoResult}
+            openModal={openModal}
+          />
+        </>
       )}
     </MainContainer>
   );
