@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import EnterWinning from './pages/EnterWinning/EnterWinning';
 import Main from './pages/Main/Main';

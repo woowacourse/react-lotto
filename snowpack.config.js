@@ -32,6 +32,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    /* ... */
+    baseUrl: '/react-lotto',
+    metaUrlPath: '/dist',
   },
 };
