@@ -15,8 +15,6 @@ type Props = {
   handleWinningNumber: (winningNumber: WinningNumber) => void;
 };
 
-// type Index = 'first' | 'second' | 'third' | 'fourth' | 'fifth' | 'sixth' | 'bonus';
-
 type State = {
   [key: string]: number;
 };

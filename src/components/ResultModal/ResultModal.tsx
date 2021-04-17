@@ -6,6 +6,7 @@ import { ResultModalWrapper, ResultTable } from './ResultModal.styles';
 import ResultTableRow from './ResultTableRow/ResultTableRow';
 import { getTotalProfit, getWinnerCounts } from '../../services/game';
 import TICKET from '../../constants/ticket';
+import { MATCH, PRIZE, RANK_INDEX } from '../../constants/game';
 
 type Props = {
   handleModalClose: () => void;
@@ -14,35 +15,32 @@ type Props = {
   winningNumber: WinningNumber;
 };
 
-type State = {
-  profit: number;
-  winnerCounts: number[];
-};
-
-export default class ResultModal extends Component<Props, State> {
+export default class ResultModal extends Component<Props> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {
-      winnerCounts: new Array(5).fill(0),
-      profit: 0,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
     this.computeResult();
   }
 
-  computeResult() {
+  computeResult(): [number[], number] {
     const { tickets, winningNumber } = this.props;
     const payment = tickets.length * TICKET.PRICE;
     const winnerCounts = getWinnerCounts(tickets, winningNumber);
     const profit = getTotalProfit(payment, winnerCounts);
 
-    this.setState({ winnerCounts, profit });
+    return [winnerCounts, profit];
   }
 
   render() {
+    const [
+      [firstWinnerCount, secondWinnerCount, thirdWinnerCount, fourthWinnerCount, fifthWinnerCount],
+      profit,
+    ] = this.computeResult();
+
     return (
       <Modal handleModalClose={this.props.handleModalClose}>
         <ResultModalWrapper>
@@ -57,24 +55,36 @@ export default class ResultModal extends Component<Props, State> {
                 </tr>
               </thead>
               <tbody>
-                <ResultTableRow match={3} prize={5000} matchCount={this.state.winnerCounts[4]} />
-                <ResultTableRow match={4} prize={50000} matchCount={this.state.winnerCounts[3]} />
-                <ResultTableRow match={5} prize={1500000} matchCount={this.state.winnerCounts[2]} />
                 <ResultTableRow
-                  match={5}
-                  isBonus
-                  prize={30000000}
-                  matchCount={this.state.winnerCounts[1]}
+                  match={MATCH[RANK_INDEX.FIFTH]}
+                  prize={PRIZE[RANK_INDEX.FIFTH]}
+                  matchCount={fifthWinnerCount}
                 />
                 <ResultTableRow
-                  match={6}
-                  prize={200000000}
-                  matchCount={this.state.winnerCounts[0]}
+                  match={MATCH[RANK_INDEX.FOURTH]}
+                  prize={PRIZE[RANK_INDEX.FOURTH]}
+                  matchCount={fourthWinnerCount}
+                />
+                <ResultTableRow
+                  match={MATCH[RANK_INDEX.THIRD]}
+                  prize={PRIZE[RANK_INDEX.THIRD]}
+                  matchCount={thirdWinnerCount}
+                />
+                <ResultTableRow
+                  isBonus
+                  match={MATCH[RANK_INDEX.SECOND]}
+                  prize={PRIZE[RANK_INDEX.SECOND]}
+                  matchCount={secondWinnerCount}
+                />
+                <ResultTableRow
+                  match={MATCH[RANK_INDEX.FIRST]}
+                  prize={PRIZE[RANK_INDEX.FIRST]}
+                  matchCount={firstWinnerCount}
                 />
               </tbody>
             </ResultTable>
           </Wrapper>
-          <p className="profit">수익률은 {this.state.profit}% 입니다.</p>
+          <p className="profit">수익률은 {profit}% 입니다.</p>
           <Wrapper display="flex">
             <Button type="reset" fullWidth onClick={this.props.resetGame}>
               다시 시작하기
