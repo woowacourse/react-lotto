@@ -48,4 +48,21 @@ const SubmitButton = styled.button`
   margin-top: 12px;
 `;
 
-export { Root, NumberInputGuide, Form, FlexContainer, NumbersContainer, NumberInputType, NumberInput, SubmitButton };
+const InputErrorMessage = styled.div`
+  width: 100%;
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 2px;
+`;
+
+export {
+  Root,
+  NumberInputGuide,
+  Form,
+  FlexContainer,
+  NumbersContainer,
+  NumberInputType,
+  NumberInput,
+  SubmitButton,
+  InputErrorMessage,
+};

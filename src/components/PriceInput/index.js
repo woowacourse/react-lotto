@@ -19,7 +19,7 @@ class PriceInput extends Component {
 
     try {
       this.validatePriceUnit($priceInput.valueAsNumber);
-      this.setState({ isValidPriceUnit: true });
+      this.setState({ isValidPriceUnit: true, errorMessage: '' });
     } catch (error) {
       this.setState({ isValidPriceUnit: false, errorMessage: error.message });
       return;
@@ -30,7 +30,7 @@ class PriceInput extends Component {
   }
 
   validatePriceUnit(price) {
-    if (price % 1000 !== 0) throw Error('1,000원 단위로 입력해주세요🐱‍');
+    if (price % 1000 !== 0) throw Error('1,000원 단위로 입력해주세요 🐱‍');
   }
 
   render() {
