@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../constants/lottoData';
-import { toFixedNumber } from '../utils/format';
+import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../../constants/lottoData';
+import { toFixedNumber } from '../../utils/format';
 import './ResultModal.scss';
 
 export default class ResultModal extends Component {

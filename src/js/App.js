@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
-import PriceForm from './PriceForm';
-import PurchasedLotto from './PurchasedLotto';
-import ResultModal from './ResultModal';
-import WinningNumberForm from './WinningNumberForm';
-import { getRandomNumber } from '../utils/random';
-import { LOTTO } from '../constants/lottoData';
-import './App.scss';
+import PriceForm from './components/priceForm/PriceForm';
+import PurchasedLotto from './components/purchasedLotto/PurchasedLotto';
+import ResultModal from './components/resultModal/ResultModal';
+import WinningNumberForm from './components/winningNumberForm/WinningNumberForm';
+import { getRandomNumber } from './utils/random';
+import { LOTTO } from './constants/lottoData';
 
 class App extends Component {
   constructor() {

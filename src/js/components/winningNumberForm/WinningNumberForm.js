@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import WinningNumberInput from './WinningNumberInput';
-import { LOTTO } from '../constants/lottoData';
-import { hasDuplicatedItem, isInRange } from '../utils/validator';
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/messages';
+import WinningNumberInput from './winningNumberInput/WinningNumberInput';
+import { LOTTO } from '../../constants/lottoData';
+import { hasDuplicatedItem, isInRange } from '../../utils/validator';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constants/messages';
 import './WinningNumberForm.scss';
 
 const WINNING_NUMBER_INPUT_NAME = {

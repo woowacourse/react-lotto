@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LOTTO } from '../constants/lottoData';
-import { ERROR_MESSAGE } from '../constants/messages';
+import { LOTTO } from '../../constants/lottoData';
+import { ERROR_MESSAGE } from '../../constants/messages';
 import './PriceForm.scss';
 
 export default class PriceForm extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LottoTicket from './LottoTicket';
+import LottoTicket from './lottoTicket/LottoTicket';
 import './PurchasedLotto.scss';
 
 export default class PurchasedLotto extends Component {
