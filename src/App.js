@@ -48,6 +48,12 @@ class App extends React.Component {
     this.MoneyInputRef.current.resetMoneyForm();
   }
 
+  handleModalCloseButtonClick() {
+    this.setState({
+      isModalOpen: false,
+    });
+  }
+
   makeAutoTicket() {
     const uniqueTicket = new Set();
     while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
@@ -64,6 +70,7 @@ class App extends React.Component {
   render() {
     return (
       <>
+        {/* <Canvas /> */}
         <MoneyInput
           ref={this.MoneyInputRef}
           onHandleSubmit={(money, ticketCount) => {
@@ -89,6 +96,7 @@ class App extends React.Component {
               bonusNumber={this.state.bonusNumber}
               receipt={this.state.receipt}
               onResetButtonClick={() => this.handleResetButtonClick()}
+              onModalCloseButtonClick={() => this.handleModalCloseButtonClick()}
             ></Modal>
           </>
         )}

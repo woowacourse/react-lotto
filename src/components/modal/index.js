@@ -22,6 +22,7 @@ class Modal extends React.Component {
       <>
         <div className='modal'>
           <div className='modal-inner'>
+            <Button onClick={this.props.onModalCloseButtonClick} buttonText='X'></Button>
             <h1>결과 확인하기</h1>
             {this.props.winningNumber}
             {this.props.receipt.map((ticket) => (
