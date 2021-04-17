@@ -13,18 +13,25 @@ import {
   isValidWinningNumber,
   alertByWinningNumberCase,
 } from './services/validation';
+import { getRemainedTime } from './utils/date';
+import { GREENWICH_MILLISECONDS } from './services/game';
+import RemainedTime from './components/RemainedTime/RemainedTime';
 
 type State = {
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
+  remainTime: Date | null;
 };
 
 export default class App extends Component<{}, State> {
   winningNumberFormRef: React.RefObject<HTMLFormElement>;
+  remainTimer: NodeJS.Timeout | null;
+
   constructor(props: {}) {
     super(props);
     this.winningNumberFormRef = React.createRef();
+    this.remainTimer = null;
 
     this.state = {
       tickets: [],
@@ -33,11 +40,19 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
+      remainTime: null,
     };
 
     this.handlePayment = this.handlePayment.bind(this);
     this.handleWinningNumber = this.handleWinningNumber.bind(this);
     this.handleModal = this.handleModal.bind(this);
+    this.handleRemainedTime = this.handleRemainedTime.bind(this);
+  }
+
+  handleRemainedTime() {
+    this.setState({
+      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
+    });
   }
 
   handlePayment(payment: number) {
@@ -45,6 +60,11 @@ export default class App extends Component<{}, State> {
     this.setState({
       tickets,
     });
+
+    this.handleRemainedTime();
+    this.remainTimer = setInterval(() => {
+      this.handleRemainedTime();
+    }, 1000);
   }
 
   handleWinningNumber(winningNumber: WinningNumber) {
@@ -76,9 +96,11 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
+      remainTime: null,
     });
 
     this.winningNumberFormRef.current?.reset();
+    this.remainTimer && clearInterval(this.remainTimer);
   }
 
   render() {
@@ -86,11 +108,13 @@ export default class App extends Component<{}, State> {
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
+        {this.state.remainTime && <RemainedTime remainTime={this.state.remainTime} />}
         <TicketList tickets={this.state.tickets} />
         <WinningNumberForm
           handleWinningNumber={this.handleWinningNumber}
           formRef={this.winningNumberFormRef}
         />
+
         {this.state.isModalOpen && (
           <ResultModal
             handleModalClose={() => this.handleModal(false)}

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Wrapper } from '../common/Wrapper';
 
-// TODO: overflow-y 처리하기
 export const TicketListWrapper = styled(Wrapper)`
   margin-top: 2.25rem;
   min-width: 400px;
@@ -21,11 +20,17 @@ type ListProps = {
 };
 
 const detailedStyle = css`
+  flex-wrap: nowrap;
   flex-direction: column;
 `;
 
 export const List = styled.ul<ListProps>`
   display: flex;
   flex-wrap: wrap;
+  max-height: 280px;
+  overflow-x: auto;
+
+  margin-top: 1rem;
+  padding: 5px;
   ${({ isToggled }) => isToggled && detailedStyle}
 `;

@@ -49,3 +49,5 @@ export const getTotalProfit = (payment: number, winnerCounts: number[]) => {
 
   return ((income - payment) / payment) * 100;
 };
+
+export const GREENWICH_MILLISECONDS = 1000 * 60 * 60 * 33;
