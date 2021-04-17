@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import { Wrapper } from '../common/Wrapper';
 
-export const WinningNumberInputWrapper = styled(Wrapper)`
-  margin-bottom: 1rem;
-
+export const WinningNumberFormWrapper = styled.form`
   .input-label {
     display: inline-block;
     width: 100%;
@@ -15,5 +12,9 @@ export const WinningNumberInputWrapper = styled(Wrapper)`
     margin-top: 0;
     margin-bottom: 0.75rem;
     text-align: center;
+  }
+
+  .winning-number-input-wrapper {
+    margin-bottom: 1rem;
   }
 `;

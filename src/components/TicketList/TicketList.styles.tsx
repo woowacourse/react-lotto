@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Wrapper } from '../common/Wrapper';
 
+// TODO: overflow-y 처리하기
 export const TicketListWrapper = styled(Wrapper)`
   margin-top: 2.25rem;
   min-width: 400px;

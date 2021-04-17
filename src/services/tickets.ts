@@ -1,4 +1,4 @@
-import TICKET from '../components/constants/ticket';
+import TICKET from '../constants/ticket';
 import { getRandomNumber } from '../utils/random';
 
 const generateTicket = (): Ticket => {

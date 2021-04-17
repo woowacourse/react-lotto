@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-type ModalWrapperProps = {
-  open?: boolean;
-};
-
-const modalOpen = css`
-  opacity: 1;
-  visibility: visible;
-`;
-
-const ModalWrapper = styled.div<ModalWrapperProps>`
-  opacity: 0;
-  visibility: hidden;
+const ModalWrapper = styled.div`
   display: flex;
   position: fixed;
   top: 0;
@@ -22,7 +11,6 @@ const ModalWrapper = styled.div<ModalWrapperProps>`
   background: rgba(0, 0, 0, 0.5);
   transition: opacity 0.25s ease;
   z-index: 2;
-  ${({ open }) => open && modalOpen};
 `;
 
 const ModalInner = styled.div`
@@ -57,15 +45,15 @@ const ModalClose = styled.div`
 `;
 
 type ModalProps = {
-  open?: boolean;
+  handleModalClose: () => void;
 };
 
 export default class Modal extends Component<ModalProps> {
   render() {
     return (
-      <ModalWrapper open={this.props.open}>
+      <ModalWrapper>
         <ModalInner>
-          <ModalClose>
+          <ModalClose onClick={this.props.handleModalClose}>
             <svg viewBox="0 0 40 40">
               <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
