@@ -22,6 +22,10 @@ export default class PriceForm extends Component {
       return;
     }
 
+    if (price % 1) {
+      alert();
+    }
+
     const change = price % LOTTO.PRICE;
     if (change > 0) {
       alert(ERROR_MESSAGE.HAS_CHANGE(change));

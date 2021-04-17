@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "webpack",
     "start": "webpack serve --hot",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist"
