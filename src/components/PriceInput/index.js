@@ -45,8 +45,8 @@ class PriceInput extends Component {
           <InputWrapper>
             <Input
               type="number"
-              min="1000"
               id="price"
+              min="1000"
               placeholder="구입 금액"
               disabled={this.props.isDisabled}
               required

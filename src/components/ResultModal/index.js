@@ -88,7 +88,6 @@ class ResultModal extends Component {
                 </Tr>
               </Thead>
               <Tbody>
-                {/* TODO: map으로 바꿔보기 */}
                 <Tr>
                   <Td>3개</Td>
                   <Td>5,000</Td>

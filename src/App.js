@@ -5,7 +5,7 @@ import LottosContainer from './components/LottosContainer';
 import WinningNumbersContainer from './components/WinningNumbersContainer';
 import ResultModal from './components/ResultModal';
 import AnnounceTimer from './components/AnnounceTimer';
-import Lotto from './lotto';
+import Lotto from './Lotto';
 
 const initialState = {
   price: 0,
@@ -36,9 +36,7 @@ class App extends Component {
 
   handleUpdatePrice(event) {
     const price = event.target.value;
-    this.setState({
-      price,
-    });
+    this.setState({ price });
   }
 
   purchaseLottos(price) {
