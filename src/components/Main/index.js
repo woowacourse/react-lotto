@@ -28,8 +28,8 @@ const Main = ({
 };
 
 Main.propTypes = {
-  state: PropTypes.object.isRequired,
-  action: PropTypes.object.isRequired,
+  state: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  action: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default Main;

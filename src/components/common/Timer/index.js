@@ -21,7 +21,7 @@ function Timer({ targetTime }) {
 
   return (
     <Container>
-      <TimeUnit fontWeight={"900"}>남은 시간: &nbsp;</TimeUnit>
+      <TimeUnit fontWeight="900">남은 시간: &nbsp;</TimeUnit>
       <TimeUnit>{remainTime.getDate()} 일&nbsp;</TimeUnit>
       <TimeUnit>{remainTime.getHours()}시&nbsp;</TimeUnit>
       <TimeUnit>{remainTime.getMinutes()}분&nbsp;</TimeUnit>

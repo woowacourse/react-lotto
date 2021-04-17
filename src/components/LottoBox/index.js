@@ -7,9 +7,9 @@ import Lotto from "../Lotto";
 const LottoBox = ({ isNumberVisible, lottos }) => {
   return (
     <TicketList isNumberVisible={isNumberVisible}>
-      {lottos.map((lottoNumbers, index) => (
+      {lottos.map((lottoNumbers) => (
         <Lotto
-          key={lottoNumbers.toString() + index}
+          key={lottoNumbers.toString()}
           lottoNumbers={lottoNumbers}
           isNumberVisible={isNumberVisible}
         />
@@ -20,7 +20,7 @@ const LottoBox = ({ isNumberVisible, lottos }) => {
 
 LottoBox.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
-  lottos: PropTypes.array.isRequired,
+  lottos: PropTypes.oneOfType([PropTypes.array]).isRequired,
 };
 
 export default LottoBox;

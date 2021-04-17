@@ -17,7 +17,7 @@ const LottoContainer = ({ lottos }) => {
     <div>
       <Header>
         <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottos.length)}</span>
-        <Toggle text={"번호 보기"} onToggle={onToggle} />
+        <Toggle text="번호 보기" onToggle={onToggle} />
       </Header>
       <LottoBox isNumberVisible={isToggled} lottos={lottos} />
     </div>
@@ -25,7 +25,7 @@ const LottoContainer = ({ lottos }) => {
 };
 
 LottoContainer.propTypes = {
-  lottos: PropTypes.array.isRequired,
+  lottos: PropTypes.oneOfType([PropTypes.array]).isRequired,
 };
 
 export default LottoContainer;

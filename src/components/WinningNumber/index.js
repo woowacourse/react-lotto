@@ -50,7 +50,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
                 min="1"
                 max="45"
                 required="required"
-              ></InputBox>
+              />
             ))}
           </InputBoxes>
         </NumberContainer>
@@ -63,7 +63,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
             min="1"
             max="45"
             required="required"
-          ></InputBox>
+          />
         </NumberContainer>
       </Container>
       {!isValidInput && (

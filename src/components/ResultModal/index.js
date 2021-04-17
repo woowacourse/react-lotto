@@ -25,8 +25,8 @@ const ResultModal = ({
           </TableRow>
         </thead>
         <tbody>
-          {Object.values(RANKINGS).map((ranking, index) => (
-            <TableRow key={`${index}-ranking`}>
+          {Object.values(RANKINGS).map((ranking) => (
+            <TableRow key={`${ranking}-ranking`}>
               <td>{PRIZE_TABLE[ranking].condition}</td>
               <td>{PRIZE_TABLE[ranking].prize}원</td>
               <td>{rankCount[ranking]}개</td>
@@ -34,7 +34,7 @@ const ResultModal = ({
           ))}
         </tbody>
       </ResultTable>
-      <BoldText text={GUIDE_MESSAGE.EARNING_RATE(earningRate)}></BoldText>
+      <BoldText text={GUIDE_MESSAGE.EARNING_RATE(earningRate)} />
       <Button type="button" onClick={clear}>
         다시 시작하기
       </Button>
@@ -43,8 +43,8 @@ const ResultModal = ({
 };
 
 ResultModal.propTypes = {
-  state: PropTypes.object.isRequired,
-  action: PropTypes.object.isRequired,
+  state: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  action: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default ResultModal;
