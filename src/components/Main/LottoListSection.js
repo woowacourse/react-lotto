@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import LottoItem from './LottoItem';
-
+import { LottoItem } from './index';
 export default class LottoListSection extends Component {
   state = {
     toggle: false,
