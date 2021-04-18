@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Component } from 'react';
 import { getNumOfMatch } from './service';
 import { LottoBall } from '../../shared';
@@ -16,11 +17,7 @@ export default class ResultTable extends Component {
           </thead>
           <tbody>
             {this.props.lottoBundle.map((v, i) => (
-              <TableRow
-                key={String.fromCharCode(97 + i)}
-                lotto={v}
-                winningNumber={this.props.winningNumber}
-              />
+              <TableRow key={i} lotto={v} winningNumber={this.props.winningNumber} />
             ))}
           </tbody>
         </table>
@@ -39,8 +36,12 @@ class TableRow extends Component {
       <tr className="table-row">
         <td className="table-data">{RESULT_TABLE_DATA[numOfMatch].DESCRIPTION}</td>
         <td className="table-data">
-          {lotto.map((v) => (
-            <LottoBall targetNumber={v} winningNumbers={winningNumbers.concat(bonusNumber)} />
+          {lotto.map((v, i) => (
+            <LottoBall
+              key={i}
+              targetNumber={v}
+              winningNumbers={winningNumbers.concat(bonusNumber)}
+            />
           ))}
         </td>
       </tr>

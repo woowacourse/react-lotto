@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Component } from 'react';
 import Lotto from './Lotto';
 import { ToggleButton } from '../../shared';
@@ -27,7 +28,7 @@ export default class UserLottoContainer extends Component {
         </div>
         <section className={`display-section ${isToggled ? 'toggle' : null}`}>
           {lottoBundle.map((v, i) => (
-            <Lotto numbers={v} key={String.fromCharCode(97 + i)} />
+            <Lotto key={i} numbers={v} />
           ))}
         </section>
       </div>
