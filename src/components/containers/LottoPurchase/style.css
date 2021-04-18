@@ -15,7 +15,7 @@
   display: inline-block;
 }
 
-#purchase-amount-input {
+.purchase-amount-input {
   margin-top: 0.5rem;
   margin-right: 0.8rem;
   padding: 0.25rem 0.5rem;
@@ -24,7 +24,7 @@
   align-items: flex-end;
 }
 
-#purchase-amount-input:focus {
+.purchase-amount-input:focus {
   outline-color: #ee8791;
 }
 
@@ -34,12 +34,6 @@
 }
 
 .purchase-button {
-  height: 2rem;
-  min-width: 4rem;
-  padding: 0 1rem;
-  border-radius: 0.25rem;
-  border-style: none;
-  cursor: pointer;
   background-color: #ee8791;
 }
 

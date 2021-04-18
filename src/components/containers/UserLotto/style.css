@@ -1,0 +1,45 @@
+.purchase-lotto-wrapper {
+  margin: 2.25rem 0;
+}
+
+.number-of-lotto {
+  font-weight: 800;
+  padding: 0 0.25rem;
+}
+
+.display-section {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.display-section .lotto-number {
+  display: none;
+}
+
+.display-section.toggle {
+  flex-direction: column;
+}
+
+.display-section.toggle .lotto-number {
+  display: inline-block;
+}
+
+/* 로또 */
+.lotto {
+  display: flex;
+  align-items: center;
+}
+
+.lotto-image {
+  width: 2.25rem;
+  margin: 0 0.2rem;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.lotto-number {
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  color: #333;
+}

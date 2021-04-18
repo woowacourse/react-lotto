@@ -1,24 +1,25 @@
+/* eslint-disable react/sort-comp */
 import { Component } from 'react';
-import PurchaseAmount from './PurchaseAmount.js';
-import PurchaseLotto from './PurchaseLotto.js';
-import DrawNumbers from './DrawNumbers.js';
-import WinningResult from './WinningResult.js';
-import getRandomNumber from '../utils/getRandomNumber.js';
-import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules.js';
-import '../css/app.css';
+import LottoPurchaseContainer from '../containers/LottoPurchase';
+import UserLottoContainer from '../containers/UserLotto';
+import WinningNumbersContainer from '../containers/WinningNumbers';
+import UserResultContainer from '../containers/UserResult';
+import { createLotto } from './service';
+import './style.css';
 
 export default class App extends Component {
   constructor() {
     super();
+
     this.state = {
       lottoBundle: [],
-      drawNumber: {},
-      isShowingWinningResult: false,
+      winningNumber: {},
       shouldReset: false,
+      isShowingWinningResult: false,
     };
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
-    this.setDrawNumber = this.setDrawNumber.bind(this);
+    this.setWinningNumber = this.setWinningNumber.bind(this);
     this.onShowWinningResult = this.onShowWinningResult.bind(this);
     this.onCloseWinningResult = this.onCloseWinningResult.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -26,11 +27,11 @@ export default class App extends Component {
   }
 
   onPurchaseLotto({ numOfLotto }) {
-    this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => this.createLotto()) });
+    this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => createLotto()) });
   }
 
-  setDrawNumber({ drawNumber }) {
-    this.setState({ drawNumber });
+  setWinningNumber({ winningNumber }) {
+    this.setState({ winningNumber });
   }
 
   onShowWinningResult() {
@@ -49,21 +50,8 @@ export default class App extends Component {
     this.setState({ shouldReset: false });
   }
 
-  createLotto(array = []) {
-    const number = getRandomNumber({ min: LOTTO_MIN_NUMBER, max: LOTTO_MAX_NUMBER });
-
-    if (array.length === LOTTO_NUMBERS_LENGTH) {
-      return array.sort((a, b) => a - b);
-    }
-    if (!array.includes(number)) {
-      array.push(number);
-    }
-
-    return this.createLotto(array);
-  }
-
   render() {
-    const { lottoBundle, drawNumber, isShowingWinningResult, shouldReset } = this.state;
+    const { lottoBundle, winningNumber, isShowingWinningResult, shouldReset } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
@@ -71,22 +59,25 @@ export default class App extends Component {
         <div className="app">
           <h1 className="header">행운의 로또</h1>
           <main>
-            <PurchaseAmount
+            <LottoPurchaseContainer
               lottoBundle={lottoBundle}
               onPurchaseLotto={this.onPurchaseLotto}
               shouldReset={shouldReset}
               didReset={this.didReset}
             />
-            {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
+            {isPurchased && <UserLottoContainer lottoBundle={this.state.lottoBundle} />}
             {isPurchased && (
-              <DrawNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
+              <WinningNumbersContainer
+                setWinningNumber={this.setWinningNumber}
+                onShowWinningResult={this.onShowWinningResult}
+              />
             )}
           </main>
         </div>
         {isShowingWinningResult && (
-          <WinningResult
+          <UserResultContainer
             lottoBundle={lottoBundle}
-            drawNumber={drawNumber}
+            winningNumber={winningNumber}
             onCloseWinningResult={this.onCloseWinningResult}
             onReset={this.onReset}
           />

@@ -93,36 +93,6 @@
   font-weight: bold;
 }
 
-.close-button {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  margin: 20px;
-  width: 2rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-.close-button:active .close-x {
-  stroke: #ee8791;
-}
-
-.close-button:focus {
-  outline-color: #ee8791;
-}
-
-svg {
-  display: block;
-}
-
-.close-x {
-  stroke: gray;
-  fill: transparent;
-  stroke-linecap: round;
-  stroke-width: 5;
-}
-
 .reset-button-wrapper {
   display: flex;
   justify-content: center;

@@ -1,48 +1,3 @@
-.purchase-lotto-wrapper {
-  margin: 2.25rem 0;
-}
-
-.number-of-lotto {
-  font-weight: 800;
-  padding: 0 0.25rem;
-}
-
-.display-section {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.display-section .lotto-number {
-  display: none;
-}
-
-.display-section.toggle {
-  flex-direction: column;
-}
-
-.display-section.toggle .lotto-number {
-  display: inline-block;
-}
-
-.lotto {
-  display: flex;
-  align-items: center;
-}
-
-.lotto-image {
-  width: 2.25rem;
-  margin: 0 0.2rem;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.lotto-number {
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
-  color: #333;
-}
-
 /* 토글 버튼 */
 
 .toggle-button-wrapper {
@@ -107,7 +62,8 @@
   width: 20px;
   height: 20px;
   background-color: white;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   transition: background-color 0.2s, transform 0.2s;
 }
 
