@@ -1,0 +1,14 @@
+.LottoTicket {
+  display: flex;
+  align-items: center;
+
+  .lotto-ticket-emoji {
+    font-size: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  & > p {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+}
