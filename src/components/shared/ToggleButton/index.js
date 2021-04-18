@@ -4,7 +4,7 @@ import './style.css';
 
 export default class ToggleButton extends Component {
   render() {
-    const { onChange, text } = this.props;
+    const { onChange, children } = this.props;
 
     return (
       <div className="ToggleButton">
