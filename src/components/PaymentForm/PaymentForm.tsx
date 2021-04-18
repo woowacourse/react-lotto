@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { Component, ChangeEvent, FormEvent } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';

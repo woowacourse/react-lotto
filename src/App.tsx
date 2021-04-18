@@ -51,10 +51,8 @@ export default class App extends Component<{}, State> {
 
   handlePayment(payment: number) {
     const tickets: Ticket[] = issueTickets(payment);
-    this.setState({
-      tickets,
-    });
 
+    this.setState({ tickets });
     this.handleRemainedTime();
     this.remainTimer = setInterval(() => {
       this.handleRemainedTime();
@@ -69,17 +67,12 @@ export default class App extends Component<{}, State> {
       return;
     }
 
-    this.setState({
-      winningNumber,
-    });
-
+    this.setState({ winningNumber });
     this.handleModal(true);
   }
 
   handleModal(isOpen: boolean) {
-    this.setState({
-      isModalOpen: isOpen,
-    });
+    this.setState({ isModalOpen: isOpen });
   }
 
   resetGame() {
@@ -99,6 +92,7 @@ export default class App extends Component<{}, State> {
 
   render() {
     const { remainTime, tickets, winningNumber, isModalOpen } = this.state;
+
     return (
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>

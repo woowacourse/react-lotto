@@ -8,12 +8,12 @@ type Props = {
 
 export default class TicketItem extends Component<Props> {
   render() {
+    const { isDetailMode, ticketNumbers } = this.props;
+
     return (
       <TicketItemWrapper>
         <span className="ticket-icon">🎟️ </span>
-        {this.props.isDetailMode && (
-          <span className="ticket-number">{this.props.ticketNumbers.join(' ')}</span>
-        )}
+        {isDetailMode && <span className="ticket-number">{ticketNumbers.join(' ')}</span>}
       </TicketItemWrapper>
     );
   }

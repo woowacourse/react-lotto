@@ -15,15 +15,13 @@ export default class TicketList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {
-      isToggled: false,
-    };
+    this.state = { isToggled: false };
 
     this.onToggle = this.onToggle.bind(this);
   }
 
   onToggle(isToggled: boolean) {
-    this.setState(state => ({ isToggled }));
+    this.setState({ isToggled });
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { RANK_INDEX, MATCH, PRIZE } from '../constants/game';
+import { RANK_INDEX, PRIZE } from '../constants/game';
 
 const hasBonus = (ticketNumbers: number[], bonus: number): boolean => {
   return ticketNumbers.includes(bonus);
