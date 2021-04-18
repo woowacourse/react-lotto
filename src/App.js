@@ -15,7 +15,6 @@ const initialState = {
     bonusNumber: null,
   },
   isPurchaseDone: false,
-  isPriceInputDisabled: false,
   isSwitchOn: false,
   isResultModalOpen: false,
 };
@@ -40,7 +39,7 @@ class App extends Component {
   }
 
   purchaseLottos(price) {
-    this.setState({ price, isPurchaseDone: true, isPriceInputDisabled: false }, this.createLottos);
+    this.setState({ price, isPurchaseDone: true }, this.createLottos);
   }
 
   createLottos() {
