@@ -25,14 +25,12 @@ const ToggleWrapper = styled.label`
     transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
   }
 
-  /* Span */
   .toggle-text {
     display: inline-block;
     width: 100%;
     cursor: pointer;
   }
 
-  /* Track */
   .toggle-text::before {
     content: '';
     float: right;
@@ -74,7 +72,6 @@ const ToggleWrapper = styled.label`
     transform: translateX(16px);
   }
 
-  /* Hover, Focus */
   &:hover > .toggle-button {
     opacity: 0.04;
   }
