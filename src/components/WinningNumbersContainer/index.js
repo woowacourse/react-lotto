@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Lotto from '../../Lotto';
 import { Root, FlexContainer, NumbersContainer, NumberInput, SubmitButton, InputErrorMessage } from './style';
+import { validateNumbers } from '../../utils/validator';
 
 class WinningNumbersContainer extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class WinningNumbersContainer extends Component {
     const bonusNumber = event.target['bonus-number'].valueAsNumber;
 
     try {
-      this.validateNumbers(mainNumbers, bonusNumber);
+      validateNumbers(mainNumbers, bonusNumber);
       this.setState({ isNumbersDuplicated: false, errorMessage: '' });
     } catch (error) {
       this.setState({ isNumbersDuplicated: true, errorMessage: error.message });
@@ -39,12 +40,6 @@ class WinningNumbersContainer extends Component {
     }
 
     this.props.onShowResult({ mainNumbers, bonusNumber });
-  }
-
-  validateNumbers(mainNumbers, bonusNumber) {
-    const isDuplicated = Lotto.NUMBERS_LENGTH >= new Set([...mainNumbers, bonusNumber]).size;
-
-    if (isDuplicated) throw Error('중복된 당첨번호가 존재합니다 🤢');
   }
 
   render() {

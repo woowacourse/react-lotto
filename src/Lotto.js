@@ -21,6 +21,10 @@ class Lotto {
     return 6;
   }
 
+  static get LOTTO_PRICE_UNIT() {
+    return 1000;
+  }
+
   static generateLottoNumbers() {
     const randomNumbers = new Set();
 

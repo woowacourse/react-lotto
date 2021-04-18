@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Root, Label, InputWrapper, Input, SubmitButton, InputErrorMessage } from './style';
+import { validatePriceUnit } from '../../utils/validator';
 
 class PriceInput extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class PriceInput extends Component {
     const $priceInput = event.target.price;
 
     try {
-      this.validatePriceUnit($priceInput.valueAsNumber);
+      validatePriceUnit($priceInput.valueAsNumber);
       this.setState({ isValidPriceUnit: true, errorMessage: '' });
     } catch (error) {
       this.setState({ isValidPriceUnit: false, errorMessage: error.message });
@@ -27,10 +28,6 @@ class PriceInput extends Component {
 
     this.props.onPurchaseLottos($priceInput.valueAsNumber);
     $priceInput.value = '';
-  }
-
-  validatePriceUnit(price) {
-    if (price % 1000 !== 0) throw Error('1,000원 단위로 입력해주세요 🐱‍');
   }
 
   render() {
