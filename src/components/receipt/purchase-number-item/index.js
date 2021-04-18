@@ -38,7 +38,10 @@ class PurchaseNumberItem extends React.Component {
         <li className='purchase-number-item'>
           <div className='lottery-balls-container'>
             {this.props.ticketNumbers.map((number) => {
-              this.props.onCalculateTotalPrize(this.calculatePrize());
+              {
+                this.props.winningBallCount &&
+                  this.props.onCalculateTotalPrize(this.calculatePrize());
+              }
               return (
                 <LotteryBall
                   colored={
