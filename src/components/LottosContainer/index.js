@@ -4,13 +4,23 @@ import { Root, FlexContainer, LottoWrapper, LottoItem, LottoNumbers } from './st
 class LottosContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isSwitchOn: false,
+    };
+
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+
+  toggleDisplay() {
+    this.setState({ isSwitchOn: !this.state.isSwitchOn });
   }
 
   render() {
     const lottos = this.props.lottos.map((lotto, idx) => {
       return (
         <LottoItem key={idx}>
-          💎 {this.props.isSwitchOn ? <LottoNumbers>{lotto.numbers.join(',')}</LottoNumbers> : null}
+          💎 {this.state.isSwitchOn ? <LottoNumbers>{lotto.numbers.join(',')}</LottoNumbers> : null}
         </LottoItem>
       );
     });
@@ -22,11 +32,11 @@ class LottosContainer extends Component {
           <div>
             <label>
               번호보기
-              <input type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
+              <input type="checkbox" checked={this.state.isSwitchOn} onChange={this.toggleDisplay} />
             </label>
           </div>
         </FlexContainer>
-        <LottoWrapper isSwitchOn={this.props.isSwitchOn}>{lottos}</LottoWrapper>
+        <LottoWrapper isSwitchOn={this.state.isSwitchOn}>{lottos}</LottoWrapper>
       </Root>
     );
   }

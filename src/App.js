@@ -14,9 +14,6 @@ const initialState = {
     mainNumbers: [],
     bonusNumber: null,
   },
-  isPurchaseDone: false,
-  isPriceInputDisabled: false,
-  isSwitchOn: false,
   isResultModalOpen: false,
 };
 
@@ -28,7 +25,6 @@ class App extends Component {
 
     this.handleUpdatePrice = this.handleUpdatePrice.bind(this);
     this.purchaseLottos = this.purchaseLottos.bind(this);
-    this.toggleDisplay = this.toggleDisplay.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
     this.resetGame = this.resetGame.bind(this);
@@ -40,7 +36,7 @@ class App extends Component {
   }
 
   purchaseLottos(price) {
-    this.setState({ price, isPurchaseDone: true, isPriceInputDisabled: false }, this.createLottos);
+    this.setState({ price }, this.createLottos);
   }
 
   createLottos() {
@@ -48,10 +44,6 @@ class App extends Component {
     const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
 
     this.setState({ lottos });
-  }
-
-  toggleDisplay() {
-    this.setState({ isSwitchOn: !this.state.isSwitchOn });
   }
 
   openResultModal(winningNumbers) {
@@ -72,23 +64,21 @@ class App extends Component {
   }
 
   render() {
+    const isLottoCreated = this.state.lottos.length > 0;
+
     return (
       <Root>
         <Container>
           <Title>🎰 개미 로또</Title>
-          {this.state.isPurchaseDone ? <AnnounceTimer /> : null}
+          {isLottoCreated ? <AnnounceTimer /> : null}
           <PriceInput
-            isDisabled={this.state.isPurchaseDone}
+            isDisabled={isLottoCreated}
             onPurchaseLottos={this.purchaseLottos}
             onUpdatePrice={this.handleUpdatePrice}
           />
-          {this.state.isPurchaseDone ? (
+          {isLottoCreated > 0 ? (
             <>
-              <LottosContainer
-                lottos={this.state.lottos}
-                isSwitchOn={this.state.isSwitchOn}
-                onToggleDisplay={this.toggleDisplay}
-              />
+              <LottosContainer lottos={this.state.lottos} />
               <WinningNumbersContainer winningNumbers={this.state.winningNumbers} onShowResult={this.openResultModal} />
             </>
           ) : null}

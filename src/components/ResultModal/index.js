@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, EarningRate, RestartButton } from './style';
 import { calculateResult } from '../service';
+
 class ResultModal extends Component {
   constructor(props) {
     super(props);
