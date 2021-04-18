@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import PaymentForm from './components/PaymentForm/PaymentForm';
-import TicketList from './components/TicketList/TicketList';
-import ResultModal from './components/ResultModal/ResultModal';
-import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
 import { AppWrapper } from './App.styles';
-import Button from './components/common/Button';
-import { issueTickets } from './services/tickets';
-import TICKET from './constants/ticket';
-import ALERT_MESSAGE from './constants/alertMessage';
-import {
-  alertByWinningNumbersCase,
-  isValidWinningNumber,
-  alertByWinningNumberCase,
-} from './services/validation';
-import { getRemainedTime } from './utils/date';
-import { GREENWICH_MILLISECONDS } from './services/game';
+
+import PaymentForm from './components/PaymentForm/PaymentForm';
 import RemainedTime from './components/RemainedTime/RemainedTime';
+import TicketList from './components/TicketList/TicketList';
+import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
+import ResultModal from './components/ResultModal/ResultModal';
+
+import { issueTickets } from './services/tickets';
+import { getRemainedTime } from './utils/date';
+
+import ALERT_MESSAGE from './constants/alertMessage';
+import { GREENWICH_MILLISECONDS, TIMER_TICK } from './constants/timer';
 
 type State = {
   tickets: Ticket[];
@@ -44,15 +40,23 @@ export default class App extends Component<{}, State> {
     };
 
     this.handlePayment = this.handlePayment.bind(this);
+    this.handleRemainedTime = this.handleRemainedTime.bind(this);
     this.handleWinningNumber = this.handleWinningNumber.bind(this);
     this.handleModal = this.handleModal.bind(this);
-    this.handleRemainedTime = this.handleRemainedTime.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
-  handleRemainedTime() {
+  tickRemainTime() {
     this.setState({
       remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
     });
+  }
+
+  handleRemainedTime() {
+    this.tickRemainTime();
+    this.remainTimer = setInterval(() => {
+      this.tickRemainTime();
+    }, TIMER_TICK);
   }
 
   handlePayment(payment: number) {
@@ -62,15 +66,10 @@ export default class App extends Component<{}, State> {
     });
 
     this.handleRemainedTime();
-    this.remainTimer = setInterval(() => {
-      this.handleRemainedTime();
-    }, 1000);
   }
 
   handleWinningNumber(winningNumber: WinningNumber) {
-    const ticketCount = this.state.tickets.length;
-
-    if (ticketCount === 0) {
+    if (this.state.tickets.length === 0) {
       alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
       return;
     }
@@ -114,11 +113,10 @@ export default class App extends Component<{}, State> {
           handleWinningNumber={this.handleWinningNumber}
           formRef={this.winningNumberFormRef}
         />
-
         {this.state.isModalOpen && (
           <ResultModal
             handleModalClose={() => this.handleModal(false)}
-            resetGame={() => this.resetGame()}
+            resetGame={this.resetGame}
             tickets={this.state.tickets}
             winningNumber={this.state.winningNumber}
           />
