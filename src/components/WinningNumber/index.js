@@ -22,6 +22,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
   const bonusNumberRef = useRef();
 
   const [isValidInput, setValidInputState] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -31,11 +32,24 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
     );
     const bonusNumber = Number(bonusNumberRef.current.value);
 
-    if (isDistinctNumbers([...winningNumbers, bonusNumber])) {
+    try {
+      const lottoNumbers = [...winningNumbers, bonusNumber].filter(
+        (num) => num > 0
+      );
+
+      if (lottoNumbers.length < LOTTO_LENGTH + 1) {
+        throw new Error(ERROR_MESSAGE.SOMETHING_EMPTY);
+      }
+
+      if (!isDistinctNumbers(lottoNumbers)) {
+        throw new Error(ERROR_MESSAGE.DUPLICATED_NUMBER);
+      }
+
       setValidInputState(true);
       updateLottoResult(winningNumbers, bonusNumber);
       openModal();
-    } else {
+    } catch (error) {
+      setErrorMessage(error.message);
       setValidInputState(false);
     }
   };
@@ -73,9 +87,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
           />
         </NumberContainer>
       </Container>
-      {!isValidInput && (
-        <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
-      )}
+      {!isValidInput && <ErrorMessageBox text={errorMessage} />}
       <Button type="submit">확인</Button>
     </form>
   );
