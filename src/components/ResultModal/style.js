@@ -33,9 +33,11 @@ const ModalInner = styled.div`
   padding: 2.5rem;
 `;
 
-const CloseButton = styled.div`
+const CloseButton = styled.button`
+  background: none;
+  border: none;
   margin: 20px;
-  width: 20px;
+  width: 32px;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -54,22 +56,16 @@ const Table = styled.table`
   border-color: black;
   border-collapse: collapse;
   overflow: hidden;
+
+  & th,
+  & td {
+    padding: 0.75rem;
+    border-bottom: 1px solid gainsboro;
+  }
 `;
 
 const Tr = styled.tr`
   text-align: center;
-`;
-
-const Th = styled.th`
-  padding: 0.75rem;
-  border-bottom: 1px solid gainsboro;
-`;
-
-const Tbody = styled.tbody``;
-
-const Td = styled.td`
-  padding: 0.75rem;
-  border-bottom: 1px solid gainsboro;
 `;
 
 const EarningRate = styled.p`
@@ -86,4 +82,4 @@ const RestartButton = styled.button`
   cursor: pointer;
 `;
 
-export { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, Th, Tbody, Td, EarningRate, RestartButton };
+export { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, EarningRate, RestartButton };

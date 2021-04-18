@@ -1,18 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Root,
-  Modal,
-  ModalInner,
-  CloseButton,
-  CloseX,
-  Table,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  EarningRate,
-  RestartButton,
-} from './style';
+import { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, EarningRate, RestartButton } from './style';
 import { RANK_CONVERTER, WINNING_PRIZE } from '../../constants';
 
 class ResultModal extends Component {
@@ -75,38 +62,38 @@ class ResultModal extends Component {
             <Table>
               <thead>
                 <Tr>
-                  <Th>일치 갯수</Th>
-                  <Th>당첨금</Th>
-                  <Th>당첨 갯수</Th>
+                  <th>일치 갯수</th>
+                  <th>당첨금</th>
+                  <th>당첨 갯수</th>
                 </Tr>
               </thead>
-              <Tbody>
+              <tbody>
                 <Tr>
-                  <Td>3개</Td>
-                  <Td>5,000</Td>
-                  <Td>{rankCount['5th']}개</Td>
+                  <td>3개</td>
+                  <td>5,000</td>
+                  <td>{rankCount['5th']}개</td>
                 </Tr>
                 <Tr>
-                  <Td>4개</Td>
-                  <Td>50,000</Td>
-                  <Td>{rankCount['4th']}개</Td>
+                  <td>4개</td>
+                  <td>50,000</td>
+                  <td>{rankCount['4th']}개</td>
                 </Tr>
                 <Tr>
-                  <Td>5개</Td>
-                  <Td>1,500,000</Td>
-                  <Td>{rankCount['3rd']}개</Td>
+                  <td>5개</td>
+                  <td>1,500,000</td>
+                  <td>{rankCount['3rd']}개</td>
                 </Tr>
                 <Tr>
-                  <Td>5개 + 보너스볼</Td>
-                  <Td>30,000,000</Td>
-                  <Td>{rankCount['2nd']}개</Td>
+                  <td>5개 + 보너스볼</td>
+                  <td>30,000,000</td>
+                  <td>{rankCount['2nd']}개</td>
                 </Tr>
                 <Tr>
-                  <Td>6개</Td>
-                  <Td>2,000,000,000</Td>
-                  <Td>{rankCount['1st']}개</Td>
+                  <td>6개</td>
+                  <td>2,000,000,000</td>
+                  <td>{rankCount['1st']}개</td>
                 </Tr>
-              </Tbody>
+              </tbody>
             </Table>
             <EarningRate>당신의 총 수익률은 {earningRate}%입니다.</EarningRate>
             <RestartButton onClick={this.props.onResetGame}>다시 시작하기</RestartButton>
