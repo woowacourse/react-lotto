@@ -87,35 +87,8 @@
   outline-color: #c93c4a;
 }
 
-.ResultSummary__profit,
-.ResultSummary__rate_of_return {
-  text-align: end;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.ResultSummary__profit {
-  margin-top: 1.75rem;
-  margin-bottom: 0.25rem;
-}
-
-.ResultSummary__rate_of_return {
-  margin-top: 0.25rem;
-  margin-bottom: 1rem;
-}
-
-.ResultSummary__description {
-  display: inline-block;
-  min-width: 4rem;
-  text-align: start;
-  font-weight: bold;
-}
-
-.ResultSummary__value {
-  display: inline-block;
-  width: 4.5rem;
-  text-align: end;
-  font-weight: bold;
+.Record__wrapper {
+  margin: 2rem 0 0.5rem;
 }
 
 @media screen and (max-width: 768px) {

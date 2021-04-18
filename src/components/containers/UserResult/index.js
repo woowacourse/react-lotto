@@ -1,8 +1,7 @@
 /* eslint-disable react/sort-comp */
 import { Component } from 'react';
 import ResultTable from './ResultTable';
-import ResultSummary from './ResultSummary';
-import { Animation, Button, XButton } from '../../shared';
+import { Animation, Button, XButton, Record } from '../../shared';
 import { getComputedResult } from './service';
 import { coin } from '../../../statics';
 import './style.css';
@@ -37,6 +36,7 @@ export default class UserResult extends Component {
 
   render() {
     const { isLoading, result } = this.state;
+    const { profit, rateOfReturn } = result;
     const { lottoBundle, winningNumber, onCloseUserResult, onReset } = this.props;
 
     return (
@@ -50,7 +50,10 @@ export default class UserResult extends Component {
             <XButton onClick={onCloseUserResult} />
             <h2 className="UserResult__title">당첨결과</h2>
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
-            <ResultSummary result={result} />
+            <div className="Record__wrapper">
+              <Record label="당첨 금액">{profit}원</Record>
+              <Record label="총 수익률">{rateOfReturn}%</Record>
+            </div>
             <div className="UserResult__reset_button_wrapper">
               <Button type="button" className="UserResult__reset_button" onClick={onReset}>
                 다시 시작하기
