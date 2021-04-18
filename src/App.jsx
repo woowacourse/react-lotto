@@ -60,7 +60,7 @@ export default class App extends React.Component {
     return (
       <main className="m-16 p-9 max-w-screen-sm mx-auto bg-gray-200 ">
         <h1 className="text-center text-3xl	font-bold ">🎱 행운의 로또 </h1>
-        <PurchaseForm setTickets={this.setTickets} />
+        <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} />
         <TicketDetail tickets={this.state.tickets} />
         <WinningNumberForm
           setWinningNumbers={this.setWinningNumbers}

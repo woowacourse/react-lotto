@@ -5,14 +5,13 @@ import { LOTTO } from '../utils/constants';
 export default class PurchaseForm extends React.Component {
   static propTypes = {
     setTickets: PropTypes.func.isRequired,
+    tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      purchaseInputValue: '',
-    };
+    this.state = { purchaseInputValue: '' };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -24,15 +23,12 @@ export default class PurchaseForm extends React.Component {
     const ticketCount = Math.floor(Number(this.state.purchaseInputValue) / LOTTO.UNIT_PRICE);
 
     this.props.setTickets(ticketCount);
-    this.setState({ purchaseInputValue: '' });
 
     alert(`총 ${ticketCount}장을 구매하였습니다.`);
   }
 
-  handleInputChange(event) {
-    const purchaseInputValue = event.target.value;
-
-    this.setState({ purchaseInputValue });
+  handleInputChange({ target: { value } }) {
+    this.setState({ purchaseInputValue: value });
   }
 
   render() {
@@ -50,12 +46,15 @@ export default class PurchaseForm extends React.Component {
             placeholder="구입 금액"
             onChange={this.handleInputChange}
             value={this.state.purchaseInputValue}
+            disabled={this.props.tickets.length > 0}
           />
           <button
             type="submit"
             className="font-bold py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white min-w-1/8 "
             disabled={
-              this.state.purchaseInputValue < LOTTO.MIN_PRICE || this.state.purchaseInputValue > LOTTO.MAX_PRICE
+              this.props.tickets.length > 0 ||
+              this.state.purchaseInputValue < LOTTO.MIN_PRICE ||
+              this.state.purchaseInputValue > LOTTO.MAX_PRICE
             }
           >
             확인
