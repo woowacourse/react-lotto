@@ -7,10 +7,10 @@ import {
 
 export const getNumOfMatch = (lotto, winningNumber) => {
   const { winningNumbers, bonusNumber } = winningNumber;
-  let numOfMatch = lotto.reduce((acc, cur) => acc + Number(winningNumbers.includes(cur)), 0);
+  const numOfMatch = lotto.reduce((acc, cur) => acc + Number(winningNumbers.includes(cur)), 0);
 
   if (numOfMatch === BONUS_CHECK_REQUIRED_COUNT && lotto.includes(bonusNumber)) {
-    numOfMatch += BONUS_COUNT;
+    return numOfMatch + BONUS_COUNT;
   }
   return numOfMatch;
 };
