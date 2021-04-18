@@ -16,15 +16,12 @@ export const getNumOfMatch = (lotto, winningNumber) => {
 };
 
 export const getMatchCount = (lottoBundle, winningNumber) => {
-  const matchCount = {};
+  return lottoBundle.reduce((acc, cur) => {
+    const numOfMatch = getNumOfMatch(cur, winningNumber);
 
-  lottoBundle.forEach((lotto) => {
-    const numOfMatch = getNumOfMatch(lotto, winningNumber);
-
-    matchCount[numOfMatch] = matchCount[numOfMatch] === undefined ? 1 : matchCount[numOfMatch] + 1;
-  });
-
-  return matchCount;
+    acc[numOfMatch] = acc[numOfMatch] + 1 || 1;
+    return acc;
+  }, {});
 };
 
 export const getStatistics = (lottoBundle, matchCount) => {
