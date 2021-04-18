@@ -11,10 +11,12 @@ export default class WinningNumberForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.initialState = {
       winningNumberInputValues: Array.from({ length: LOTTO.LENGTH }, () => ''),
       bonusNumberInputValue: '',
     };
+
+    this.state = { ...this.initialState };
 
     this.isValid = this.isValid.bind(this);
     this.isValidNumberScope = this.isValidNumberScope.bind(this);
@@ -53,6 +55,7 @@ export default class WinningNumberForm extends React.Component {
 
     this.props.setWinningNumbers(this.state.winningNumberInputValues.map(Number));
     this.props.setBonusNumber(Number(this.state.bonusNumberInputValue));
+    this.setState({ ...this.initialState });
   }
 
   handleWinningNumberInputChange({ target: { name, value } }) {
