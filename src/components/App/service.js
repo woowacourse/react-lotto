@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import {
   LOTTO_LENGTH,
   LOTTO_PRICE,
@@ -56,9 +58,9 @@ export const createLottoResult = (
 };
 
 export const createLottos = (lottoCount) => {
-  const lottos = Array.from({ length: lottoCount }, (_, i) => {
+  const lottos = Array.from({ length: lottoCount }, () => {
     const newLotto = {
-      id: i,
+      id: uuidv4(),
       numbers: createDistinctRandomIntegers(
         LOTTO_RANGE.FROM,
         LOTTO_RANGE.TO,

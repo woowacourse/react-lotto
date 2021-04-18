@@ -42,9 +42,9 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
         <NumberContainer>
           <InputHeader>당첨 번호</InputHeader>
           <InputBoxes>
-            {Array.from({ length: 6 }, (_, index) => (
+            {Array.from({ length: 6 }, (_, i) => (
               <InputBox
-                key={index}
+                key={`winningInput-${i}`}
                 name="winning-number"
                 type="number"
                 min="1"
