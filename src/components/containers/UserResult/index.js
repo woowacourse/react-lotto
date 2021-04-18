@@ -3,7 +3,7 @@ import { Component } from 'react';
 import ResultTable from './ResultTable';
 import ResultSummary from './ResultSummary';
 import { Animation, PlainButton, XButton } from '../../shared';
-import { getMatchCount, getStatistics } from './service';
+import { getComputedResult } from './service';
 import { coin } from '../../../statics';
 import './style.css';
 
@@ -25,8 +25,7 @@ export default class UserResultContainer extends Component {
 
   componentDidMount() {
     const { lottoBundle, winningNumber } = this.props;
-    const matchCount = getMatchCount(lottoBundle, winningNumber);
-    const result = getStatistics(lottoBundle, matchCount);
+    const result = getComputedResult(lottoBundle, winningNumber);
 
     this.setState({ result });
     setTimeout(this.destroyAnimation, COIN_ANIMATION_DURATION);

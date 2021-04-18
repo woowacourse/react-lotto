@@ -24,7 +24,8 @@ export const getMatchCount = (lottoBundle, winningNumber) => {
   }, {});
 };
 
-export const getStatistics = (lottoBundle, matchCount) => {
+export const getComputedResult = (lottoBundle, winningNumber) => {
+  const matchCount = getMatchCount(lottoBundle, winningNumber);
   const investment = lottoBundle.length * LOTTO_UNIT_PRICE;
   const profit = Object.keys(matchCount).reduce(
     (acc, key) => acc + matchCount[key] * RESULT_TABLE_DATA[key].PRIZE,
