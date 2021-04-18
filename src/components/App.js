@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import LottoPurchaseForm from './components/LottoPurchaseForm';
-import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
-import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
+import LottoPurchaseForm from './LottoPurchaseForm';
+import PurchaseResult from './lottoPurchaseResult/PurchaseResult';
+import WinningNumberForm from './lottoWinningNumber/WinningNumberForm';
 
-import { getRandomNumber } from './utils';
+import { getRandomNumber } from '../utils';
 
 const MainTitle = styled.h1`
   text-align: center;
@@ -24,6 +24,10 @@ class App extends Component {
 
     this.state = {
       lottos: [],
+      winningNumbers: {
+        numbers: [],
+        bonusNumber: 0,
+      },
     };
   }
 
@@ -31,6 +35,10 @@ class App extends Component {
     this.setState({
       lottos,
     });
+  };
+
+  setWinningNumbers = winningNumbers => {
+    this.setState({ winningNumbers });
   };
 
   createLottos = price => {
@@ -58,7 +66,9 @@ class App extends Component {
           <div style={{ width: '100%' }}>
             <LottoPurchaseForm createLottos={this.createLottos} />
             {lottos.length > 0 && <PurchaseResult lottos={lottos} />}
-            {lottos.length > 0 && <WinningNumberForm />}
+            {lottos.length > 0 && (
+              <WinningNumberForm setWinningNumbers={this.setWinningNumbers} />
+            )}
           </div>
         </MainWrapper>
       </main>
