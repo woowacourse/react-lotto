@@ -6,6 +6,7 @@ export default class WinningNumberForm extends React.Component {
   static propTypes = {
     setWinningNumbers: PropTypes.func.isRequired,
     setBonusNumber: PropTypes.func.isRequired,
+    isReset: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -17,6 +18,7 @@ export default class WinningNumberForm extends React.Component {
     };
 
     this.state = { ...this.initialState };
+    this.resetState = this.resetState.bind(this);
 
     this.isValid = this.isValid.bind(this);
     this.isValidNumberScope = this.isValidNumberScope.bind(this);
@@ -25,6 +27,10 @@ export default class WinningNumberForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleWinningNumberInputChange = this.handleWinningNumberInputChange.bind(this);
     this.handleBonusNumberInputChange = this.handleBonusNumberInputChange.bind(this);
+  }
+
+  resetState() {
+    this.setState({ ...this.initialState });
   }
 
   hasUniqueInputValues() {
@@ -55,7 +61,6 @@ export default class WinningNumberForm extends React.Component {
 
     this.props.setWinningNumbers(this.state.winningNumberInputValues.map(Number));
     this.props.setBonusNumber(Number(this.state.bonusNumberInputValue));
-    this.setState({ ...this.initialState });
   }
 
   handleWinningNumberInputChange({ target: { name, value } }) {
@@ -132,5 +137,11 @@ export default class WinningNumberForm extends React.Component {
         </form>
       </>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isReset && !prevProps.isReset) {
+      this.resetState();
+    }
   }
 }

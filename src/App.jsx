@@ -62,7 +62,11 @@ export default class App extends React.Component {
         <h1 className="text-center text-3xl	font-bold ">🎱 행운의 로또 </h1>
         <PurchaseForm setTickets={this.setTickets} />
         <TicketDetail tickets={this.state.tickets} />
-        <WinningNumberForm setWinningNumbers={this.setWinningNumbers} setBonusNumber={this.setBonusNumber} />
+        <WinningNumberForm
+          setWinningNumbers={this.setWinningNumbers}
+          setBonusNumber={this.setBonusNumber}
+          isReset={this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0}
+        />
         {this.state.isModalOpen && (
           <Modal
             tickets={this.state.tickets}
