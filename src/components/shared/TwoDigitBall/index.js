@@ -1,11 +1,17 @@
 import { Component } from 'react';
-import './style.css';
+import classNames from 'classnames/bind';
+import styles from './style.css';
 
+const cx = classNames.bind(styles);
 export default class TwoDigitBall extends Component {
   render() {
-    const { number, className } = this.props;
-    const numberText = number < 10 ? `0${number}` : number;
+    const { className, children } = this.props;
+    const TwoDigitBallClass = cx({
+      TwoDigitBall: true,
+      [`${className}`]: true,
+    });
+    const numberText = children < 10 ? `0${children}` : children;
 
-    return <span className={`TwoDigitBall ${className}`}>{numberText}</span>;
+    return <span className={TwoDigitBallClass}>{numberText}</span>;
   }
 }

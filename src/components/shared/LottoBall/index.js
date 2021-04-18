@@ -1,28 +1,22 @@
 import { Component } from 'react';
+import classNames from 'classnames/bind';
 import TwoDigitBall from '../TwoDigitBall';
-import './style.css';
+import styles from './style.css';
+
+const cx = classNames.bind(styles);
 
 export default class LottoBall extends Component {
   render() {
-    const { targetNumber, winningNumbers } = this.props;
-    let ballColorClassName;
+    const { targetNumber: num, winningNumbers } = this.props;
+    const lottoBallClass = cx({
+      'LottoBall--zeros': num < 10,
+      'LottoBall--tens': num >= 10 && num < 20,
+      'LottoBall--twenties': num >= 20 && num < 30,
+      'LottoBall--thirties': num >= 30 && num < 40,
+      'LottoBall--forties': num >= 40,
+      'LottoBall--not_matched': winningNumbers && !winningNumbers.includes(num),
+    });
 
-    if (targetNumber < 10) {
-      ballColorClassName = 'LottoBall--zeros';
-    } else if (targetNumber < 20) {
-      ballColorClassName = 'LottoBall--tens';
-    } else if (targetNumber < 30) {
-      ballColorClassName = 'LottoBall--twenties';
-    } else if (targetNumber < 40) {
-      ballColorClassName = 'LottoBall--thirties';
-    } else {
-      ballColorClassName = 'LottoBall--forties';
-    }
-
-    if (winningNumbers && !winningNumbers.includes(targetNumber)) {
-      ballColorClassName += ' LottoBall--not_matched';
-    }
-
-    return <TwoDigitBall className={ballColorClassName} number={targetNumber} />;
+    return <TwoDigitBall className={lottoBallClass}>{num}</TwoDigitBall>;
   }
 }
