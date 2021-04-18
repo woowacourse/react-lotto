@@ -14,8 +14,9 @@ const Button = styled.button`
   outline: 0;
   border-style: none;
   cursor: pointer;
-  background-color: #00bcd4;
-  border-color: #00bcd4;
+  background-color: #c71f1f;
+  border-color: #c71f1f;
+  color: #fce9e9;
 `;
 
 class LottoPurchaseForm extends Component {
