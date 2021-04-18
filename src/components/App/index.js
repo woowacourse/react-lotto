@@ -8,13 +8,14 @@ import { INITIAL_RESULT } from "../../@shared/constants/lotto";
 import { createLottoResult, createLottos } from "./service";
 import Main from "../Main";
 import ResultModal from "../ResultModal";
+import useModal from "../../hook/useModal";
 
 const App = () => {
   const [lottos, setLottos] = useState([]);
-  const [isModalOpen, setModalState] = useState(false);
   const [lottoResult, setLottoResult] = useState(
     deepCopyJSONObject(INITIAL_RESULT)
   );
+  const { isModalOpen, closeModal, openModal } = useModal(false);
 
   const state = {
     lottos,
@@ -40,17 +41,13 @@ const App = () => {
       setLottoResult(newLottoResult);
     },
 
-    openModal: () => {
-      setModalState(true);
-    },
+    openModal,
 
-    closeModal: () => {
-      setModalState(false);
-    },
+    closeModal,
 
     clear: () => {
       setLottos([]);
-      setModalState(false);
+      closeModal();
       setLottoResult(deepCopyJSONObject(INITIAL_RESULT));
     },
   };
