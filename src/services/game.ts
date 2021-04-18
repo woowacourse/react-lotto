@@ -1,11 +1,11 @@
-import { RANK_INDEX, MATCH, PRIZE } from '../constants/game';
-
-const hasBonus = (ticketNumbers: number[], bonus: number): boolean => {
-  return ticketNumbers.includes(bonus);
-};
+import { RANK_INDEX, PRIZE } from '../constants/game';
 
 type Index = {
   [key: number]: number;
+};
+
+const hasBonus = (ticketNumbers: number[], bonus: number): boolean => {
+  return ticketNumbers.includes(bonus);
 };
 
 const getRankIndex = (
@@ -49,5 +49,3 @@ export const getTotalProfit = (payment: number, winnerCounts: number[]) => {
 
   return ((income - payment) / payment) * 100;
 };
-
-export const GREENWICH_MILLISECONDS = 1000 * 60 * 60 * 33;
