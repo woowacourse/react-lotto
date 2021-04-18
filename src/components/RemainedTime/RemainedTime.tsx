@@ -6,10 +6,6 @@ type Props = {
 };
 
 export default class RemainedTime extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     const date = this.props.remainTime?.getDate();
     const hours = this.props.remainTime?.getHours();
