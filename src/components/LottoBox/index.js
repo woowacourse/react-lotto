@@ -7,10 +7,10 @@ import Lotto from "../Lotto";
 const LottoBox = ({ isNumberVisible, lottos }) => {
   return (
     <TicketList isNumberVisible={isNumberVisible}>
-      {lottos.map((lottoNumbers) => (
+      {lottos.map((lotto) => (
         <Lotto
-          key={lottoNumbers.toString()}
-          lottoNumbers={lottoNumbers}
+          key={lotto.id}
+          lottoNumbers={lotto.numbers}
           isNumberVisible={isNumberVisible}
         />
       ))}
