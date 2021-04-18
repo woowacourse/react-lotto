@@ -4,6 +4,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import Wrapper from '../common/Wrapper';
 import { alertByPaymentCase, isValidPayment } from '../../services/validation';
+import TICKET from '../../constants/ticket';
 
 type Props = {
   handlePayment: (newPayment: number) => void;
@@ -40,7 +41,7 @@ export default class PaymentForm extends Component<Props, State> {
     }
 
     this.setState({
-      payment: 0,
+      payment: this.state.payment % TICKET.PRICE,
     });
     this.props.handlePayment(this.state.payment);
   }
