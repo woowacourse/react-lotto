@@ -5,17 +5,8 @@ import LottoResultForm from './LottoResultForm';
 import LottoResultContainer from './LottoResultContainer';
 import AnnouncementTime from './AnnouncementTime';
 import Modal from '../Modal';
-import { getRandomNumber } from '../../utils/getRandomNumber';
-import {
-  UNIT_AMOUNT,
-  LOTTO_NUMBER_COUNT,
-  MAX_LOTTO_NUMBER,
-  MIN_LOTTO_NUMBER,
-  HIT_COUNT,
-  WINNING_RANK,
-  PROFITS,
-  RANK,
-} from '../../constants/standard';
+import { getLottoResult, generateLottoNumbers } from '../../services/lottoService';
+import { UNIT_AMOUNT } from '../../constants/standard';
 
 export default class LottoGame extends Component {
   constructor() {
@@ -34,7 +25,6 @@ export default class LottoGame extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.submitPurchaseAmount = this.submitPurchaseAmount.bind(this);
     this.publishLottoTickets = this.publishLottoTickets.bind(this);
     this.setResultNumbers = this.setResultNumbers.bind(this);
     this.openResultModal = this.openResultModal.bind(this);
@@ -48,76 +38,21 @@ export default class LottoGame extends Component {
     });
   }
 
-  submitPurchaseAmount() {
-    this.setState({ isPurchaseAmountSubmitted: true });
-  }
-
   publishLottoTickets(purchaseAmount) {
-    this.setState({ purchaseAmount }, this.setLottoTickets);
+    this.setState({ isPurchaseAmountSubmitted: true, purchaseAmount }, this.setLottoTickets);
   }
 
   setLottoTickets() {
     const amountOfLottoTicket = this.state.purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
-      .map(() => this.generateLottoNumbers());
+      .map(() => generateLottoNumbers());
 
     this.setState({ lottoTickets });
   }
 
-  generateLottoNumbers() {
-    const ticketNumbers = new Set();
-
-    while (ticketNumbers.size < LOTTO_NUMBER_COUNT) {
-      ticketNumbers.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
-    }
-
-    return [...ticketNumbers].sort((a, b) => a - b);
-  }
-
   setResultNumbers(resultNumbers) {
     this.setState({ resultNumbers });
-  }
-
-  getLottoResult() {
-    const rankCount = this.getRankCount();
-    const earningRate = this.getEarningRate(rankCount);
-
-    return { rankCount, earningRate };
-  }
-
-  getRankCount() {
-    const rankCount = {
-      [WINNING_RANK.FIRST]: 0,
-      [WINNING_RANK.SECOND]: 0,
-      [WINNING_RANK.THIRD]: 0,
-      [WINNING_RANK.FOURTH]: 0,
-      [WINNING_RANK.FIFTH]: 0,
-    };
-
-    this.state.lottoTickets.forEach(ticket => {
-      const rank = this.getRank(ticket);
-      rank && rankCount[rank]++;
-    });
-
-    return rankCount;
-  }
-
-  getRank(ticket) {
-    const hasBonusNumber = ticket.includes(this.state.resultNumbers.bonusNumber);
-    const winnigCount = LOTTO_NUMBER_COUNT * 2 - new Set([...ticket, ...this.state.resultNumbers.winningNumbers]).size;
-    const winningRank = hasBonusNumber && winnigCount === HIT_COUNT.FIVE ? WINNING_RANK.SECOND : RANK[winnigCount];
-
-    return winningRank;
-  }
-
-  getEarningRate(rankCount) {
-    const totalProfit = Object.entries(rankCount).reduce((acc, [rank, count]) => acc + PROFITS[rank] * count, 0);
-    const earningRate = Number(
-      (((totalProfit - this.state.purchaseAmount) / this.state.purchaseAmount) * 100).toFixed(2)
-    );
-
-    return earningRate;
   }
 
   restartGame() {
@@ -135,6 +70,13 @@ export default class LottoGame extends Component {
   }
 
   render() {
+    const {
+      purchaseAmount,
+      lottoTickets,
+      resultNumbers: { winningNumbers, bonusNumber },
+    } = this.state;
+    const lottoResult = getLottoResult(purchaseAmount, lottoTickets, winningNumbers, bonusNumber);
+
     return (
       <>
         <div className="flex justify-center mt-5">
@@ -145,7 +87,6 @@ export default class LottoGame extends Component {
               isPurchaseAmountSubmitted={this.state.isPurchaseAmountSubmitted}
               handleChange={this.handleChange}
               publishLottoTickets={this.publishLottoTickets}
-              submitPurchaseAmount={this.submitPurchaseAmount}
             />
             {this.state.isPurchaseAmountSubmitted && <AnnouncementTime />}
             {this.state.isPurchaseAmountSubmitted && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
@@ -156,7 +97,7 @@ export default class LottoGame extends Component {
         </div>
         {this.state.isModalOpened && (
           <Modal
-            container={<LottoResultContainer restartGame={this.restartGame} lottoResult={this.getLottoResult()} />}
+            container={<LottoResultContainer restartGame={this.restartGame} lottoResult={lottoResult} />}
             closeModal={this.closeResultModal}
           />
         )}
