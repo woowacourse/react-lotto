@@ -18,6 +18,11 @@ module.exports = {
         4: '4',
         5: '5',
       },
+      ringWidth: {
+        0.5: '0.5px',
+        1.5: '1.5px',
+        3: '3px',
+      },
     },
   },
   variants: {
