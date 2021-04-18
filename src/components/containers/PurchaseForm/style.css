@@ -1,21 +1,21 @@
-.purchase-amount-form {
+.PurchaseForm {
   margin-top: 2rem;
   display: flex;
 }
 
-.purchase-amount-label {
+.PurchaseForm__label {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
 }
 
-.purchase-amount-text {
+.PurchaseForm__text {
   margin-bottom: 0.5rem;
   display: inline-block;
 }
 
-.purchase-amount-input {
+.PurchaseForm__input {
   margin-top: 0.5rem;
   margin-right: 0.8rem;
   padding: 0.25rem 0.5rem;
@@ -24,24 +24,24 @@
   align-items: flex-end;
 }
 
-.purchase-amount-input:focus {
+.PurchaseForm__input:focus {
   outline-color: #ee8791;
 }
 
-.purchase-button-wrapper {
+.PurchaseForm__button_wrapper {
   display: flex;
   align-items: flex-end;
 }
 
-.purchase-button {
+.PurchaseForm__button {
   background-color: #ee8791;
 }
 
-.purchase-button:focus {
+.PurchaseForm__button:focus {
   outline-color: #c93c4a;
 }
 
-.validation-message {
+.ValidationMessage {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   font-size: 0.8rem;

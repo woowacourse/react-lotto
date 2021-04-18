@@ -4,7 +4,7 @@ import Lotto from './Lotto';
 import { ToggleButton } from '../../shared';
 import './style.css';
 
-export default class UserLottoContainer extends Component {
+export default class UserLotto extends Component {
   constructor(props) {
     super(props);
 
@@ -21,12 +21,12 @@ export default class UserLottoContainer extends Component {
     const { lottoBundle } = this.props;
 
     return (
-      <div className="purchase-lotto-wrapper">
+      <div className="UserLotto">
         <ToggleButton onChange={this.onChangeToggleButton} text="번호보기" />
         <p>
-          총 <span className="number-of-lotto">{lottoBundle.length}</span>개 구매하였습니다.
+          총 <span className="UserLotto__number">{lottoBundle.length}</span>개 구매하였습니다.
         </p>
-        <p className={`lotto-display ${isToggled ? 'toggle' : null}`}>
+        <p className={`UserLotto__display ${isToggled ? 'toggle' : null}`}>
           {lottoBundle.map((v, i) => (
             <Lotto key={i} numbers={v} />
           ))}

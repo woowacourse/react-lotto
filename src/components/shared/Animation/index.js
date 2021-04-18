@@ -3,12 +3,14 @@ import Lottie from 'react-lottie';
 
 export default class Animation extends Component {
   render() {
+    const { height, speed, animationData } = this.props;
+
     return (
       <Lottie
-        height={this.props.height}
-        speed={this.props.speed}
+        height={height}
+        speed={speed}
         options={{
-          animationData: this.props.animationData,
+          animationData,
           loop: false,
         }}
       />

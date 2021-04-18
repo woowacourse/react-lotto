@@ -1,9 +1,9 @@
 /* eslint-disable react/sort-comp */
 import { Component } from 'react';
-import LottoPurchaseContainer from '../containers/LottoPurchase';
-import UserLottoContainer from '../containers/UserLotto';
-import WinningNumbersContainer from '../containers/WinningNumbers';
-import UserResultContainer from '../containers/UserResult';
+import PurchaseForm from '../containers/PurchaseForm';
+import UserLotto from '../containers/UserLotto';
+import WinningNumbers from '../containers/WinningNumbers';
+import UserResult from '../containers/UserResult';
 import { createLotto } from './service';
 import './style.css';
 
@@ -56,26 +56,24 @@ export default class App extends Component {
 
     return (
       <>
-        <div className="app">
-          <h1 className="header">행운의 로또</h1>
-          <main>
-            <LottoPurchaseContainer
-              lottoBundle={lottoBundle}
-              onPurchaseLotto={this.onPurchaseLotto}
-              shouldReset={shouldReset}
-              didReset={this.didReset}
+        <main className="App__main">
+          <h1 className="App__title">행운의 로또</h1>
+          <PurchaseForm
+            lottoBundle={lottoBundle}
+            onPurchaseLotto={this.onPurchaseLotto}
+            shouldReset={shouldReset}
+            didReset={this.didReset}
+          />
+          {isPurchased && <UserLotto lottoBundle={this.state.lottoBundle} />}
+          {isPurchased && (
+            <WinningNumbers
+              setWinningNumber={this.setWinningNumber}
+              onShowWinningResult={this.onShowWinningResult}
             />
-            {isPurchased && <UserLottoContainer lottoBundle={this.state.lottoBundle} />}
-            {isPurchased && (
-              <WinningNumbersContainer
-                setWinningNumber={this.setWinningNumber}
-                onShowWinningResult={this.onShowWinningResult}
-              />
-            )}
-          </main>
-        </div>
+          )}
+        </main>
         {isShowingWinningResult && (
-          <UserResultContainer
+          <UserResult
             lottoBundle={lottoBundle}
             winningNumber={winningNumber}
             onCloseWinningResult={this.onCloseWinningResult}

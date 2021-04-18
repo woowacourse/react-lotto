@@ -8,19 +8,19 @@ export default class LottoBall extends Component {
     let ballColorClassName;
 
     if (targetNumber < 10) {
-      ballColorClassName = 'zeros';
+      ballColorClassName = 'LottoBall--zeros';
     } else if (targetNumber < 20) {
-      ballColorClassName = 'tens';
+      ballColorClassName = 'LottoBall--tens';
     } else if (targetNumber < 30) {
-      ballColorClassName = 'twenties';
+      ballColorClassName = 'LottoBall--twenties';
     } else if (targetNumber < 40) {
-      ballColorClassName = 'thirties';
+      ballColorClassName = 'LottoBall--thirties';
     } else {
-      ballColorClassName = 'forties';
+      ballColorClassName = 'LottoBall--forties';
     }
 
     if (winningNumbers && !winningNumbers.includes(targetNumber)) {
-      ballColorClassName += ' not-matched';
+      ballColorClassName += ' LottoBall--not_matched';
     }
 
     return <TwoDigitBall className={ballColorClassName} number={targetNumber} />;

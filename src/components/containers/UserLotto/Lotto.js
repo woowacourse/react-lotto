@@ -7,9 +7,9 @@ export default class Lotto extends Component {
     const { numbers } = this.props;
 
     return (
-      <div className="lotto">
-        <img className="lotto-image" src={lottoImage} alt="lotto" />
-        <span className="lotto-number">
+      <div className="Lotto">
+        <img className="Lotto__image" src={lottoImage} alt="lotto" />
+        <span className="Lotto__number">
           {numbers.map((v) => (v < 10 ? `0${v}` : v)).join(LOTTO_NUMBER_SEPARATOR)}
         </span>
       </div>

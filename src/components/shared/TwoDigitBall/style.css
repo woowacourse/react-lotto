@@ -1,4 +1,4 @@
-.ball {
+.TwoDigitBall {
   display: inline-block;
   width: 1rem;
   height: 1rem;
@@ -14,31 +14,4 @@
   background-color: #fff;
   color: #333;
   font-size: 0.8rem;
-}
-
-.zeros {
-  border-color: #ffc3c8;
-}
-
-.tens {
-  border-color: #fc8d98;
-}
-
-.twenties {
-  border-color: #ff818e;
-}
-
-.thirties {
-  border-color: #ff495b;
-}
-
-.forties {
-  border-color: #c11c2d;
-}
-
-.not-matched {
-  opacity: 0.3;
-  color: rgba(0, 0, 0, 0.5);
-  font-weight: 400;
-  border-color: #aaa;
 }

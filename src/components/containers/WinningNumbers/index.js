@@ -12,7 +12,7 @@ const DRAW_DATE_KEY = 'drwNoDate';
 const drawNth = dummyDrawNumber[DRAW_NTH_KEY];
 const drawDate = dummyDrawNumber[DRAW_DATE_KEY].split('-').join('.');
 
-export default class WinningNumbersContainer extends Component {
+export default class WinningNumbers extends Component {
   constructor(props) {
     super(props);
 
@@ -34,21 +34,18 @@ export default class WinningNumbersContainer extends Component {
 
   render() {
     const { onShowWinningResult } = this.props;
+    const { isLoading } = this.state;
 
-    return this.state.isLoading ? (
+    return isLoading ? (
       <Animation animationData={countDown} speed={1} height="140px" />
     ) : (
-      <div className="draw-number-wrapper">
-        <h2 className="draw-number-title">
+      <>
+        <h2 className="WinningNumbers__title">
           {drawNth}회차 당첨번호 {drawDate}
         </h2>
         <WinningNumberList number={this.winningNumber} />
-        <PlainButton
-          className="open-result-button"
-          onClick={onShowWinningResult}
-          text="당첨결과 확인하기"
-        />
-      </div>
+        <PlainButton onClick={onShowWinningResult} text="당첨결과 확인하기" />
+      </>
     );
   }
 }

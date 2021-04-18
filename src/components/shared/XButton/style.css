@@ -1,4 +1,4 @@
-.close-button {
+.XButton {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -9,19 +9,19 @@
   border: none;
 }
 
-.close-button:active .close-x {
+.XButton:active .XButton__svg_path {
   stroke: #ee8791;
 }
 
-.close-button:focus {
+.XButton:focus {
   outline-color: #ee8791;
 }
 
-svg {
+.XButton__svg {
   display: block;
 }
 
-.close-x {
+.XButton__svg_path {
   stroke: gray;
   fill: transparent;
   stroke-linecap: round;

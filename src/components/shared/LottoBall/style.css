@@ -1,24 +1,24 @@
-.zeros {
+.LottoBall--zeros {
   border-color: #ffc3c8;
 }
 
-.tens {
+.LottoBall--tens {
   border-color: #fc8d98;
 }
 
-.twenties {
+.LottoBall--twenties {
   border-color: #ff818e;
 }
 
-.thirties {
+.LottoBall--thirties {
   border-color: #ff495b;
 }
 
-.forties {
+.LottoBall--forties {
   border-color: #c11c2d;
 }
 
-.not-matched {
+.LottoBall--not_matched {
   opacity: 0.3;
   color: rgba(0, 0, 0, 0.5);
   font-weight: 400;

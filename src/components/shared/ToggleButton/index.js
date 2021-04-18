@@ -1,13 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Component } from 'react';
 import './style.css';
 
 export default class ToggleButton extends Component {
   render() {
+    const { onChange, text } = this.props;
+
     return (
-      <div className="toggle-button-wrapper">
-        <label htmlFor="toggle-button" className="toggle-button-label">
-          <input id="toggle-button" type="checkbox" onChange={this.props.onChange} />
-          <span className="toggle-button-text">{this.props.text}</span>
+      <div className="ToggleButton">
+        <label className="ToggleButton__label">
+          <input type="checkbox" className="ToggleButton__input" onChange={onChange} />
+          <span className="ToggleButton__text">{text}</span>
         </label>
       </div>
     );

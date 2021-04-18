@@ -1,4 +1,4 @@
-.winning-result {
+.UserResult {
   opacity: 0;
   visibility: hidden;
   display: flex;
@@ -11,13 +11,17 @@
   transition: opacity 0.25s ease;
 }
 
-.winning-result.open {
+.UserResult--open {
   opacity: 1;
   visibility: visible;
   padding: 2.5rem;
 }
 
-.winning-result-inner {
+.UserResult--loading {
+  margin: 10rem auto 0;
+}
+
+.UserResult__inner {
   transition: top 0.25s ease;
   max-width: 400px;
   margin: 0 auto;
@@ -32,16 +36,16 @@
   top: 3rem;
 }
 
-.winning-result-title {
+.UserResult__title {
   text-align: center;
 }
 
-.result-table-wrapper {
+.ResultTable {
   display: flex;
   justify-content: center;
 }
 
-.result-table {
+.ResultTable__table {
   border-width: 1px;
   border-collapse: collapse;
   border-radius: 1em;
@@ -50,55 +54,24 @@
   font-size: 0.9rem;
 }
 
-.table-row {
+.ResultTable__row {
   text-align: center;
 }
 
-.table-head,
-.table-data {
+.ResultTable__head,
+.ResultTable__data {
   min-width: 2rem;
   text-align: center;
   padding: 0.75rem;
   border-bottom: 1px solid gainsboro;
 }
 
-.profit,
-.rate-of-return {
-  text-align: end;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.profit {
-  margin-top: 1.75rem;
-  margin-bottom: 0.25rem;
-}
-
-.rate-of-return {
-  margin-top: 0.25rem;
-  margin-bottom: 1rem;
-}
-
-.description {
-  display: inline-block;
-  min-width: 4rem;
-  text-align: start;
-  font-weight: bold;
-}
-
-.value {
-  display: inline-block;
-  width: 4.5rem;
-  text-align: end;
-  font-weight: bold;
-}
-
-.reset-button-wrapper {
+.UserResult__reset_button_wrapper {
   display: flex;
   justify-content: center;
 }
 
-.reset-button {
+.UserResult__reset_button {
   margin-top: 1.25rem;
   height: 36px;
   min-width: 64px;
@@ -110,16 +83,43 @@
   background-color: #ee8791;
 }
 
-.reset-button:focus {
+.UserResult__reset_button:focus {
   outline-color: #c93c4a;
 }
 
-.coin-animation {
-  margin: 10rem auto 0;
+.ResultSummary__profit,
+.ResultSummary__rate_of_return {
+  text-align: end;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.ResultSummary__profit {
+  margin-top: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.ResultSummary__rate_of_return {
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.ResultSummary__description {
+  display: inline-block;
+  min-width: 4rem;
+  text-align: start;
+  font-weight: bold;
+}
+
+.ResultSummary__value {
+  display: inline-block;
+  width: 4.5rem;
+  text-align: end;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 768px) {
-  .winning-result-inner {
+  .UserResult__inner {
     width: 90%;
     height: 90%;
     padding: 20px;

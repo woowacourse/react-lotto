@@ -3,13 +3,11 @@ import './style.css';
 
 export default class SubmitButton extends Component {
   render() {
+    const { className, disabled, text } = this.props;
+
     return (
-      <button
-        type="submit"
-        className={`submit-button ${this.props.className}`}
-        disabled={this.props.disabled}
-      >
-        {this.props.text}
+      <button type="submit" className={`SubmitButton ${className}`} disabled={disabled}>
+        {text}
       </button>
     );
   }

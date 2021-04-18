@@ -9,7 +9,7 @@ import './style.css';
 
 const COIN_ANIMATION_DURATION = 2000;
 
-export default class UserResultContainer extends Component {
+export default class UserResult extends Component {
   constructor(props) {
     super(props);
 
@@ -40,19 +40,23 @@ export default class UserResultContainer extends Component {
     const { lottoBundle, winningNumber, onCloseWinningResult, onReset } = this.props;
 
     return (
-      <div className="winning-result open">
+      <div className="UserResult UserResult--open">
         {isLoading ? (
-          <div className="coin-animation">
+          <div className="UserResult--loading">
             {isLoading && <Animation animationData={coin} speed={1.5} height="360px" />}
           </div>
         ) : (
-          <div className="winning-result-inner">
+          <div className="UserResult__inner">
             <XButton onClick={onCloseWinningResult} />
-            <h2 className="winning-result-title">당첨결과</h2>
+            <h2 className="UserResult__title">당첨결과</h2>
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
             <ResultSummary result={result} />
-            <div className="reset-button-wrapper">
-              <PlainButton className="reset-button" onClick={onReset} text="다시 시작하기" />
+            <div className="UserResult__reset_button_wrapper">
+              <PlainButton
+                className="UserResult__reset_button"
+                onClick={onReset}
+                text="다시 시작하기"
+              />
             </div>
           </div>
         )}

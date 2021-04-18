@@ -1,15 +1,13 @@
-/* 토글 버튼 */
-
-.toggle-button-wrapper {
+.ToggleButton {
   text-align: end;
 }
 
-.toggle-button-label {
+.ToggleButton__label {
   z-index: 0;
   position: relative;
 }
 
-#toggle-button {
+.ToggleButton__input {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -30,7 +28,7 @@
 }
 
 /* Span */
-.toggle-button-text {
+.ToggleButton__text {
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -40,7 +38,7 @@
 }
 
 /* Track */
-.toggle-button-text::before {
+.ToggleButton__text::before {
   content: '';
   float: right;
   display: inline-block;
@@ -53,7 +51,7 @@
   transition: background-color 0.2s, opacity 0.2s;
 }
 
-.toggle-button-text::after {
+.ToggleButton__text::after {
   content: '';
   position: absolute;
   top: 0.5px;
@@ -67,61 +65,61 @@
   transition: background-color 0.2s, transform 0.2s;
 }
 
-#toggle-button:checked {
+.ToggleButton__input:checked {
   right: -10px;
   background-color: rgb(238, 135, 145);
 }
 
-#toggle-button:checked + span::before {
+.ToggleButton__input:checked + .ToggleButton__text::before {
   background-color: rgba(238, 135, 145, 0.3);
 }
 
-#toggle-button:checked + span::after {
+.ToggleButton__input:checked + .ToggleButton__text::after {
   background-color: rgb(238, 135, 145);
   transform: translateX(16px);
 }
 
 /* Hover, Focus */
-.toggle-button-label:hover > input {
+.ToggleButton__label:hover > .ToggleButton__input {
   opacity: 0.04;
 }
 
-#toggle-button:focus {
+.ToggleButton__input:focus {
   opacity: 0.12;
 }
 
-.toggle-button-label:hover > input:focus {
+.ToggleButton__label:hover > .ToggleButton__input:focus {
   opacity: 0.16;
 }
 
-#toggle-button:active {
+.ToggleButton__input:active {
   opacity: 1;
   transform: scale(0);
   transition: transform 0s, opacity 0s;
 }
 
-#toggle-button:active + span::before {
+.ToggleButton__input:active + .ToggleButton__text::before {
   background-color: rgba(238, 135, 145, 0.3);
 }
 
-#toggle-button:checked:active + span::before {
+.ToggleButton__input:checked:active + .ToggleButton__text::before {
   background-color: rgba(0, 0, 0, 0.38);
 }
 
-#toggle-button:disabled {
+.ToggleButton__input:disabled {
   opacity: 0;
 }
 
-#toggle-button:disabled + span {
+.ToggleButton__input:disabled + .ToggleButton__text {
   color: black;
   opacity: 0.38;
   cursor: default;
 }
 
-#toggle-button:disabled + span::before {
+.ToggleButton__input:disabled + .ToggleButton__text::before {
   background-color: rgba(0, 0, 0, 0.38);
 }
 
-#toggle-button:checked:disabled + span::before {
+.ToggleButton__input:checked:disabled + .ToggleButton__text::before {
   background-color: rgba(0, 188, 212, 0.6);
 }

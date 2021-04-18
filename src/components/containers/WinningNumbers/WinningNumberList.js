@@ -7,12 +7,12 @@ export default class WinningNumberList extends Component {
 
     return (
       <>
-        <section className="draw-number-section">
+        <section className="WinningNumberList">
           {winningNumbers.map((v) => (
             <LottoBall key={v} targetNumber={v} />
           ))}
-          <span className="plus-sign">+</span>
-          <span className="bonus-number-title">보너스번호</span>
+          <span className="WinningNumberList__plus_sign">+</span>
+          <span className="WinningNumberList__bonus_number">보너스번호</span>
           <LottoBall key={bonusNumber} targetNumber={bonusNumber} />
         </section>
       </>

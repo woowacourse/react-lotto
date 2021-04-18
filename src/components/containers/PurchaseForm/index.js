@@ -5,7 +5,7 @@ import { validatePurchaseAmount, payForLotto } from './service';
 import { MESSAGE } from '../../../constants';
 import './style.css';
 
-export default class LottoPurchaseContainer extends Component {
+export default class PurchaseForm extends Component {
   constructor(props) {
     super(props);
 
@@ -58,11 +58,11 @@ export default class LottoPurchaseContainer extends Component {
 
     return (
       <div>
-        <form className="purchase-amount-form" onSubmit={this.onSubmit}>
-          <label className="purchase-amount-label">
-            <span className="purchase-amount-text">구입할 금액을 입력해주세요.</span>
+        <form className="PurchaseForm" onSubmit={this.onSubmit}>
+          <label className="PurchaseForm__label">
+            <span className="PurchaseForm__text">구입할 금액을 입력해주세요.</span>
             <input
-              className="purchase-amount-input"
+              className="PurchaseForm__input"
               name="input"
               type="number"
               placeholder="구입 금액"
@@ -71,15 +71,15 @@ export default class LottoPurchaseContainer extends Component {
               disabled={isInputDisabled}
             />
           </label>
-          <div className="purchase-button-wrapper">
+          <div className="PurchaseForm__button_wrapper">
             <SubmitButton
-              className="purchase-button"
+              className="PurchaseForm__button"
               disabled={isSubmitButtonDisabled}
               text="구매"
             />
           </div>
         </form>
-        <div className="validation-message">{validationMessage}</div>
+        <div className="ValidationMessage">{validationMessage}</div>
       </div>
     );
   }
