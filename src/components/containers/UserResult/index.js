@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import ResultTable from './ResultTable';
 import ResultSummary from './ResultSummary';
-import { Animation, PlainButton, XButton } from '../../shared';
+import { Animation, Button, XButton } from '../../shared';
 import { getComputedResult } from './service';
 import { coin } from '../../../statics';
 import './style.css';
@@ -52,9 +52,9 @@ export default class UserResult extends Component {
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
             <ResultSummary result={result} />
             <div className="UserResult__reset_button_wrapper">
-              <PlainButton className="UserResult__reset_button" onClick={onReset}>
+              <Button type="button" className="UserResult__reset_button" onClick={onReset}>
                 다시 시작하기
-              </PlainButton>
+              </Button>
             </div>
           </div>
         )}

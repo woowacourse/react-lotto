@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import WinningNumberList from './WinningNumberList';
-import { Animation, PlainButton } from '../../shared';
+import { Animation, Button } from '../../shared';
 import { getWinningNumber } from './service';
 import { dummyDrawNumber } from '../../../constants';
 import { countDown } from '../../../statics';
@@ -44,7 +44,9 @@ export default class WinningNumbers extends Component {
           {drawNth}회차 당첨번호 {drawDate}
         </h2>
         <WinningNumberList number={this.winningNumber} />
-        <PlainButton onClick={onShowUserResult}>당첨결과 확인하기</PlainButton>
+        <Button type="button" onClick={onShowUserResult}>
+          당첨결과 확인하기
+        </Button>
       </>
     );
   }

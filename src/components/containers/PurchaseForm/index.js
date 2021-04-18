@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { SubmitButton } from '../../shared';
+import { Button } from '../../shared';
 import { validatePurchaseAmount, payForLotto } from './service';
 import { MESSAGE } from '../../../constants';
 import './style.css';
@@ -72,9 +72,13 @@ export default class PurchaseForm extends Component {
             />
           </label>
           <div className="PurchaseForm__button_wrapper">
-            <SubmitButton className="PurchaseForm__button" disabled={isSubmitButtonDisabled}>
+            <Button
+              type="submit"
+              className="PurchaseForm__button"
+              disabled={isSubmitButtonDisabled}
+            >
               구매
-            </SubmitButton>
+            </Button>
           </div>
         </form>
         <div className="ValidationMessage">{validationMessage}</div>
