@@ -7,7 +7,7 @@ import { getComputedResult } from './service';
 import { coin } from '../../../statics';
 import './style.css';
 
-const COIN_ANIMATION_DURATION = 2000;
+const COIN_ANIMATION_DURATION = 1500;
 
 export default class UserResult extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class UserResult extends Component {
       <div className="UserResult UserResult--open">
         {isLoading ? (
           <div className="UserResult--loading">
-            {isLoading && <Animation animationData={coin} speed={1.5} height="360px" />}
+            <Animation animationData={coin} loop="false" speed="2" height="360px" />
           </div>
         ) : (
           <div className="UserResult__inner">
