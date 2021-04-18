@@ -19,7 +19,7 @@ export default class RemainedTime extends Component<Props> {
     return (
       <RemainedTimeWrapper>
         <p className="remain-time-text">
-          {date}일 {hours}시 {minutes}분 {seconds}초 남았습니다.
+          당첨발표까지 {date}일 {hours}시 {minutes}분 {seconds}초 남았습니다.
         </p>
       </RemainedTimeWrapper>
     );

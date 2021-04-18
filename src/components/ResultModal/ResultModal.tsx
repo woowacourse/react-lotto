@@ -20,23 +20,30 @@ export default class ResultModal extends Component<Props> {
     this.computeResult();
   }
 
-  computeResult(): [number[], number] {
+  computeResult(): { winnerCounts: number[]; profit: number } {
     const { tickets, winningNumber } = this.props;
     const payment = tickets.length * TICKET.PRICE;
     const winnerCounts = getWinnerCounts(tickets, winningNumber);
     const profit = getTotalProfit(payment, winnerCounts);
 
-    return [winnerCounts, profit];
+    return { winnerCounts, profit };
   }
 
   render() {
-    const [
-      [firstWinnerCount, secondWinnerCount, thirdWinnerCount, fourthWinnerCount, fifthWinnerCount],
+    const { handleModalClose, resetGame } = this.props;
+    const {
+      winnerCounts: [
+        firstWinnerCount,
+        secondWinnerCount,
+        thirdWinnerCount,
+        fourthWinnerCount,
+        fifthWinnerCount,
+      ],
       profit,
-    ] = this.computeResult();
+    } = this.computeResult();
 
     return (
-      <Modal handleModalClose={this.props.handleModalClose}>
+      <Modal handleModalClose={handleModalClose}>
         <ResultModalWrapper>
           <h2 className="result-header">🏆 당첨 통계 🏆</h2>
           <Wrapper display="flex">
@@ -80,7 +87,7 @@ export default class ResultModal extends Component<Props> {
           </Wrapper>
           <p className="profit">수익률은 {profit}% 입니다.</p>
           <Wrapper display="flex">
-            <Button type="reset" fullWidth onClick={this.props.resetGame}>
+            <Button type="reset" fullWidth onClick={resetGame}>
               다시 시작하기
             </Button>
           </Wrapper>

@@ -40,6 +40,7 @@ export default class App extends Component<{}, State> {
     this.handleWinningNumber = this.handleWinningNumber.bind(this);
     this.handleModal = this.handleModal.bind(this);
     this.handleRemainedTime = this.handleRemainedTime.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   handleRemainedTime() {
@@ -97,23 +98,24 @@ export default class App extends Component<{}, State> {
   }
 
   render() {
+    const { remainTime, tickets, winningNumber, isModalOpen } = this.state;
     return (
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
-        {this.state.remainTime && <RemainedTime remainTime={this.state.remainTime} />}
-        <TicketList tickets={this.state.tickets} />
+        {remainTime && <RemainedTime remainTime={remainTime} />}
+        <TicketList tickets={tickets} />
         <WinningNumberForm
           handleWinningNumber={this.handleWinningNumber}
           formRef={this.winningNumberFormRef}
         />
 
-        {this.state.isModalOpen && (
+        {isModalOpen && (
           <ResultModal
             handleModalClose={() => this.handleModal(false)}
-            resetGame={() => this.resetGame()}
-            tickets={this.state.tickets}
-            winningNumber={this.state.winningNumber}
+            resetGame={this.resetGame}
+            tickets={tickets}
+            winningNumber={winningNumber}
           />
         )}
       </AppWrapper>

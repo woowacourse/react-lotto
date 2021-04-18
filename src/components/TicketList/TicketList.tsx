@@ -27,24 +27,21 @@ export default class TicketList extends Component<Props, State> {
   }
 
   render() {
+    const { isToggled } = this.state;
+    const { tickets } = this.props;
+
     return (
       <TicketListWrapper>
         <TicketListHeader>
-          <label className="ticket-list-header-label">
-            총 {this.props.tickets.length}개를 구매하였습니다
-          </label>
+          <label className="ticket-list-header-label">총 {tickets.length}개를 구매하였습니다</label>
           <div>
             <Toggle onToggle={this.onToggle}>번호보기</Toggle>
           </div>
         </TicketListHeader>
-        <List isToggled={this.state.isToggled}>
-          {this.props.tickets.map(ticket => {
+        <List isToggled={isToggled}>
+          {tickets.map(ticket => {
             return (
-              <TicketItem
-                key={ticket.id}
-                ticketNumbers={ticket.numbers}
-                isDetailMode={this.state.isToggled}
-              />
+              <TicketItem key={ticket.id} ticketNumbers={ticket.numbers} isDetailMode={isToggled} />
             );
           })}
         </List>
