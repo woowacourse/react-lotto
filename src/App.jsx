@@ -28,6 +28,9 @@ export default class App extends React.Component {
 
     this.resetState = this.resetState.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.handleEscapeKeyUp = this.handleEscapeKeyUp.bind(this);
+    this.handleDimmedClick = this.handleDimmedClick.bind(this);
   }
 
   setTickets(ticketCount) {
@@ -56,27 +59,51 @@ export default class App extends React.Component {
     this.setState({ isModalOpen: false });
   }
 
+  handleEscapeKeyUp({ key }) {
+    if (this.state.isModalOpen && key === 'Escape') {
+      this.closeModal();
+    }
+  }
+
+  handleDimmedClick({ target }) {
+    if (this.state.isModalOpen && target.classList.contains('modal')) {
+      this.closeModal();
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.handleEscapeKeyUp);
+    document.addEventListener('click', this.handleDimmedClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.handleEscapeKeyUp);
+    document.removeEventListener('click', this.handleDimmedClick);
+  }
+
   render() {
     return (
-      <main className="m-16 p-9 max-w-screen-sm mx-auto bg-gray-200 ">
-        <h1 className="text-center text-3xl	font-bold ">
-          <span role="img" aria-label="good-luck">
-            🎱
-          </span>
-          {' 행운의 로또'}
-        </h1>
-        <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} />
+      <>
+        <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
+          <h1 className="text-center text-3xl	font-bold ">
+            <span role="img" aria-label="good-luck">
+              🎱
+            </span>
+            {' 행운의 로또'}
+          </h1>
+          <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} />
 
-        {this.state.tickets.length > 0 && (
-          <>
-            <TicketDetail tickets={this.state.tickets} />
-            <WinningNumberForm
-              setWinningNumbers={this.setWinningNumbers}
-              setBonusNumber={this.setBonusNumber}
-              isReset={this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0}
-            />
-          </>
-        )}
+          {this.state.tickets.length > 0 && (
+            <>
+              <TicketDetail tickets={this.state.tickets} />
+              <WinningNumberForm
+                setWinningNumbers={this.setWinningNumbers}
+                setBonusNumber={this.setBonusNumber}
+                isReset={this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0}
+              />
+            </>
+          )}
+        </main>
         {this.state.isModalOpen && (
           <Modal
             tickets={this.state.tickets}
@@ -86,7 +113,7 @@ export default class App extends React.Component {
             close={this.closeModal}
           />
         )}
-      </main>
+      </>
     );
   }
 }

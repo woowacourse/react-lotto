@@ -71,11 +71,20 @@ export default class Modal extends React.Component {
 
     this.profit = Modal.getProfit(this.ticketRanks, tickets);
     this.handleResetClick = this.handleResetClick.bind(this);
+    this.handleCloseKeyUp = this.handleCloseKeyUp.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
   }
 
   handleResetClick() {
     this.props.reset();
+  }
+
+  handleCloseKeyUp({ key }) {
+    const keys = ['Enter', ' '];
+
+    if (keys.includes(key)) {
+      this.props.close();
+    }
   }
 
   handleCloseClick() {
@@ -84,14 +93,28 @@ export default class Modal extends React.Component {
 
   render() {
     return (
-      <div className="modal max-w-screen-sm mx-auto bg-gray-100 flex fixed inset-0">
-        <div className="modal-inner p-10 m-auto relative">
-          <div className="modal-close absolute m-4 w-6 top-2 right-2 cursor-pointer" onClick={this.handleCloseClick}>
+      <div className="modal w-full flex fixed inset-0 bg-black bg-opacity-50" role="dialog" aria-modal="true">
+        <div className="modal-inner p-10 m-auto relative rounded-xl bg-white">
+          <div
+            className="modal-close absolute m-4 w-6 top-2 right-2 cursor-pointer"
+            role="button"
+            tabIndex="0"
+            onKeyUp={this.handleCloseKeyUp}
+            onClick={this.handleCloseClick}
+          >
             <svg className="stroke-current text-blue-500 hover:text-blue-700 stroke-5" viewBox="0 0 40 40">
               <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
             </svg>
           </div>
-          <h2 className="text-2xl font-semibold text-center mb-4">🏆 당첨 통계 🏆</h2>
+          <h2 className="text-2xl font-semibold text-center mb-4">
+            <span role="img" aria-label="trophy">
+              🏆
+            </span>
+            {' 당첨 통계 '}
+            <span role="img" aria-label="trophy">
+              🏆
+            </span>
+          </h2>
           <div className="d-flex justify-center">
             <table className="">
               <thead>
