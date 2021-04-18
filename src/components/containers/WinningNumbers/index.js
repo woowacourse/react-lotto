@@ -17,25 +17,25 @@ export default class WinningNumbersContainer extends Component {
     super(props);
 
     this.state = {
-      shouldPlayAnimation: true,
+      isLoading: true,
     };
-    this.destroyAnimation = this.destroyAnimation.bind(this);
+    this.removeLoader = this.removeLoader.bind(this);
     this.winningNumber = getWinningNumber();
     this.props.setWinningNumber({ winningNumber: this.winningNumber });
   }
 
   componentDidMount() {
-    setTimeout(this.destroyAnimation, COUNT_DOWN_ANIMATION_DURATION);
+    setTimeout(this.removeLoader, COUNT_DOWN_ANIMATION_DURATION);
   }
 
-  destroyAnimation() {
-    this.setState({ shouldPlayAnimation: false });
+  removeLoader() {
+    this.setState({ isLoading: false });
   }
 
   render() {
     const { onShowWinningResult } = this.props;
 
-    return this.state.shouldPlayAnimation ? (
+    return this.state.isLoading ? (
       <Animation animationData={countDown} speed={1} height="140px" />
     ) : (
       <div className="draw-number-wrapper">

@@ -14,13 +14,13 @@ export default class UserResultContainer extends Component {
     super(props);
 
     this.state = {
+      isLoading: true,
       result: {
         profit: 0,
         rateOfReturn: 0,
       },
-      shouldPlayAnimation: true,
     };
-    this.destroyAnimation = this.destroyAnimation.bind(this);
+    this.removeLoader = this.removeLoader.bind(this);
   }
 
   componentDidMount() {
@@ -28,23 +28,23 @@ export default class UserResultContainer extends Component {
     const result = getComputedResult(lottoBundle, winningNumber);
 
     this.setState({ result });
-    setTimeout(this.destroyAnimation, COIN_ANIMATION_DURATION);
+    setTimeout(this.removeLoader, COIN_ANIMATION_DURATION);
   }
 
-  destroyAnimation() {
-    this.setState({ shouldPlayAnimation: false });
+  removeLoader() {
+    this.setState({ isLoading: false });
   }
 
   render() {
-    const { shouldPlayAnimation, result } = this.state;
+    const { isLoading, result } = this.state;
     const { lottoBundle, winningNumber, onCloseWinningResult, onReset } = this.props;
 
     return (
       <>
         <div className="winning-result open">
-          {shouldPlayAnimation ? (
+          {isLoading ? (
             <div className="coin-animation">
-              {shouldPlayAnimation && <Animation animationData={coin} speed={1.5} height="360px" />}
+              {isLoading && <Animation animationData={coin} speed={1.5} height="360px" />}
             </div>
           ) : (
             <div className="winning-result-inner">
