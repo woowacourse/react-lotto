@@ -33,7 +33,7 @@ export default class TicketList extends Component<Props, State> {
           <label className="ticket-list-header-label">
             총 {this.props.tickets.length}개를 구매하였습니다
           </label>
-          <div className="flex-auto d-flex justify-end pr-1">
+          <div>
             <Toggle onToggle={this.onToggle}>번호보기</Toggle>
           </div>
         </TicketListHeader>

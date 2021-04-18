@@ -16,12 +16,6 @@ type Props = {
 };
 
 export default class ResultModal extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.computeResult();
   }

@@ -4,15 +4,8 @@ import TicketList from './components/TicketList/TicketList';
 import ResultModal from './components/ResultModal/ResultModal';
 import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
 import { AppWrapper } from './App.styles';
-import Button from './components/common/Button';
 import { issueTickets } from './services/tickets';
-import TICKET from './constants/ticket';
 import ALERT_MESSAGE from './constants/alertMessage';
-import {
-  alertByWinningNumbersCase,
-  isValidWinningNumber,
-  alertByWinningNumberCase,
-} from './services/validation';
 import { getRemainedTime } from './utils/date';
 import { GREENWICH_MILLISECONDS } from './services/game';
 import RemainedTime from './components/RemainedTime/RemainedTime';
