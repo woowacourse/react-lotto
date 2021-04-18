@@ -37,8 +37,10 @@ class App extends Component {
     });
   };
 
-  setWinningNumbers = winningNumbers => {
-    this.setState({ winningNumbers });
+  setWinningNumbers = (numbers, bonusNumber) => {
+    this.setState({
+      winningNumbers: { numbers, bonusNumber },
+    });
   };
 
   createLottos = price => {

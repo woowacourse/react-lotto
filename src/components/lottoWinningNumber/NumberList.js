@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  width: 95%;
   text-align: center;
   justify-content: center;
 `;
@@ -14,7 +14,7 @@ const Checkbox = styled.input`
   opacity: 0;
 
   &:checked + Label {
-    border: 1px solid #c71f1f;
+    border: 2px solid #c71f1f;
     background-color: #c71f1f;
     color: #fce9e9;
     font-weight: bold;
@@ -31,19 +31,39 @@ const Label = styled.label`
   padding: 4px;
   font-size: 1rem;
   text-align: center;
-  border: 1px solid #d3c5c5;
+  border: 2px solid #d3c5c5;
   border-radius: 50%;
   background-color: #d3c5c5;
 
   &:hover {
-    border: 1px solid #c71f1f;
-    background-color: #c71f1f;
-    color: #fce9e9;
+    box-sizing: content-box;
+    border: 2px solid #c71f1f;
   }
 `;
 
-class WinningNumberList extends Component {
+class NumberList extends Component {
+  handlePickNumber = e => {
+    const pickedNumber = Number(e.target.name);
+    const duplicatedNumber = this.props.numbers.find(
+      number => number === pickedNumber,
+    );
+    const prevNumbers = this.props.numbers;
+
+    const newNumbers = duplicatedNumber
+      ? prevNumbers.filter(number => number !== pickedNumber)
+      : [...prevNumbers, pickedNumber];
+
+    if (newNumbers.length === 7) {
+      alert('이미 6개의 숫자를 선택하였습니다.');
+      return;
+    }
+
+    this.props.setNumbers(newNumbers);
+  };
+
   render() {
+    const currentNumbers = this.props.numbers;
+
     return (
       <Ul>
         {Array.from({ length: 45 }, (_, idx) => {
@@ -53,10 +73,8 @@ class WinningNumberList extends Component {
                 type="checkbox"
                 id={`winningNumber${idx + 1}`}
                 name={idx + 1}
-                // onChange={this.selectInput(idx + 1)}
-                // checked={
-                //   this.state.winningNumbers.includes(idx + 1) ? true : false
-                // }
+                onChange={this.handlePickNumber}
+                checked={currentNumbers.includes(idx + 1) ? true : false}
               />
               <Label htmlFor={`winningNumber${idx + 1}`}>{idx + 1}</Label>
             </li>
@@ -67,4 +85,4 @@ class WinningNumberList extends Component {
   }
 }
 
-export default WinningNumberList;
+export default NumberList;
