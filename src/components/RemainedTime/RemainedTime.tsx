@@ -12,11 +12,14 @@ export default class RemainedTime extends Component<Props> {
   render() {
     return (
       <RemainedTimeWrapper>
+        🎯 로또 당첨 발표까지 🎯
         <p className="remain-time-text">
-          {this.props.remainTime?.getDate()} 일 {this.props.remainTime?.getHours()} 시
-          {this.props.remainTime?.getMinutes()} 분 {this.props.remainTime?.getSeconds()} 초
-          남았습니다.
+          <span>{this.props.remainTime?.getDate()}</span> 일&nbsp;
+          <span>{this.props.remainTime?.getHours()}</span> 시간&nbsp;
+          <span>{this.props.remainTime?.getMinutes()}</span> 분&nbsp;
+          <span>{this.props.remainTime?.getSeconds()}</span> 초
         </p>
+        남았습니다.
       </RemainedTimeWrapper>
     );
   }

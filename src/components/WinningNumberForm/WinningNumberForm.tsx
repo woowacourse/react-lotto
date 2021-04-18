@@ -70,23 +70,24 @@ export default class WinningNumberForm extends Component<Props, State> {
   render() {
     return (
       <WinningNumberFormWrapper onSubmit={this.handleSubmit} ref={this.props.formRef}>
-        <label className="input-label">당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
+        <label className="input-label">
+          <span>당첨번호 6개</span>와 <span>보너스 번호 1개</span>를 입력해주세요.
+        </label>
         <Wrapper className="winning-number-input-wrapper" display="flex">
           <div>
-            <h4 className="input-caption">당첨 번호</h4>
             <Wrapper display="flex" onChange={this.handleWinningNumberInputChange}>
-              <Input type="number" name="first" required />
-              <Input type="number" name="second" required />
-              <Input type="number" name="third" required />
-              <Input type="number" name="fourth" required />
-              <Input type="number" name="fifth" required />
-              <Input type="number" name="sixth" required />
+              <Input className="input-caption" type="number" name="first" required />
+              <Input className="input-caption" type="number" name="second" required />
+              <Input className="input-caption" type="number" name="third" required />
+              <Input className="input-caption" type="number" name="fourth" required />
+              <Input className="input-caption" type="number" name="fifth" required />
+              <Input className="input-caption" type="number" name="sixth" required />
             </Wrapper>
           </div>
+          +
           <div>
-            <h4 className="input-caption">보너스 번호</h4>
             <Wrapper display="flex" onChange={this.handleWinningNumberInputChange}>
-              <Input type="number" name="bonus" required />
+              <Input className="input-caption" type="number" name="bonus" required />
             </Wrapper>
           </div>
         </Wrapper>

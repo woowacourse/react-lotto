@@ -11,6 +11,5 @@ export const AppWrapper = styled(Wrapper)`
 
   .app-title {
     text-align: center;
-    margin-bottom: 3.5rem;
   }
 `;

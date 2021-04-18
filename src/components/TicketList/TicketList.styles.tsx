@@ -2,16 +2,32 @@ import styled, { css } from 'styled-components';
 import Wrapper from '../common/Wrapper';
 
 export const TicketListWrapper = styled(Wrapper)`
-  margin-top: 2.25rem;
+  padding: 20px;
+  border: 1px solid #dae1e6;
+  border-radius: 5px;
   min-width: 400px;
-  margin-bottom: 3.5rem;
-`;
+  background-color: #f7f9fa;
+  margin-bottom: 10px;
 
-export const TicketListHeader = styled.div`
-  display: flex;
-  .ticket-list-header-label {
-    flex: 1 1 auto;
-    margin: 0 inherit;
+  .ticket-list-header {
+    display: flex;
+    align-items: center;
+    padding: 0 3px 5px 3px;
+    border-bottom: 1px solid #dae1e6;
+
+    .ticket-list-header-label {
+      flex: 1 1 auto;
+      margin: 0 inherit;
+
+      span {
+        color: #00bcd4;
+      }
+    }
+  }
+
+  .ticket-list-main {
+    max-height: 280px;
+    overflow-x: auto;
   }
 `;
 
@@ -25,12 +41,21 @@ const detailedStyle = css`
 `;
 
 export const List = styled.ul<ListProps>`
+  position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  max-height: 280px;
-  overflow-x: auto;
 
+  background-color: #fff;
   margin-top: 1rem;
-  padding: 5px;
+  padding: 15px;
+  border-radius: 5px;
   ${({ isToggled }) => isToggled && detailedStyle}
+
+  .no-tickets {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #8e9499;
+  }
 `;
