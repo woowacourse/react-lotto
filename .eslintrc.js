@@ -4,7 +4,14 @@ module.exports = {
     es2021: true,
   },
   parser: '@babel/eslint-parser',
-  extends: ['semistandard', 'standard-jsx', 'standard-react', 'plugin:react/recommended', 'prettier'],
+  extends: [
+    'semistandard',
+    'standard-jsx',
+    'standard-react',
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'prettier',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -15,7 +22,7 @@ module.exports = {
       configFile: './babel.config.js',
     },
   },
-  plugins: ['react', '@babel'],
+  plugins: ['react', 'jsx-a11y', '@babel'],
   rules: {},
   ignorePatterns: ['build/**/*'],
 };

@@ -47,7 +47,9 @@ export default class TicketDetail extends React.Component {
         <div className={`flex flex-wrap ${this.state.isDetail && 'flex-col'} detail-mode`}>
           {this.props.tickets.map((ticket, index) => (
             <div key={ticket.join(index)} className="flex items-center my-2">
-              <span className="mx-1 text-4xl mr-2">🎟️</span>
+              <span className="mx-1 text-4xl mr-2" role="img" aria-label="lotto-ticket">
+                🎟️
+              </span>
               {this.state.isDetail && <span className="text-lg">{ticket.join(', ')}</span>}
             </div>
           ))}
