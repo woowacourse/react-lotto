@@ -7,17 +7,17 @@ import UserResult from '../containers/UserResult';
 import { createLotto } from './service';
 import './style.css';
 
+const initialState = {
+  lottoBundle: [],
+  winningNumber: {},
+  shouldReset: false,
+  isShowingWinningResult: false,
+};
 export default class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      lottoBundle: [],
-      winningNumber: {},
-      shouldReset: false,
-      isShowingWinningResult: false,
-    };
-
+    this.state = { ...initialState };
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
     this.onShowWinningResult = this.onShowWinningResult.bind(this);
@@ -43,7 +43,7 @@ export default class App extends Component {
   }
 
   onReset() {
-    this.setState({ lottoBundle: [], isShowingWinningResult: false, shouldReset: true });
+    this.setState({ ...initialState, shouldReset: true });
   }
 
   didReset() {
