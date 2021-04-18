@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Modal from '../common/Modal';
-import Button from '../common/Button';
-import { Wrapper } from '../common/Wrapper';
 import { ResultModalWrapper, ResultTable } from './ResultModal.styles';
 import ResultTableRow from './ResultTableRow/ResultTableRow';
-import { getTotalProfit, getWinnerCounts } from '../../services/game';
+import Modal from '../common/Modal';
+import Button from '../common/Button';
+import Wrapper from '../common/Wrapper';
 import TICKET from '../../constants/ticket';
+import { getTotalProfit, getWinnerCounts } from '../../services/game';
 import { MATCH, PRIZE, RANK_INDEX } from '../../constants/game';
 
 type Props = {

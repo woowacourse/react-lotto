@@ -1,8 +1,8 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { PaymentFormWrapper, PaymentFormLabel } from './PaymentForm.styles';
 import Button from '../common/Button';
 import Input from '../common/Input';
-import { Wrapper } from '../common/Wrapper';
-import { PaymentFormWrapper, PaymentFormLabel } from './PaymentForm.styles';
+import Wrapper from '../common/Wrapper';
 import { alertByPaymentCase, isValidPayment } from '../../services/validation';
 
 type Props = {
@@ -56,7 +56,6 @@ export default class PaymentForm extends Component<Props, State> {
             onChange={this.handleInputChange}
             value={this.state.payment === 0 ? '' : this.state.payment}
             placeholder="구입 금액"
-            name="payment-input"
             required
           />
           <Button>확인</Button>

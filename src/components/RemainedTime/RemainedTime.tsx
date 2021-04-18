@@ -4,7 +4,6 @@ import { RemainedTimeWrapper } from './RemainedTime.styles';
 type Props = {
   remainTime: Date | null;
 };
-
 export default class RemainedTime extends Component<Props> {
   constructor(props: Props) {
     super(props);

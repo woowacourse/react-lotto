@@ -9,7 +9,9 @@ const flexCenter = css`
   align-items: center;
 `;
 
-export const Wrapper = styled.div<WrapperProps>`
+const Wrapper = styled.div<WrapperProps>`
   display: ${({ display }) => display || 'block'};
   ${({ display }) => display === 'flex' && flexCenter}
 `;
+
+export default Wrapper;

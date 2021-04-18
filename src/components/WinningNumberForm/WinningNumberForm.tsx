@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WinningNumberFormWrapper } from './WinningNumberForm.styles';
 import Input from '../common/Input';
-import { Wrapper } from '../common/Wrapper';
+import Wrapper from '../common/Wrapper';
 import Button from '../common/Button';
 import {
   isValidWinningNumber,
@@ -43,12 +43,11 @@ export default class WinningNumberForm extends Component<Props, State> {
     if (!isValidWinningNumber(value)) {
       alertByWinningNumberCase(value);
       event.target.value = '';
-      this.setState(state => ({ [name]: 0 }));
+      this.setState({ [name]: 0 });
       return;
     }
 
-    // TODO : 리뷰어에게 이 부분을 타입 강제 없이 쓰려면 어떻게 해야하는지 물어보기
-    this.setState(state => ({ [name]: value }));
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {

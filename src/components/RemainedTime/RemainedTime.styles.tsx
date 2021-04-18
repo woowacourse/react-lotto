@@ -1,4 +1,4 @@
-import { Wrapper } from '../common/Wrapper';
+import Wrapper from '../common/Wrapper';
 import styled from 'styled-components';
 
 export const RemainedTimeWrapper = styled(Wrapper)`
