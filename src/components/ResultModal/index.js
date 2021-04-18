@@ -5,7 +5,6 @@ import { GUIDE_MESSAGE } from "../../@shared/constants/messages";
 import { PRIZE_TABLE, RANKINGS } from "../../@shared/constants/prizeTable";
 import { Button, ResultTable, TableRow } from "./style";
 import Modal from "../common/Modal";
-import BoldText from "../common/BlodText";
 
 const ResultModal = ({
   state: {
@@ -34,7 +33,7 @@ const ResultModal = ({
           ))}
         </tbody>
       </ResultTable>
-      <BoldText text={GUIDE_MESSAGE.EARNING_RATE(earningRate)} />
+      <b>{GUIDE_MESSAGE.EARNING_RATE(earningRate)}</b>
       <Button type="button" onClick={clear}>
         다시 시작하기
       </Button>

@@ -12,10 +12,12 @@ const Main = ({
   state: { lottos },
   action: { updateLottos, updateLottoResult, openModal },
 }) => {
+  const idEmptyLotto = lottos.length > 0;
+
   return (
     <MainContainer>
       <PurchaseInput updateLottos={updateLottos} />
-      {lottos.length !== 0 && (
+      {idEmptyLotto && (
         <>
           <Timer targetTime={getNextSaturday()} />
           <LottoContainer lottos={lottos} />
