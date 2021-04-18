@@ -37,7 +37,7 @@ export default class UserResult extends Component {
 
   render() {
     const { isLoading, result } = this.state;
-    const { lottoBundle, winningNumber, onCloseWinningResult, onReset } = this.props;
+    const { lottoBundle, winningNumber, onCloseUserResult, onReset } = this.props;
 
     return (
       <div className="UserResult UserResult--open">
@@ -47,7 +47,7 @@ export default class UserResult extends Component {
           </div>
         ) : (
           <div className="UserResult__inner">
-            <XButton onClick={onCloseWinningResult} />
+            <XButton onClick={onCloseUserResult} />
             <h2 className="UserResult__title">당첨결과</h2>
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
             <ResultSummary result={result} />

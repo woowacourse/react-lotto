@@ -33,7 +33,7 @@ export default class WinningNumbers extends Component {
   }
 
   render() {
-    const { onShowWinningResult } = this.props;
+    const { onShowUserResult } = this.props;
     const { isLoading } = this.state;
 
     return isLoading ? (
@@ -44,7 +44,7 @@ export default class WinningNumbers extends Component {
           {drawNth}회차 당첨번호 {drawDate}
         </h2>
         <WinningNumberList number={this.winningNumber} />
-        <PlainButton onClick={onShowWinningResult} text="당첨결과 확인하기" />
+        <PlainButton onClick={onShowUserResult} text="당첨결과 확인하기" />
       </>
     );
   }

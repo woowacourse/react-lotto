@@ -11,7 +11,7 @@ const initialState = {
   lottoBundle: [],
   winningNumber: {},
   shouldReset: false,
-  isShowingWinningResult: false,
+  isShowingUserResult: false,
 };
 export default class App extends Component {
   constructor() {
@@ -20,8 +20,8 @@ export default class App extends Component {
     this.state = { ...initialState };
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
     this.setWinningNumber = this.setWinningNumber.bind(this);
-    this.onShowWinningResult = this.onShowWinningResult.bind(this);
-    this.onCloseWinningResult = this.onCloseWinningResult.bind(this);
+    this.onShowUserResult = this.onShowUserResult.bind(this);
+    this.onCloseUserResult = this.onCloseUserResult.bind(this);
     this.onReset = this.onReset.bind(this);
     this.didReset = this.didReset.bind(this);
   }
@@ -34,12 +34,12 @@ export default class App extends Component {
     this.setState({ winningNumber });
   }
 
-  onShowWinningResult() {
-    this.setState({ isShowingWinningResult: true });
+  onShowUserResult() {
+    this.setState({ isShowingUserResult: true });
   }
 
-  onCloseWinningResult() {
-    this.setState({ isShowingWinningResult: false });
+  onCloseUserResult() {
+    this.setState({ isShowingUserResult: false });
   }
 
   onReset() {
@@ -51,7 +51,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { lottoBundle, winningNumber, isShowingWinningResult, shouldReset } = this.state;
+    const { lottoBundle, winningNumber, isShowingUserResult, shouldReset } = this.state;
     const isPurchased = Boolean(lottoBundle.length);
 
     return (
@@ -64,19 +64,21 @@ export default class App extends Component {
             shouldReset={shouldReset}
             didReset={this.didReset}
           />
-          {isPurchased && <UserLotto lottoBundle={this.state.lottoBundle} />}
           {isPurchased && (
-            <WinningNumbers
-              setWinningNumber={this.setWinningNumber}
-              onShowWinningResult={this.onShowWinningResult}
-            />
+            <>
+              <UserLotto lottoBundle={this.state.lottoBundle} />
+              <WinningNumbers
+                setWinningNumber={this.setWinningNumber}
+                onShowUserResult={this.onShowUserResult}
+              />
+            </>
           )}
         </main>
-        {isShowingWinningResult && (
+        {isShowingUserResult && (
           <UserResult
             lottoBundle={lottoBundle}
             winningNumber={winningNumber}
-            onCloseWinningResult={this.onCloseWinningResult}
+            onCloseUserResult={this.onCloseUserResult}
             onReset={this.onReset}
           />
         )}
