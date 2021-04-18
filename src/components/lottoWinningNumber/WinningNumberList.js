@@ -1,43 +1,68 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const NumberInputText = styled.p`
-  margin-top: 1rem;
-  margin-bottom: 0.2rem;
+const Ul = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
   text-align: center;
-  font-weight: bold;
+  justify-content: center;
 `;
 
-const NumberInput = styled.input`
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
+const Checkbox = styled.input`
+  position: absolute;
+  opacity: 0;
+
+  &:checked + Label {
+    border: 1px solid #c71f1f;
+    background-color: #c71f1f;
+    color: #fce9e9;
+    font-weight: bold;
+  }
+`;
+
+const Label = styled.label`
+  display: inline-block;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  margin: 4px;
+  padding: 4px;
+  font-size: 1rem;
   text-align: center;
-  width: 30px;
-  height: 36px;
+  border: 1px solid #d3c5c5;
+  border-radius: 50%;
+  background-color: #d3c5c5;
+
+  &:hover {
+    border: 1px solid #c71f1f;
+    background-color: #c71f1f;
+    color: #fce9e9;
+  }
 `;
 
 class WinningNumberList extends Component {
-  createNumberInput() {
-    return Array.from({ length: 6 }, (_, idx) => (
-      <NumberInput
-        type="number"
-        name={`winning-number-${idx + 1}`}
-        aria-label={`winning number ${idx + 1}`}
-        required
-        min="1"
-        max="45"
-        maxLength="2"
-        key={idx + 1}
-      />
-    ));
-  }
-
   render() {
     return (
-      <div>
-        <NumberInputText>당첨 번호</NumberInputText>
-        <div>{this.createNumberInput()}</div>
-      </div>
+      <Ul>
+        {Array.from({ length: 45 }, (_, idx) => {
+          return (
+            <li key={idx + 1}>
+              <Checkbox
+                type="checkbox"
+                id={`winningNumber${idx + 1}`}
+                name={idx + 1}
+                // onChange={this.selectInput(idx + 1)}
+                // checked={
+                //   this.state.winningNumbers.includes(idx + 1) ? true : false
+                // }
+              />
+              <Label htmlFor={`winningNumber${idx + 1}`}>{idx + 1}</Label>
+            </li>
+          );
+        })}
+      </Ul>
     );
   }
 }

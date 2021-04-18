@@ -8,19 +8,32 @@ const NumberInputText = styled.p`
   font-weight: bold;
 `;
 
+const FlexCenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const NumberInput = styled.input`
   margin-right: 0.25rem;
   margin-left: 0.25rem;
   text-align: center;
-  width: 30px;
+  width: 40px;
   height: 36px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #c71f1f;
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 `;
 class BonusNumberInput extends Component {
   render() {
     return (
       <div>
         <NumberInputText>보너스 번호</NumberInputText>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <FlexCenterDiv>
           <NumberInput
             type="number"
             name="bonus-number"
@@ -29,9 +42,8 @@ class BonusNumberInput extends Component {
             min="1"
             max="45"
             maxLength="2"
-            onChange={this.handleTypeLottoNumber}
           />
-        </div>
+        </FlexCenterDiv>
       </div>
     );
   }
