@@ -10,7 +10,7 @@ export default class ToggleButton extends Component {
       <div className="ToggleButton">
         <label className="ToggleButton__label">
           <input type="checkbox" className="ToggleButton__input" onChange={onChange} />
-          <span className="ToggleButton__text">{text}</span>
+          <span className="ToggleButton__text">{children}</span>
         </label>
       </div>
     );

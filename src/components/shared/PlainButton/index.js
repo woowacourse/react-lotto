@@ -1,13 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { Component } from 'react';
 import './style.css';
 
-export default class PlainButton extends Component {
+export default class Button extends Component {
   render() {
-    const { className, onClick, text } = this.props;
+    const { className, children, ...props } = this.props;
 
     return (
-      <button type="button" className={`PlainButton ${className}`} onClick={onClick}>
-        {text}
+      <button type="button" className={`PlainButton ${className}`} {...props}>
+        {children}
       </button>
     );
   }
