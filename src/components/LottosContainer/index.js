@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Root,
-  FlexContainer,
-  TotalPurchase,
-  SwitchWrapper,
-  SwitchLabel,
-  ToggleSwitch,
-  LottoWrapper,
-  LottoItem,
-  LottoNumbers,
-} from './style';
+import { Root, FlexContainer, LottoWrapper, LottoItem, LottoNumbers } from './style';
 
 class LottosContainer extends Component {
   constructor(props) {
@@ -28,13 +18,13 @@ class LottosContainer extends Component {
     return (
       <Root>
         <FlexContainer>
-          <TotalPurchase>총 {this.props.lottos.length}개를 구매하였습니다.</TotalPurchase>
-          <SwitchWrapper>
-            <SwitchLabel>
+          <span>총 {this.props.lottos.length}개를 구매하였습니다.</span>
+          <div>
+            <label>
               번호보기
-              <ToggleSwitch type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
-            </SwitchLabel>
-          </SwitchWrapper>
+              <input type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
+            </label>
+          </div>
         </FlexContainer>
         <LottoWrapper isSwitchOn={this.props.isSwitchOn}>{lottos}</LottoWrapper>
       </Root>

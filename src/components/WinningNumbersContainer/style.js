@@ -10,18 +10,12 @@ const FlexContainer = styled.div`
   justify-content: space-between;
 `;
 
-const NumberInputGuide = styled.span``;
-
 const NumbersContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
-const Form = styled.form``;
-
-const NumberInputType = styled.h4``;
 
 const NumberInput = styled.input`
   width: 28px;
@@ -55,14 +49,4 @@ const InputErrorMessage = styled.div`
   margin-top: 2px;
 `;
 
-export {
-  Root,
-  NumberInputGuide,
-  Form,
-  FlexContainer,
-  NumbersContainer,
-  NumberInputType,
-  NumberInput,
-  SubmitButton,
-  InputErrorMessage,
-};
+export { Root, FlexContainer, NumbersContainer, NumberInput, SubmitButton, InputErrorMessage };

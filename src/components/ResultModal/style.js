@@ -49,16 +49,12 @@ const CloseX = styled.path`
   stroke-width: 5;
 `;
 
-const Title = styled.h2``;
-
 const Table = styled.table`
   border-width: 1px;
   border-color: black;
   border-collapse: collapse;
   overflow: hidden;
 `;
-
-const Thead = styled.thead``;
 
 const Tr = styled.tr`
   text-align: center;
@@ -90,19 +86,4 @@ const RestartButton = styled.button`
   cursor: pointer;
 `;
 
-export {
-  Root,
-  Modal,
-  ModalInner,
-  CloseButton,
-  CloseX,
-  Title,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  EarningRate,
-  RestartButton,
-};
+export { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, Th, Tbody, Td, EarningRate, RestartButton };

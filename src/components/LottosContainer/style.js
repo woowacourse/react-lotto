@@ -10,14 +10,6 @@ const FlexContainer = styled.div`
   justify-content: space-between;
 `;
 
-const TotalPurchase = styled.span``;
-
-const SwitchWrapper = styled.div``;
-
-const SwitchLabel = styled.label``;
-
-const ToggleSwitch = styled.input``;
-
 const LottoWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -37,14 +29,4 @@ const LottoNumbers = styled.span`
   font-size: 20px;
 `;
 
-export {
-  Root,
-  FlexContainer,
-  TotalPurchase,
-  SwitchWrapper,
-  SwitchLabel,
-  ToggleSwitch,
-  LottoWrapper,
-  LottoItem,
-  LottoNumbers,
-};
+export { Root, FlexContainer, LottoWrapper, LottoItem, LottoNumbers };

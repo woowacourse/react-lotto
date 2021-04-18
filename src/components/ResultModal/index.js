@@ -5,9 +5,7 @@ import {
   ModalInner,
   CloseButton,
   CloseX,
-  Title,
   Table,
-  Thead,
   Tr,
   Th,
   Tbody,
@@ -73,15 +71,15 @@ class ResultModal extends Component {
                 <CloseX d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>
             </CloseButton>
-            <Title>💰당첨 통계💰</Title>
+            <h2>💰당첨 통계💰</h2>
             <Table>
-              <Thead>
+              <thead>
                 <Tr>
                   <Th>일치 갯수</Th>
                   <Th>당첨금</Th>
                   <Th>당첨 갯수</Th>
                 </Tr>
-              </Thead>
+              </thead>
               <Tbody>
                 <Tr>
                   <Td>3개</Td>

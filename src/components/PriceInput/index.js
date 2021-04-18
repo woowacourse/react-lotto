@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Root, Form, Label, InputWrapper, Input, SubmitButton, InputErrorMessage } from './style';
+import { Root, Label, InputWrapper, Input, SubmitButton, InputErrorMessage } from './style';
 
 class PriceInput extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class PriceInput extends Component {
 
     return (
       <Root>
-        <Form onSubmit={this.handleSubmitPrice}>
+        <form onSubmit={this.handleSubmitPrice}>
           <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
           <InputWrapper>
             <Input
@@ -54,7 +54,7 @@ class PriceInput extends Component {
             <SubmitButton disabled={this.props.isDisabled}>확인</SubmitButton>
             {errorMessage}
           </InputWrapper>
-        </Form>
+        </form>
       </Root>
     );
   }

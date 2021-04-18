@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 import Lotto from '../../Lotto';
-import {
-  Root,
-  NumberInputGuide,
-  Form,
-  FlexContainer,
-  NumbersContainer,
-  NumberInputType,
-  NumberInput,
-  SubmitButton,
-  InputErrorMessage,
-} from './style';
+import { Root, FlexContainer, NumbersContainer, NumberInput, SubmitButton, InputErrorMessage } from './style';
 
 class WinningNumbersContainer extends Component {
   constructor(props) {
@@ -68,15 +58,15 @@ class WinningNumbersContainer extends Component {
 
     return (
       <Root>
-        <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
-        <Form onSubmit={this.handleSubmitWinningNumbers} onChange={this.moveNumberInputFocus}>
+        <span>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</span>
+        <form onSubmit={this.handleSubmitWinningNumbers} onChange={this.moveNumberInputFocus}>
           <FlexContainer>
             <NumbersContainer>
-              <NumberInputType>당첨번호</NumberInputType>
+              <h4>당첨번호</h4>
               <FlexContainer>{numberInputs}</FlexContainer>
             </NumbersContainer>
             <NumbersContainer>
-              <NumberInputType>보너스번호</NumberInputType>
+              <h4>보너스번호</h4>
               <NumberInput
                 type="number"
                 data-index={Lotto.NUMBERS_LENGTH}
@@ -89,7 +79,7 @@ class WinningNumbersContainer extends Component {
           </FlexContainer>
           {errorMessage}
           <SubmitButton>결과 확인하기</SubmitButton>
-        </Form>
+        </form>
       </Root>
     );
   }

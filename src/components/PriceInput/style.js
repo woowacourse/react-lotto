@@ -40,4 +40,4 @@ const InputErrorMessage = styled.div`
   margin-top: 2px;
 `;
 
-export { Root, Form, Label, InputWrapper, Input, SubmitButton, InputErrorMessage };
+export { Root, Label, InputWrapper, Input, SubmitButton, InputErrorMessage };
