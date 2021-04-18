@@ -72,11 +72,9 @@ export default class PurchaseForm extends Component {
             />
           </label>
           <div className="PurchaseForm__button_wrapper">
-            <SubmitButton
-              className="PurchaseForm__button"
-              disabled={isSubmitButtonDisabled}
-              text="구매"
-            />
+            <SubmitButton className="PurchaseForm__button" disabled={isSubmitButtonDisabled}>
+              구매
+            </SubmitButton>
           </div>
         </form>
         <div className="ValidationMessage">{validationMessage}</div>

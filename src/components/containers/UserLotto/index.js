@@ -22,7 +22,7 @@ export default class UserLotto extends Component {
 
     return (
       <div className="UserLotto">
-        <ToggleButton onChange={this.onChangeToggleButton} text="번호보기" />
+        <ToggleButton onChange={this.onChangeToggleButton}>번호보기</ToggleButton>
         <p>
           총 <span className="UserLotto__number">{lottoBundle.length}</span>개 구매하였습니다.
         </p>

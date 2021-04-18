@@ -52,11 +52,9 @@ export default class UserResult extends Component {
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
             <ResultSummary result={result} />
             <div className="UserResult__reset_button_wrapper">
-              <PlainButton
-                className="UserResult__reset_button"
-                onClick={onReset}
-                text="다시 시작하기"
-              />
+              <PlainButton className="UserResult__reset_button" onClick={onReset}>
+                다시 시작하기
+              </PlainButton>
             </div>
           </div>
         )}
