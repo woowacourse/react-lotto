@@ -40,25 +40,23 @@ export default class UserResultContainer extends Component {
     const { lottoBundle, winningNumber, onCloseWinningResult, onReset } = this.props;
 
     return (
-      <>
-        <div className="winning-result open">
-          {isLoading ? (
-            <div className="coin-animation">
-              {isLoading && <Animation animationData={coin} speed={1.5} height="360px" />}
+      <div className="winning-result open">
+        {isLoading ? (
+          <div className="coin-animation">
+            {isLoading && <Animation animationData={coin} speed={1.5} height="360px" />}
+          </div>
+        ) : (
+          <div className="winning-result-inner">
+            <XButton onClick={onCloseWinningResult} />
+            <h2 className="winning-result-title">당첨결과</h2>
+            <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
+            <ResultSummary result={result} />
+            <div className="reset-button-wrapper">
+              <PlainButton className="reset-button" onClick={onReset} text="다시 시작하기" />
             </div>
-          ) : (
-            <div className="winning-result-inner">
-              <XButton onClick={onCloseWinningResult} />
-              <h2 className="winning-result-title">당첨결과</h2>
-              <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
-              <ResultSummary result={result} />
-              <div className="reset-button-wrapper">
-                <PlainButton className="reset-button" onClick={onReset} text="다시 시작하기" />
-              </div>
-            </div>
-          )}
-        </div>
-      </>
+          </div>
+        )}
+      </div>
     );
   }
 }

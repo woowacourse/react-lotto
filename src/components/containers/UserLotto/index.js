@@ -23,14 +23,14 @@ export default class UserLottoContainer extends Component {
     return (
       <div className="purchase-lotto-wrapper">
         <ToggleButton onChange={this.onChangeToggleButton} text="번호보기" />
-        <div>
+        <p>
           총 <span className="number-of-lotto">{lottoBundle.length}</span>개 구매하였습니다.
-        </div>
-        <section className={`display-section ${isToggled ? 'toggle' : null}`}>
+        </p>
+        <p className={`lotto-display ${isToggled ? 'toggle' : null}`}>
           {lottoBundle.map((v, i) => (
             <Lotto key={i} numbers={v} />
           ))}
-        </section>
+        </p>
       </div>
     );
   }

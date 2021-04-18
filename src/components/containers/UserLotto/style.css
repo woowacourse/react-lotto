@@ -7,21 +7,21 @@
   padding: 0 0.25rem;
 }
 
-.display-section {
+.lotto-display {
   margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
 }
 
-.display-section .lotto-number {
+.lotto-display .lotto-number {
   display: none;
 }
 
-.display-section.toggle {
+.lotto-display.toggle {
   flex-direction: column;
 }
 
-.display-section.toggle .lotto-number {
+.lotto-display.toggle .lotto-number {
   display: inline-block;
 }
 
