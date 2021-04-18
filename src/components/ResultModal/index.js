@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, EarningRate, RestartButton } from './style';
-import { RANK_CONVERTER, WINNING_PRIZE } from '../../constants';
-
+import { calculateResult } from '../service';
 class ResultModal extends Component {
   constructor(props) {
     super(props);
@@ -9,45 +8,12 @@ class ResultModal extends Component {
     this.handleClickDimmedArea = this.handleClickDimmedArea.bind(this);
   }
 
-  calculateResult() {
-    const rankCount = {
-      '1st': 0,
-      '2nd': 0,
-      '3rd': 0,
-      '4th': 0,
-      '5th': 0,
-    };
-    const { mainNumbers, bonusNumber } = this.props.winningNumbers;
-
-    this.props.lottos.forEach((lotto) => {
-      const mainPoint = lotto.numbers.filter((number) => mainNumbers.includes(number)).length;
-      const isSecondRanked = mainPoint === 5 && lotto.numbers.includes(bonusNumber);
-      const bonusPoint = isSecondRanked ? 0.5 : 0;
-
-      if (mainPoint < 3) return;
-
-      rankCount[RANK_CONVERTER[mainPoint + bonusPoint]]++;
-    });
-
-    const earningRate = this.calculateEarningRate(rankCount);
-
-    return { rankCount, earningRate };
-  }
-
-  calculateEarningRate(rankCount) {
-    const totalEarning = Object.entries(rankCount).reduce((sum, [rank, count]) => {
-      return sum + count * WINNING_PRIZE[rank];
-    }, 0);
-
-    return ((totalEarning / this.props.price - 1) * 100).toFixed(2);
-  }
-
   handleClickDimmedArea(event) {
     if (event.target === event.currentTarget) this.props.onCloseModal();
   }
 
   render() {
-    const { rankCount, earningRate } = this.calculateResult();
+    const { rankCount, earningRate } = calculateResult(this.props);
 
     return (
       <Root>
