@@ -21,8 +21,7 @@ class ResultModal extends Component {
   constructor(props) {
     super(props);
 
-    this.closeModal = this.closeModal.bind(this);
-    this.clickDimmedArea = this.clickDimmedArea.bind(this);
+    this.handleClickDimmedArea = this.handleClickDimmedArea.bind(this);
   }
 
   calculateResult() {
@@ -58,12 +57,8 @@ class ResultModal extends Component {
     return ((totalEarning / this.props.price - 1) * 100).toFixed(2);
   }
 
-  clickDimmedArea(event) {
-    if (event.target === event.currentTarget) this.closeModal();
-  }
-
-  closeModal() {
-    this.props.onCloseModal();
+  handleClickDimmedArea(event) {
+    if (event.target === event.currentTarget) this.props.onCloseModal();
   }
 
   render() {
@@ -71,9 +66,9 @@ class ResultModal extends Component {
 
     return (
       <Root>
-        <Modal isOpen={this.props.isOpen} onClick={this.clickDimmedArea}>
+        <Modal isOpen={this.props.isOpen} onClick={this.handleClickDimmedArea}>
           <ModalInner>
-            <CloseButton onClick={this.closeModal}>
+            <CloseButton onClick={this.props.onCloseModal}>
               <svg viewBox="0 0 40 40">
                 <CloseX d="M 10,10 L 30,30 M 30,10 L 10,30" />
               </svg>

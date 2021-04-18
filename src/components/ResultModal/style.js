@@ -81,8 +81,6 @@ const EarningRate = styled.p`
   font-weight: 700;
 `;
 
-const RestartButtonWrapper = styled.div``;
-
 const RestartButton = styled.button`
   width: 128px;
   height: 36px;
