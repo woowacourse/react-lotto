@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Container, TimeUnit } from "./style";
+import Moment from "react-moment";
+
+import { Container } from "./style";
 
 function Timer({ targetTime }) {
   const [remainTime, setRemainTime] = useState(
@@ -21,11 +23,8 @@ function Timer({ targetTime }) {
 
   return (
     <Container>
-      <TimeUnit fontWeight="900">남은 시간: &nbsp;</TimeUnit>
-      <TimeUnit>{remainTime.getDate()} 일&nbsp;</TimeUnit>
-      <TimeUnit>{remainTime.getHours()}시&nbsp;</TimeUnit>
-      <TimeUnit>{remainTime.getMinutes()}분&nbsp;</TimeUnit>
-      <TimeUnit>{remainTime.getSeconds()}초</TimeUnit>
+      <b>남은 시간: &nbsp;</b>
+      <Moment date={remainTime} format="DD일 hh시 mm분 ss초" />
     </Container>
   );
 }
