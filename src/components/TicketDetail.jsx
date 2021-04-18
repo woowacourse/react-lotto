@@ -30,7 +30,13 @@ export default class TicketDetail extends React.Component {
           <div className="flex items-center justify-center ">
             <label className="flex items-center cursor-pointer">
               <div className="relative">
-                <input type="checkbox" className="sr-only" onChange={this.handleChange} />
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  onChange={this.handleChange}
+                  checked={this.state.isDetail}
+                  disabled={this.props.tickets.length === 0}
+                />
                 <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner" />
                 <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 checked:transform checked:translate-x-full checked:bg-red-100" />
               </div>
