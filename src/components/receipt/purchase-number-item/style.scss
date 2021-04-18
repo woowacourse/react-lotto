@@ -1,4 +1,13 @@
 .purchase-number-item {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+}
+
+.lottery-balls-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 0;
+  padding: 0.5rem 1rem;
 }

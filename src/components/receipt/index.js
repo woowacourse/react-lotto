@@ -1,6 +1,7 @@
 import React from 'react';
 import PurchaseNumberList from './purchse-number-list';
 import ToggleButton from '../util-component/toggle';
+import './style.scss';
 
 class Receipt extends React.Component {
   constructor(props) {
@@ -19,9 +20,11 @@ class Receipt extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>구입한 로또 번호</p>
-        <ToggleButton onHandleToggle={this.handleToggle} />
+      <div className='purchased-lotto'>
+        <div className='sub-title'>
+          <p>구입한 로또 번호</p>
+          <ToggleButton onHandleToggle={this.handleToggle} />
+        </div>
         <PurchaseNumberList
           receipt={this.props.receipt}
           showBalls={this.state.showBalls}

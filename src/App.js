@@ -5,16 +5,19 @@ import Receipt from './components/receipt';
 import WinningNumber from './components/winning-number';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import { getRandomNumber } from './utils/random-number';
+import Canvas from './components/canvas';
+import './style.scss';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isMoneyInputValid: false,
       isModalOpen: false,
+      isLoading: false,
       moneyAmount: 0,
+      bonusNumber: 0,
       receipt: [],
       winningNumber: [],
-      bonusNumber: 0,
     };
     this.MoneyInputRef = React.createRef();
   }
@@ -63,13 +66,20 @@ class App extends React.Component {
   }
 
   makeReceipt(ticketCount) {
-    this.setState({ receipt: [...Array(ticketCount)].map(() => this.makeAutoTicket()) });
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      this.setState({
+        isLoading: false,
+        receipt: [...Array(ticketCount)].map(() => this.makeAutoTicket()),
+      });
+    }, 1000);
   }
 
   render() {
     return (
       <>
-        {/* <Canvas /> */}
+        <Canvas />
+        <div className='title'>슈퍼 로또</div>
         <MoneyInput
           ref={this.MoneyInputRef}
           onHandleSubmit={(money, ticketCount) => {
@@ -77,7 +87,8 @@ class App extends React.Component {
             this.makeReceipt(ticketCount);
           }}
         ></MoneyInput>
-        {this.state.isMoneyInputValid && (
+        {this.state.isLoading && <div className='circle gelatine'>$</div>}
+        {!this.state.isLoading && this.state.isMoneyInputValid && (
           <>
             <Receipt receipt={this.state.receipt}></Receipt>
             <WinningNumber
@@ -88,7 +99,7 @@ class App extends React.Component {
             ></WinningNumber>
           </>
         )}
-        {this.state.isModalOpen && (
+        {!this.state.isLoading && this.state.isModalOpen && (
           <>
             <Modal
               winningNumber={this.state.winningNumber}

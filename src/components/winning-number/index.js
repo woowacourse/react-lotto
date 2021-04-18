@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import NumberInput from '../util-component/number-input/index';
 import Button from '../util-component/button/index';
 import { LOTTERY_BALL_LENGTH } from '../../constants/number';
+import './style.scss';
 
 class WinningNumber extends React.Component {
   constructor(props) {
@@ -26,10 +27,12 @@ class WinningNumber extends React.Component {
   render() {
     return (
       <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
-        {[...Array(LOTTERY_BALL_LENGTH)].map(() => {
-          return <NumberInput min='1' max='45' key={uuidv4()} customClass={'winning-number'} />;
-        })}
-        <NumberInput min='1' max='45' key={uuidv4()} customClass={'bonus-number'} />
+        <div className='winning-number-form'>
+          {[...Array(LOTTERY_BALL_LENGTH)].map(() => {
+            return <NumberInput min='1' max='45' key={uuidv4()} customClass={'winning-number'} />;
+          })}
+          <NumberInput min='1' max='45' key={uuidv4()} customClass={'bonus-number'} />
+        </div>
         <Button buttonText='결과 확인하기'></Button>
       </form>
     );

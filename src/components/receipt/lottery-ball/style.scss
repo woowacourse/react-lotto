@@ -2,13 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
-  border: 1px solid black;
-  font-size: 1.2rem;
+  border: 1px solid grey;
+  margin: 0.1rem;
+  font-size: 1rem;
+  box-shadow: 2px 1px 7px 0px #b5b5b5;
+  font-weight: 900;
+  font-family: system-ui;
 }
 
 .winning-ball {
-  background-color: aqua;
+  background-color: grey;
+  border-color: grey;
+  color: white;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import NumberInput from '../util-component/number-input';
 import Button from '../util-component/button';
 import { LOTTERY_PRICE } from '../../constants/number';
-
+import './style.scss';
 class MoneyInput extends React.Component {
   constructor(props) {
     super(props);
@@ -22,16 +22,21 @@ class MoneyInput extends React.Component {
 
   render() {
     return (
-      <form ref={this.formRef} onSubmit={(e) => this.onMoneyInputSubmit(e)}>
+      <form
+        className='money-input-form'
+        ref={this.formRef}
+        onSubmit={(e) => this.onMoneyInputSubmit(e)}
+      >
+        {<span className='money-unit'></span>}
         <NumberInput
           customClass='money-input'
           name='amount'
           min='1000'
           max='1000000'
-          placeholder='구입 금액을 입력해주세요.'
+          placeholder='1,000'
           autoFocus
         />
-        <Button buttonText='구입하기' customClass='money-input-button'></Button>
+        <Button buttonText='구입' customClass='money-input-button'></Button>
       </form>
     );
   }

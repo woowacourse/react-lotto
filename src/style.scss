@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+html {
+  body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #root {
+      line-height: 1;
+      padding: 1rem 3rem;
+      margin: 3rem auto;
+      min-width: 30rem;
+      max-width: 45rem;
+      min-height: 25rem;
+      user-select: none;
+      text-align: center;
+      background: #ffffff;
+
+      .title {
+        margin: 1.5rem auto;
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Noto Sans KR', sans-serif;
+        height: 3rem;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10rem;
+        text-align: left;
+      }
+      .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: whiteSmoke;
+        box-shadow: 0px 0px 0px 11px #ffc925 inset;
+      }
+
+      .gelatine {
+        margin-top: 1.5rem;
+        animation: gelatine 0.5s infinite;
+        background: #ffe9a7;
+        color: #ffc925;
+      }
+    }
+  }
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+}

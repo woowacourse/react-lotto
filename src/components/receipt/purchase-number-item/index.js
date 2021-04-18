@@ -10,46 +10,22 @@ class PurchaseNumberItem extends React.Component {
   }
 
   calculatePrize() {
-    let prize = 0;
     switch (this.props.winningBallCount) {
       case 3:
-        prize = PRIZE.FIFTH;
-        break;
+        return PRIZE.FIFTH;
+
       case 4:
-        prize = PRIZE.FOURTH;
-        break;
+        return PRIZE.FOURTH;
+
       case 5:
         if (this.props.bonusBallCount) {
-          prize = PRIZE.SECOND;
-          break;
+          return PRIZE.SECOND;
         }
-        prize = PRIZE.THIRD;
-        break;
+
+        return PRIZE.THIRD;
+
       case 6:
-        prize = PRIZE.FIRST;
-        break;
-
-      default:
-        prize = 0;
-    }
-
-    this.props.onCalculateTotalPrize(prize);
-    return prize;
-  }
-
-  calculateRank() {
-    switch (this.props.winningBallCount) {
-      case 3:
-        return RANK.FIFTH;
-      case 4:
-        return RANK.FOURTH;
-      case 5:
-        if (this.props.bonusBallCount) {
-          return RANK.SECOND;
-        }
-        return RANK.THIRD;
-      case 6:
-        return RANK.FIRST;
+        return PRIZE.FIRST;
 
       default:
         return 0;
@@ -57,25 +33,27 @@ class PurchaseNumberItem extends React.Component {
   }
 
   render() {
-    const rank = this.calculateRank();
     return (
-      <li className='purchase-number-item'>
-        {this.props.ticketNumbers.map((number) => (
-          <LotteryBall
-            colored={
-              this.props.winningNumber &&
-              [...this.props.winningNumber, this.props.bonusNumber].includes(number)
-            }
-            key={uuidv4()}
-            numberValue={number}
-            toggled={this.props.toggled}
-          ></LotteryBall>
-        ))}
-        <>
-          {this.props.winningNumber &&
-            `${rank ? `${rank}등 ` : ' '}${this.calculatePrize()}원 당첨!`}
-        </>
-      </li>
+      <>
+        <li className='purchase-number-item'>
+          <div className='lottery-balls-container'>
+            {this.props.ticketNumbers.map((number) => {
+              this.props.onCalculateTotalPrize(this.calculatePrize());
+              return (
+                <LotteryBall
+                  colored={
+                    this.props.winningNumber &&
+                    [...this.props.winningNumber, this.props.bonusNumber].includes(number)
+                  }
+                  key={uuidv4()}
+                  numberValue={number}
+                  toggled={this.props.toggled}
+                ></LotteryBall>
+              );
+            })}
+          </div>
+        </li>
+      </>
     );
   }
 }
