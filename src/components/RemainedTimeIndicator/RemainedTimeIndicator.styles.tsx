@@ -1,7 +1,7 @@
 import { Wrapper } from '../common/Wrapper';
 import styled from 'styled-components';
 
-export const RemainedTimeWrapper = styled(Wrapper)`
+export const RemainedTimeIndicatorWrapper = styled(Wrapper)`
   .remain-time-text {
     font-size: 1.5rem;
     text-align: center;

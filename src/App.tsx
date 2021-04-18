@@ -8,7 +8,7 @@ import { issueTickets } from './services/tickets';
 import ALERT_MESSAGE from './constants/alertMessage';
 import { getRemainedTime } from './utils/date';
 import { GREENWICH_MILLISECONDS } from './services/game';
-import RemainedTime from './components/RemainedTime/RemainedTime';
+import RemainedTimeIndicator from './components/RemainedTimeIndicator/RemainedTimeIndicator';
 
 type State = {
   tickets: Ticket[];
@@ -102,7 +102,7 @@ export default class App extends Component<{}, State> {
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
-        {this.state.remainTime && <RemainedTime remainTime={this.state.remainTime} />}
+        {this.state.remainTime && <RemainedTimeIndicator remainTime={this.state.remainTime} />}
         <TicketList tickets={this.state.tickets} />
         <WinningNumberForm
           handleWinningNumber={this.handleWinningNumber}
