@@ -20,9 +20,14 @@ export default class WinningNumberForm extends React.Component {
     this.state = { ...this.initialState };
     this.resetState = this.resetState.bind(this);
 
-    this.isValid = this.isValid.bind(this);
-    this.isValidNumberScope = this.isValidNumberScope.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
     this.hasUniqueInputValues = this.hasUniqueInputValues.bind(this);
+    this.hasNonEmptyUniqueInputValues = this.hasNonEmptyUniqueInputValues.bind(this);
+    this.isUniqueInputValue = this.isUniqueInputValue.bind(this);
+    this.isValidNumberScope = this.isNumberInRange.bind(this);
+    this.isValidInputValue = this.isValidInputValue.bind(this);
+
+    this.getValidationMessage = this.getValidationMessage.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleWinningNumberInputChange = this.handleWinningNumberInputChange.bind(this);
@@ -33,6 +38,34 @@ export default class WinningNumberForm extends React.Component {
     this.setState({ ...this.initialState });
   }
 
+  isFormValid() {
+    return this.isAllNumberInScope() && this.hasUniqueInputValues();
+  }
+
+  isAllNumberInScope() {
+    return [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].every(this.isNumberInRange);
+  }
+
+  // TODO 현재 case !this.isAllNumberInScope(): <- 에서 걸려버리는데 해결해야 함.(원하는 값은 Default)
+  getValidationMessage() {
+    switch (true) {
+      case !this.hasNonEmptyUniqueInputValues():
+        return '중복된 번호는 입력하실 수 없습니다.';
+      case !this.isAllNumberInScope():
+        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+      default:
+        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
+    }
+  }
+
+  hasNonEmptyUniqueInputValues() {
+    const nonEmptyInputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
+      (inputValue) => inputValue !== ''
+    );
+
+    return new Set(nonEmptyInputValues).size === nonEmptyInputValues.length;
+  }
+
   hasUniqueInputValues() {
     return (
       new Set([...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]).size ===
@@ -40,35 +73,29 @@ export default class WinningNumberForm extends React.Component {
     );
   }
 
-  isValidNumberScope(value) {
+  isNumberInRange(value) {
     return LOTTO.MIN_NUMBER <= Number(value) && Number(value) <= LOTTO.MAX_NUMBER;
   }
 
-  isValid() {
+  isUniqueInputValue(value) {
     return (
-      [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].every(this.isValidNumberScope) &&
-      this.hasUniqueInputValues()
+      [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
+        (inputValue) => inputValue === value
+      ).length === 1
     );
+  }
+
+  isValidInputValue(value) {
+    return this.isNumberInRange(value) && this.isUniqueInputValue(value);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    if (!this.hasUniqueInputValues()) {
-      alert('중복된 당첨번호를 입력하실 수 없습니다.');
-      return;
-    }
-
     this.props.setWinningNumbers(this.state.winningNumberInputValues.map(Number));
     this.props.setBonusNumber(Number(this.state.bonusNumberInputValue));
   }
 
   handleWinningNumberInputChange({ target: { name, value } }) {
-    if (value !== '' && !this.isValidNumberScope(value)) {
-      alert(`당첨번호는 ${LOTTO.MIN_NUMBER} 이상 ${LOTTO.MAX_NUMBER} 이하의 숫자이어야 합니다.`);
-      value = '';
-    }
-
     this.setState({
       winningNumberInputValues: this.state.winningNumberInputValues.map((inputValue, index) =>
         name.includes(index) ? value : inputValue
@@ -77,11 +104,6 @@ export default class WinningNumberForm extends React.Component {
   }
 
   handleBonusNumberInputChange({ target: { value } }) {
-    if (value !== '' && !this.isValidNumberScope(value)) {
-      alert(`당첨번호는 ${LOTTO.MIN_NUMBER} 이상 ${LOTTO.MAX_NUMBER} 이하의 숫자이어야 합니다.`);
-      value = '';
-    }
-
     this.setState({ bonusNumberInputValue: value });
   }
 
@@ -102,7 +124,11 @@ export default class WinningNumberForm extends React.Component {
                     <input
                       id={`winning-number-${index}`}
                       type="number"
-                      className="mx-1 text-xl text-center w-14 h-14"
+                      className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline  focus:ring-1.5 ${
+                        this.isValidInputValue(this.state.winningNumberInputValues[index])
+                          ? 'ring-blue-700'
+                          : 'ring-rose-500'
+                      }`}
                       name={`winning-number-${index}`}
                       value={this.state.winningNumberInputValues[index]}
                       onChange={this.handleWinningNumberInputChange}
@@ -120,17 +146,26 @@ export default class WinningNumberForm extends React.Component {
                 <input
                   id="bonus-number"
                   type="number"
-                  className="mx-1 text-center w-14 h-14"
+                  className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline  focus:ring-1.5 ${
+                    this.isValidInputValue(this.state.bonusNumberInputValue) ? 'ring-blue-700' : 'ring-rose-500'
+                  }`}
                   value={this.state.bonusNumberInputValue}
                   onChange={this.handleBonusNumberInputChange}
                 />
               </div>
             </div>
           </div>
+          {this.isFormValid() ? (
+            <div className="text-blue-700 font-semibold h-4 mt-4 ">
+              당첨 번호를 모두 입력하셨습니다! 당첨 결과를 확인해보세요!!
+            </div>
+          ) : (
+            <div className="text-rose-500 font-semibold h-4 ">{this.getValidationMessage()}</div>
+          )}
           <button
             type="submit"
             className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white w-11/12"
-            disabled={!this.isValid()}
+            disabled={!this.isFormValid()}
           >
             결과 확인하기
           </button>
