@@ -9,6 +9,8 @@ import ErrorMessageBox from "../common/ErrorMessageBox";
 
 const PurchaseInput = ({ updateLottos }) => {
   const formRef = useRef();
+  const inputRef = useRef();
+
   const [payment, setPayment] = useState(0);
   const [isValidInput, setValidInputState] = useState(true);
 
@@ -26,7 +28,7 @@ const PurchaseInput = ({ updateLottos }) => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    setPayment(Number(event.target.elements["purchase-input"].value));
+    setPayment(Number(inputRef.current.value));
   };
 
   return (
@@ -39,6 +41,7 @@ const PurchaseInput = ({ updateLottos }) => {
           type="number"
           placeholder="구입 금액"
           min={LOTTO_PRICE}
+          ref={inputRef}
           required
         />
         <Button type="submit">확인</Button>

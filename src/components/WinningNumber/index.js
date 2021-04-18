@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
@@ -13,18 +13,23 @@ import {
   InputHeader,
   NumberContainer,
 } from "./style";
+import { LOTTO_LENGTH } from "../../@shared/constants/lotto";
 
 const WinningNumberInput = ({ updateLottoResult, openModal }) => {
+  const winningInputRefs = useRef(
+    Array.from({ length: LOTTO_LENGTH }, () => createRef())
+  );
+  const bonusNumberRef = useRef();
+
   const [isValidInput, setValidInputState] = useState(true);
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const { elements } = event.target;
-    const winningNumbers = Array.from(elements["winning-number"], ($input) =>
-      Number($input.value)
+    const winningNumbers = winningInputRefs.current.map((ref) =>
+      Number(ref.current.value)
     );
-    const bonusNumber = Number(elements["bonus-number"].value);
+    const bonusNumber = Number(bonusNumberRef.current.value);
 
     if (isDistinctNumbers([...winningNumbers, bonusNumber])) {
       setValidInputState(true);
@@ -44,6 +49,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
           <InputBoxes>
             {Array.from({ length: 6 }, (_, i) => (
               <InputBox
+                ref={winningInputRefs.current[i]}
                 key={`winningInput-${i}`}
                 name="winning-number"
                 type="number"
@@ -58,6 +64,7 @@ const WinningNumberInput = ({ updateLottoResult, openModal }) => {
         <NumberContainer>
           <InputHeader>보너스 번호</InputHeader>
           <InputBox
+            ref={bonusNumberRef}
             name="bonus-number"
             type="number"
             min="1"
