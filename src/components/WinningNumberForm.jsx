@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LOTTO } from '../utils/constants';
+import { LOTTO, MESSAGE } from '../utils/constants';
 
 export default class WinningNumberForm extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ export default class WinningNumberForm extends React.Component {
     this.initialState = {
       winningNumberInputValues: Array.from({ length: LOTTO.LENGTH }, () => ''),
       bonusNumberInputValue: '',
-      validationMessage: '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.',
+      validationMessage: MESSAGE.REQUIRE_WINNING_NUMBER_INPUT,
     };
 
     this.state = { ...this.initialState };
@@ -88,18 +88,18 @@ export default class WinningNumberForm extends React.Component {
       case !isFormValid:
         return this.getFormValidationMessage();
       default:
-        return '당첨 번호를 모두 입력하셨습니다! 당첨 결과를 확인해보세요!!';
+        return MESSAGE.WINNING_NUMBER.VALID_FORM;
     }
   }
 
   getInputValidationMessage(value) {
     switch (true) {
       case value === '':
-        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
+        return MESSAGE.WINNING_NUMBER.NON_NUMBER_VALUE;
       case !this.isUniqueInputValue(value):
-        return '중복된 번호는 입력하실 수 없습니다.';
+        return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
       case !this.isNumberInRange(value):
-        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+        return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
       default:
         return '';
     }
@@ -111,11 +111,11 @@ export default class WinningNumberForm extends React.Component {
 
     switch (true) {
       case !this.hasUniqueInputValues(nonEmptyInputValues):
-        return '중복된 번호는 입력하실 수 없습니다.';
+        return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
       case !this.isAllNumberInRange(nonEmptyInputValues):
-        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+        return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
       case this.hasEmptyInputValues():
-        return '다음 번호를 입력해주세요.';
+        return MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT;
       default:
         return '';
     }
@@ -124,11 +124,13 @@ export default class WinningNumberForm extends React.Component {
   hasEmptyInputValues() {
     const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
     const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
+
     return nonEmptyInputValues.length < inputValues.length;
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
     this.props.setWinningNumbers(this.state.winningNumberInputValues.map(Number));
     this.props.setBonusNumber(Number(this.state.bonusNumberInputValue));
   }
@@ -169,7 +171,7 @@ export default class WinningNumberForm extends React.Component {
                     <input
                       id={`winning-number-${index}`}
                       type="number"
-                      className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline  focus:ring-1.5 ${
+                      className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline focus:ring-1.5 ${
                         this.isValidInputValue(this.state.winningNumberInputValues[index])
                           ? 'ring-blue-700'
                           : 'ring-rose-500'
@@ -192,7 +194,7 @@ export default class WinningNumberForm extends React.Component {
                 <input
                   id="bonus-number"
                   type="number"
-                  className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline  focus:ring-1.5 ${
+                  className={`border rounded shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline focus:ring-1.5 ${
                     this.isValidInputValue(this.state.bonusNumberInputValue) ? 'ring-blue-700' : 'ring-rose-500'
                   }`}
                   value={this.state.bonusNumberInputValue}
@@ -205,7 +207,7 @@ export default class WinningNumberForm extends React.Component {
 
           <div
             className={`${
-              this.isFormValid() || this.state.validationMessage === '다음 번호를 입력해주세요.'
+              this.isFormValid() || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
                 ? 'text-blue-700'
                 : 'text-rose-500'
             } font-semibold h-4 mt-4`}

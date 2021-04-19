@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { LOTTO } from '../utils/constants';
 
 export default class PurchaseForm extends React.Component {
-  static calculatePurchaseTicketCount(purchaseInputValue) {
-    return Math.floor(Number(purchaseInputValue) / LOTTO.UNIT_PRICE);
+  static calculatePurchaseTicketCount(inputValue) {
+    return Math.floor(Number(inputValue) / LOTTO.UNIT_PRICE);
   }
 
   static propTypes = {
@@ -17,7 +17,7 @@ export default class PurchaseForm extends React.Component {
     super(props);
 
     this.initialState = {
-      purchaseInputValue: '',
+      inputValue: '',
       isValid: false,
     };
 
@@ -35,20 +35,15 @@ export default class PurchaseForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const ticketCount = PurchaseForm.calculatePurchaseTicketCount(this.state.purchaseInputValue);
+    const ticketCount = PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue);
 
     this.props.setTickets(ticketCount);
   }
 
   handleInputChange({ target: { value, valueAsNumber } }) {
     this.setState({
-      purchaseInputValue: value,
-      isValid: !(
-        value === '' ||
-        Number.isNaN(valueAsNumber) ||
-        valueAsNumber < LOTTO.MIN_PRICE ||
-        valueAsNumber > LOTTO.MAX_PRICE
-      ),
+      inputValue: value,
+      isValid: !(value === '' || valueAsNumber < LOTTO.MIN_PRICE || valueAsNumber > LOTTO.MAX_PRICE),
     });
   }
 
@@ -63,17 +58,14 @@ export default class PurchaseForm extends React.Component {
           <input
             id="purchase-input"
             type="number"
-            className={`w-full py-2 px-3
-            appearance-none
-            border rounded shadow
-            text-gray-700 leading-tight
-            focus:outline-none focus:shadow-outline mr-2
-            focus:ring-1.5
-            ${this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'}
+            className={`
+              w-full py-2 px-3 appearance-none border rounded shadow text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline mr-2 focus:ring-1.5
+              ${this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'}
             `}
             placeholder="구입 금액"
             onChange={this.handleInputChange}
-            value={this.state.purchaseInputValue}
+            value={this.state.inputValue}
             disabled={this.props.tickets.length > 0}
           />
           <button
@@ -87,7 +79,7 @@ export default class PurchaseForm extends React.Component {
         {this.state.isValid ? (
           this.props.tickets.length === 0 && (
             <div className="text-blue-700 h-4 ">
-              {`${PurchaseForm.calculatePurchaseTicketCount(this.state.purchaseInputValue)}장의 로또를 구매하실 수
+              {`${PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue)}장의 로또를 구매하실 수
                 있습니다. `}
             </div>
           )

@@ -1,6 +1,6 @@
 import React from 'react';
 import generateLottoNumbers from './utils/generateTicket';
-import PurchaseForm from './components/PurchaseFrom';
+import PurchaseForm from './components/PurchaseForm';
 import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
 import Modal from './components/Modal';
@@ -94,14 +94,13 @@ export default class App extends React.Component {
     return (
       <>
         <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
-          <h1 className="text-center text-3xl	font-bold ">
+          <h1 className="text-center text-3xl	font-bold">
             <span role="img" aria-label="good-luck">
               🎱
             </span>
             {' 행운의 로또'}
           </h1>
           <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} isReset={isReset} />
-
           {this.state.tickets.length > 0 && (
             <>
               <TicketDetail tickets={this.state.tickets} />

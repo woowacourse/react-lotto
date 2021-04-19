@@ -1,12 +1,22 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   mode: 'jit',
   purge: ['./public/**/*.{html,css}', './src/**/*.{js,jsx,html,css}'],
   darkMode: false,
   theme: {
+    fontFamily: {
+      mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+    },
     extend: {
       colors,
+      translate: 'active',
+      transitionDuration: {
+        250: '250ms',
+        350: '350ms',
+        400: '400ms',
+      },
       minWidth: {
         '1/8': '12.5%',
         '1/4': '25%',
