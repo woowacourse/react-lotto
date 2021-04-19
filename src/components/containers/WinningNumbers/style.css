@@ -1,0 +1,24 @@
+.WinningNumbers__title {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #333;
+}
+
+.WinningNumberList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.WinningNumberList__plus_sign {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #666;
+  margin: 0 0.25rem;
+}
+
+.WinningNumberList__bonus_number {
+  font-size: 0.75rem;
+  color: #666;
+}

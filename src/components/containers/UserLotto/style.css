@@ -1,0 +1,45 @@
+.UserLotto {
+  margin: 2.25rem 0;
+}
+
+.UserLotto__number {
+  font-weight: 800;
+  padding: 0 0.25rem;
+}
+
+.UserLotto__display {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.UserLotto__display .Lotto__number {
+  display: none;
+}
+
+.UserLotto__display.toggle {
+  flex-direction: column;
+}
+
+.UserLotto__display.toggle .Lotto__number {
+  display: inline-block;
+}
+
+/* 로또 하나 */
+.Lotto {
+  display: flex;
+  align-items: center;
+}
+
+.Lotto__image {
+  width: 2.25rem;
+  margin: 0 0.2rem;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.Lotto__number {
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  color: #333;
+}

@@ -1,0 +1,29 @@
+.XButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin: 20px;
+  width: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.XButton:active .XButton__svg_path {
+  stroke: #ee8791;
+}
+
+.XButton:focus {
+  outline-color: #ee8791;
+}
+
+.XButton__svg {
+  display: block;
+}
+
+.XButton__svg_path {
+  stroke: gray;
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-width: 5;
+}

@@ -1,0 +1,20 @@
+.Record {
+  margin: 0.25rem 0;
+  text-align: end;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.Record__label {
+  display: inline-block;
+  min-width: 4rem;
+  text-align: start;
+  font-weight: bold;
+}
+
+.Record__value {
+  display: inline-block;
+  width: 4.5rem;
+  text-align: end;
+  font-weight: bold;
+}

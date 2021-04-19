@@ -1,0 +1,26 @@
+.LottoBall--zeros {
+  border-color: #ffc3c8;
+}
+
+.LottoBall--tens {
+  border-color: #fc8d98;
+}
+
+.LottoBall--twenties {
+  border-color: #ff818e;
+}
+
+.LottoBall--thirties {
+  border-color: #ff495b;
+}
+
+.LottoBall--forties {
+  border-color: #c11c2d;
+}
+
+.LottoBall--not_matched {
+  opacity: 0.3;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  border-color: #aaa;
+}

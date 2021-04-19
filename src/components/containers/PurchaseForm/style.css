@@ -1,0 +1,49 @@
+.PurchaseForm {
+  margin-top: 2rem;
+  display: flex;
+}
+
+.PurchaseForm__label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.PurchaseForm__text {
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.PurchaseForm__input {
+  margin-top: 0.5rem;
+  margin-right: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  height: 2rem;
+  box-sizing: border-box;
+  align-items: flex-end;
+}
+
+.PurchaseForm__input:focus {
+  outline-color: #ee8791;
+}
+
+.PurchaseForm__button_wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.PurchaseForm__button {
+  background-color: #ee8791;
+}
+
+.PurchaseForm__button:focus {
+  outline-color: #c93c4a;
+}
+
+.ValidationMessage {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
