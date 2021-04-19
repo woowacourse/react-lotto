@@ -32,15 +32,15 @@ class Result extends Component {
   }
 
   render() {
+    if (!this.props.location?.state) return <Redirect to="/" />;
+
     const { isModalOpen } = this.state;
-    const { lottoList = {}, moneyInput = null, winningNumber = {}, bonusNumber = null } =
-      this.props.location.state || {};
+    const { lottoList, moneyInput, winningNumber, bonusNumber } = this.props.location?.state;
     const winningResult = getWinningResult(lottoList, { winningNumber, bonusNumber });
     const profitRate = getProfitRate(winningResult, moneyInput);
 
     return (
       <>
-        {!this.props.location.state && <Redirect to="/" />}
         <PageTitle>얼마나 잃었을까요?</PageTitle>
 
         <Styled.WinningNumber>

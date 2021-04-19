@@ -58,11 +58,12 @@ class EnterWinning extends Component {
   }
 
   render() {
+    if (!this.props.location?.state) return <Redirect to="/" />;
+
     const { winningNumber, bonusNumber } = this.state;
 
     return (
       <>
-        {!this.props.location.state && <Redirect to="/" />}
         <PageTitle>당첨 번호 입력</PageTitle>
 
         <p>지난 주 당첨번호를 입력해주세요</p>
