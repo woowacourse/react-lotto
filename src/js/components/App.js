@@ -36,9 +36,17 @@ class App extends Component {
   }
 
   createLottoList(count = 0) {
+<<<<<<< HEAD
     const lottoList = [...Array(count)].map(this.createLotto);
+=======
+    try {
+      const lottoList = [...Array(count)].map(this.createLotto);
+>>>>>>> 97f570f (feat: 구매금액 입력 값 타입 체크)
 
-    this.setState({ lottoList });
+      this.setState({ lottoList });
+    } catch (e) {
+      this.setState({ lottoList: [] });
+    }
   }
 
   setWinningNumber(winningNumber) {
