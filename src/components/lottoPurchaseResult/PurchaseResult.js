@@ -7,7 +7,7 @@ import PurchaseCountMessage from './PurchaseCountMessage';
 import ToggleButton from './ToggleButton';
 
 const PurchaseResultSection = styled.section`
-  margin: 3rem 0.5rem 0.5rem;
+  margin: 2rem 0.5rem 0.5rem;
 `;
 
 const PurchaseResultMessageWrapper = styled.div`
