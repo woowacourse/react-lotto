@@ -12,7 +12,7 @@ const generateTicket = (): Ticket => {
 };
 
 export const issueTickets = (payment: number): Ticket[] => {
-  const ticketCount: number = Math.floor(payment / TICKET.PRICE);
+  const ticketCount = Math.floor(payment / TICKET.PRICE);
 
   return [...Array(ticketCount)].map(() => generateTicket());
 };

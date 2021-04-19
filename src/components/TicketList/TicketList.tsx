@@ -37,11 +37,9 @@ export default class TicketList extends Component<Props, State> {
           </div>
         </TicketListHeader>
         <List isToggled={isToggled}>
-          {tickets.map(ticket => {
-            return (
-              <TicketItem key={ticket.id} ticketNumbers={ticket.numbers} isDetailMode={isToggled} />
-            );
-          })}
+          {tickets.map(ticket => (
+            <TicketItem key={ticket.id} ticketNumbers={ticket.numbers} isDetailMode={isToggled} />
+          ))}
         </List>
       </TicketListWrapper>
     );

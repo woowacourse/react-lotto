@@ -14,20 +14,8 @@ export const isValidWinningNumber = (winningNumber: number): boolean => {
   return winningNumber >= TICKET.MIN_NUMBER && winningNumber <= TICKET.MAX_NUMBER;
 };
 
-export const alertByWinningNumberCase = (winningNumber: number): void => {
-  if (winningNumber < TICKET.MIN_NUMBER || winningNumber > TICKET.MAX_NUMBER) {
-    alert(ALERT_MESSAGE.NUMBER_RANGE_EXCEEDED);
-  }
-};
-
 export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber): boolean => {
   return hasDuplicateElement<number>([...numbers, bonus]);
-};
-
-export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber): void => {
-  if (!hasDuplicateElement<number>([...numbers, bonus])) {
-    alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
-  }
 };
 
 //TODO: answer Submit에서 alert 한번, 이후 handlewinndingNumber에서 alert 또 한번이 과연 맞는건가?

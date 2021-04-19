@@ -1,13 +1,15 @@
 export const getRemainedTime = () => {
-  const nowDate: Date = new Date();
-  const announcementDate: Date = new Date(
-    nowDate.getFullYear(),
-    nowDate.getMonth(),
-    nowDate.getDate(),
-    20,
-    45
-  );
-  announcementDate.setDate(nowDate.getDate() + Math.abs(6 - nowDate.getDay()));
+  const ANNOUNCEMENT_HOURS = 20;
+  const ANNOUNCEMENT_MINUTES = 45;
+  const SATURDAY = 6;
+  const announcementDate = new Date();
 
-  return announcementDate.getTime() - nowDate.getTime();
+  announcementDate.setDate(
+    announcementDate.getDate() + Math.abs(SATURDAY - announcementDate.getDay())
+  );
+  announcementDate.setHours(ANNOUNCEMENT_HOURS);
+  announcementDate.setMinutes(ANNOUNCEMENT_MINUTES);
+  announcementDate.setSeconds(0);
+
+  return announcementDate.getTime() - Date.now();
 };

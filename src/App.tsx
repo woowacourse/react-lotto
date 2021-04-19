@@ -14,7 +14,7 @@ type State = {
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
-  remainTime: Date | null;
+  remainTime: Date;
 };
 
 export default class App extends Component<{}, State> {
@@ -33,7 +33,7 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: null,
+      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
     };
 
     this.handlePayment = this.handlePayment.bind(this);
@@ -45,12 +45,12 @@ export default class App extends Component<{}, State> {
 
   handleRemainedTime() {
     this.setState({
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
+      remainTime: new Date(getRemainedTime()),
     });
   }
 
   handlePayment(payment: number) {
-    const tickets: Ticket[] = issueTickets(payment);
+    const tickets = issueTickets(payment);
 
     this.setState({ tickets });
     this.handleRemainedTime();
@@ -83,7 +83,7 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: null,
+      remainTime: new Date(getRemainedTime()),
     });
 
     this.winningNumberFormRef.current?.reset();
@@ -97,7 +97,8 @@ export default class App extends Component<{}, State> {
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
-        {remainTime && <RemainedTime remainTime={remainTime} />}
+        {<RemainedTime remainTime={remainTime} />}
+        {/* {remainTime && <RemainedTime remainTime={remainTime} />} */}
         <TicketList tickets={tickets} />
         <WinningNumberForm
           handleWinningNumber={this.handleWinningNumber}

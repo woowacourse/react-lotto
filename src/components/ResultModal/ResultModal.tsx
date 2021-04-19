@@ -20,7 +20,7 @@ export default class ResultModal extends Component<Props> {
     this.computeResult();
   }
 
-  computeResult(): { winnerCounts: number[]; profit: number } {
+  computeResult() {
     const { tickets, winningNumber } = this.props;
     const payment = tickets.length * TICKET.PRICE;
     const winnerCounts = getWinnerCounts(tickets, winningNumber);

@@ -2,15 +2,16 @@ import { Component } from 'react';
 import { RemainedTimeWrapper } from './RemainedTime.styles';
 
 type Props = {
-  remainTime: Date | null;
+  remainTime: Date;
 };
 
 export default class RemainedTime extends Component<Props> {
   render() {
-    const date = this.props.remainTime?.getDate();
-    const hours = this.props.remainTime?.getHours();
-    const minutes = this.props.remainTime?.getMinutes();
-    const seconds = this.props.remainTime?.getSeconds();
+    const { remainTime } = this.props;
+    const date = remainTime.getDate();
+    const hours = remainTime.getHours();
+    const minutes = remainTime.getMinutes();
+    const seconds = remainTime.getSeconds();
 
     return (
       <RemainedTimeWrapper>

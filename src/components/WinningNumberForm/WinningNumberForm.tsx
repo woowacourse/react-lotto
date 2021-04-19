@@ -3,12 +3,8 @@ import { WinningNumberFormWrapper } from './WinningNumberForm.styles';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';
 import Button from '../common/Button';
-import {
-  isValidWinningNumber,
-  alertByWinningNumberCase,
-  isWinningNumberDuplicated,
-  alertByWinningNumbersCase,
-} from '../../services/validation';
+import { isValidWinningNumber, isWinningNumberDuplicated } from '../../services/validation';
+import ALERT_MESSAGE from '../../constants/alertMessage';
 
 type Props = {
   formRef: React.RefObject<HTMLFormElement>;
@@ -41,7 +37,7 @@ export default class WinningNumberForm extends Component<Props, State> {
     const { name, valueAsNumber: value } = event.target;
 
     if (!isValidWinningNumber(value)) {
-      alertByWinningNumberCase(value);
+      alert(ALERT_MESSAGE.NUMBER_RANGE_EXCEEDED);
       event.target.value = '';
       this.setState({ [name]: 0 });
       return;
@@ -60,7 +56,7 @@ export default class WinningNumberForm extends Component<Props, State> {
     };
 
     if (isWinningNumberDuplicated(winningNumber)) {
-      alertByWinningNumbersCase(winningNumber);
+      alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
       return;
     }
 
