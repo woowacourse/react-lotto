@@ -29,7 +29,7 @@ export default class App extends React.Component {
     this.resetState = this.resetState.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.handleEscapeKeyUp = this.handleEscapeKeyUp.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleDimmedClick = this.handleDimmedClick.bind(this);
   }
 
@@ -59,10 +59,17 @@ export default class App extends React.Component {
     this.setState({ isModalOpen: false });
   }
 
-  handleEscapeKeyUp({ key }) {
-    if (this.state.isModalOpen && key === 'Escape') {
-      this.closeModal();
+  handleKeyUp({ key }) {
+    if (!this.state.isModalOpen) {
+      return;
     }
+
+    const table = {
+      Escape: () => this.closeModal(),
+      ' ': () => this.resetState(),
+    };
+
+    return table[key]?.();
   }
 
   handleDimmedClick({ target }) {
@@ -72,12 +79,12 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('keyup', this.handleEscapeKeyUp);
+    document.addEventListener('keyup', this.handleKeyUp);
     document.addEventListener('click', this.handleDimmedClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keyup', this.handleEscapeKeyUp);
+    document.removeEventListener('keyup', this.handleKeyUp);
     document.removeEventListener('click', this.handleDimmedClick);
   }
 
