@@ -34,8 +34,6 @@ class LottoPurchaseForm extends Component {
   resetLottoPurchaseForm() {
     this.formRef.current.reset();
     this.inputRef.current.focus();
-
-    this.props.createLottos(0);
   }
 
   handlePurchaseLotto = e => {

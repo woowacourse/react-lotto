@@ -74,7 +74,7 @@ class NumberList extends Component {
                 id={`winningNumber${idx + 1}`}
                 name={idx + 1}
                 onChange={this.handlePickNumber}
-                checked={currentNumbers.includes(idx + 1) ? true : false}
+                checked={currentNumbers.includes(idx + 1)}
               />
               <Label htmlFor={`winningNumber${idx + 1}`}>{idx + 1}</Label>
             </li>

@@ -41,7 +41,6 @@ class BonusNumberInput extends Component {
             required
             min="1"
             max="45"
-            maxLength="2"
           />
         </FlexCenterDiv>
       </div>
