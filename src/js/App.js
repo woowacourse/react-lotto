@@ -45,7 +45,7 @@ const App = () => {
           <>
             <PurchasedLotto lottoList={lottoList} />
             <WinningNumberForm setWinningNumber={setWinningNumber} setIsResultModalShow={setIsResultModalShow} />
-            <CountdownSection lottoList={lottoList} />
+            <CountdownSection />
           </>
         )}
         {isResultModalShow && (

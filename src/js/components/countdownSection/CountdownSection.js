@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { LOTTO_RAFFLE_DAY } from '../../constants/lottoData';
 import { extractRemainingDatesUntilDDay } from '../../utils/dday';
 
@@ -16,7 +15,7 @@ const getLottoResultRemainingTime = () => {
   return (lottoRaffleDay - now) / 1000;
 };
 
-const CountdownSection = memo((props) => {
+const CountdownSection = memo(() => {
   const [countdown, setCountdown] = useState({});
   const { day, hour, minutes, seconds } = countdown;
 
@@ -42,7 +41,7 @@ const CountdownSection = memo((props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [props.lottoList]);
+  }, []);
 
   return (
     <section>
@@ -53,9 +52,5 @@ const CountdownSection = memo((props) => {
     </section>
   );
 });
-
-CountdownSection.propTypes = {
-  lottoList: PropTypes.array.isRequired,
-};
 
 export default CountdownSection;
