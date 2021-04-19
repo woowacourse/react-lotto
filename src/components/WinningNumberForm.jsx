@@ -15,6 +15,7 @@ export default class WinningNumberForm extends React.Component {
     this.initialState = {
       winningNumberInputValues: Array.from({ length: LOTTO.LENGTH }, () => ''),
       bonusNumberInputValue: '',
+      validationMessage: '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.',
     };
 
     this.state = { ...this.initialState };
@@ -29,11 +30,16 @@ export default class WinningNumberForm extends React.Component {
     this.isNumberInRange = this.isNumberInRange.bind(this);
     this.isUniqueInputValue = this.isUniqueInputValue.bind(this);
 
+    this.setValidationMessage = this.setValidationMessage.bind(this);
     this.getValidationMessage = this.getValidationMessage.bind(this);
+    this.getInputValidationMessage = this.getInputValidationMessage.bind(this);
+    this.getFormValidationMessage = this.getFormValidationMessage.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleWinningNumberInputChange = this.handleWinningNumberInputChange.bind(this);
     this.handleBonusNumberInputChange = this.handleBonusNumberInputChange.bind(this);
+
+    this.handleInputFocus = this.handleInputFocus.bind(this);
   }
 
   resetState() {
@@ -68,19 +74,57 @@ export default class WinningNumberForm extends React.Component {
     );
   }
 
-  getValidationMessage() {
-    const nonEmptyInputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
-      (inputValue) => inputValue !== ''
-    );
+  setValidationMessage(value) {
+    this.setState({ validationMessage: this.getValidationMessage(value) });
+  }
+
+  getValidationMessage(value) {
+    const isFormValid = this.isFormValid();
+    const isInputValid = this.isValidInputValue(value);
+
+    switch (true) {
+      case !isInputValid:
+        return this.getInputValidationMessage(value);
+      case !isFormValid:
+        return this.getFormValidationMessage();
+      default:
+        return '당첨 번호를 모두 입력하셨습니다! 당첨 결과를 확인해보세요!!';
+    }
+  }
+
+  getInputValidationMessage(value) {
+    switch (true) {
+      case value === '':
+        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
+      case !this.isUniqueInputValue(value):
+        return '중복된 번호는 입력하실 수 없습니다.';
+      case !this.isNumberInRange(value):
+        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+      default:
+        return '';
+    }
+  }
+
+  getFormValidationMessage() {
+    const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
+    const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
 
     switch (true) {
       case !this.hasUniqueInputValues(nonEmptyInputValues):
         return '중복된 번호는 입력하실 수 없습니다.';
       case !this.isAllNumberInRange(nonEmptyInputValues):
         return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+      case this.hasEmptyInputValues():
+        return '다음 번호를 입력해주세요.';
       default:
-        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
+        return '';
     }
+  }
+
+  hasEmptyInputValues() {
+    const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
+    const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
+    return nonEmptyInputValues.length < inputValues.length;
   }
 
   handleSubmit(event) {
@@ -90,15 +134,22 @@ export default class WinningNumberForm extends React.Component {
   }
 
   handleWinningNumberInputChange({ target: { name, value } }) {
-    this.setState({
-      winningNumberInputValues: this.state.winningNumberInputValues.map((inputValue, index) =>
-        name.includes(index) ? value : inputValue
-      ),
-    });
+    this.setState(
+      {
+        winningNumberInputValues: this.state.winningNumberInputValues.map((inputValue, index) =>
+          name.includes(index) ? value : inputValue
+        ),
+      },
+      this.setValidationMessage.bind(this, value)
+    );
   }
 
   handleBonusNumberInputChange({ target: { value } }) {
-    this.setState({ bonusNumberInputValue: value });
+    this.setState({ bonusNumberInputValue: value }, this.setValidationMessage.bind(this, value));
+  }
+
+  handleInputFocus({ target: { value } }) {
+    this.setValidationMessage(value);
   }
 
   render() {
@@ -126,6 +177,7 @@ export default class WinningNumberForm extends React.Component {
                       name={`winning-number-${index}`}
                       value={this.state.winningNumberInputValues[index]}
                       onChange={this.handleWinningNumberInputChange}
+                      onFocus={this.handleInputFocus}
                     />
                   </React.Fragment>
                 ))}
@@ -145,17 +197,21 @@ export default class WinningNumberForm extends React.Component {
                   }`}
                   value={this.state.bonusNumberInputValue}
                   onChange={this.handleBonusNumberInputChange}
+                  onFocus={this.handleInputFocus}
                 />
               </div>
             </div>
           </div>
-          {this.isFormValid() ? (
-            <div className="text-blue-700 font-semibold h-4 mt-4 ">
-              당첨 번호를 모두 입력하셨습니다! 당첨 결과를 확인해보세요!!
-            </div>
-          ) : (
-            <div className="text-rose-500 font-semibold h-4 mt-4">{this.getValidationMessage()}</div>
-          )}
+
+          <div
+            className={`${
+              this.isFormValid() || this.state.validationMessage === '다음 번호를 입력해주세요.'
+                ? 'text-blue-700'
+                : 'text-rose-500'
+            } font-semibold h-4 mt-4`}
+          >
+            {this.state.validationMessage}
+          </div>
           <button
             type="submit"
             className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white w-11/12"
