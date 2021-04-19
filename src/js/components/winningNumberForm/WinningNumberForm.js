@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import WinningNumberInput from './winningNumberInput/WinningNumberInput';
 import { LOTTO } from '../../constants/lottoData';
@@ -35,7 +35,7 @@ const validateWinningNumber = (winningNumberList) => {
   return { isCompletedInput: true, checkMessage: SUCCESS_MESSAGE.INPUT_WINNING_NUMBER };
 };
 
-const WinningNumberForm = (props) => {
+const WinningNumberForm = memo((props) => {
   const [isCompletedInput, setIsCompletedInput] = useState(false);
   const [checkMessage, setCheckMessage] = useState('');
   const formRef = useRef(null);
@@ -63,7 +63,7 @@ const WinningNumberForm = (props) => {
     props.setIsResultModalShow(true);
   };
 
-  const onChangeNumber = ({ target }) => {
+  const onChangeNumber = useCallback(({ target }) => {
     if (!isInRange(target.value, { min: LOTTO.MIN_NUMBER, max: LOTTO.MAX_NUMBER })) {
       setIsCompletedInput(false);
       setCheckMessage(ERROR_MESSAGE.OUT_OF_RANGE);
@@ -77,7 +77,7 @@ const WinningNumberForm = (props) => {
 
     setIsCompletedInput(validation.isCompletedInput);
     setCheckMessage(validation.checkMessage);
-  };
+  }, []);
 
   return (
     <section className="WinningNumberForm">
@@ -120,7 +120,7 @@ const WinningNumberForm = (props) => {
       </form>
     </section>
   );
-};
+});
 
 WinningNumberForm.propTypes = {
   setWinningNumber: PropTypes.func.isRequired,

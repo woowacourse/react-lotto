@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import './WinningNumberInput.scss';
 
-const WinningNumberInput = (props) => (
+const WinningNumberInput = memo((props) => (
   <label className="WinningNumberInput">
     <span>{props.inputLabel ?? ''}</span>
     <input
@@ -14,7 +14,7 @@ const WinningNumberInput = (props) => (
       required
     />
   </label>
-);
+));
 
 WinningNumberInput.propTypes = {
   inputLabel: PropTypes.string,

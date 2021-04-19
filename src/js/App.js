@@ -5,23 +5,24 @@ import PurchasedLotto from './components/purchasedLotto/PurchasedLotto';
 import ResultModal from './components/resultModal/ResultModal';
 import WinningNumberForm from './components/winningNumberForm/WinningNumberForm';
 import { getRandomNumber } from './utils/random';
-import { LOTTO } from './constants/lottoData';
+import { HEADER_TITLE, LOTTO } from './constants/lottoData';
+import LottoHeader from './components/lottoHeader/LottoHeader';
+
+const createLotto = () => {
+  const numberList = new Set();
+
+  while (numberList.size < LOTTO.NUMBER_LENGTH) {
+    numberList.add(getRandomNumber(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER));
+  }
+
+  return [...numberList].sort((a, b) => a - b);
+};
 
 const App = () => {
   const [lottoList, setLottoList] = useState([]);
   const [winningNumber, setWinningNumber] = useState({});
   const [isResultModalShow, setIsResultModalShow] = useState(false);
   const [price, setPrice] = useState('');
-
-  const createLotto = () => {
-    const numberList = new Set();
-
-    while (numberList.size < LOTTO.NUMBER_LENGTH) {
-      numberList.add(getRandomNumber(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER));
-    }
-
-    return [...numberList].sort((a, b) => a - b);
-  };
 
   const createLottoList = (count) => {
     setLottoList([...Array(count)].map(createLotto));
@@ -36,9 +37,7 @@ const App = () => {
 
   return (
     <>
-      <header className="lotto-header">
-        <h1>🎱 행운의 로또</h1>
-      </header>
+      <LottoHeader headerTitle={HEADER_TITLE} />
       <main>
         <PriceForm createLottoList={createLottoList} onPriceChange={setPrice} price={price} />
         {lottoList.length > 0 && (

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import LottoTicket from './lottoTicket/LottoTicket';
 import './PurchasedLotto.scss';
 
-const PurchasedLotto = (props) => {
+const PurchasedLotto = memo((props) => {
   const [isShowNumber, setIsShowNumber] = useState(false);
 
   const onToggleLottoNumber = ({ target }) => {
@@ -26,7 +26,7 @@ const PurchasedLotto = (props) => {
       </ul>
     </section>
   );
-};
+});
 
 PurchasedLotto.propTypes = {
   lottoList: PropTypes.array.isRequired,
