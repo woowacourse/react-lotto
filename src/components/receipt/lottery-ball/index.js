@@ -10,7 +10,11 @@ class LotteryBall extends React.Component {
 
   render() {
     return (
-      <span className={`lottery-ball ${this.props.colored && 'winning-ball'}`}>
+      <span
+        className={`lottery-ball ${
+          this.props.colored && this.props.ballColor && `winning-ball ${this.props.ballColor}`
+        }`}
+      >
         {this.props.toggled ? (
           this.props.numberValue
         ) : (

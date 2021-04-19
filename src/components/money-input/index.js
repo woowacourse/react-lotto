@@ -34,7 +34,7 @@ class MoneyInput extends React.Component {
           min='1000'
           max='1000000'
           placeholder='1,000'
-          autoFocus
+          isCurrentInput={true}
         />
         <Button buttonText='구입' customClass='money-input-button'></Button>
       </form>

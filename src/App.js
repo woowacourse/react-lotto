@@ -4,7 +4,7 @@ import MoneyInput from './components/money-input';
 import Receipt from './components/receipt';
 import WinningNumber from './components/winning-number';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
-import { getRandomNumber } from './utils/random-number';
+import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
 import './style.scss';
 class App extends React.Component {

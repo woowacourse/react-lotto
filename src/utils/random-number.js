@@ -3,4 +3,4 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (includedMax - min) + 1);
 }
 
-export { getRandomNumber };
+export default getRandomNumber;

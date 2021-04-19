@@ -1,5 +1,5 @@
 import React from 'react';
-import { getRandomNumber } from '../../utils/random-number';
+import getRandomNumber from '../../utils/random-number';
 import './style.scss';
 
 class Canvas extends React.Component {

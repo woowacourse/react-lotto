@@ -14,7 +14,29 @@
 }
 
 .winning-ball {
-  background-color: grey;
-  border-color: grey;
   color: white;
+}
+
+.ten-down {
+  background-color: rgba(252, 209, 83, 1);
+}
+
+.twenty-down {
+  background-color: rgba(255, 143, 78, 1);
+}
+
+.thirty-down {
+  background-color: rgba(60, 188, 255, 1);
+}
+
+.fourty-down {
+  background-color: rgba(141, 112, 217, 1);
+}
+
+.fourty-five-down {
+  background-color: rgba(255, 76, 76, 1);
+}
+
+.default-ball {
+  background-color: grey;
 }

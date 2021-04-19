@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import chooseBallColor from '../../utils/color-ball';
 import PurchaseNumberItem from '../receipt/purchase-number-item';
 import LotteryBall from '../receipt/lottery-ball';
 import Button from '../util-component/button';
@@ -28,7 +29,6 @@ class Modal extends React.Component {
   }
 
   calculateTotalPrize(prize) {
-    console.log(prize);
     this.tempTotalPrize = this.tempTotalPrize + prize;
   }
 
@@ -54,14 +54,27 @@ class Modal extends React.Component {
             <h1 className='modal-sub-header'>당첨 결과 번호</h1>
             <div className='result-numbers-container'>
               {this.props.winningNumber.map((number) => (
-                <LotteryBall key={uuidv4()} numberValue={number} toggled={true}></LotteryBall>
+                <LotteryBall
+                  key={uuidv4()}
+                  numberValue={number}
+                  toggled={true}
+                  colored={true}
+                  ballColor={chooseBallColor(number)}
+                ></LotteryBall>
               ))}
               {
                 <div className='plus-icon'>
                   <FontAwesomeIcon icon={faPlus} />
                 </div>
               }
-              {<LotteryBall numberValue={this.props.bonusNumber} toggled={true}></LotteryBall>}
+              {
+                <LotteryBall
+                  numberValue={this.props.bonusNumber}
+                  toggled={true}
+                  colored={true}
+                  ballColor={chooseBallColor(this.props.bonusNumber)}
+                ></LotteryBall>
+              }
             </div>
             <div className='modal-numbers-container'>
               {this.props.receipt.map((ticket) => (
