@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { LOTTO } from '../../constants/lotto';
+
 import {
   BonusNumberInputWrapperDiv,
   NumberInputDiv,
@@ -16,8 +18,8 @@ class BonusNumberInput extends Component {
             name="bonus-number"
             aria-label="winning number bonus"
             required
-            min="1"
-            max="45"
+            min={LOTTO.START_NUM}
+            max={LOTTO.END_NUM}
           />
         </NumberInputDiv>
       </BonusNumberInputWrapperDiv>

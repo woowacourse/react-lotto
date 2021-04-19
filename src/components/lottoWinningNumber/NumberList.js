@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { LOTTO } from '../../constants/lotto';
+import { MESSAGE } from '../../constants/messages';
+
 import {
   NumberListUl,
   WinningNumberCheckbox,
@@ -18,8 +21,8 @@ class NumberList extends Component {
       ? prevNumbers.filter(number => number !== pickedNumber)
       : [...prevNumbers, pickedNumber];
 
-    if (newNumbers.length === 7) {
-      alert('이미 6개의 숫자를 선택하였습니다.');
+    if (newNumbers.length === LOTTO.BUNDLE_SIZE + 1) {
+      alert(MESSAGE.EXCEEDED_LOTTO_COUNT);
       return;
     }
 
@@ -31,7 +34,7 @@ class NumberList extends Component {
 
     return (
       <NumberListUl>
-        {Array.from({ length: 45 }, (_, idx) => {
+        {Array.from({ length: LOTTO.END_NUM }, (_, idx) => {
           return (
             <li key={idx + 1}>
               <WinningNumberCheckbox

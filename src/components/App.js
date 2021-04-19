@@ -8,6 +8,8 @@ import RewardModalInner from './lottoRewardResult/RewardModalInner';
 import Modal from './utils/Modals';
 import { getRandomNumber } from '../utils';
 
+import { LOTTO } from '../constants/lotto';
+
 import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
 
 class App extends Component {
@@ -51,12 +53,12 @@ class App extends Component {
   };
 
   createLottos = price => {
-    const lottoCount = Math.floor(price / 1000);
+    const lottoCount = Math.floor(price / LOTTO.UNIT);
 
     const newLottos = Array.from({ length: lottoCount }, () => {
       const lotto = new Set();
-      while (lotto.size < 6) {
-        lotto.add(getRandomNumber(1, 45));
+      while (lotto.size < LOTTO.BUNDLE_SIZE) {
+        lotto.add(getRandomNumber(LOTTO.START_NUM, LOTTO.END_NUM));
       }
       return [...lotto].sort((a, b) => a - b);
     });

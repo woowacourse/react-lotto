@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 import Button from '../utils/Button';
 
+import { MESSAGE } from '../../constants/messages';
+
 import { RestartButtonWrapperDiv } from './RestartButton.style';
 
 class RestartButton extends Component {
   handleRestart = () => {
-    if (window.confirm('다시 시작하시겠습니까?')) {
+    if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
       this.props.initState();
       this.props.purchaseForm.resetLottoPurchaseForm();
     }

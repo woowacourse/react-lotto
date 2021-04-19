@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 
 import Button from '../utils/Button';
 
+import { LOTTO } from '../../constants/lotto';
+import { MESSAGE } from '../../constants/messages';
+
 import {
   PurchaseInputForm,
   PurchaseFormFlexDiv,
   PurchaseInput,
 } from './LottoPurchaseForm.style';
+import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 class LottoPurchaseForm extends Component {
   constructor(props) {
@@ -42,13 +46,13 @@ class LottoPurchaseForm extends Component {
             type="number"
             id="input-price"
             name="price"
-            placeholder="구입 금액"
+            placeholder={MESSAGE.INPUT_PLACEHOLDER}
             required
-            min="1000"
-            max="50000"
-            step="1000"
+            min={LOTTO.MIN_PRICE}
+            max={LOTTO.MAX_PRICE}
+            step={LOTTO.UNIT}
           />
-          <Button size="64px">확인</Button>
+          <Button size={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>확인</Button>
         </PurchaseFormFlexDiv>
       </PurchaseInputForm>
     );

@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 
 import NumberList from './NumberList';
 import BonusNumberInput from './BonusNumberInput';
+
 import Button from '../utils/Button';
 
+import { LOTTO } from '../../constants/lotto';
+import { MESSAGE } from '../../constants/messages';
+
 import { WinningNumberSelectForm } from './WinningNumberForm.style';
+import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
+
 class WinningNumberForm extends Component {
   constructor(props) {
     super(props);
@@ -19,13 +25,13 @@ class WinningNumberForm extends Component {
 
     const bonusNumber = Number(e.target.elements['bonus-number'].value);
 
-    if (this.state.numbers.length !== 6) {
-      alert('6개의 번호를 선택해주세요');
+    if (this.state.numbers.length !== LOTTO.BUNDLE_SIZE) {
+      alert(MESSAGE.SELECT_WINNING_NUMBER);
       return;
     }
 
     if (this.state.numbers.includes(bonusNumber)) {
-      alert('보너스 번호는 중복된 번호입니다.');
+      alert(MESSAGE.DUPLICATED_WINNING_NUMBER);
       return;
     }
 
@@ -51,7 +57,7 @@ class WinningNumberForm extends Component {
         <NumberList setNumbers={this.setNumbers} numbers={this.state.numbers} />
         <BonusNumberInput />
 
-        <Button size="70%">결과 확인하기</Button>
+        <Button size={CSS_ATTRIBUTE.RESULT_BUTTON_WIDTH}>결과 확인하기</Button>
       </WinningNumberSelectForm>
     );
   }
