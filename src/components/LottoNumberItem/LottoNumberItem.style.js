@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 const Styled = {
   Container: styled.span`
     display: inline-block;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     margin-right: 0.4em;
     border-radius: 50%;
     text-align: center;

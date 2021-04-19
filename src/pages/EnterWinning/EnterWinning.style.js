@@ -16,8 +16,9 @@ const Styled = {
     margin: 0;
   `,
   NumberInput: styled.input`
-    max-width: 20px;
-    padding: 0.4rem;
+    max-width: 26px;
+    min-height: 26px;
+    padding: 0.6rem;
     font-size: 16px;
     text-align: center;
 

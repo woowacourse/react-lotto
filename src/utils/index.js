@@ -1,4 +1,7 @@
-export const getRandomId = () => Math.random().toString(36).substr(2, 11);
+export const generateId = (() => {
+  let id = 0;
+  return () => ++id;
+})();
 
 export const shuffle = (currentArray) => {
   const array = [...currentArray];

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -8,40 +8,30 @@ import { purchaseLottoList } from '../../services/Main';
 import { isEmptyObject } from '../../utils';
 import { Styled } from './Main.style';
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
+const Main = (props) => {
+  const [moneyInput, setMoneyInput] = useState('');
+  const [lottoList, setLottoList] = useState({});
+  const [isNumberShowing, setIsNumberShowing] = useState(false);
 
-    this.state = {
-      moneyInput: '',
-      lottoList: {},
-      isNumberShowing: false,
-    };
+  const lottoCount = Object.entries(lottoList).length;
 
-    this.handleSubmitMoneyInput = this.handleSubmitMoneyInput.bind(this);
-    this.handleChangeMoneyInput = this.handleChangeMoneyInput.bind(this);
-    this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
-    this.handleClickEnterWinning = this.handleClickEnterWinning.bind(this);
-  }
-
-  handleSubmitMoneyInput(event) {
+  const handleSubmitMoneyInput = (event) => {
     event.preventDefault();
 
-    const newLottoList = purchaseLottoList(this.state.moneyInput);
-    this.setState({ lottoList: newLottoList });
-  }
+    const newLottoList = purchaseLottoList(moneyInput);
+    setLottoList(newLottoList);
+  };
 
-  handleChangeMoneyInput(event) {
-    this.setState({ moneyInput: Number(event.target.value) });
-  }
+  const handleChangeMoneyInput = (event) => {
+    setMoneyInput(Number(event.target.value));
+  };
 
-  handleToggleSwitch(event) {
-    this.setState({ isNumberShowing: event.target.checked });
-  }
+  const handleToggleSwitch = (event) => {
+    setIsNumberShowing(event.target.checked);
+  };
 
-  handleClickEnterWinning() {
-    const { lottoList, moneyInput } = this.state;
-    const { history } = this.props;
+  const handleClickEnterWinning = () => {
+    const { history } = props;
 
     if (!moneyInput || isEmptyObject(lottoList)) {
       alert(ALERT_MESSAGE.NO_PURCHASED_LOTTO);
@@ -52,49 +42,40 @@ class Main extends Component {
       pathname: PATH.ENTER_WINNING,
       state: { lottoList, moneyInput },
     });
-  }
+  };
 
-  render() {
-    const { lottoList, moneyInput, isNumberShowing } = this.state;
-    const lottoCount = Object.entries(lottoList).length;
+  return (
+    <>
+      <PageTitle>로또 구매</PageTitle>
 
-    return (
-      <>
-        <PageTitle>로또 구매</PageTitle>
+      <Styled.Form onSubmit={handleSubmitMoneyInput}>
+        <Styled.MoneyInput
+          type="number"
+          value={moneyInput}
+          min={LOTTO.PRICE}
+          onChange={handleChangeMoneyInput}
+          disabled={lottoCount > 0 ? 'disabled' : ''}
+          placeholder="돈을 내시오"
+          required
+          autoFocus
+        />
+        <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''} minWidth={'80px'}>
+          구입
+        </Button>
+      </Styled.Form>
 
-        <Styled.Form onSubmit={this.handleSubmitMoneyInput}>
-          <Styled.MoneyInput
-            type="number"
-            value={moneyInput}
-            min={LOTTO.PRICE}
-            onChange={this.handleChangeMoneyInput}
-            disabled={lottoCount > 0 ? 'disabled' : ''}
-            placeholder="돈을 내시오"
-            required
-            autoFocus
-          />
-          <Button type="submit" disabled={lottoCount > 0 ? 'disabled' : ''}>
-            구입
-          </Button>
-        </Styled.Form>
+      <Styled.LottoListTop>
+        <Styled.LottoCountContainer>
+          현재 구입한 로또 <Styled.LottoCount>{lottoCount}</Styled.LottoCount>개
+        </Styled.LottoCountContainer>
+        <ToggleSwitch title="번호 보기" isChecked={isNumberShowing} onChange={handleToggleSwitch} />
+      </Styled.LottoListTop>
 
-        <Styled.LottoListTop>
-          <Styled.LottoCountContainer>
-            현재 구입한 로또 <Styled.LottoCount>{lottoCount}</Styled.LottoCount>개
-          </Styled.LottoCountContainer>
-          <ToggleSwitch
-            title="번호 보기"
-            isChecked={isNumberShowing}
-            onChange={this.handleToggleSwitch}
-          />
-        </Styled.LottoListTop>
+      {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
 
-        {isNumberShowing && <LottoNumberList lottoList={lottoList} />}
-
-        <Button onClick={this.handleClickEnterWinning}>🤩 당첨 번호 입력</Button>
-      </>
-    );
-  }
-}
+      <Button onClick={handleClickEnterWinning}>🤩 당첨 번호 입력</Button>
+    </>
+  );
+};
 
 export default Main;
