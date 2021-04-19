@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
 import LottoIconList from './LottoIconList';
 import LottoDetailList from './LottoDetailList';
-import PurchaseCountMessage from './PurchaseCountMessage';
 import ToggleButton from './ToggleButton';
 
-const PurchaseResultSection = styled.section`
-  margin: 2rem 0.5rem 0.5rem;
-`;
-
-const PurchaseResultMessageWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import {
+  PurchaseResultSection,
+  PurchaseResultMessageDiv,
+} from './PurchaseResult.style';
 
 class PurchaseResult extends Component {
   constructor(props) {
@@ -36,10 +29,12 @@ class PurchaseResult extends Component {
 
     return (
       <PurchaseResultSection aria-label="purchase-lotto">
-        <PurchaseResultMessageWrapper>
-          <PurchaseCountMessage lottoCount={this.props.lottos.length} />
+        <PurchaseResultMessageDiv>
+          <label>
+            총 <span>{this.props.lottos.length}</span>개를 구매하였습니다.
+          </label>
           <ToggleButton setIsToggled={this.setIsToggled} />
-        </PurchaseResultMessageWrapper>
+        </PurchaseResultMessageDiv>
 
         {isToggled ? (
           <LottoDetailList lottos={this.props.lottos} />

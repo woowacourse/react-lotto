@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import LottoIcon from './LottoIcon';
 
+import LottoIcon from './LottoItem';
+
+import { LottoIconListUl } from './LottoIconList.style';
 class LottoIconList extends Component {
   getLottoIcons() {
     return Array.from({ length: this.props.lottoCount }, (_, idx) => (
@@ -9,11 +11,7 @@ class LottoIconList extends Component {
   }
 
   render() {
-    return (
-      <ul style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {this.getLottoIcons()}
-      </ul>
-    );
+    return <LottoIconListUl>{this.getLottoIcons()}</LottoIconListUl>;
   }
 }
 

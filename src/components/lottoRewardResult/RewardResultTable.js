@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+
 import {
   getLottoProfitResult,
   getMatchedCounts,
@@ -7,91 +7,61 @@ import {
   getTotalProfit,
 } from '../../services/winningResult';
 
-const RewardResultTitle = styled.h2`
-  text-align: center;
-`;
-
-const RewardResultWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Table = styled.table`
-  border-collapse: collapse;
-  border: 3px solid #eb7a7a;
-`;
-
-const Tr = styled.tr`
-  text-align: center;
-`;
-
-const Th = styled.th`
-  padding: 0.75rem;
-  border-bottom: 1.5px solid #f5bdbd;
-`;
-
-const Td = styled.td`
-  padding: 0.75rem;
-  border-bottom: 1.5px solid #f5bdbd;
-`;
-
-const ProfitMessage = styled.p`
-  text-align: center;
-`;
-
-const ProfitMessageSpan = styled.span`
-  margin: 0 0.3rem;
-  font-weight: bold;
-  color: #c71f1f;
-`;
+import {
+  RewardResultTitle,
+  RewardResultWrapperDiv,
+  RewardTable,
+  ProfitMessage,
+} from './RewardResultTable.style';
 
 class RewardResultTable extends Component {
+  constructor(props) {
+    super(props);
+
+    this.counts = getMatchedCounts(
+      this.props.lottos,
+      this.props.winningNumbers,
+    );
+  }
+
+  getRewardResults() {
+    const ranks = getRanks(this.counts);
+    const profitResults = getLottoProfitResult(ranks);
+
+    return Object.values(profitResults).map(
+      ({ matchingCount, reward, wins }) => (
+        <tr key={matchingCount}>
+          <td>{matchingCount}</td>
+          <td>{reward}</td>
+          <td>
+            <span>{wins}</span>개
+          </td>
+        </tr>
+      ),
+    );
+  }
+
   render() {
     return (
       <>
         <RewardResultTitle id="title-dialog">🏆 당첨 통계 🏆</RewardResultTitle>
-        <RewardResultWrapper>
-          <Table>
+        <RewardResultWrapperDiv>
+          <RewardTable>
             <thead>
-              <Tr>
-                <Th>일치 갯수</Th>
-                <Th>당첨금</Th>
-                <Th>당첨 갯수</Th>
-              </Tr>
+              <tr>
+                <th>일치 갯수</th>
+                <th>당첨금</th>
+                <th>당첨 갯수</th>
+              </tr>
             </thead>
-            <tbody>
-              {Object.values(
-                getLottoProfitResult(
-                  getRanks(
-                    getMatchedCounts(
-                      this.props.lottos,
-                      this.props.winningNumbers,
-                    ),
-                  ),
-                ),
-              )
-                .map(({ matchingCount, reward, wins }) => (
-                  <Tr key={matchingCount}>
-                    <Td>{matchingCount}</Td>
-                    <Td>{reward}</Td>
-                    <Td>
-                      <span>{wins}</span>개
-                    </Td>
-                  </Tr>
-                ))
-                .reverse()}
-            </tbody>
-          </Table>
-        </RewardResultWrapper>
+            <tbody>{this.getRewardResults()}</tbody>
+          </RewardTable>
+        </RewardResultWrapperDiv>
+
         <ProfitMessage>
           당신의 총 수익률은
-          <ProfitMessageSpan>
-            {getTotalProfit(
-              getMatchedCounts(this.props.lottos, this.props.winningNumbers),
-            ).toFixed(2)}
-          </ProfitMessageSpan>
-          % 입니다.
+          <span>{getTotalProfit(this.counts).toFixed(2)}</span>
+          %입니다.
         </ProfitMessage>
       </>
     );

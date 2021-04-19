@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-const Label = styled.label`
-  display: inline-block;
-  margin-bottom: 0.5rem;
-`;
+import Button from '../utils/Button';
 
-const Button = styled.button`
-  height: 36px;
-  min-width: 64px;
-  padding: 0 16px;
-  border-radius: 4px;
-  outline: 0;
-  border-style: none;
-  cursor: pointer;
-  background-color: #c71f1f;
-  border-color: #c71f1f;
-  color: #fce9e9;
-`;
+import {
+  PurchaseInputForm,
+  PurchaseFormFlexDiv,
+  PurchaseInput,
+} from './LottoPurchaseForm.style';
 
 class LottoPurchaseForm extends Component {
   constructor(props) {
@@ -45,14 +34,10 @@ class LottoPurchaseForm extends Component {
 
   render() {
     return (
-      <form
-        ref={this.formRef}
-        onSubmit={this.handlePurchaseLotto}
-        style={{ margin: '0.5rem' }}
-      >
-        <Label htmlFor="input-price">구입할 금액을 입력해주세요.</Label>
-        <div style={{ display: 'flex' }}>
-          <input
+      <PurchaseInputForm ref={this.formRef} onSubmit={this.handlePurchaseLotto}>
+        <label htmlFor="input-price">구입할 금액을 입력해주세요.</label>
+        <PurchaseFormFlexDiv>
+          <PurchaseInput
             ref={this.inputRef}
             type="number"
             id="input-price"
@@ -62,15 +47,10 @@ class LottoPurchaseForm extends Component {
             min="1000"
             max="50000"
             step="1000"
-            style={{
-              width: '100%',
-              marginRight: '0.2rem',
-              paddingLeft: '0.5rem',
-            }}
           />
-          <Button>확인</Button>
-        </div>
-      </form>
+          <Button size="64px">확인</Button>
+        </PurchaseFormFlexDiv>
+      </PurchaseInputForm>
     );
   }
 }

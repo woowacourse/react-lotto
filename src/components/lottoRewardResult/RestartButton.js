@@ -1,25 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-const RestartButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0.4rem;
-`;
+import Button from '../utils/Button';
 
-const Button = styled.button`
-  height: 36px;
-  min-width: 64px;
-  padding: 0 16px;
-  border-radius: 4px;
-  outline: 0;
-  border-style: none;
-  cursor: pointer;
-  background-color: #c71f1f;
-  border-color: #c71f1f;
-  color: #fce9e9;
-`;
+import { RestartButtonWrapperDiv } from './RestartButton.style';
 
 class RestartButton extends Component {
   handleRestart = () => {
@@ -31,11 +14,11 @@ class RestartButton extends Component {
 
   render() {
     return (
-      <RestartButtonWrapper>
-        <Button type="reset" onClick={this.handleRestart}>
+      <RestartButtonWrapperDiv>
+        <Button buttonType="reset" clickHandler={this.handleRestart}>
           다시 시작하기
         </Button>
-      </RestartButtonWrapper>
+      </RestartButtonWrapperDiv>
     );
   }
 }
