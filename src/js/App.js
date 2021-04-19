@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import PriceForm from './components/priceForm/PriceForm';
 import PurchasedLotto from './components/purchasedLotto/PurchasedLotto';
@@ -7,33 +7,13 @@ import WinningNumberForm from './components/winningNumberForm/WinningNumberForm'
 import { getRandomNumber } from './utils/random';
 import { LOTTO } from './constants/lottoData';
 
-class App extends Component {
-  constructor() {
-    super();
+function App() {
+  const [lottoList, setLottoList] = useState([]);
+  const [winningNumber, setWinningNumber] = useState({});
+  const [isResultModalShow, setIsResultModalShow] = useState(false);
+  const [price, setPrice] = useState('');
 
-    this.state = this.initState();
-
-    this.handlePriceChange = this.handlePriceChange.bind(this);
-    this.createLottoList = this.createLottoList.bind(this);
-    this.setWinningNumber = this.setWinningNumber.bind(this);
-    this.setIsResultModalShow = this.setIsResultModalShow.bind(this);
-    this.restart = this.restart.bind(this);
-  }
-
-  initState() {
-    return {
-      lottoList: [],
-      winningNumber: {},
-      isResultModalShow: false,
-      price: '',
-    };
-  }
-
-  handlePriceChange(price) {
-    this.setState({ price });
-  }
-
-  createLotto() {
+  const createLotto = () => {
     const numberList = new Set();
 
     while (numberList.size < LOTTO.NUMBER_LENGTH) {
@@ -41,59 +21,43 @@ class App extends Component {
     }
 
     return [...numberList].sort((a, b) => a - b);
-  }
+  };
 
-  createLottoList(count) {
-    const lottoList = [...Array(count)].map(this.createLotto);
+  const createLottoList = (count) => {
+    setLottoList([...Array(count)].map(createLotto));
+  };
 
-    this.setState({ lottoList });
-  }
+  const restart = () => {
+    setLottoList([]);
+    setWinningNumber({});
+    setIsResultModalShow(false);
+    setPrice('');
+  };
 
-  setWinningNumber(winningNumber) {
-    this.setState({ winningNumber });
-  }
-
-  setIsResultModalShow(isResultModalShow) {
-    this.setState({ isResultModalShow });
-  }
-
-  restart() {
-    this.setState(this.initState());
-  }
-
-  render() {
-    return (
-      <>
-        <header className="lotto-header">
-          <h1>🎱 행운의 로또</h1>
-        </header>
-        <main>
-          <PriceForm
-            createLottoList={this.createLottoList}
-            onPriceChange={this.handlePriceChange}
-            price={this.state.price}
+  return (
+    <>
+      <header className="lotto-header">
+        <h1>🎱 행운의 로또</h1>
+      </header>
+      <main>
+        <PriceForm createLottoList={createLottoList} onPriceChange={setPrice} price={price} />
+        {lottoList.length > 0 && (
+          <>
+            <PurchasedLotto lottoList={lottoList} />
+            <WinningNumberForm setWinningNumber={setWinningNumber} setIsResultModalShow={setIsResultModalShow} />
+          </>
+        )}
+        {isResultModalShow && (
+          <ResultModal
+            lottoList={lottoList}
+            winningNumber={winningNumber}
+            setIsResultModalShow={setIsResultModalShow}
+            restart={restart}
           />
-          {this.state.lottoList.length > 0 && (
-            <>
-              <PurchasedLotto lottoList={this.state.lottoList} />
-              <WinningNumberForm
-                setWinningNumber={this.setWinningNumber}
-                setIsResultModalShow={this.setIsResultModalShow}
-              />
-            </>
-          )}
-          {this.state.isResultModalShow && (
-            <ResultModal
-              lottoList={this.state.lottoList}
-              winningNumber={this.state.winningNumber}
-              setIsResultModalShow={this.setIsResultModalShow}
-              restart={this.restart}
-            />
-          )}
-        </main>
-      </>
-    );
-  }
+        )}
+      </main>
+    </>
+  );
 }
 
 export default hot(App);
