@@ -21,11 +21,13 @@ export default class WinningNumberForm extends React.Component {
     this.resetState = this.resetState.bind(this);
 
     this.isFormValid = this.isFormValid.bind(this);
-    this.hasUniqueInputValues = this.hasUniqueInputValues.bind(this);
-    this.hasNonEmptyUniqueInputValues = this.hasNonEmptyUniqueInputValues.bind(this);
-    this.isUniqueInputValue = this.isUniqueInputValue.bind(this);
-    this.isValidNumberScope = this.isNumberInRange.bind(this);
     this.isValidInputValue = this.isValidInputValue.bind(this);
+
+    this.isAllNumberInRange = this.isAllNumberInRange.bind(this);
+    this.hasUniqueInputValues = this.hasUniqueInputValues.bind(this);
+
+    this.isNumberInRange = this.isNumberInRange.bind(this);
+    this.isUniqueInputValue = this.isUniqueInputValue.bind(this);
 
     this.getValidationMessage = this.getValidationMessage.bind(this);
 
@@ -39,38 +41,19 @@ export default class WinningNumberForm extends React.Component {
   }
 
   isFormValid() {
-    return this.isAllNumberInScope() && this.hasUniqueInputValues();
+    return this.isAllNumberInRange() && this.hasUniqueInputValues();
   }
 
-  isAllNumberInScope() {
-    return [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].every(this.isNumberInRange);
+  isValidInputValue(value) {
+    return this.isNumberInRange(value) && this.isUniqueInputValue(value);
   }
 
-  // TODO 현재 case !this.isAllNumberInScope(): <- 에서 걸려버리는데 해결해야 함.(원하는 값은 Default)
-  getValidationMessage() {
-    switch (true) {
-      case !this.hasNonEmptyUniqueInputValues():
-        return '중복된 번호는 입력하실 수 없습니다.';
-      case !this.isAllNumberInScope():
-        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
-      default:
-        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
-    }
+  isAllNumberInRange(arr = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]) {
+    return arr.every(this.isNumberInRange);
   }
 
-  hasNonEmptyUniqueInputValues() {
-    const nonEmptyInputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
-      (inputValue) => inputValue !== ''
-    );
-
-    return new Set(nonEmptyInputValues).size === nonEmptyInputValues.length;
-  }
-
-  hasUniqueInputValues() {
-    return (
-      new Set([...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]).size ===
-      this.state.winningNumberInputValues.length + 1
-    );
+  hasUniqueInputValues(arr = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]) {
+    return new Set(arr).size === arr.length;
   }
 
   isNumberInRange(value) {
@@ -85,8 +68,19 @@ export default class WinningNumberForm extends React.Component {
     );
   }
 
-  isValidInputValue(value) {
-    return this.isNumberInRange(value) && this.isUniqueInputValue(value);
+  getValidationMessage() {
+    const nonEmptyInputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
+      (inputValue) => inputValue !== ''
+    );
+
+    switch (true) {
+      case !this.hasUniqueInputValues(nonEmptyInputValues):
+        return '중복된 번호는 입력하실 수 없습니다.';
+      case !this.isAllNumberInRange(nonEmptyInputValues):
+        return `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자만 입력 가능합니다.`;
+      default:
+        return '당첨 번호 6개와 보너스 번호 1개를 모두 입력해주세요.';
+    }
   }
 
   handleSubmit(event) {
@@ -160,7 +154,7 @@ export default class WinningNumberForm extends React.Component {
               당첨 번호를 모두 입력하셨습니다! 당첨 결과를 확인해보세요!!
             </div>
           ) : (
-            <div className="text-rose-500 font-semibold h-4 ">{this.getValidationMessage()}</div>
+            <div className="text-rose-500 font-semibold h-4 mt-4">{this.getValidationMessage()}</div>
           )}
           <button
             type="submit"
