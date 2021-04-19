@@ -1,56 +1,35 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Root, TimerWrapper, Title, TimeArea } from './style';
 
-class AnnounceTimer extends Component {
-  constructor(props) {
-    super(props);
+export default function AnnounceTimer() {
+  const [currentTime, setCurrentTime] = useState({ minutes: 10, seconds: 0 });
 
-    this.state = {
-      minutes: 10,
-      seconds: 0,
-    };
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => timePass(), 1000);
+    const { minutes, seconds } = currentTime;
 
-  componentDidMount() {
-    this.timerId = setInterval(() => {
-      this.timePass();
-    }, 1000);
-  }
+    if (minutes === 0 && seconds === 0) clearTimeout(timer);
 
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
+    return () => clearInterval(timer);
+  }, [currentTime]);
 
-  timePass() {
-    const { minutes, seconds } = this.state;
-
-    if (minutes === 0 && seconds === 0) {
-      clearInterval(this.timerId);
-      return;
-    }
-
+  const timePass = () => {
+    const { minutes, seconds } = currentTime;
     const nextMinutes = seconds > 0 ? minutes : minutes - 1;
     const nextSeconds = seconds > 0 ? seconds - 1 : 59;
 
-    this.setState({
-      minutes: nextMinutes,
-      seconds: nextSeconds,
-    });
-  }
+    setCurrentTime({ minutes: nextMinutes, seconds: nextSeconds });
+  };
 
-  render() {
-    const currentTime =
-      String(this.state.minutes).padStart(2, '0') + ': ' + String(this.state.seconds).padStart(2, '0');
+  const timeDisplay =
+    String(currentTime.minutes).padStart(2, '0') + ': ' + String(currentTime.seconds).padStart(2, '0');
 
-    return (
-      <Root>
-        <TimerWrapper>
-          <Title>🎉 당첨 발표까지 남은 시간 🥂</Title>
-          <TimeArea>{currentTime}</TimeArea>
-        </TimerWrapper>
-      </Root>
-    );
-  }
+  return (
+    <Root>
+      <TimerWrapper>
+        <Title>🎉 당첨 발표까지 남은 시간 🥂</Title>
+        <TimeArea>{timeDisplay}</TimeArea>
+      </TimerWrapper>
+    </Root>
+  );
 }
-
-export default AnnounceTimer;
