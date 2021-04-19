@@ -15,3 +15,8 @@ export const INITIAL_RESULT = {
   },
   earningRate: 0,
 };
+
+export const LOTTERY_TIME = {
+  HOUR: 8,
+  MINUTES: 45,
+};

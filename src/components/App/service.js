@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import {
   LOTTO_LENGTH,
   LOTTO_PRICE,
@@ -47,7 +49,7 @@ export const createLottoResult = (
   const result = deepCopyJSONObject(initResult);
   const payment = lottos.length * LOTTO_PRICE;
   lottos.forEach((lotto) => {
-    const ranking = getRanking(lotto, winningNumbers, bonusNumber);
+    const ranking = getRanking(lotto.numbers, winningNumbers, bonusNumber);
     result.rankCount[ranking] += 1;
   });
   result.earningRate = calculateEarningRate(result.rankCount, payment);
@@ -56,8 +58,17 @@ export const createLottoResult = (
 };
 
 export const createLottos = (lottoCount) => {
-  const lottos = Array.from({ length: lottoCount }, () =>
-    createDistinctRandomIntegers(LOTTO_RANGE.FROM, LOTTO_RANGE.TO, LOTTO_LENGTH)
-  );
+  const lottos = Array.from({ length: lottoCount }, () => {
+    const newLotto = {
+      id: uuidv4(),
+      numbers: createDistinctRandomIntegers(
+        LOTTO_RANGE.FROM,
+        LOTTO_RANGE.TO,
+        LOTTO_LENGTH
+      ),
+    };
+
+    return newLotto;
+  });
   return lottos;
 };

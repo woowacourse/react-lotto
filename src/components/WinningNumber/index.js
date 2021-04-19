@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { createRef, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../../@shared/constants/messages";
@@ -13,85 +13,89 @@ import {
   InputHeader,
   NumberContainer,
 } from "./style";
+import { LOTTO_LENGTH } from "../../@shared/constants/lotto";
 
-export default class WinningNumberInput extends Component {
-  constructor(props) {
-    super(props);
+const WinningNumberInput = ({ updateLottoResult, openModal }) => {
+  const winningInputRefs = useRef(
+    Array.from({ length: LOTTO_LENGTH }, () => createRef())
+  );
+  const bonusNumberRef = useRef();
 
-    this.state = {
-      isValidInput: true,
-    };
+  const [isValidInput, setValidInputState] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onSubmit(event) {
+  const onSubmit = (event) => {
     event.preventDefault();
 
-    const { elements } = event.target;
-    const winningNumbers = Array.from(elements["winning-number"], ($input) =>
-      Number($input.value)
+    const winningNumbers = winningInputRefs.current.map((ref) =>
+      Number(ref.current.value)
     );
-    const bonusNumber = Number(elements["bonus-number"].value);
+    const bonusNumber = Number(bonusNumberRef.current.value);
 
-    this.setState(
-      {
-        isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
-      },
-      () => {
-        if (!this.state.isValidInput) return;
+    try {
+      const lottoNumbers = [...winningNumbers, bonusNumber].filter(
+        (num) => num > 0
+      );
 
-        const { updateLottoResult, openModal } = this.props;
-
-        updateLottoResult(winningNumbers, bonusNumber);
-        openModal();
+      if (lottoNumbers.length < LOTTO_LENGTH + 1) {
+        throw new Error(ERROR_MESSAGE.SOMETHING_EMPTY);
       }
-    );
-  }
 
-  render() {
-    const { isValidInput } = this.state;
-    return (
-      <form onSubmit={this.onSubmit}>
-        <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
-        <Container>
-          <NumberContainer>
-            <InputHeader>당첨 번호</InputHeader>
-            <InputBoxes>
-              {Array.from({ length: 6 }, (_, index) => (
-                <InputBox
-                  key={index}
-                  name="winning-number"
-                  type="number"
-                  min="1"
-                  max="45"
-                  required="required"
-                ></InputBox>
-              ))}
-            </InputBoxes>
-          </NumberContainer>
+      if (!isDistinctNumbers(lottoNumbers)) {
+        throw new Error(ERROR_MESSAGE.DUPLICATED_NUMBER);
+      }
 
-          <NumberContainer>
-            <InputHeader>보너스 번호</InputHeader>
-            <InputBox
-              name="bonus-number"
-              type="number"
-              min="1"
-              max="45"
-              required="required"
-            ></InputBox>
-          </NumberContainer>
-        </Container>
-        {!isValidInput && (
-          <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
-        )}
-        <Button type="submit">확인</Button>
-      </form>
-    );
-  }
-}
+      setValidInputState(true);
+      updateLottoResult(winningNumbers, bonusNumber);
+      openModal();
+    } catch (error) {
+      setErrorMessage(error.message);
+      setValidInputState(false);
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
+      <Container>
+        <NumberContainer>
+          <InputHeader>당첨 번호</InputHeader>
+          <InputBoxes>
+            {Array.from({ length: 6 }, (_, i) => (
+              <InputBox
+                ref={winningInputRefs.current[i]}
+                key={`winningInput-${i}`}
+                name="winning-number"
+                type="number"
+                min="1"
+                max="45"
+                required="required"
+              />
+            ))}
+          </InputBoxes>
+        </NumberContainer>
+
+        <NumberContainer>
+          <InputHeader>보너스 번호</InputHeader>
+          <InputBox
+            ref={bonusNumberRef}
+            name="bonus-number"
+            type="number"
+            min="1"
+            max="45"
+            required="required"
+          />
+        </NumberContainer>
+      </Container>
+      {!isValidInput && <ErrorMessageBox text={errorMessage} />}
+      <Button type="submit">확인</Button>
+    </form>
+  );
+};
 
 WinningNumberInput.propTypes = {
   updateLottoResult: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
 };
+
+export default WinningNumberInput;

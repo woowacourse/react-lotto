@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const ResultTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 15px;
 
   & td,
   & th {
@@ -19,6 +20,7 @@ export const Button = styled.button`
   border-radius: 5px;
   outline: none;
   cursor: pointer;
+  margin-top: 15px;
 
   &:hover {
     background-color: #018c9e;

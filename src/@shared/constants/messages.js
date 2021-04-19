@@ -3,6 +3,7 @@ import { LOTTO_PRICE } from "./lotto";
 export const ERROR_MESSAGE = {
   INVALID_PRICE_UNIT: `${LOTTO_PRICE}원 단위로 입력해주세요.`,
   DUPLICATED_NUMBER: "서로 다른 숫자를 입력해주세요.",
+  SOMETHING_EMPTY: "모든 입력란을 채워주세요.",
 };
 
 export const GUIDE_MESSAGE = {

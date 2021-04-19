@@ -5,7 +5,7 @@
   },
   "parser": "babel-eslint",
   "extends": [
-    "airbnb-base",
+    "airbnb",
     "plugin:prettier/recommended",
     "plugin:react/recommended"
   ],
@@ -17,6 +17,7 @@
   "rules": {
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
-    "import/extensions": ["off"]
+    "import/extensions": ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
