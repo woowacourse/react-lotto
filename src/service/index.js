@@ -1,4 +1,4 @@
-import { RANK_CONVERTER, WINNING_PRIZE } from '../../constants';
+import { RANK_CONVERTER, RANK_TABLE } from '../constants';
 
 const calculateResult = ({ winningNumbers, lottos, price }) => {
   const rankCount = {
@@ -16,7 +16,6 @@ const calculateResult = ({ winningNumbers, lottos, price }) => {
     const bonusPoint = isSecondRanked ? 0.5 : 0;
 
     if (mainPoint < 3) return;
-
     rankCount[RANK_CONVERTER[mainPoint + bonusPoint]]++;
   });
 
@@ -27,7 +26,7 @@ const calculateResult = ({ winningNumbers, lottos, price }) => {
 
 const calculateEarningRate = (rankCount, price) => {
   const totalEarning = Object.entries(rankCount).reduce((sum, [rank, count]) => {
-    return sum + count * WINNING_PRIZE[rank];
+    return sum + count * RANK_TABLE[rank].prize;
   }, 0);
 
   return ((totalEarning / price - 1) * 100).toFixed(2);
