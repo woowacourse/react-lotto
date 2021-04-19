@@ -36,7 +36,9 @@ const getWinningRank = ([count, isBonusNumberMatched]) => {
 
 const getProfit = (ranks, tickets) => {
   return (
-    ranks.reduce((acc, count, rank) => acc + winningTable[rank].money * count, 0) / (tickets.length * LOTTO.UNIT_PRICE)
+    ranks.reduce((acc, count, rank) => acc + winningTable[rank].money * count, 0) /
+      (tickets.length * LOTTO.UNIT_PRICE) -
+    1
   );
 };
 
