@@ -65,7 +65,7 @@ export default class ResultModal extends Component {
   }
 
   render() {
-    const result = this.getResult();
+    const result = this.getResult() || [];
 
     return (
       <section className="ResultModal" role="dialog" onClick={this.onCloseModalWithDimmed}>
