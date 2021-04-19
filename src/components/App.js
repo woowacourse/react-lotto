@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-import LottoPurchaseForm from './LottoPurchaseForm';
+import LottoPurchaseForm from './LottoPurchaseForm/LottoPurchaseForm';
 import PurchaseResult from './lottoPurchaseResult/PurchaseResult';
 import WinningNumberForm from './lottoWinningNumber/WinningNumberForm';
-import RewardResultModal from './lottoRewardResult/RewardResultModal';
+import RewardModalInner from './lottoRewardResult/RewardModalInner';
 
+import Modal from './utils/Modals';
 import { getRandomNumber } from '../utils';
 
-const MainTitle = styled.h1`
-  text-align: center;
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-`;
+import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
 
 class App extends Component {
   constructor(props) {
@@ -78,14 +69,15 @@ class App extends Component {
     const isPurchased = lottos.length > 0;
 
     return (
-      <main style={{ maxWidth: '450px', margin: '0 auto' }}>
-        <MainTitle>🎱 행운의 로또</MainTitle>
-        <MainWrapper>
-          <div style={{ width: '100%' }}>
+      <Main>
+        <h1>🎱 행운의 로또</h1>
+        <MainWrapperDiv>
+          <WidthFullDiv>
             <LottoPurchaseForm
               createLottos={this.createLottos}
               ref={this.purchaseFormRef}
             />
+
             {isPurchased && (
               <>
                 <PurchaseResult lottos={lottos} />
@@ -95,19 +87,20 @@ class App extends Component {
                 />
               </>
             )}
-          </div>
-        </MainWrapper>
+          </WidthFullDiv>
+        </MainWrapperDiv>
 
         {isModalOpened && (
-          <RewardResultModal
-            lottos={this.state.lottos}
-            winningNumbers={this.state.winningNumbers}
-            setIsModalOpened={this.setIsModalOpened}
-            initState={this.initState}
-            purchaseForm={this.purchaseFormRef.current}
-          />
+          <Modal setIsModalOpened={this.setIsModalOpened}>
+            <RewardModalInner
+              lottos={this.state.lottos}
+              winningNumbers={this.state.winningNumbers}
+              initState={this.initState}
+              purchaseForm={this.purchaseFormRef.current}
+            />
+          </Modal>
         )}
-      </main>
+      </Main>
     );
   }
 }
