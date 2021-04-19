@@ -93,7 +93,6 @@ export default class App extends Component<{}, State> {
     });
 
     this.winningNumberFormRef.current?.reset();
-    console.log(this.remainTimer);
     this.remainTimer && clearInterval(this.remainTimer);
   }
 
