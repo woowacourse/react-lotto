@@ -58,6 +58,7 @@ class WinningNumberForm extends Component {
     }
 
     this.props.setWinningNumbers(this.state.numbers, bonusNumber);
+    this.props.setIsModalOpened(true);
   };
 
   setNumbers = numbers => {
