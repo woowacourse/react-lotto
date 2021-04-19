@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import Styled from './Result.style';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
@@ -10,7 +10,9 @@ import PageTitle from '../../components/PageTitle/PageTitle';
 import { getProfitRate, getWinningResult } from '../../services/Result';
 
 const Result = (props) => {
-  if (!props.location?.state) return <Redirect to="/" />;
+  const location = useLocation();
+
+  if (!location.state) return <Redirect to="/" />;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

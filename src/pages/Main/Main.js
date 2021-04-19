@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Button from '../../components/Button/Button';
 import LottoNumberList from '../../components/LottoNumberList/LottoNumberList';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -12,6 +13,7 @@ const Main = (props) => {
   const [moneyInput, setMoneyInput] = useState('');
   const [lottoList, setLottoList] = useState({});
   const [isNumberShowing, setIsNumberShowing] = useState(false);
+  const history = useHistory();
 
   const lottoCount = Object.entries(lottoList).length;
 
@@ -31,8 +33,6 @@ const Main = (props) => {
   };
 
   const handleClickEnterWinning = () => {
-    const { history } = props;
-
     if (!moneyInput || isEmptyObject(lottoList)) {
       alert(ALERT_MESSAGE.NO_PURCHASED_LOTTO);
       return;

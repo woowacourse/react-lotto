@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import Styled from './EnterWinning.style';
 import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
 import { initObject, isUniqueArray } from '../../utils';
 import Button from '../../components/Button/Button';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
-const EnterWinning = (props) => {
-  if (!props.location?.state) return <Redirect to="/" />;
+const EnterWinning = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  if (!location.state) return <Redirect to="/" />;
 
   const [winningNumber, setWinningNumber] = useState(
     initObject(Object.values(INPUT_NAME.WINNING_NUMBER), '')
@@ -27,8 +30,6 @@ const EnterWinning = (props) => {
 
   const handleSubmitWinningNumber = (event) => {
     event.preventDefault();
-
-    const { location, history } = props;
     const { lottoList, moneyInput } = location.state;
 
     const numberList = [...Object.values(winningNumber), bonusNumber];
