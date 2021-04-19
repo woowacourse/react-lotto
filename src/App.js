@@ -25,7 +25,6 @@ export default function App() {
     const count = price / Lotto.PRICE_UNIT;
     const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
 
-    console.log(lottos);
     setLottos(lottos);
   };
 
