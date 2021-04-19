@@ -2,24 +2,72 @@
 
 .time-container {
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: 0;
   width: 100%;
   background: black;
   padding: 1rem;
   font-family: 'Noto Serif KR', serif;
+  color: white;
+  z-index: 11;
+}
 
-  .time-sub-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: red;
-    margin-bottom: 0.5rem;
-    color: white;
-  }
+.belt-up {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6.3rem;
+  background-color: black;
+  z-index: 10;
+  background-image: -webkit-linear-gradient(
+    135deg,
+    transparent,
+    transparent 6.25%,
+    #fcd153 6.25%,
+    #fcd153 12.5%,
+    transparent 12.5%,
+    transparent 18.75%,
+    #fcd153 18.75%,
+    #fcd153 25%,
+    transparent 25%,
+    transparent 31.25%,
+    #fcd153 31.25%,
+    #fcd153 37.5%,
+    transparent 37.5%,
+    transparent 43.75%,
+    #fcd153 43.75%,
+    #fcd153 50%,
+    transparent 50%,
+    transparent 56.25%,
+    #fcd153 56.25%,
+    #fcd153 62.5%,
+    transparent 62.5%,
+    transparent 68.75%,
+    #fcd153 68.75%,
+    #fcd153 75%,
+    transparent 75%,
+    transparent 81.25%,
+    #fcd153 81.25%,
+    #fcd153 87.5%,
+    transparent 87.5%,
+    transparent 93.75%,
+    #fcd153 93.75%,
+    #fcd153
+  );
+  box-shadow: 4px 2px 14px 1px grey;
+}
 
-  .time-left {
-    font-weight: bold;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
+.time-sub-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.time-left {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
 }

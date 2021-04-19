@@ -7,7 +7,10 @@ import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './const
 import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
 import TimeLeft from './components/time-left';
+<<<<<<< HEAD
 import muyaho from './sound/muyaho.mp3';
+=======
+>>>>>>> 49c4d7b... style: 당첨 발표 타이머 스타일 추가
 import './style.scss';
 
 class App extends React.Component {
@@ -86,12 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {this.state.isMoneyInputValid && <TimeLeft></TimeLeft>}
-        {this.state.isMoneyInputValid && (
-          <audio controls autoPlay hidden>
-            <source src={muyaho} type='audio/mp3' />
-          </audio>
-        )}
+        <TimeLeft></TimeLeft>
         <Canvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput
