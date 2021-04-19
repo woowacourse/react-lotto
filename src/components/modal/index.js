@@ -41,13 +41,19 @@ class Modal extends React.Component {
     });
   }
 
+  onClickDimmer(e) {
+    if (e.target === e.currentTarget) {
+      this.props.onModalClose();
+    }
+  }
+
   render() {
     return (
       <>
-        <div className='modal'>
+        <div className='modal' onClick={(e) => this.onClickDimmer(e)}>
           <div className='modal-inner'>
             <div className='modal-top-spacing'></div>
-            <Button customClass='modal-close-button' onClick={this.props.onModalCloseButtonClick}>
+            <Button customClass='modal-close-button' onClick={this.props.onModalClose}>
               <FontAwesomeIcon icon={faTimes} />
             </Button>
             <h1 className='modal-header'>슈퍼 로또</h1>
