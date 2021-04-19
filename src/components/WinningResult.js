@@ -4,6 +4,7 @@ import '../css/winning-result.css';
 import '../css/lotto-ball.css';
 import Animation from './Animation.js';
 import coin from '../animations/coin.json';
+import { CLOSE } from '../constants/keyword';
 
 const COIN_ANIMATION_DURATION = 2000;
 
@@ -76,7 +77,7 @@ export default class WinningResult extends Component {
             </div>
           ) : (
             <div className="winning-result-inner">
-              <button type="button" className="close-button" onClick={this.props.onCloseWinningResult}>
+              <button type="button" className="close-button" onClick={() => this.props.onDisplayWinningResult(CLOSE)}>
                 <svg viewBox="0 0 40 40">
                   <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
                 </svg>
@@ -134,8 +135,8 @@ class TableRow extends Component {
       <tr className="table-row">
         <td className="table-data">{RESULT_TABLE_DATA[numOfMatch].DESCRIPTION}</td>
         <td className="table-data">
-          {lotto.map((number) => (
-            <LottoBall number={number} drawNumbers={drawNumbers} />
+          {lotto.map((v, i) => (
+            <LottoBall key={String.fromCharCode(97 + i)} number={v} drawNumbers={drawNumbers} />
           ))}
         </td>
       </tr>

@@ -6,6 +6,7 @@ import WinningResult from './WinningResult.js';
 import getRandomNumber from '../utils/getRandomNumber.js';
 import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS_LENGTH } from '../constants/lottoRules.js';
 import '../css/app.css';
+import { SHOW } from '../constants/keyword.js';
 
 export default class App extends Component {
   constructor() {
@@ -19,8 +20,7 @@ export default class App extends Component {
 
     this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
     this.setDrawNumber = this.setDrawNumber.bind(this);
-    this.onShowWinningResult = this.onShowWinningResult.bind(this);
-    this.onCloseWinningResult = this.onCloseWinningResult.bind(this);
+    this.onDisplayWinningResult = this.onDisplayWinningResult.bind(this);
     this.onReset = this.onReset.bind(this);
     this.didReset = this.didReset.bind(this);
   }
@@ -33,11 +33,13 @@ export default class App extends Component {
     this.setState({ drawNumber });
   }
 
-  onShowWinningResult() {
-    this.setState({ isShowingWinningResult: true });
-  }
+  onDisplayWinningResult(action = SHOW) {
+    if (action === SHOW) {
+      this.setState({ isShowingWinningResult: true });
 
-  onCloseWinningResult() {
+      return;
+    }
+
     this.setState({ isShowingWinningResult: false });
   }
 
@@ -64,7 +66,7 @@ export default class App extends Component {
 
   render() {
     const { lottoBundle, drawNumber, isShowingWinningResult, isReset } = this.state;
-    const isPurchased = Boolean(lottoBundle.length);
+    const isPurchased = !!lottoBundle.length;
 
     return (
       <>
@@ -79,7 +81,7 @@ export default class App extends Component {
             />
             {isPurchased && <PurchaseLotto lottoBundle={this.state.lottoBundle} />}
             {isPurchased && (
-              <WinningNumbers setDrawNumber={this.setDrawNumber} onShowWinningResult={this.onShowWinningResult} />
+              <WinningNumbers setDrawNumber={this.setDrawNumber} onDisplayWinningResult={this.onDisplayWinningResult} />
             )}
           </main>
         </div>
@@ -87,7 +89,7 @@ export default class App extends Component {
           <WinningResult
             lottoBundle={lottoBundle}
             drawNumber={drawNumber}
-            onCloseWinningResult={this.onCloseWinningResult}
+            onDisplayWinningResult={this.onDisplayWinningResult}
             onReset={this.onReset}
           />
         )}

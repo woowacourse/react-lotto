@@ -46,7 +46,7 @@ export default class WinningNumbers extends Component {
     return this.state.shouldPlayAnimation ? (
       <Animation animationData={countDown} speed={1} height="140px" />
     ) : (
-      <DrawNumber drawNumber={this.drawNumber} onShowWinningResult={this.props.onShowWinningResult} />
+      <DrawNumber drawNumber={this.drawNumber} onDisplayWinningResult={this.props.onDisplayWinningResult} />
     );
   }
 }
@@ -67,7 +67,7 @@ class DrawNumber extends Component {
           <span className="bonus-number-title">보너스번호</span>
           <LottoBall key={bonusNumber} number={bonusNumber} />
         </section>
-        <button type="button" className="open-result-button" onClick={this.props.onShowWinningResult}>
+        <button type="button" className="open-result-button" onClick={() => this.props.onDisplayWinningResult()}>
           당첨결과 확인하기
         </button>
       </div>
