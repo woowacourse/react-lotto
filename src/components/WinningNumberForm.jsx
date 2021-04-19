@@ -171,7 +171,7 @@ export default class WinningNumberForm extends React.Component {
                     <input
                       id={`winning-number-${index}`}
                       type="number"
-                      className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline focus:ring-1.5 ${
+                      className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5 ${
                         this.isValidInputValue(this.state.winningNumberInputValues[index])
                           ? 'ring-blue-700'
                           : 'ring-rose-500'
@@ -194,7 +194,7 @@ export default class WinningNumberForm extends React.Component {
                 <input
                   id="bonus-number"
                   type="number"
-                  className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline focus:ring-1.5 ${
+                  className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5 ${
                     this.isValidInputValue(this.state.bonusNumberInputValue) ? 'ring-blue-700' : 'ring-rose-500'
                   }`}
                   value={this.state.bonusNumberInputValue}
@@ -216,7 +216,7 @@ export default class WinningNumberForm extends React.Component {
           </div>
           <button
             type="submit"
-            className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white w-11/12"
+            className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 focus:outline-none focus:ring-1.5 text-white w-11/12"
             disabled={!this.isFormValid()}
           >
             결과 확인하기

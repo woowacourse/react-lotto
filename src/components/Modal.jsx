@@ -84,11 +84,15 @@ export default function Modal(props) {
         <div
           className="modal-close absolute m-4 w-6 top-2 right-2 cursor-pointer"
           role="button"
-          tabIndex="0"
+          tabIndex="-1"
           onKeyUp={handleCloseKeyUp}
           onClick={handleCloseClick}
         >
-          <svg className="stroke-current text-blue-500 hover:text-blue-700 stroke-5" viewBox="0 0 40 40">
+          <svg
+            className="stroke-current text-blue-500 hover:text-blue-700 stroke-5 focus:outline-none focus:ring-2 focus:ring-blue-700"
+            viewBox="0 0 40 40"
+            tabIndex="0"
+          >
             <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
         </div>
@@ -136,7 +140,11 @@ export default function Modal(props) {
         <div className="d-flex justify-center mt-5">
           <button
             type="button"
-            className="font-bold py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 text-white w-full"
+            className="w-full  py-2 px-4 rounded
+            text-white font-bold
+            bg-blue-600 hover:bg-blue-700
+            focus:outline-none focus:ring-1.5
+            "
             onClick={handleResetClick}
           >
             다시 시작하기

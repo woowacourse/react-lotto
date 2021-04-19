@@ -59,8 +59,8 @@ export default class PurchaseForm extends React.Component {
             id="purchase-input"
             type="number"
             className={`
-              w-full py-2 px-3 appearance-textfield border rounded shadow text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline mr-2 focus:ring-1.5
+              w-full py-2 px-3 mr-2 appearance-textfield border rounded shadow text-gray-700 leading-tight
+              focus:outline-none focus:ring-1.5
               ${this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'}
             `}
             placeholder="구입 금액"
@@ -70,7 +70,8 @@ export default class PurchaseForm extends React.Component {
           />
           <button
             type="submit"
-            className="font-bold py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white min-w-1/8 "
+            className="text-white font-bold  min-w-1/8 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700
+            focus:outline-none focus:ring-2"
             disabled={this.props.tickets.length > 0 || !this.state.isValid}
           >
             확인
