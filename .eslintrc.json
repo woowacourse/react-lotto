@@ -17,6 +17,7 @@
     "import/no-extraneous-dependencies": "off",
     "class-methods-use-this": "off",
     "no-alert": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "import/prefer-default-export": "off"
   }
 }

@@ -17,6 +17,12 @@ export const WINNING_COUNT = {
   THREE: 3,
 };
 
+export const LOTTO_RAFFLE_DAY = {
+  DAY: 6, // 매주 토요일
+  HOUR: 20,
+  MINUTES: 45,
+};
+
 export const WINNING_PRIZE_INFO = {
   [WINNING_COUNT.SIX]: {
     PRIZE: 2000000000,

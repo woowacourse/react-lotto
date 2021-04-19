@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
+import LottoHeader from './components/lottoHeader/LottoHeader';
 import PriceForm from './components/priceForm/PriceForm';
 import PurchasedLotto from './components/purchasedLotto/PurchasedLotto';
-import ResultModal from './components/resultModal/ResultModal';
 import WinningNumberForm from './components/winningNumberForm/WinningNumberForm';
+import CountdownSection from './components/countdownSection/CountdownSection';
+import ResultModal from './components/resultModal/ResultModal';
 import { getRandomNumber } from './utils/random';
 import { HEADER_TITLE, LOTTO } from './constants/lottoData';
-import LottoHeader from './components/lottoHeader/LottoHeader';
 
 const createLotto = () => {
   const numberList = new Set();
@@ -44,6 +45,7 @@ const App = () => {
           <>
             <PurchasedLotto lottoList={lottoList} />
             <WinningNumberForm setWinningNumber={setWinningNumber} setIsResultModalShow={setIsResultModalShow} />
+            <CountdownSection lottoList={lottoList} />
           </>
         )}
         {isResultModalShow && (
