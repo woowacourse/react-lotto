@@ -89,6 +89,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const isReset = this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0;
+
     return (
       <>
         <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
@@ -98,7 +100,7 @@ export default class App extends React.Component {
             </span>
             {' 행운의 로또'}
           </h1>
-          <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} />
+          <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} isReset={isReset} />
 
           {this.state.tickets.length > 0 && (
             <>
@@ -106,7 +108,7 @@ export default class App extends React.Component {
               <WinningNumberForm
                 setWinningNumbers={this.setWinningNumbers}
                 setBonusNumber={this.setBonusNumber}
-                isReset={this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0}
+                isReset={isReset}
               />
             </>
           )}

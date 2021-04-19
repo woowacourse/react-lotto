@@ -3,25 +3,33 @@ import PropTypes from 'prop-types';
 import { LOTTO } from '../utils/constants';
 
 export default class PurchaseForm extends React.Component {
+  static calculatePurchaseTicketCount(purchaseInputValue) {
+    return Math.floor(Number(purchaseInputValue) / LOTTO.UNIT_PRICE);
+  }
+
   static propTypes = {
     setTickets: PropTypes.func.isRequired,
     tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    isReset: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.initialState = {
       purchaseInputValue: '',
       isValid: false,
     };
+
+    this.state = { ...this.initialState };
+    this.resetState = this.resetState.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  static calculatePurchaseTicketCount(purchaseInputValue) {
-    return Math.floor(Number(purchaseInputValue) / LOTTO.UNIT_PRICE);
+  resetState() {
+    this.setState({ ...this.initialState });
   }
 
   handleSubmit(event) {
@@ -91,5 +99,11 @@ export default class PurchaseForm extends React.Component {
         )}
       </form>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isReset && !prevProps.isReset) {
+      this.resetState();
+    }
   }
 }
