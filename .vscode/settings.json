@@ -5,5 +5,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "prettier.useEditorConfig": true
+  "prettier.useEditorConfig": true,
+  "prettier.enable": true,
+  "css.validate": false
 }

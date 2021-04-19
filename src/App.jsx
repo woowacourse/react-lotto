@@ -5,9 +5,6 @@ import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
 import Modal from './components/Modal';
 
-import 'tailwindcss/tailwind.css';
-import './App.css';
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);

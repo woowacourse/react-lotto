@@ -59,7 +59,7 @@ export default class PurchaseForm extends React.Component {
             id="purchase-input"
             type="number"
             className={`
-              w-full py-2 px-3 appearance-none border rounded shadow text-gray-700 leading-tight
+              w-full py-2 px-3 appearance-textfield border rounded shadow text-gray-700 leading-tight
               focus:outline-none focus:shadow-outline mr-2 focus:ring-1.5
               ${this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'}
             `}
