@@ -7,6 +7,7 @@ export const ERROR_MESSAGE = {
   HAS_BLANK_INPUT: '당첨 번호를 모두 입력해주세요.',
   OUT_OF_RANGE: `${LOTTO.MIN_NUMBER} ~ ${LOTTO.MAX_NUMBER} 사이의 숫자를 입력해주세요.`,
   INVALID_AMOUNT: '입력할 수 없는 금액입니다.',
+  TYPE_ERROR: (value) => `타입 오류 : ${value}`,
 };
 
 export const SUCCESS_MESSAGE = {

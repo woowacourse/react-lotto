@@ -35,7 +35,7 @@ class App extends Component {
     return [...numberList].sort((a, b) => a - b);
   }
 
-  createLottoList(count) {
+  createLottoList(count = 0) {
     const lottoList = [...Array(count)].map(this.createLotto);
 
     this.setState({ lottoList });
