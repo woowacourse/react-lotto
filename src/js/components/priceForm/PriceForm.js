@@ -4,7 +4,7 @@ import { LOTTO } from '../../constants/lottoData';
 import { ERROR_MESSAGE } from '../../constants/messages';
 import './PriceForm.scss';
 
-function PriceForm(props) {
+const PriceForm = (props) => {
   const onSubmitPrice = (event) => {
     event.preventDefault();
 
@@ -50,7 +50,7 @@ function PriceForm(props) {
       </form>
     </section>
   );
-}
+};
 
 PriceForm.propTypes = {
   createLottoList: PropTypes.func.isRequired,

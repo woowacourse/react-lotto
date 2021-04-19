@@ -7,7 +7,7 @@ import WinningNumberForm from './components/winningNumberForm/WinningNumberForm'
 import { getRandomNumber } from './utils/random';
 import { LOTTO } from './constants/lottoData';
 
-function App() {
+const App = () => {
   const [lottoList, setLottoList] = useState([]);
   const [winningNumber, setWinningNumber] = useState({});
   const [isResultModalShow, setIsResultModalShow] = useState(false);
@@ -58,6 +58,6 @@ function App() {
       </main>
     </>
   );
-}
+};
 
 export default hot(App);
