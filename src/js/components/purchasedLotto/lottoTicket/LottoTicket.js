@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './LottoTicket.scss';
 
-export default class LottoTicket extends Component {
-  render() {
-    return (
-      <div className="LottoTicket">
-        <span className="lotto-ticket-emoji">🎟️</span>
-        <p className={this.props.isShowNumber ? '' : 'd-none'}>{this.props.lottoNumbers.join(', ')}</p>
-      </div>
-    );
-  }
-}
+const LottoTicket = (props) => (
+  <div className="LottoTicket">
+    <span className="lotto-ticket-emoji">🎟️</span>
+    <p className={props.isShowNumber ? '' : 'd-none'}>{props.lottoNumbers.join(', ')}</p>
+  </div>
+);
 
 LottoTicket.propTypes = {
   isShowNumber: PropTypes.bool.isRequired,
   lottoNumbers: PropTypes.array.isRequired,
 };
+
+export default LottoTicket;
