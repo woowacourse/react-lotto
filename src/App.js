@@ -6,7 +6,9 @@ import WinningNumber from './components/winning-number';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
+import TimeLeft from './components/time-left';
 import './style.scss';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -78,6 +80,7 @@ class App extends React.Component {
   render() {
     return (
       <>
+        <TimeLeft></TimeLeft>
         <Canvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput

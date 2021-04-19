@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400;500&display=swap');
+
+.time-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: black;
+  padding: 1rem;
+  font-family: 'Noto Serif KR', serif;
+
+  .time-sub-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .time-left {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}
