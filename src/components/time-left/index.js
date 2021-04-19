@@ -56,11 +56,14 @@ class TimeLeft extends React.Component {
 
   render() {
     return (
-      <div className='time-container'>
-        <div className='time-sub-title'>
-          🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {this.state.timeLeft} </span>
+      <>
+        <div className='belt-up'></div>
+        <div className='time-container'>
+          <marquee className='time-sub-title'>
+            🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {this.state.timeLeft} </span>
+          </marquee>
         </div>
-      </div>
+      </>
     );
   }
 }
