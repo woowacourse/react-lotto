@@ -8,6 +8,19 @@ import { LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_NUMBERS_LENGTH } from '../con
 import '../css/app.css';
 import { SHOW } from '../constants/keyword.js';
 
+function createLotto(array = []) {
+  const number = getRandomNumber({ min: LOTTO_MIN_NUMBER, max: LOTTO_MAX_NUMBER });
+
+  if (array.length === LOTTO_NUMBERS_LENGTH) {
+    return array.sort((a, b) => a - b);
+  }
+  if (!array.includes(number)) {
+    array.push(number);
+  }
+
+  return createLotto(array);
+}
+
 export default class App extends Component {
   constructor() {
     super();
@@ -26,7 +39,7 @@ export default class App extends Component {
   }
 
   onPurchaseLotto({ numOfLotto }) {
-    this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => this.createLotto()) });
+    this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => createLotto()) });
   }
 
   setDrawNumber({ drawNumber }) {
@@ -49,19 +62,6 @@ export default class App extends Component {
 
   didReset() {
     this.setState({ isReset: false });
-  }
-
-  createLotto(array = []) {
-    const number = getRandomNumber({ min: LOTTO_MIN_NUMBER, max: LOTTO_MAX_NUMBER });
-
-    if (array.length === LOTTO_NUMBERS_LENGTH) {
-      return array.sort((a, b) => a - b);
-    }
-    if (!array.includes(number)) {
-      array.push(number);
-    }
-
-    return this.createLotto(array);
   }
 
   render() {
