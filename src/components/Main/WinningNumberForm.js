@@ -27,7 +27,7 @@ export default function WinningNumberForm(props) {
   const onWinningNumberChange = (event) => {
     setWinningNumbersInput({
       ...winningNumbersInput,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.valueAsNumber,
     });
   };
 
