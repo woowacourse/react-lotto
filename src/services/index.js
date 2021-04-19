@@ -1,2 +1,2 @@
-export { default as LotteryMachine } from './LotteryMachine';
-export { default as ProfitCalculator } from './ProfitCalculator';
+export { publishLotteries } from './publishLotteries';
+export { getWinningResult } from './getWinningResult';
