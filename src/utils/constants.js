@@ -48,6 +48,7 @@ export const MESSAGE = {
     INVALID_PAYMENT: '올바른 금액을 입력해 주세요.',
   },
   WINNING_NUMBERS_FORM: {
+    HAS_INVALID_TYPE: '빈 칸이 있거나, 잘못된 값을 입력하진 않았나요?',
     HAS_DUPLICATED_NUMBER: '중복인 숫자가 포함되어 있습니다.',
   },
 };

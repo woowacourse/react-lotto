@@ -4,51 +4,50 @@ import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from '../utils';
 class PaymentForm extends Component {
   constructor(props) {
     super(props);
-    this.messageRef = React.createRef();
+    this.state = {
+      money: null,
+      message: null,
+    };
   }
 
-  handleInputCheck = ({ target }) => {
-    if (target.value === '') {
-      this.props.setMoney(null);
-      return;
+  handleInputChange = ({ target: { value } }) => {
+    const money = Number(value);
+
+    try {
+      this.setState({ money });
+      this.checkValidPayment(money);
+      this.setState({ message: '' });
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ message: error.message });
     }
-
-    const money = Number(target.value);
-    const $message = this.messageRef.current;
-
-    this.props.setMoney(money);
-
-    if (this.isValidPayment(money)) {
-      $message.innerText = '';
-
-      return;
-    }
-
-    $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
-    const $message = this.messageRef.current;
-    const money = Number($input.value);
+    const { money } = this.state;
 
-    if (!this.isValidPayment(money)) {
-      $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
-
-      return;
+    try {
+      this.checkValidPayment(money);
+      this.props.setLotteries(money);
+    } catch (error) {
+      this.setState({ message: error.message });
     }
-
-    this.props.setLotteries(money);
   };
 
-  isValidPayment(value) {
-    return value > 0 && value % LOTTERY.PRICE === 0;
+  checkValidPayment(money) {
+    try {
+      if (!(money > 0 && money % LOTTERY.PRICE === 0)) {
+        throw new Error(MESSAGE.PAYMENT_FORM.INVALID_PAYMENT);
+      }
+    } catch {
+      throw new Error(MESSAGE.PAYMENT_FORM.INVALID_PAYMENT);
+    }
   }
 
   render() {
-    const { money } = this.props;
+    const { money, message } = this.state;
 
     return (
       <form className="mt-5" onSubmit={this.handleSubmit}>
@@ -64,21 +63,19 @@ class PaymentForm extends Component {
             className="w-100 mr-2 pl-2"
             type="number"
             placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
-            onChange={this.handleInputCheck}
+            onChange={this.handleInputChange}
             max={MAX_PAYMENT}
             value={money ? money : ''}
-            disabled={this.props.lotteries.length !== 0}
           />
           <button
             id={SELECTOR.ID.PAYMENT_SUBMIT}
             className="btn btn-cyan"
             type="submit"
-            disabled={this.props.lotteries.length !== 0}
           >
             확인
           </button>
         </div>
-        <p ref={this.messageRef}></p>
+        <p>{message}</p>
       </form>
     );
   }

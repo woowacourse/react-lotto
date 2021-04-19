@@ -29,7 +29,11 @@ class LotteriesDetail extends Component {
             </label>
           </div>
         </div>
-        <ul className={`d-flex pl-0 ${isNumberVisible ? 'flex-col' : ''}`}>
+        <ul
+          className={`d-flex pl-0 flex-wrap ${
+            isNumberVisible ? 'flex-col' : ''
+          }`}
+        >
           {lotteries.map(lottery => (
             <li className="d-flex items-center" key={lottery.id}>
               <span className="mx-1 text-4xl">🎟️</span>
