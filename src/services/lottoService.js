@@ -6,6 +6,7 @@ import {
   RANK,
   MIN_LOTTO_NUMBER,
   MAX_LOTTO_NUMBER,
+  ANNOUNCE_TIME,
 } from '../constants/standard';
 import { getRandomNumber } from '../utils/getRandomNumber';
 
@@ -56,4 +57,25 @@ export const generateLottoNumbers = () => {
   }
 
   return [...ticketNumbers].sort((a, b) => a - b);
+};
+
+export const getLeftTimeBetweenAnnounceTimeAndCurrentTime = () => {
+  const currentTime = new Date();
+  const year = currentTime.getFullYear();
+  const month = currentTime.getMonth();
+  const date = currentTime.getDate();
+  const diff = ANNOUNCE_TIME.DAY - currentTime.getDay();
+  const nextSaturday = new Date(year, month, date + diff, ANNOUNCE_TIME.HOUR, ANNOUNCE_TIME.MINUTE);
+
+  if (nextSaturday - currentTime < 0) {
+    nextSaturday.setDate(nextSaturday.getDate() + 7);
+  }
+
+  const leftTime = (nextSaturday - currentTime) / (1000 * 60 * 60);
+  const leftDate = Math.floor(leftTime / 24);
+  const leftHour = Math.floor(leftTime % 24);
+  const leftMinute = Math.floor(((leftTime % 24) - leftHour) * 60);
+  const leftSecond = Math.floor((((leftTime % 24) - leftHour) * 60 - leftMinute) * 60);
+
+  return { leftDate, leftHour, leftMinute, leftSecond };
 };

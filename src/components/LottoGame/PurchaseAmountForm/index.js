@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { isValidPurchaseAmount } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
 
-export default class PurchaseAmountForm extends Component {
-  constructor(props) {
-    super(props);
+const PurchaseAmountForm = props => {
+  const inputRef = useRef();
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const purchaseAmount = event.target['purchaseAmount'].value;
@@ -18,30 +14,35 @@ export default class PurchaseAmountForm extends Component {
       return;
     }
 
-    this.props.publishLottoTickets(purchaseAmount);
-  }
+    props.buyLottoTickets(purchaseAmount);
+  };
 
-  render() {
-    return (
-      <form className="mt-5" onSubmit={this.handleSubmit}>
-        <div className="mb-2 d-inline-block">구입할 금액을 입력해주세요.</div>
-        <div className="flex">
-          <input
-            step="any"
-            name="purchaseAmount"
-            type="number"
-            className="w-full mr-2 pl-2"
-            placeholder="구입 금액"
-            value={this.props.purchaseAmount}
-            onChange={this.props.handleChange}
-            disabled={this.props.isPurchaseAmountSubmitted}
-            required
-          />
-          <button className="btn btn-cyan" disabled={this.props.isPurchaseAmountSubmitted}>
-            확인
-          </button>
-        </div>
-      </form>
-    );
-  }
-}
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [props.purchaseAmount]);
+
+  return (
+    <form className="mt-5" onSubmit={handleSubmit}>
+      <div className="mb-2 d-inline-block">구입할 금액을 입력해주세요.</div>
+      <div className="flex">
+        <input
+          ref={inputRef}
+          step="any"
+          name="purchaseAmount"
+          type="number"
+          className="w-full mr-2 pl-2"
+          placeholder="구입 금액"
+          value={props.purchaseAmount}
+          onChange={props.handleChange}
+          disabled={props.isPurchaseAmountSubmitted}
+          required
+        />
+        <button className="btn btn-cyan" disabled={props.isPurchaseAmountSubmitted}>
+          확인
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default PurchaseAmountForm;
