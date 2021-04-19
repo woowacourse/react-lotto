@@ -10,7 +10,7 @@ class WinningNumber extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(''),
+      winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0),
       currentInputIndex: 0,
     };
   }
@@ -30,7 +30,7 @@ class WinningNumber extends React.Component {
   }
 
   onChangeWinningNumber(e, index) {
-    const inputValue = e.target.value;
+    const inputValue = Number(e.target.value);
     if (!isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
 
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
@@ -73,7 +73,7 @@ class WinningNumber extends React.Component {
                     ? 'winning-number'
                     : 'bonus-number'
                 }
-                defaultValue={number && number}
+                defaultValue={number ? number : ''}
                 onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
               />
             );
