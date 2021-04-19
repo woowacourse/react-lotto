@@ -9,10 +9,6 @@ export default function PurchaseForm(props) {
     setPurchaseAmount(event.target.valueAsNumber);
   };
 
-  const setLottoCount = (count) => {
-    props.setLottoCount(count);
-  };
-
   const onSubmitPurchaseForm = (event) => {
     event.preventDefault();
 
@@ -21,7 +17,7 @@ export default function PurchaseForm(props) {
       return;
     }
 
-    setLottoCount(purchaseAmount / LOTTO_PRICE);
+    props.setLottoCount(purchaseAmount / LOTTO_PRICE);
     setIsActive(false);
   };
 

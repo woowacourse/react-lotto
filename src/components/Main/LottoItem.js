@@ -27,30 +27,12 @@ export default function LottoItem(props) {
     // 일치하는 개수를 구하는 연산식
     const matchedCount = getMatchedCount();
     const bonusNumber = parseInt(props.bonusNumber);
-    // if (matchedCount === 6) {
-    //   props.increaseWinningCounts(1);
-    // }
-    // if (matchedCount === 5) {
-    //   if (numbers.current.includes(bonusNumber)) {
-    //     console.log('bonus..');
-    //     props.increaseWinningCounts(2);
-    //   } else {
-    //     console.log('not Bonus');
-    //     props.increaseWinningCounts(3);
-    //   }
-    // }
-    // if (matchedCount === 4) {
-    //   props.increaseWinningCounts(4);
-    // }
-    // if (matchedCount === 3) {
-    //   props.increaseWinningCounts(5);
-    // }
 
     if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.FIRST) {
       props.increaseWinningCounts(LOTTO_VALUE.RANK.FIRST);
     }
     if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.THIRD) {
-      if (numbers.current.includes(props.bonusNumber)) {
+      if (numbers.current.includes(bonusNumber)) {
         props.increaseWinningCounts(LOTTO_VALUE.RANK.SECOND);
       } else {
         props.increaseWinningCounts(LOTTO_VALUE.RANK.THIRD);

@@ -24,8 +24,6 @@ export default function LotteryCountDown(props) {
     setRemainTime(gap);
   };
 
-  console.log(remainTime);
-
   return (
     <div className="mt-5 text-center">
       <h3 className="m-1">🎉 당첨 번호 발표 시간 🎉</h3>
