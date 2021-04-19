@@ -29,7 +29,7 @@ function App() {
       const lotteries = publishLotteries(money);
       setLotteries(lotteries);
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error.message);
     }
   }
 
@@ -81,13 +81,13 @@ function App() {
       setWinningResult(winningResult);
       setResultModalOpen(true);
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error.message);
     }
   }
 
   function checkValidWinningInputs(inputNumbers) {
     if (!inputNumbers.every(number => typeof number === 'number')) {
-      throw new Error('안됨');
+      throw new Error(MESSAGE.WINNING_NUMBERS_FORM.HAS_INVALID_TYPE);
     }
     if (hasDuplicatedNumber(inputNumbers)) {
       throw new Error(MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER);
