@@ -7,6 +7,7 @@ import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './const
 import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
 import TimeLeft from './components/time-left';
+import muyaho from './sound/muyaho.mp3';
 import './style.scss';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
       winningNumber: [],
     };
     this.MoneyInputRef = React.createRef();
+    this.audio = new Audio(muyaho);
   }
 
   handleMoneySubmit(money) {
@@ -29,6 +31,10 @@ class App extends React.Component {
       isMoneyInputValid: true,
       moneyAmount: money,
     });
+
+    if (this.state.isMoneyInputValid) {
+      this.audio.play();
+    }
   }
 
   handleWinningNumberSubmit(winningNumbers, bonusNumber) {
@@ -80,7 +86,12 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <TimeLeft></TimeLeft>
+        {this.state.isMoneyInputValid && <TimeLeft></TimeLeft>}
+        {this.state.isMoneyInputValid && (
+          <audio controls autoPlay hidden>
+            <source src={muyaho} type='audio/mp3' />
+          </audio>
+        )}
         <Canvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput
