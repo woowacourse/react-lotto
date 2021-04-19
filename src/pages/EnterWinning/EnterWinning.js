@@ -22,7 +22,6 @@ class EnterWinning extends Component {
 
   handleChangeWinningNumber(event) {
     this.setState((prevState) => ({
-      ...prevState,
       winningNumber: {
         ...prevState.winningNumber,
         [event.target.name]: Number(event.target.value),
