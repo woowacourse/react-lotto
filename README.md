@@ -29,7 +29,7 @@
 
 ### Step2
 
-- [ ] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
+- [x] Step1의 `Class Component`를 `Function Component`로 마이그레이션 합니다.
 
 ### 공통 심화
 

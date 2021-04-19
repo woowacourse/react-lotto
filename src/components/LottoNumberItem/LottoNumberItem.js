@@ -1,19 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Styled from './LottoNumberItem.style';
 
-class LottoNumberItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Styled.Container enabled={this.props.enabled} number={Number(this.props.children)}>
-        {this.props.children}
-      </Styled.Container>
-    );
-  }
-}
+const LottoNumberItem = (props) => (
+  <Styled.Container enabled={props.enabled} number={Number(props.children)}>
+    {props.children}
+  </Styled.Container>
+);
 
 LottoNumberItem.defaultProps = {
   enabled: true,
