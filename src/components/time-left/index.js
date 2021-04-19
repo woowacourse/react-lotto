@@ -9,6 +9,7 @@ class TimeLeft extends React.Component {
       now: new Date(),
       announceDate: new Date('April 24, 2021 20:45:00'),
     };
+    this.ticking = null;
   }
 
   tick() {
@@ -44,9 +45,13 @@ class TimeLeft extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.ticking = setInterval(() => {
       this.tick();
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.ticking);
   }
 
   render() {
