@@ -10,7 +10,6 @@ import ResultModal from './components/ResultModal/ResultModal';
 import { issueTickets } from './services/tickets';
 import { getRemainedTime } from './utils/date';
 
-import ALERT_MESSAGE from './constants/alertMessage';
 import { GREENWICH_MILLISECONDS, TIMER_TICK } from './constants/timer';
 
 type State = {
@@ -69,11 +68,6 @@ export default class App extends Component<{}, State> {
   }
 
   handleWinningNumber(winningNumber: WinningNumber) {
-    if (this.state.tickets.length === 0) {
-      alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
-      return;
-    }
-
     this.setState({
       winningNumber,
     });
@@ -109,10 +103,12 @@ export default class App extends Component<{}, State> {
         <PaymentForm handlePayment={this.handlePayment} />
         {this.state.remainTime && <RemainedTime remainTime={this.state.remainTime} />}
         <TicketList tickets={this.state.tickets} />
-        <WinningNumberForm
-          handleWinningNumber={this.handleWinningNumber}
-          formRef={this.winningNumberFormRef}
-        />
+        {this.state.tickets.length > 0 && (
+          <WinningNumberForm
+            handleWinningNumber={this.handleWinningNumber}
+            formRef={this.winningNumberFormRef}
+          />
+        )}
         {this.state.isModalOpen && (
           <ResultModal
             handleModalClose={() => this.handleModal(false)}
