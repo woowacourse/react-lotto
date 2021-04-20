@@ -68,6 +68,7 @@ class Canvas extends React.Component {
       }
       move();
       rebound();
+      requestAnimationFrame(draw);
     }
 
     function move() {
@@ -95,7 +96,6 @@ class Canvas extends React.Component {
       }
     }
 
-    setInterval(draw, 10);
     draw();
   }
 }

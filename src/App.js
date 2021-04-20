@@ -9,6 +9,8 @@ import Canvas from './components/canvas';
 import TimeLeft from './components/time-left';
 import { hideScroll, showScroll } from './utils/scroll';
 import muyaho from './sound/muyaho.mp3';
+import Lottie from 'react-lottie';
+import coinSpin from './animation/coinSpin.json';
 import './style.scss';
 
 class App extends React.Component {
@@ -108,7 +110,17 @@ class App extends React.Component {
             this.makeReceipt(ticketCount);
           }}
         ></MoneyInput>
-        {this.state.isLoading && <div className='circle gelatine'>$</div>}
+        {this.state.isLoading && (
+          <Lottie
+            speed={1}
+            height={'300px'}
+            width={'300px'}
+            options={{
+              animationData: coinSpin,
+              loop: false,
+            }}
+          />
+        )}
         {!this.state.isLoading && this.state.isMoneyInputValid && (
           <>
             <Receipt receipt={this.state.receipt}></Receipt>
