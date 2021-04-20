@@ -1,4 +1,5 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
+import useInterval from '../../hook/useInterval';
 import { LOTTO_RAFFLE_DAY } from '../../constants/lottoData';
 import { extractRemainingDatesUntilDDay } from '../../utils/dday';
 
@@ -16,32 +17,17 @@ const getLottoResultRemainingTime = () => {
 };
 
 const CountdownSection = memo(() => {
-  const [countdown, setCountdown] = useState({});
+  const lottoResultRemainingTime = getLottoResultRemainingTime();
+
+  const [countdown, setCountdown] = useState(extractRemainingDatesUntilDDay(lottoResultRemainingTime));
   const { day, hour, minutes, seconds } = countdown;
 
-  useEffect(() => {
-    let lottoResultRemainingTime = getLottoResultRemainingTime();
-
-    const startCountdown = () => {
-      setCountdown(extractRemainingDatesUntilDDay(lottoResultRemainingTime));
-    };
-
-    startCountdown();
-    const interval = setInterval(() => {
-      if (lottoResultRemainingTime === 0) {
-        clearInterval(interval);
-
-        return;
-      }
-
-      lottoResultRemainingTime -= 1;
-      startCountdown();
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  useInterval(
+    () => {
+      setCountdown(extractRemainingDatesUntilDDay(lottoResultRemainingTime - 1));
+    },
+    lottoResultRemainingTime ? 1000 : null,
+  );
 
   return (
     <section>
