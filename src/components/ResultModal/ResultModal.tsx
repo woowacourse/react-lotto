@@ -32,11 +32,11 @@ export default class ResultModal extends Component<Props> {
     const winnerCounts = getWinnerCounts(tickets, winningNumber);
     const profit = getTotalProfit(payment, winnerCounts);
 
-    return [winnerCounts, profit];
+    return { winnerCounts, profit };
   }
 
   render() {
-    const [winnerCount, profit] = this.computeResult();
+    const { winnerCounts, profit } = this.computeResult();
 
     return (
       <Modal handleModalClose={this.props.handleModalClose}>
@@ -52,32 +52,13 @@ export default class ResultModal extends Component<Props> {
                 </tr>
               </thead>
               <tbody>
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FIFTH]}
-                  prize={PRIZE[RANK_INDEX.FIFTH]}
-                  matchCount={fifthWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FOURTH]}
-                  prize={PRIZE[RANK_INDEX.FOURTH]}
-                  matchCount={fourthWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.THIRD]}
-                  prize={PRIZE[RANK_INDEX.THIRD]}
-                  matchCount={thirdWinnerCount}
-                />
-                <ResultTableRow
-                  isBonus
-                  match={MATCH[RANK_INDEX.SECOND]}
-                  prize={PRIZE[RANK_INDEX.SECOND]}
-                  matchCount={secondWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FIRST]}
-                  prize={PRIZE[RANK_INDEX.FIRST]}
-                  matchCount={firstWinnerCount}
-                />
+                {Object.values(RANK_INDEX).map(index => (
+                  <ResultTableRow
+                    match={MATCH[index]}
+                    prize={PRIZE[index]}
+                    matchCount={winnerCounts[index]}
+                  />
+                ))}
               </tbody>
             </ResultTable>
           </Wrapper>

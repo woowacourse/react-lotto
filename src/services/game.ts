@@ -25,7 +25,7 @@ const getRankIndex = (ticketNumbers: number[], { numbers, bonus }: WinningNumber
 };
 
 export const getWinnerCounts = (tickets: Ticket[], winningNumber: WinningNumber) => {
-  const winnerCounts = new Array(5).fill(0);
+  const winnerCounts: number[] = new Array(5).fill(0);
 
   tickets.forEach(({ numbers }) => {
     const rankIndex = getRankIndex(numbers, winningNumber);
