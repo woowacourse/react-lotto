@@ -31,16 +31,8 @@ export default class ResultModal extends Component<Props> {
 
   render() {
     const { handleModalClose, resetGame } = this.props;
-    const {
-      winnerCounts: [
-        firstWinnerCount,
-        secondWinnerCount,
-        thirdWinnerCount,
-        fourthWinnerCount,
-        fifthWinnerCount,
-      ],
-      profit,
-    } = this.computeResult();
+    const { winnerCounts, profit } = this.computeResult();
+    const { FIRST, SECOND, THIRD, FOURTH, FIFTH } = RANK_INDEX;
 
     return (
       <Modal handleModalClose={handleModalClose}>
@@ -56,32 +48,15 @@ export default class ResultModal extends Component<Props> {
                 </tr>
               </thead>
               <tbody>
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FIFTH]}
-                  prize={PRIZE[RANK_INDEX.FIFTH]}
-                  matchCount={fifthWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FOURTH]}
-                  prize={PRIZE[RANK_INDEX.FOURTH]}
-                  matchCount={fourthWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.THIRD]}
-                  prize={PRIZE[RANK_INDEX.THIRD]}
-                  matchCount={thirdWinnerCount}
-                />
-                <ResultTableRow
-                  isBonus
-                  match={MATCH[RANK_INDEX.SECOND]}
-                  prize={PRIZE[RANK_INDEX.SECOND]}
-                  matchCount={secondWinnerCount}
-                />
-                <ResultTableRow
-                  match={MATCH[RANK_INDEX.FIRST]}
-                  prize={PRIZE[RANK_INDEX.FIRST]}
-                  matchCount={firstWinnerCount}
-                />
+                {[FIFTH, FOURTH, THIRD, SECOND, FIRST].map((rank, index) => (
+                  <ResultTableRow
+                    key={index}
+                    match={MATCH[rank]}
+                    prize={PRIZE[rank]}
+                    isBonus={rank === SECOND}
+                    matchCount={winnerCounts[rank]}
+                  />
+                ))}
               </tbody>
             </ResultTable>
           </Wrapper>
