@@ -56,6 +56,10 @@ html {
   }
 }
 
+.modal-opened {
+  overflow: hidden;
+}
+
 @keyframes gelatine {
   from,
   to {

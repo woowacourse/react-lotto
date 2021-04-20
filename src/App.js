@@ -7,6 +7,7 @@ import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './const
 import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
 import TimeLeft from './components/time-left';
+import { hideScroll, showScroll } from './utils/scroll';
 import muyaho from './sound/muyaho.mp3';
 import './style.scss';
 
@@ -22,7 +23,8 @@ class App extends React.Component {
       receipt: [],
       winningNumber: [],
     };
-    this.MoneyInputRef = React.createRef();
+
+    this.moneyInputRef = React.createRef();
     this.audio = new Audio(muyaho);
   }
 
@@ -48,6 +50,8 @@ class App extends React.Component {
     this.setState({
       isModalOpen: true,
     });
+
+    hideScroll();
   }
 
   handleResetButtonClick() {
@@ -55,13 +59,16 @@ class App extends React.Component {
       isMoneyInputValid: false,
       isModalOpen: false,
     });
-    this.MoneyInputRef.current.resetMoneyForm();
+
+    showScroll();
   }
 
-  handleModalCloseButtonClick() {
+  handleModalClose() {
     this.setState({
       isModalOpen: false,
     });
+
+    showScroll();
   }
 
   makeAutoTicket() {
@@ -85,7 +92,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <div ref={this.bodyRef}>
         {this.state.isMoneyInputValid && <TimeLeft></TimeLeft>}
         {this.state.isMoneyInputValid && (
           <audio controls autoPlay hidden>
@@ -95,7 +102,7 @@ class App extends React.Component {
         <Canvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput
-          ref={this.MoneyInputRef}
+          ref={this.moneyInputRef}
           onHandleSubmit={(money, ticketCount) => {
             this.handleMoneySubmit(money);
             this.makeReceipt(ticketCount);
@@ -121,11 +128,11 @@ class App extends React.Component {
               receipt={this.state.receipt}
               moneyAmount={this.state.moneyAmount}
               onResetButtonClick={() => this.handleResetButtonClick()}
-              onModalCloseButtonClick={() => this.handleModalCloseButtonClick()}
+              onModalClose={() => this.handleModalClose()}
             ></Modal>
           </>
         )}
-      </>
+      </div>
     );
   }
 }
