@@ -5,16 +5,14 @@ import ResultModal from './components/ResultModal/ResultModal';
 import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
 import { AppWrapper } from './App.styles';
 import { issueTickets } from './services/tickets';
-import ALERT_MESSAGE from './constants/alertMessage';
 import { getRemainedTime } from './utils/date';
-import { GREENWICH_MILLISECONDS } from './services/game';
 import RemainedTime from './components/RemainedTime/RemainedTime';
 
 type State = {
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
-  remainTime: Date;
+  remainTime: number;
 };
 
 export default class App extends Component<{}, State> {
@@ -33,7 +31,7 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: new Date(),
+      remainTime: 0,
     };
 
     this.handlePayment = this.handlePayment.bind(this);
@@ -45,7 +43,7 @@ export default class App extends Component<{}, State> {
 
   handleRemainedTime() {
     this.setState({
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
+      remainTime: getRemainedTime(),
     });
   }
 
@@ -76,7 +74,7 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: new Date(getRemainedTime()),
+      remainTime: 0,
     });
 
     this.winningNumberFormRef.current?.reset();

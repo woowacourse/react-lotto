@@ -13,3 +13,9 @@ export const getRemainedTime = () => {
 
   return announcementDate.getTime() - Date.now();
 };
+
+export const getDate = (time: number) => Math.floor(time / (1000 * 60 * 60 * 24));
+export const getHours = (time: number) =>
+  Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+export const getMinutes = (time: number) => Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+export const getSeconds = (time: number) => Math.floor((time % (1000 * 60)) / 1000);
