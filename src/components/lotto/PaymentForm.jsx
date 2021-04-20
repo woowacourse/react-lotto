@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LOTTERY, MAX_PAYMENT, SELECTOR } from '../utils';
+import { LOTTERY, MAX_PAYMENT, SELECTOR } from '../../utils';
 
 function PaymentForm(props) {
   const [message, setMessage] = useState(null);

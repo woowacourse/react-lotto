@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LOTTERY } from '../utils';
+import { LOTTERY } from '../../utils';
 
 function WinningNumbersForm(props) {
   const [isSubmit, setSubmit] = useState(false);

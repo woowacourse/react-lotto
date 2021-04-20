@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { publishLotteries, getWinningResult } from './services';
+import { getWinningResult } from '../services';
 import {
   PaymentForm,
   LotteriesDetail,
   WinningNumbersForm,
   WinningResultModal,
-} from './components';
-import { hasDuplicatedNumber, LOTTERY, MESSAGE } from './utils';
+} from './lotto';
+import {
+  getRandomNumbers,
+  hasDuplicatedNumber,
+  idMaker,
+  LOTTERY,
+  MESSAGE,
+} from '../utils';
+import { Lottery } from '../models';
 
 function App() {
   const [money, setMoney] = useState(null);
@@ -26,11 +33,28 @@ function App() {
   function handlePaymentSubmit() {
     try {
       checkValidPayment(money);
-      const lotteries = publishLotteries(money);
-      setLotteries(lotteries);
+      publishLotteries(money);
     } catch (error) {
       throw new Error(error.message);
     }
+  }
+
+  function publishLotteries(money) {
+    const lotteryAmount = money / LOTTERY.PRICE;
+    const lotteries = Array(lotteryAmount)
+      .fill(0)
+      .map(() => {
+        const id = idMaker.next().value;
+        const numbers = getRandomNumbers({
+          min: LOTTERY.MIN_NUMBER,
+          max: LOTTERY.MAX_NUMBER,
+          size: LOTTERY.NUMBER_COUNT,
+        });
+
+        return new Lottery(id, numbers);
+      });
+
+    setLotteries(lotteries);
   }
 
   function checkValidPayment(money) {

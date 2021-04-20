@@ -1,4 +1,4 @@
-import { PRIZE } from '../utils';
+import { PRIZE } from '../../utils';
 import PrizeTableInfo from './PrizeTableInfo';
 
 function WinningResultModal(props) {
