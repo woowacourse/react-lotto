@@ -53,18 +53,19 @@ export default class LottoGame extends Component {
   }
 
   publishLottoTickets(purchaseAmount) {
-    this.setState({ purchaseAmount }, this.setLottoTickets);
+    const lottoTickets = this.setLottoTickets(purchaseAmount);
+
+    this.setState({ purchaseAmount, lottoTickets });
   }
 
-  setLottoTickets() {
-    const amountOfLottoTicket = this.state.purchaseAmount / UNIT_AMOUNT;
+  setLottoTickets(purchaseAmount) {
+    const amountOfLottoTicket = purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
       .map(() => this.generateLottoNumbers());
 
-    this.setState({ lottoTickets });
+    return lottoTickets;
   }
-
   generateLottoNumbers() {
     const ticketNumbers = new Set();
 
