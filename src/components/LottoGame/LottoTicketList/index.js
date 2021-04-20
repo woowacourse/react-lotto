@@ -28,6 +28,7 @@ export default class LottoTicketList extends Component {
   }
 
   render() {
+    const { isToggleOn } = this.state;
     return (
       <section className="mt-9 ">
         <div className="flex">
@@ -44,7 +45,7 @@ export default class LottoTicketList extends Component {
         <div className="mt-4 scroll">
           <div className="flex flex-wrap flex-row">
             {this.props.lottoTickets.map((lottoTicket, index) => (
-              <LottoTicketItem key={index} numbers={lottoTicket} isToggleOn={this.state.isToggleOn} />
+              <LottoTicketItem key={index} numbers={lottoTicket} isToggleOn={isToggleOn} />
             ))}
           </div>
         </div>

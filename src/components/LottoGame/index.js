@@ -136,26 +136,32 @@ export default class LottoGame extends Component {
   }
 
   render() {
+    const { purchaseAmount, isPurchaseAmountSubmitted, lottoTickets, isModalOpened } = this.state;
     return (
       <>
         <div className="flex justify-center mt-5">
           <div className="w-full">
             <h1 className="text-center">🎱 행운의 로또</h1>
             <PurchaseAmountForm
-              purchaseAmount={this.state.purchaseAmount}
-              isPurchaseAmountSubmitted={this.state.isPurchaseAmountSubmitted}
+              purchaseAmount={purchaseAmount}
+              isPurchaseAmountSubmitted={isPurchaseAmountSubmitted}
               handleChange={this.handleChange}
               publishLottoTickets={this.publishLottoTickets}
               submitPurchaseAmount={this.submitPurchaseAmount}
             />
-            {this.state.isPurchaseAmountSubmitted && <AnnouncementTime />}
-            {this.state.isPurchaseAmountSubmitted && <LottoTicketList lottoTickets={this.state.lottoTickets} />}
-            {this.state.isPurchaseAmountSubmitted && (
-              <LottoResultForm setResultNumbers={this.setResultNumbers} openResultModal={this.openResultModal} />
+            {isPurchaseAmountSubmitted && (
+              <>
+                <AnnouncementTime />
+                <LottoTicketList lottoTickets={lottoTickets} />
+                <LottoResultForm
+                  setResultNumbers={this.setResultNumbers}
+                  openResultModal={this.openResultModal}
+                ></LottoResultForm>
+              </>
             )}
           </div>
         </div>
-        {this.state.isModalOpened && (
+        {isModalOpened && (
           <Modal
             container={<LottoResultContainer restartGame={this.restartGame} lottoResult={this.getLottoResult()} />}
             closeModal={this.closeResultModal}
