@@ -28,7 +28,7 @@ export default class App extends Component {
   };
 
   setWinningCounts = (winningCounts) => {
-    this.setState({ winningCounts: winningCounts });
+    this.setState({ winningCounts });
   };
 
   increaseWinningCounts = (rank) => {
@@ -40,14 +40,14 @@ export default class App extends Component {
     }));
   };
 
-  setLottoCount = (count) => {
+  setLottoCount = (lottoCount) => {
     this.setState({
-      lottoCount: count,
+      lottoCount,
     });
   };
 
   setAnnouncementDate = (announcementDate) => {
-    this.setState({ announcementDate: announcementDate });
+    this.setState({ announcementDate });
   };
 
   openModal = () => {

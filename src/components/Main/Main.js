@@ -7,15 +7,15 @@ export default class Main extends Component {
     bonusNumber: 0,
   };
 
-  setWinningNumbers = (numbers) => {
+  setWinningNumbers = (winningNumbers) => {
     this.setState({
-      winningNumbers: numbers,
+      winningNumbers,
     });
   };
 
-  setBonusNumber = (number) => {
+  setBonusNumber = (bonusNumber) => {
     this.setState({
-      bonusNumber: number,
+      bonusNumber,
     });
   };
 
