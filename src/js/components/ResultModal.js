@@ -50,12 +50,16 @@ export default class ResultModal extends Component {
   }
 
   getRateOfReturn(result) {
-    const totalPrize = Object.keys(result).reduce(
-      (sum, curCount) => sum + WINNING_PRIZE_INFO[curCount].PRIZE * result[curCount],
-      0,
-    );
+    try {
+      const totalPrize = Object.keys(result).reduce(
+        (sum, curCount) => sum + WINNING_PRIZE_INFO[curCount].PRIZE * result[curCount],
+        0,
+      );
 
-    return (totalPrize / (this.props.lottoList.length * LOTTO.PRICE) - 1) * 100;
+      return (totalPrize / (this.props.lottoList.length * LOTTO.PRICE) - 1) * 100;
+    } catch (e) {
+      return 0;
+    }
   }
 
   onCloseModalWithDimmed({ target }) {
