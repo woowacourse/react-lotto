@@ -42,15 +42,13 @@ export default class TicketList extends Component<Props, State> {
             {this.props.tickets.length === 0 ? (
               <span className="no-tickets">로또를 구매해주세요</span>
             ) : (
-              this.props.tickets.map(ticket => {
-                return (
-                  <TicketItem
-                    key={ticket.id}
-                    ticketNumbers={ticket.numbers}
-                    isDetailMode={this.state.isToggled}
-                  />
-                );
-              })
+              this.props.tickets.map(ticket => (
+                <TicketItem
+                  key={ticket.id}
+                  ticketNumbers={ticket.numbers}
+                  isDetailMode={this.state.isToggled}
+                />
+              ))
             )}
           </List>
         </div>

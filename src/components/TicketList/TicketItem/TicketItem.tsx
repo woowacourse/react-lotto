@@ -13,9 +13,9 @@ export default class TicketItem extends Component<Props> {
         <span className="ticket-icon">🎟️ </span>
         {this.props.isDetailMode && (
           <span className="ticket-numbers">
-            {this.props.ticketNumbers.map(number => {
-              return <span className="ticket-number">{number}</span>;
-            })}
+            {this.props.ticketNumbers.map(number => (
+              <span className="ticket-number">{number}</span>
+            ))}
           </span>
         )}
       </TicketItemWrapper>
