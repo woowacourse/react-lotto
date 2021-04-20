@@ -33,7 +33,7 @@ export default class App extends Component<{}, State> {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
+      remainTime: new Date(),
     };
 
     this.handlePayment = this.handlePayment.bind(this);
@@ -45,7 +45,7 @@ export default class App extends Component<{}, State> {
 
   handleRemainedTime() {
     this.setState({
-      remainTime: new Date(getRemainedTime()),
+      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
     });
   }
 
@@ -60,13 +60,6 @@ export default class App extends Component<{}, State> {
   }
 
   handleWinningNumber(winningNumber: WinningNumber) {
-    const ticketCount = this.state.tickets.length;
-
-    if (ticketCount === 0) {
-      alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
-      return;
-    }
-
     this.setState({ winningNumber });
     this.handleModal(true);
   }
@@ -97,13 +90,16 @@ export default class App extends Component<{}, State> {
       <AppWrapper display="flex">
         <h1 className="app-title">🎱 행운의 로또</h1>
         <PaymentForm handlePayment={this.handlePayment} />
-        {<RemainedTime remainTime={remainTime} />}
-        {/* {remainTime && <RemainedTime remainTime={remainTime} />} */}
-        <TicketList tickets={tickets} />
-        <WinningNumberForm
-          handleWinningNumber={this.handleWinningNumber}
-          formRef={this.winningNumberFormRef}
-        />
+        {!!tickets.length && (
+          <>
+            <TicketList tickets={tickets} />
+            <RemainedTime remainTime={remainTime} />
+            <WinningNumberForm
+              handleWinningNumber={this.handleWinningNumber}
+              formRef={this.winningNumberFormRef}
+            />
+          </>
+        )}
 
         {isModalOpen && (
           <ResultModal
