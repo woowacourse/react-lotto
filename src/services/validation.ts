@@ -4,11 +4,11 @@ import { hasDuplicateElement } from '../utils/validation';
 
 export const isValidPayment = (payment: number) => payment < TICKET.PRICE;
 
-export const isValidWinningNumber = (winningNumber: number): boolean => {
+export const isValidWinningNumber = (winningNumber: number) => {
   return winningNumber >= TICKET.MIN_NUMBER && winningNumber <= TICKET.MAX_NUMBER;
 };
 
-export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber): boolean => {
+export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber) => {
   return hasDuplicateElement<number>([...numbers, bonus]);
 };
 
@@ -18,13 +18,13 @@ export const alertByPaymentCase = (payment: number) => {
   }
 };
 
-export const alertByWinningNumberCase = (winningNumber: number): void => {
+export const alertByWinningNumberCase = (winningNumber: number) => {
   if (winningNumber < TICKET.MIN_NUMBER || winningNumber > TICKET.MAX_NUMBER) {
     alert(ALERT_MESSAGE.NUMBER_RANGE_EXCEEDED);
   }
 };
 
-export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber): void => {
+export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber) => {
   if (hasDuplicateElement<number>([...numbers, bonus])) {
     alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
   }

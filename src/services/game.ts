@@ -4,14 +4,11 @@ type Index = {
   [key: number]: number;
 };
 
-const hasBonus = (ticketNumbers: number[], bonus: number): boolean => {
+const hasBonus = (ticketNumbers: number[], bonus: number) => {
   return ticketNumbers.includes(bonus);
 };
 
-const getRankIndex = (
-  ticketNumbers: number[],
-  { numbers, bonus }: WinningNumber
-): number | undefined => {
+const getRankIndex = (ticketNumbers: number[], { numbers, bonus }: WinningNumber) => {
   const rankIndexMap: Index = {
     6: RANK_INDEX.FIRST,
     5: hasBonus(ticketNumbers, bonus) ? RANK_INDEX.SECOND : RANK_INDEX.THIRD,
@@ -27,7 +24,7 @@ const getRankIndex = (
   return rankIndexMap[matchCount];
 };
 
-export const getWinnerCounts = (tickets: Ticket[], winningNumber: WinningNumber): number[] => {
+export const getWinnerCounts = (tickets: Ticket[], winningNumber: WinningNumber) => {
   const winnerCounts = new Array(5).fill(0);
 
   tickets.forEach(({ numbers }) => {

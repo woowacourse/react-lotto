@@ -1,6 +1,6 @@
 export const getRemainedTime = () => {
-  const nowDate: Date = new Date();
-  const announcementDate: Date = new Date(
+  const nowDate = new Date();
+  const announcementDate = new Date(
     nowDate.getFullYear(),
     nowDate.getMonth(),
     nowDate.getDate(),
