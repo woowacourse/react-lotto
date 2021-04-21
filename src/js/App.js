@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { hot } from 'react-hot-loader/root';
-import LottoHeader from './components/lottoHeader/LottoHeader';
 import PriceForm from './components/priceForm/PriceForm';
 import PurchasedLotto from './components/purchasedLotto/PurchasedLotto';
 import WinningNumberForm from './components/winningNumberForm/WinningNumberForm';
 import CountdownSection from './components/countdownSection/CountdownSection';
 import ResultModal from './components/resultModal/ResultModal';
 import { getRandomNumber } from './utils/random';
-import { HEADER_TITLE, LOTTO } from './constants/lottoData';
+import { LOTTO } from './constants/lottoData';
 
 const createLotto = () => {
   const numberList = new Set();
@@ -38,7 +37,9 @@ const App = () => {
 
   return (
     <>
-      <LottoHeader headerTitle={HEADER_TITLE} />
+      <header className="lotto-header">
+        <h1>🎱 행운의 로또</h1>
+      </header>
       <main>
         <PriceForm createLottoList={createLottoList} onPriceChange={setPrice} price={price} />
         {lottoList.length > 0 && (

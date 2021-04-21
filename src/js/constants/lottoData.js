@@ -6,7 +6,6 @@ export const LOTTO = {
   BONUS_NUMBER_LENGTH: 1,
 };
 
-export const HEADER_TITLE = '🎱 행운의 로또';
 export const BONUS_COUNT = 0.5;
 export const NUMBER_COUNT = 1;
 export const WINNING_COUNT = {
