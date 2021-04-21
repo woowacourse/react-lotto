@@ -61,10 +61,7 @@ export default function Modal(props) {
   const ticketRanks = props.tickets
     .map((ticket) => getWinningCount(ticket, props.winningNumbers, props.bonusNumber))
     .map(getWinningRank)
-    .reduce(
-      getWinningRankCount,
-      Array.from({ length: winningTable.length }, () => 0)
-    );
+    .reduce(getWinningRankCount, Array(winningTable.length).fill(0));
 
   const profit = getProfit(ticketRanks, props.tickets);
 

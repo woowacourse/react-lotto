@@ -13,7 +13,7 @@ export default class WinningNumberForm extends React.Component {
     super(props);
 
     this.initialState = {
-      winningNumberInputValues: Array.from({ length: LOTTO.LENGTH }, () => ''),
+      winningNumberInputValues: Array(LOTTO.LENGTH).fill(''),
       bonusNumberInputValue: '',
       validationMessage: MESSAGE.REQUIRE_WINNING_NUMBER_INPUT,
     };
