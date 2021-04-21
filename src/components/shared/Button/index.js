@@ -1,23 +1,29 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/button-has-type */
-import { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './style.css';
 
 const cx = classNames.bind(styles);
 
-export default class Button extends Component {
-  render() {
-    const { className, children, ...props } = this.props;
-    const buttonClass = cx({
-      Button: true,
-      [`${className}`]: true,
-    });
+export default function Button({ className, children, ...props }) {
+  const buttonClassnames = cx('Button', `${className}`);
 
-    return (
-      <button className={buttonClass} {...props}>
-        {children}
-      </button>
-    );
-  }
+  return (
+    <button className={buttonClassnames} {...props}>
+      {children}
+    </button>
+  );
 }
+
+Button.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.string,
+  type: PropTypes.string,
+  onClick: PropTypes.func,
+};
+
+Button.defaultProps = {
+  className: '',
+  children: '',
+  type: 'button',
+  onClick: () => {},
+};
