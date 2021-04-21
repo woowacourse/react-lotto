@@ -14,10 +14,7 @@ export default class UserResult extends Component {
 
     this.state = {
       isLoading: true,
-      result: {
-        profit: 0,
-        rateOfReturn: 0,
-      },
+      result: { profit: 0, rateOfReturn: 0 },
     };
     this.removeLoader = this.removeLoader.bind(this);
   }
