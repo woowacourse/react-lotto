@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PurchaseAmountForm from './PurchaseAmountForm';
 import LottoTicketList from './LottoTicketList';
 import LottoResultForm from './LottoResultForm';
@@ -21,42 +21,43 @@ const LottoGame = () => {
     }
   };
 
-  const publishLottoTickets = () => {
+  const publishLottoTickets = useCallback(() => {
     const amountOfLottoTicket = purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
       .map(() => generateLottoNumbers());
 
     setLottoTickets(lottoTickets);
-  };
+  }, [purchaseAmount]);
 
-  const buyLottoTickets = purchaseAmount => {
-    setPurchaseAmountSubmitted(true);
-    setPurchaseAmount(purchaseAmount);
-    publishLottoTickets();
-  };
+  const buyLottoTickets = useCallback(
+    purchaseAmount => {
+      setPurchaseAmountSubmitted(true);
+      setPurchaseAmount(purchaseAmount);
+      publishLottoTickets();
+    },
+    [publishLottoTickets]
+  );
 
-  const restartGame = () => {
+  const restartGame = useCallback(() => {
     setPurchaseAmount('');
     setPurchaseAmountSubmitted(false);
     setLottoTickets([]);
     setResultNumbers({ winningNumbers: [], bonusNumber: 0 });
     setModalOpened(false);
-  };
+  }, []);
 
-  const openResultModal = () => {
+  const openResultModal = useCallback(() => {
     setModalOpened(true);
-  };
+  }, []);
 
-  const closeResultModal = () => {
+  const closeResultModal = useCallback(() => {
     setModalOpened(false);
-  };
+  }, []);
 
-  const lottoResult = getLottoResult(
-    purchaseAmount,
-    lottoTickets,
-    resultNumbers.winningNumbers,
-    resultNumbers.bonusNumber
+  const lottoResult = useMemo(
+    () => getLottoResult(purchaseAmount, lottoTickets, resultNumbers.winningNumbers, resultNumbers.bonusNumber),
+    [isModalOpened]
   );
 
   return (

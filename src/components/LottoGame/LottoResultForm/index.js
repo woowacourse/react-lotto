@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_COUNT } from '../../../constants/standard';
 import { hasDuplicatedItemInList, isNumbersInValidRange } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
 
-const LottoResultForm = props => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const winningNumbers = Array(LOTTO_NUMBER_COUNT)
-      .fill()
-      .map((_, idx) => Number(event.target[`winning-${idx + 1}`].value));
-    const bonusNumber = Number(event.target['bonus'].value);
+const LottoResultForm = ({ setResultNumbers, openResultModal }) => {
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      const winningNumbers = Array(LOTTO_NUMBER_COUNT)
+        .fill()
+        .map((_, idx) => Number(event.target[`winning-${idx + 1}`].value));
+      const bonusNumber = Number(event.target['bonus'].value);
 
-    if (!isNumbersInValidRange([...winningNumbers, bonusNumber], MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)) {
-      alert(MESSAGE.OUT_RANGED_LOTTO_NUMBERS);
-      return;
-    }
+      if (!isNumbersInValidRange([...winningNumbers, bonusNumber], MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)) {
+        alert(MESSAGE.OUT_RANGED_LOTTO_NUMBERS);
+        return;
+      }
 
-    if (hasDuplicatedItemInList([...winningNumbers, bonusNumber])) {
-      alert(MESSAGE.DUPLICATED_LOTTO_NUMBERS);
-      return;
-    }
+      if (hasDuplicatedItemInList([...winningNumbers, bonusNumber])) {
+        alert(MESSAGE.DUPLICATED_LOTTO_NUMBERS);
+        return;
+      }
 
-    props.setResultNumbers({ winningNumbers, bonusNumber });
-    props.openResultModal();
-  };
+      setResultNumbers({ winningNumbers, bonusNumber });
+      openResultModal();
+    },
+    [setResultNumbers, openResultModal]
+  );
 
   return (
     <form className="mt-9" onSubmit={handleSubmit}>

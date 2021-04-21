@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
-const LottoTicketItem = props => {
+const LottoTicketItem = ({ isToggleOn, numbers }) => {
   return (
     <div className="lotto-wrapper flex items-center">
       <span className="lotto mx-1 text-4xl">🎟️ </span>
-      {props.isToggleOn && <span className="ml-3 text-2xl ">{props.numbers.join(', ')}</span>}
+      {isToggleOn && <span className="ml-3 text-2xl ">{numbers.join(', ')}</span>}
     </div>
   );
 };
 
-const LottoTicketList = props => {
+const LottoTicketList = ({ lottoTickets }) => {
   const [isToggleOn, setToggle] = useState(false);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     setToggle(isToggleOn => !isToggleOn);
-  };
+  }, []);
 
   return (
     <section className="mt-9 ">
       <div className="flex">
-        <label className="flex-auto my-0">총 {props.lottoTickets.length}개를 구매하였습니다.</label>
+        <label className="flex-auto my-0">총 {lottoTickets.length}개를 구매하였습니다.</label>
         <div className="flex-auto flex justify-end pr-1">
           <label className="switch">
             <input type="checkbox" />
@@ -31,7 +31,7 @@ const LottoTicketList = props => {
       </div>
       <div className="mt-4 scroll">
         <div className="flex flex-wrap flex-row">
-          {props.lottoTickets.map((lottoTicket, index) => (
+          {lottoTickets.map((lottoTicket, index) => (
             <LottoTicketItem key={index} numbers={lottoTicket} isToggleOn={isToggleOn} />
           ))}
         </div>
