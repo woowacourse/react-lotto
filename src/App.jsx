@@ -62,8 +62,7 @@ export default class App extends React.Component {
     }
 
     const table = {
-      Escape: () => this.closeModal(),
-      ' ': () => this.resetState(),
+      Escape: this.handleCloseClick,
     };
 
     return table[key]?.();
