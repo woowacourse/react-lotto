@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { formatMoney } from '../utils';
+import { formatMoney } from '../../utils';
 
 class PrizeTableInfo extends Component {
   render() {
