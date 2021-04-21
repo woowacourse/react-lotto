@@ -96,11 +96,11 @@ export default function Modal(props) {
             <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
         </div>
-        <h2 className="text-2xl font-semibold text-center mb-4">
+        <h2 className="text-2xl font-semibold text-center mb-4 space-x-2">
           <span role="img" aria-label="trophy">
             🏆
           </span>
-          {' 당첨 통계 '}
+          <span>당첨 통계</span>
           <span role="img" aria-label="trophy">
             🏆
           </span>

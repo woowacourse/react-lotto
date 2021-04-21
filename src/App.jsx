@@ -90,12 +90,12 @@ export default class App extends React.Component {
 
     return (
       <>
-        <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
-          <h1 className="text-center text-4xl	font-bold mb-14">
+        <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white focus:ring-red-500">
+          <h1 className="text-center text-4xl	font-bold mb-14 space-x-2">
             <span role="img" aria-label="good-luck">
               🎱
             </span>
-            {' 행운의 로또'}
+            <span>행운의 로또</span>
           </h1>
           <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} isReset={isReset} />
           {this.state.tickets.length > 0 && (
