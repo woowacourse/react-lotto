@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import classNames from 'classnames/bind';
-import TwoDigitBall from '../NDigitBall';
+import Ball from '../Ball';
 import styles from './style.css';
 
 const cx = classNames.bind(styles);
@@ -17,10 +17,6 @@ export default class LottoBall extends Component {
       'LottoBall--not_matched': winningNumbers && !winningNumbers.includes(num),
     });
 
-    return (
-      <TwoDigitBall className={lottoBallClass} n="2">
-        {num}
-      </TwoDigitBall>
-    );
+    return <Ball className={lottoBallClass}>{num.toString().padStart(2, '0')}</Ball>;
   }
 }
