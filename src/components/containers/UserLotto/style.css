@@ -7,21 +7,23 @@
   padding: 0 0.25rem;
 }
 
-.UserLotto__display {
+.UserLotto__list {
   margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
 }
 
-.UserLotto__display .Lotto__number {
+.UserLotto__list .Lotto__number {
   display: none;
 }
 
-.UserLotto__display.toggle {
+.UserLotto__list.toggle {
   flex-direction: column;
 }
 
-.UserLotto__display.toggle .Lotto__number {
+.UserLotto__list.toggle .Lotto__number {
   display: inline-block;
 }
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { Component } from 'react';
 import classNames from 'classnames/bind';
 import Lotto from './Lotto';
@@ -22,8 +21,8 @@ export default class UserLotto extends Component {
   render() {
     const { isToggled } = this.state;
     const { lottoBundle } = this.props;
-    const userLottoDisplayClass = cx({
-      UserLotto__display: true,
+    const userLottoListClass = cx({
+      UserLotto__list: true,
       toggle: isToggled,
     });
 
@@ -33,11 +32,13 @@ export default class UserLotto extends Component {
         <p>
           총 <span className="UserLotto__number">{lottoBundle.length}</span>개 구매하였습니다.
         </p>
-        <p className={userLottoDisplayClass}>
+        <ul className={userLottoListClass}>
           {lottoBundle.map((v, i) => (
-            <Lotto key={i} numbers={v} />
+            <li key={i}>
+              <Lotto numbers={v} />
+            </li>
           ))}
-        </p>
+        </ul>
       </div>
     );
   }
