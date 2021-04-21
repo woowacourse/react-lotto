@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import { Component } from 'react';
 import ResultTable from './ResultTable';
-import { Animation, Button, XButton, Record } from '../../shared';
+import { Animation, Button, Title, XButton, Record } from '../../shared';
 import { getComputedResult } from './service';
 import { coin } from '../../../statics';
 import './style.css';
@@ -45,7 +45,7 @@ export default class UserResult extends Component {
         ) : (
           <div className="UserResult__inner">
             <XButton onClick={onCloseUserResult} />
-            <h2 className="UserResult__title">당첨결과</h2>
+            <Title>당첨결과</Title>
             <ResultTable lottoBundle={lottoBundle} winningNumber={winningNumber} />
             <div className="Record__wrapper">
               <Record label="당첨 금액">{profit}원</Record>

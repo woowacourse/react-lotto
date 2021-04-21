@@ -4,6 +4,7 @@ import PurchaseForm from '../containers/PurchaseForm';
 import UserLotto from '../containers/UserLotto';
 import WinningNumbers from '../containers/WinningNumbers';
 import UserResult from '../containers/UserResult';
+import { Title } from '../shared';
 import { createLotto } from './service';
 import './style.css';
 
@@ -57,7 +58,9 @@ export default class App extends Component {
     return (
       <>
         <main className="App__main">
-          <h1 className="App__title">행운의 로또</h1>
+          <Title as="h1" size="medium">
+            행운의 로또
+          </Title>
           <PurchaseForm
             lottoBundle={lottoBundle}
             onPurchaseLotto={this.onPurchaseLotto}

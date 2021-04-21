@@ -1,9 +1,10 @@
 import Animation from './Animation';
-import Button from './Button';
-import ToggleButton from './ToggleButton';
-import XButton from './XButton';
 import Ball from './Ball';
+import Button from './Button';
 import LottoBall from './LottoBall';
 import Record from './Record';
+import Title from './Title';
+import ToggleButton from './ToggleButton';
+import XButton from './XButton';
 
-export { Animation, Button, ToggleButton, XButton, Ball, LottoBall, Record };
+export { Animation, Ball, Button, LottoBall, Record, Title, ToggleButton, XButton };

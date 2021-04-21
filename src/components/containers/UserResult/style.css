@@ -36,10 +36,6 @@
   top: 3rem;
 }
 
-.UserResult__title {
-  text-align: center;
-}
-
 .ResultTable {
   display: flex;
   justify-content: center;
