@@ -3,8 +3,7 @@ import Lotto from '../../Lotto';
 import { Root, FlexContainer, NumbersContainer, NumberInput, SubmitButton, InputErrorMessage } from './style';
 import { validateNumbers } from '../../utils/validator';
 
-export default function WinningNumbersContainer({ winningNumbers, onShowResult }) {
-  const [isNumbersDuplicated, setIsNumbersDuplicated] = useState(false);
+export default function WinningNumbersContainer({ winningNumbers, onSubmitNumbers, onOpenModal }) {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const moveNumberInputFocus = (event) => {
@@ -28,23 +27,20 @@ export default function WinningNumbersContainer({ winningNumbers, onShowResult }
 
     try {
       validateNumbers(mainNumbers, bonusNumber);
-      setIsNumbersDuplicated(false);
       setErrorMessage(null);
     } catch (error) {
-      setIsNumbersDuplicated(true);
       setErrorMessage(error.message);
 
       return;
     }
 
-    onShowResult({ mainNumbers, bonusNumber });
+    onSubmitNumbers({ mainNumbers, bonusNumber });
+    onOpenModal();
   };
 
   const numberInputs = Array.from({ length: Lotto.NUMBERS_LENGTH }, (_, idx) => (
     <NumberInput key={idx} data-index={idx} type="number" name="main-number" min="1" max="45" required />
   ));
-
-  const errorNotification = isNumbersDuplicated ? <InputErrorMessage>{errorMessage}</InputErrorMessage> : null;
 
   return (
     <Root>
@@ -67,7 +63,7 @@ export default function WinningNumbersContainer({ winningNumbers, onShowResult }
             />
           </NumbersContainer>
         </FlexContainer>
-        {errorNotification}
+        <InputErrorMessage>{errorMessage}</InputErrorMessage>
         <SubmitButton>결과 확인하기</SubmitButton>
       </form>
     </Root>

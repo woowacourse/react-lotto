@@ -4,12 +4,11 @@ import { validatePriceUnit } from '../../utils/validator';
 
 export default function PriceInput({ isDisabled, onPurchaseLottos }) {
   const inputRef = useRef();
-  const [isValidPriceUnit, setIsValidPriceUnit] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    inputRef.current.focus();
-  });
+    if (!isDisabled) inputRef.current.focus();
+  }, [isDisabled]);
 
   const handleSubmitPrice = (event) => {
     event.preventDefault();
@@ -18,10 +17,8 @@ export default function PriceInput({ isDisabled, onPurchaseLottos }) {
 
     try {
       validatePriceUnit($priceInput.valueAsNumber);
-      setIsValidPriceUnit(true);
       setErrorMessage(null);
     } catch (error) {
-      setIsValidPriceUnit(false);
       setErrorMessage(error.message);
 
       return;
@@ -30,8 +27,6 @@ export default function PriceInput({ isDisabled, onPurchaseLottos }) {
     onPurchaseLottos($priceInput.valueAsNumber);
     $priceInput.value = '';
   };
-
-  const errorNotification = isValidPriceUnit ? null : <InputErrorMessage>{errorMessage}</InputErrorMessage>;
 
   return (
     <Root>
@@ -48,7 +43,7 @@ export default function PriceInput({ isDisabled, onPurchaseLottos }) {
             required
           />
           <SubmitButton disabled={isDisabled}>확인</SubmitButton>
-          {errorNotification}
+          <InputErrorMessage>{errorMessage}</InputErrorMessage>
         </InputWrapper>
       </form>
     </Root>
