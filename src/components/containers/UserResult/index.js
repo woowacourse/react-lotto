@@ -40,7 +40,7 @@ export default class UserResult extends Component {
       <div className="UserResult UserResult--open">
         {isLoading ? (
           <div className="UserResult--loading">
-            <Animation animationData={coin} loop="false" speed="2" height="360px" />
+            <Animation animationData={coin} speed={2} height="360px" />
           </div>
         ) : (
           <div className="UserResult__inner">

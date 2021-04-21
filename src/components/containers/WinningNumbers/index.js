@@ -37,7 +37,7 @@ export default class WinningNumbers extends Component {
     const { isLoading } = this.state;
 
     return isLoading ? (
-      <Animation animationData={countDown} loop="false" speed="1" height="140px" />
+      <Animation animationData={countDown} height="140px" />
     ) : (
       <>
         <Title size="small">
