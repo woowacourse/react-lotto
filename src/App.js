@@ -3,10 +3,10 @@ import { Root, Container, Title } from './style';
 import PriceInput from './components/PriceInput';
 import LottosContainer from './components/LottosContainer';
 import WinningNumbersContainer from './components/WinningNumbersContainer';
-import ResultModal from './components/ResultModal';
+import LottoResult from './components/LottoResult';
+import Modal from './components/@shared/Modal';
 import AnnounceTimer from './components/AnnounceTimer';
 import Lotto from './Lotto';
-import { validatePriceUnit } from './utils/validator';
 
 export default function App() {
   const [price, setPrice] = useState(0);
@@ -15,8 +15,6 @@ export default function App() {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
   const createLottos = (price) => {
-    if (price < Lotto.LOTTO_PRICE_UNIT || !validatePriceUnit(price)) return;
-
     const count = price / Lotto.PRICE_UNIT;
     const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
 
@@ -37,27 +35,21 @@ export default function App() {
     <Root>
       <Container>
         <Title>🎰 개미 로또</Title>
-        {isLottosCreated ? <AnnounceTimer /> : null}
+        {isLottosCreated && <AnnounceTimer />}
         <PriceInput isDisabled={isLottosCreated} onPurchaseLottos={createLottos} />
-        {isLottosCreated ? (
+        {isLottosCreated && (
           <>
             <LottosContainer lottos={lottos} />
             <WinningNumbersContainer
-              winningNumbers={winningNumbers}
-              onSubmitNumbers={setWinningNumbers}
+              onSubmitNumbers={(numbers) => setWinningNumbers(numbers)}
               onOpenModal={() => setIsResultModalOpen(true)}
             />
           </>
-        ) : null}
+        )}
       </Container>
-      <ResultModal
-        isOpen={isResultModalOpen}
-        price={price}
-        lottos={lottos}
-        winningNumbers={winningNumbers}
-        onResetGame={resetGame}
-        onCloseModal={() => setIsResultModalOpen(false)}
-      />
+      <Modal isOpen={isResultModalOpen} onCloseModal={() => setIsResultModalOpen(false)}>
+        <LottoResult price={price} lottos={lottos} winningNumbers={winningNumbers} onResetGame={resetGame} />
+      </Modal>
     </Root>
   );
 }

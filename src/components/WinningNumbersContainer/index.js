@@ -3,7 +3,7 @@ import Lotto from '../../Lotto';
 import { Root, FlexContainer, NumbersContainer, NumberInput, SubmitButton, InputErrorMessage } from './style';
 import { validateNumbers } from '../../utils/validator';
 
-export default function WinningNumbersContainer({ winningNumbers, onSubmitNumbers, onOpenModal }) {
+export default function WinningNumbersContainer({ onSubmitNumbers, onOpenModal }) {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const moveNumberInputFocus = (event) => {
