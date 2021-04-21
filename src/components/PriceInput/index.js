@@ -43,7 +43,7 @@ export default function PriceInput({ isDisabled, onPurchaseLottos }) {
             required
           />
           <SubmitButton disabled={isDisabled}>확인</SubmitButton>
-          <InputErrorMessage>{errorMessage}</InputErrorMessage>
+          {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
         </InputWrapper>
       </form>
     </Root>

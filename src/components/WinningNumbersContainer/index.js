@@ -63,7 +63,7 @@ export default function WinningNumbersContainer({ onSubmitNumbers, onOpenModal }
             />
           </NumbersContainer>
         </FlexContainer>
-        <InputErrorMessage>{errorMessage}</InputErrorMessage>
+        {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
         <SubmitButton>결과 확인하기</SubmitButton>
       </form>
     </Root>
