@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { isValidPurchaseAmount } from '../../../utils/validator';
+import { isValidPurchaseAmount, isNumbersInValidRange } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
+import { MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT } from '../../../constants/standard';
 
 const PurchaseAmountForm = ({ purchaseAmount, handleChange, isPurchaseAmountSubmitted, buyLottoTickets }) => {
   const inputRef = useRef();
@@ -12,6 +13,11 @@ const PurchaseAmountForm = ({ purchaseAmount, handleChange, isPurchaseAmountSubm
       const purchaseAmount = event.target['purchaseAmount'].value;
       if (!isValidPurchaseAmount(purchaseAmount)) {
         alert(MESSAGE.INVALID_PURCHASE_AMOUNT);
+        return;
+      }
+
+      if (!isNumbersInValidRange([purchaseAmount], MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT)) {
+        alert(MESSAGE.OUT_RANGED_PURCHASE_AMOUNT);
         return;
       }
 
