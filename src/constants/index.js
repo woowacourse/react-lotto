@@ -6,12 +6,28 @@ const RANK_CONVERTER = {
   3: '5th',
 };
 
-const WINNING_PRIZE = {
-  '1st': 2e9,
-  '2nd': 3e7,
-  '3rd': 15e5,
-  '4th': 5e4,
-  '5th': 5e3,
+const RANK_TABLE = {
+  '5th': {
+    prize: 5e3,
+    matching: '3개',
+  },
+  '4th': {
+    prize: 5e4,
+    matching: '4개',
+  },
+  '3rd': {
+    prize: 15e5,
+    matching: '5개',
+  },
+  '2nd': {
+    prize: 3e7,
+    matching: '5개 + 보너스볼',
+  },
+
+  '1st': {
+    prize: 2e9,
+    matching: '6개',
+  },
 };
 
-export { RANK_CONVERTER, WINNING_PRIZE };
+export { RANK_CONVERTER, RANK_TABLE };

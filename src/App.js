@@ -1,99 +1,55 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Root, Container, Title } from './style';
 import PriceInput from './components/PriceInput';
 import LottosContainer from './components/LottosContainer';
 import WinningNumbersContainer from './components/WinningNumbersContainer';
-import ResultModal from './components/ResultModal';
+import LottoResult from './components/LottoResult';
+import Modal from './components/@shared/Modal';
 import AnnounceTimer from './components/AnnounceTimer';
 import Lotto from './Lotto';
 
-const initialState = {
-  price: 0,
-  lottos: [],
-  winningNumbers: {
-    mainNumbers: [],
-    bonusNumber: null,
-  },
-  isResultModalOpen: false,
-};
+export default function App() {
+  const [price, setPrice] = useState(0);
+  const [lottos, setLottos] = useState([]);
+  const [winningNumbers, setWinningNumbers] = useState({ mainNumbers: [], bonusNumber: null });
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = initialState;
-
-    this.handleUpdatePrice = this.handleUpdatePrice.bind(this);
-    this.purchaseLottos = this.purchaseLottos.bind(this);
-    this.openResultModal = this.openResultModal.bind(this);
-    this.closeResultModal = this.closeResultModal.bind(this);
-    this.resetGame = this.resetGame.bind(this);
-  }
-
-  handleUpdatePrice(event) {
-    const price = event.target.value;
-    this.setState({ price });
-  }
-
-  purchaseLottos(price) {
-    this.setState({ price }, this.createLottos);
-  }
-
-  createLottos() {
-    const count = this.state.price / Lotto.PRICE_UNIT;
+  const createLottos = (price) => {
+    const count = price / Lotto.PRICE_UNIT;
     const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
 
-    this.setState({ lottos });
-  }
+    setPrice(price);
+    setLottos(lottos);
+  };
 
-  openResultModal(winningNumbers) {
-    this.setState({
-      winningNumbers,
-      isResultModalOpen: true,
-    });
-  }
+  const resetGame = () => {
+    setPrice(0);
+    setLottos([]);
+    setWinningNumbers({ mainNumbers: [], bonusNumber: null });
+    setIsResultModalOpen(false);
+  };
 
-  closeResultModal() {
-    this.setState({
-      isResultModalOpen: false,
-    });
-  }
+  const isLottosCreated = lottos.length > 0;
 
-  resetGame() {
-    this.setState(initialState);
-  }
-
-  render() {
-    const isLottoCreated = this.state.lottos.length > 0;
-
-    return (
-      <Root>
-        <Container>
-          <Title>🎰 개미 로또</Title>
-          {isLottoCreated ? <AnnounceTimer /> : null}
-          <PriceInput
-            isDisabled={isLottoCreated}
-            onPurchaseLottos={this.purchaseLottos}
-            onUpdatePrice={this.handleUpdatePrice}
-          />
-          {isLottoCreated > 0 ? (
-            <>
-              <LottosContainer lottos={this.state.lottos} />
-              <WinningNumbersContainer winningNumbers={this.state.winningNumbers} onShowResult={this.openResultModal} />
-            </>
-          ) : null}
-        </Container>
-        <ResultModal
-          isOpen={this.state.isResultModalOpen}
-          price={this.state.price}
-          lottos={this.state.lottos}
-          winningNumbers={this.state.winningNumbers}
-          onResetGame={this.resetGame}
-          onCloseModal={this.closeResultModal}
-        />
-      </Root>
-    );
-  }
+  return (
+    <Root>
+      <Container>
+        <Title>🎰 개미 로또</Title>
+        {isLottosCreated && <AnnounceTimer />}
+        <PriceInput isDisabled={isLottosCreated} onPurchaseLottos={createLottos} />
+        {isLottosCreated && (
+          <>
+            <LottosContainer lottos={lottos} />
+            <WinningNumbersContainer
+              onSubmitNumbers={(numbers) => setWinningNumbers(numbers)}
+              onOpenModal={() => setIsResultModalOpen(true)}
+            />
+          </>
+        )}
+      </Container>
+      <Modal isOpen={isResultModalOpen} onCloseModal={() => setIsResultModalOpen(false)}>
+        <LottoResult price={price} lottos={lottos} winningNumbers={winningNumbers} onResetGame={resetGame} />
+      </Modal>
+    </Root>
+  );
 }
-
-export default App;

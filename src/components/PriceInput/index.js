@@ -1,60 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Root, Label, InputWrapper, Input, SubmitButton, InputErrorMessage } from './style';
 import { validatePriceUnit } from '../../utils/validator';
 
-class PriceInput extends Component {
-  constructor(props) {
-    super(props);
+export default function PriceInput({ isDisabled, onPurchaseLottos }) {
+  const inputRef = useRef();
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    this.state = {
-      isValidPriceUnit: true,
-      errorMessage: '',
-    };
-    this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
-  }
+  useEffect(() => {
+    if (!isDisabled) inputRef.current.focus();
+  }, [isDisabled]);
 
-  handleSubmitPrice(event) {
+  const handleSubmitPrice = (event) => {
     event.preventDefault();
 
     const $priceInput = event.target.price;
 
     try {
       validatePriceUnit($priceInput.valueAsNumber);
-      this.setState({ isValidPriceUnit: true, errorMessage: '' });
+      setErrorMessage(null);
     } catch (error) {
-      this.setState({ isValidPriceUnit: false, errorMessage: error.message });
+      setErrorMessage(error.message);
+
       return;
     }
 
-    this.props.onPurchaseLottos($priceInput.valueAsNumber);
+    onPurchaseLottos($priceInput.valueAsNumber);
     $priceInput.value = '';
-  }
+  };
 
-  render() {
-    const errorMessage = this.state.isValidPriceUnit ? null : (
-      <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>
-    );
-
-    return (
-      <Root>
-        <form onSubmit={this.handleSubmitPrice}>
-          <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
-          <InputWrapper>
-            <Input
-              type="number"
-              id="price"
-              min="1000"
-              placeholder="구입 금액"
-              disabled={this.props.isDisabled}
-              required
-            />
-            <SubmitButton disabled={this.props.isDisabled}>확인</SubmitButton>
-            {errorMessage}
-          </InputWrapper>
-        </form>
-      </Root>
-    );
-  }
+  return (
+    <Root>
+      <form onSubmit={handleSubmitPrice}>
+        <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
+        <InputWrapper>
+          <Input
+            type="number"
+            id="price"
+            min="1000"
+            placeholder="구입 금액"
+            disabled={isDisabled}
+            ref={inputRef}
+            required
+          />
+          <SubmitButton disabled={isDisabled}>확인</SubmitButton>
+          {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
+        </InputWrapper>
+      </form>
+    </Root>
+  );
 }
-
-export default PriceInput;

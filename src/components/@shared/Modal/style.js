@@ -5,7 +5,7 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const Modal = styled.div`
+const ModalArea = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   display: flex;
@@ -51,35 +51,4 @@ const CloseX = styled.path`
   stroke-width: 5;
 `;
 
-const Table = styled.table`
-  border-width: 1px;
-  border-color: black;
-  border-collapse: collapse;
-  overflow: hidden;
-
-  & th,
-  & td {
-    padding: 0.75rem;
-    border-bottom: 1px solid gainsboro;
-  }
-`;
-
-const Tr = styled.tr`
-  text-align: center;
-`;
-
-const EarningRate = styled.p`
-  text-align: center;
-  font-weight: 700;
-`;
-
-const RestartButton = styled.button`
-  width: 128px;
-  height: 36px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ffa02b;
-  cursor: pointer;
-`;
-
-export { Root, Modal, ModalInner, CloseButton, CloseX, Table, Tr, EarningRate, RestartButton };
+export { Root, ModalArea, ModalInner, CloseButton, CloseX };
