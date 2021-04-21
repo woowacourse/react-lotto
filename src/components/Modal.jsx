@@ -53,8 +53,8 @@ Modal.propTypes = {
   tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   winningNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   bonusNumber: PropTypes.number.isRequired,
-  reset: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired,
+  onResetClick: PropTypes.func.isRequired,
+  onCloseClick: PropTypes.func.isRequired,
 };
 
 export default function Modal(props) {
@@ -68,13 +68,11 @@ export default function Modal(props) {
 
   const profit = getProfit(ticketRanks, props.tickets);
 
-  const handleResetClick = props.reset;
-  const handleCloseClick = props.close;
   const handleCloseKeyUp = ({ key }) => {
     const keys = ['Enter', ' '];
 
     if (keys.includes(key)) {
-      props.close();
+      props.onCloseClick();
     }
   };
 
@@ -86,7 +84,7 @@ export default function Modal(props) {
           role="button"
           tabIndex="-1"
           onKeyUp={handleCloseKeyUp}
-          onClick={handleCloseClick}
+          onClick={props.onCloseClick}
         >
           <svg
             className="stroke-current text-blue-500 hover:text-blue-700 stroke-5 focus:outline-none focus:ring-2 focus:ring-blue-700"
@@ -145,7 +143,7 @@ export default function Modal(props) {
             bg-blue-600 hover:bg-blue-700
             focus:outline-none focus:ring-1.5
             "
-            onClick={handleResetClick}
+            onClick={props.onResetClick}
           >
             다시 시작하기
           </button>

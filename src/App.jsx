@@ -23,8 +23,8 @@ export default class App extends React.Component {
     this.setBonusNumber = this.setBonusNumber.bind(this);
     this.setIsModalOpen = this.setIsModalOpen.bind(this);
 
-    this.resetState = this.resetState.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.handleResetClick = this.resetState.bind(this);
+    this.handleCloseClick = this.closeModal.bind(this);
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleDimmedClick = this.handleDimmedClick.bind(this);
@@ -114,8 +114,8 @@ export default class App extends React.Component {
             tickets={this.state.tickets}
             winningNumbers={this.state.winningNumbers}
             bonusNumber={this.state.bonusNumber}
-            reset={this.resetState}
-            close={this.closeModal}
+            onResetClick={this.handleResetClick}
+            onCloseClick={this.handleCloseClick}
           />
         )}
       </>
