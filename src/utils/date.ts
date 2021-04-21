@@ -9,5 +9,5 @@ export const getRemainedTime = () => {
   );
   announcementDate.setDate(nowDate.getDate() + Math.abs(6 - nowDate.getDay()));
 
-  return announcementDate.getTime() - nowDate.getTime();
+  return announcementDate.getTime() - Date.now();
 };

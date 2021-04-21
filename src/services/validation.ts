@@ -13,19 +13,19 @@ export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber) => 
 };
 
 export const alertByPaymentCase = (payment: number) => {
-  if (payment < TICKET.PRICE) {
+  if (!isValidPayment(payment)) {
     alert(ALERT_MESSAGE.SHOULD_MORE_THAN_MINIMUM_PAYMENT);
   }
 };
 
 export const alertByWinningNumberCase = (winningNumber: number) => {
-  if (winningNumber < TICKET.MIN_NUMBER || winningNumber > TICKET.MAX_NUMBER) {
+  if (!isValidWinningNumber(winningNumber)) {
     alert(ALERT_MESSAGE.NUMBER_RANGE_EXCEEDED);
   }
 };
 
-export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber) => {
-  if (hasDuplicateElement<number>([...numbers, bonus])) {
+export const alertByWinningNumbersCase = (winningNumbers: WinningNumber) => {
+  if (!isWinningNumberDuplicated(winningNumbers)) {
     alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
   }
 };
