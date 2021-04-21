@@ -11,6 +11,7 @@ import {
   PurchaseInput,
 } from './LottoPurchaseForm.style';
 import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
+import { createLottos } from '../../services/lottoPurchase';
 
 class LottoPurchaseForm extends Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class LottoPurchaseForm extends Component {
     e.preventDefault();
 
     const inputPrice = e.target.elements.price.value;
-    this.props.createLottos(inputPrice);
+    const lottos = createLottos(inputPrice);
+    this.props.setLottos(lottos);
   };
 
   render() {
