@@ -65,6 +65,8 @@ export default class PurchaseForm extends Component {
               className="PurchaseForm__input"
               name="input"
               type="number"
+              min="0"
+              max="100000"
               placeholder="구입 금액"
               onChange={this.onChangeInput}
               ref={this.paymentInput}
