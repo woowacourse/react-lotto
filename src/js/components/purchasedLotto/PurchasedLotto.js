@@ -1,43 +1,35 @@
-import React, { Component } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import LottoTicket from './lottoTicket/LottoTicket';
 import './PurchasedLotto.scss';
 
-export default class PurchasedLotto extends Component {
-  constructor(props) {
-    super(props);
+const PurchasedLotto = memo((props) => {
+  const [isShowNumber, setIsShowNumber] = useState(false);
 
-    this.state = {
-      isShowNumber: false,
-    };
+  const onToggleLottoNumber = ({ target }) => {
+    setIsShowNumber(target.checked);
+  };
 
-    this.onToggleLottoNumber = this.onToggleLottoNumber.bind(this);
-  }
-
-  onToggleLottoNumber({ target }) {
-    this.setState({ isShowNumber: target.checked });
-  }
-
-  render() {
-    return (
-      <section className="PurchasedLotto">
-        <span>총 {this.props.lottoList.length}개를 구매하였습니다.</span>
-        <label className="switch">
-          <input type="checkbox" className="switch-input" onChange={this.onToggleLottoNumber} />
-          <span>번호보기</span>
-        </label>
-        <ul className={this.state.isShowNumber ? '' : 'hide-number'}>
-          {this.props.lottoList.map((lotto, index) => (
-            <li key={index}>
-              <LottoTicket lottoNumbers={lotto} isShowNumber={this.state.isShowNumber} />
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  }
-}
+  return (
+    <section className="PurchasedLotto">
+      <span>총 {props.lottoList.length}개를 구매하였습니다.</span>
+      <label className="switch">
+        <input type="checkbox" className="switch-input" onChange={onToggleLottoNumber} />
+        <span>번호보기</span>
+      </label>
+      <ul className={isShowNumber ? '' : 'hide-number'}>
+        {props.lottoList.map((lotto, index) => (
+          <li key={index}>
+            <LottoTicket lottoNumbers={lotto} isShowNumber={isShowNumber} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+});
 
 PurchasedLotto.propTypes = {
   lottoList: PropTypes.array.isRequired,
 };
+
+export default PurchasedLotto;

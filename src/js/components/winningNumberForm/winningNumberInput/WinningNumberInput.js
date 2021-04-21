@@ -1,24 +1,20 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import './WinningNumberInput.scss';
 
-export default class WinningNumberInput extends PureComponent {
-  render() {
-    return (
-      <label className="WinningNumberInput">
-        <span>{this.props.inputLabel ?? ''}</span>
-        <input
-          onChange={this.props.onChangeInput}
-          name={this.props.inputName ?? ''}
-          type="number"
-          min={this.props.minNumber ?? ''}
-          max={this.props.maxNumber ?? ''}
-          required
-        />
-      </label>
-    );
-  }
-}
+const WinningNumberInput = memo((props) => (
+  <label className="WinningNumberInput">
+    <span>{props.inputLabel ?? ''}</span>
+    <input
+      onChange={props.onChangeInput}
+      name={props.inputName ?? ''}
+      type="number"
+      min={props.minNumber ?? ''}
+      max={props.maxNumber ?? ''}
+      required
+    />
+  </label>
+));
 
 WinningNumberInput.propTypes = {
   inputLabel: PropTypes.string,
@@ -27,3 +23,5 @@ WinningNumberInput.propTypes = {
   inputName: PropTypes.string,
   onChangeInput: PropTypes.func.isRequired,
 };
+
+export default WinningNumberInput;
