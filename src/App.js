@@ -77,9 +77,9 @@ class App extends Component {
       <Root>
         <Container>
           <Title>🎰 개미 로또</Title>
-          {this.state.isPurchaseDone ? <AnnounceTimer /> : null}
+          {this.state.isPurchaseDone && <AnnounceTimer />}
           <PriceInput isDisabled={this.state.isPurchaseDone} onSetPrice={this.setPrice} />
-          {this.state.isPurchaseDone ? (
+          {this.state.isPurchaseDone && (
             <>
               <LottosContainer
                 lottos={this.state.lottos}
@@ -88,7 +88,7 @@ class App extends Component {
               />
               <WinningNumbersContainer onSetwinnningNmbers={this.setWinningNumbers} />
             </>
-          ) : null}
+          )}
         </Container>
         <ResultModal
           isOpen={this.state.isResultModalOpen}
