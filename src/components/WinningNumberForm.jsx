@@ -79,46 +79,49 @@ export default class WinningNumberForm extends React.Component {
   }
 
   getValidationMessage(value) {
-    const isFormValid = this.isFormValid();
-    const isInputValid = this.isValidInputValue(value);
-
-    switch (true) {
-      case !isInputValid:
-        return this.getInputValidationMessage(value);
-      case !isFormValid:
-        return this.getFormValidationMessage();
-      default:
-        return MESSAGE.WINNING_NUMBER.VALID_FORM;
+    if (!this.isValidInputValue(value)) {
+      return this.getInputValidationMessage(value);
     }
+
+    if (!this.isFormValid()) {
+      return this.getFormValidationMessage();
+    }
+
+    return MESSAGE.WINNING_NUMBER.VALID_FORM;
   }
 
   getInputValidationMessage(value) {
-    switch (true) {
-      case value === '':
-        return MESSAGE.WINNING_NUMBER.NON_NUMBER_VALUE;
-      case !this.isUniqueInputValue(value):
-        return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
-      case !this.isNumberInRange(value):
-        return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
-      default:
-        return '';
+    if (value === '') {
+      return MESSAGE.WINNING_NUMBER.NON_NUMBER_VALUE;
     }
+
+    if (!this.isUniqueInputValue(value)) {
+      return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
+    }
+
+    if (!this.isNumberInRange(value)) {
+      return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
+    }
+
+    return '';
   }
 
   getFormValidationMessage() {
     const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
     const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
 
-    switch (true) {
-      case !this.hasUniqueInputValues(nonEmptyInputValues):
-        return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
-      case !this.isAllNumberInRange(nonEmptyInputValues):
-        return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
-      case this.hasEmptyInputValues():
-        return MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT;
-      default:
-        return '';
+    if (!this.hasUniqueInputValues(nonEmptyInputValues)) {
+      return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
     }
+
+    if (!this.isAllNumberInRange(nonEmptyInputValues)) {
+      return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
+    }
+    if (this.hasEmptyInputValues()) {
+      return MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT;
+    }
+
+    return '';
   }
 
   hasEmptyInputValues() {
