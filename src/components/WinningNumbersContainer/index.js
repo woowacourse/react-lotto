@@ -91,10 +91,6 @@ class WinningNumbersContainer extends Component {
       <NumberInput key={idx} data-index={idx} type="number" name="main-number" min="1" max="45" required />
     ));
 
-    const errorMessage = this.state.isNumbersDuplicated ? (
-      <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>
-    ) : null;
-
     return (
       <Root>
         <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
