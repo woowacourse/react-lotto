@@ -1,3 +1,3 @@
-const generateRandomNumbers = (min, max) => Math.floor(Math.random() * max) + min;
+import { generateRandomNumbers } from './generateRandomNumbers';
 
 export { generateRandomNumbers };

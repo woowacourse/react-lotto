@@ -5,7 +5,7 @@ import LottosContainer from './components/LottosContainer';
 import WinningNumbersContainer from './components/WinningNumbersContainer';
 import ResultModal from './components/ResultModal';
 import AnnounceTimer from './components/AnnounceTimer';
-import Lotto from './Lotto';
+import { Lotto } from './models';
 
 const initialState = {
   price: 0,

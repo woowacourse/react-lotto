@@ -1,4 +1,4 @@
-import { generateRandomNumbers } from './utils';
+import { generateRandomNumbers } from '../utils';
 
 class Lotto {
   constructor(numbers) {

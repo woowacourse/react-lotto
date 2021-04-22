@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Lotto from '../../Lotto';
+import { Lotto } from '../../models';
 import {
   Root,
   NumberInputGuide,
