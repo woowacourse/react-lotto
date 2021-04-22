@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import PurchaseAmountForm from './PurchaseAmountForm';
 import LottoTicketList from './LottoTicketList';
 import LottoResultForm from './LottoResultForm';
@@ -21,44 +21,36 @@ const LottoGame = () => {
     }
   };
 
-  const publishLottoTickets = useCallback(() => {
+  const publishLottoTickets = () => {
     const amountOfLottoTicket = purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
       .map(() => generateLottoNumbers());
 
     setLottoTickets(lottoTickets);
-  }, [purchaseAmount]);
+  };
 
-  const buyLottoTickets = useCallback(
-    purchaseAmount => {
-      setPurchaseAmountSubmitted(true);
-      setPurchaseAmount(purchaseAmount);
-      publishLottoTickets();
-    },
-    [publishLottoTickets]
-  );
+  const buyLottoTickets = purchaseAmount => {
+    setPurchaseAmountSubmitted(true);
+    setPurchaseAmount(purchaseAmount);
+    publishLottoTickets();
+  };
 
-  const restartGame = useCallback(() => {
+  const restartGame = () => {
     setPurchaseAmount('');
     setPurchaseAmountSubmitted(false);
     setLottoTickets([]);
     setResultNumbers({ winningNumbers: [], bonusNumber: 0 });
     setModalOpened(false);
-  }, []);
+  };
 
-  const openResultModal = useCallback(() => {
+  const openResultModal = () => {
     setModalOpened(true);
-  }, []);
+  };
 
-  const closeResultModal = useCallback(() => {
+  const closeResultModal = () => {
     setModalOpened(false);
-  }, []);
-
-  const lottoResult = useMemo(
-    () => getLottoResult(purchaseAmount, lottoTickets, resultNumbers.winningNumbers, resultNumbers.bonusNumber),
-    [isModalOpened]
-  );
+  };
 
   return (
     <>
@@ -80,7 +72,17 @@ const LottoGame = () => {
       </div>
       {isModalOpened && (
         <Modal
-          container={<LottoResultContainer restartGame={restartGame} lottoResult={lottoResult} />}
+          container={
+            <LottoResultContainer
+              restartGame={restartGame}
+              lottoResult={getLottoResult(
+                purchaseAmount,
+                lottoTickets,
+                resultNumbers.winningNumbers,
+                resultNumbers.bonusNumber
+              )}
+            />
+          }
           closeModal={closeResultModal}
         />
       )}

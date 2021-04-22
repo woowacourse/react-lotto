@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 const LottoTicketItem = ({ isToggleOn, numbers }) => {
   return (
@@ -12,9 +12,9 @@ const LottoTicketItem = ({ isToggleOn, numbers }) => {
 const LottoTicketList = ({ lottoTickets }) => {
   const [isToggleOn, setToggle] = useState(false);
 
-  const handleToggle = useCallback(() => {
+  const handleToggle = () => {
     setToggle(isToggleOn => !isToggleOn);
-  }, []);
+  };
 
   return (
     <section className="mt-9 ">

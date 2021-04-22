@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { isValidPurchaseAmount, isNumbersInValidRange } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
 import { MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT } from '../../../constants/standard';
@@ -6,25 +6,22 @@ import { MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT } from '../../../constants/sta
 const PurchaseAmountForm = ({ purchaseAmount, handleChange, isPurchaseAmountSubmitted, buyLottoTickets }) => {
   const inputRef = useRef();
 
-  const handleSubmit = useCallback(
-    event => {
-      event.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
 
-      const purchaseAmount = event.target['purchaseAmount'].value;
-      if (!isValidPurchaseAmount(purchaseAmount)) {
-        alert(MESSAGE.INVALID_PURCHASE_AMOUNT);
-        return;
-      }
+    const purchaseAmount = event.target['purchaseAmount'].value;
+    if (!isValidPurchaseAmount(purchaseAmount)) {
+      alert(MESSAGE.INVALID_PURCHASE_AMOUNT);
+      return;
+    }
 
-      if (!isNumbersInValidRange([purchaseAmount], MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT)) {
-        alert(MESSAGE.OUT_RANGED_PURCHASE_AMOUNT);
-        return;
-      }
+    if (!isNumbersInValidRange([purchaseAmount], MIN_PURCHASE_AMOUNT, MAX_PURCHASE_AMOUNT)) {
+      alert(MESSAGE.OUT_RANGED_PURCHASE_AMOUNT);
+      return;
+    }
 
-      buyLottoTickets(purchaseAmount);
-    },
-    [buyLottoTickets]
-  );
+    buyLottoTickets(purchaseAmount);
+  };
 
   useEffect(() => {
     inputRef.current.focus();
