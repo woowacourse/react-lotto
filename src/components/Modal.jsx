@@ -76,21 +76,18 @@ export default function Modal(props) {
   return (
     <div className="modal w-full flex fixed inset-0 bg-black bg-opacity-50" role="dialog" aria-modal="true">
       <div className="modal-inner p-10 m-auto relative rounded-xl bg-white">
-        <div
-          className="modal-close absolute m-4 w-6 top-2 right-2 cursor-pointer"
-          role="button"
-          tabIndex="-1"
+        <button
+          className="modal-close absolute m-4 w-6 top-2 right-2 cursor-pointer focus:outline-none focus:ring-1.5 focus:ring-blue-700"
+          role="switch"
+          aria-checked="false"
+          aria-label="modal-close"
           onKeyUp={handleCloseKeyUp}
           onClick={props.onCloseClick}
         >
-          <svg
-            className="stroke-current text-blue-500 hover:text-blue-700 stroke-5 focus:outline-none focus:ring-2 focus:ring-blue-700"
-            viewBox="0 0 40 40"
-            tabIndex="0"
-          >
+          <svg className="stroke-current text-blue-500 hover:text-blue-700 stroke-5 " viewBox="0 0 40 40">
             <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
-        </div>
+        </button>
         <h2 className="text-2xl font-semibold text-center mb-4 space-x-2">
           <span role="img" aria-label="trophy">
             🏆
