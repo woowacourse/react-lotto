@@ -28,7 +28,7 @@ class App extends Component {
     this.handleUpdatePrice = this.handleUpdatePrice.bind(this);
     this.purchaseLottos = this.purchaseLottos.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
-    this.openResultModal = this.openResultModal.bind(this);
+    this.setWinningNumbers = this.setWinningNumbers.bind(this);
     this.closeResultModal = this.closeResultModal.bind(this);
     this.resetGame = this.resetGame.bind(this);
   }
@@ -53,9 +53,16 @@ class App extends Component {
     this.setState({ isSwitchOn: !this.state.isSwitchOn });
   }
 
-  openResultModal(winningNumbers) {
+  setWinningNumbers(winningNumbers) {
     this.setState({
       winningNumbers,
+    });
+
+    this.openResultModal();
+  }
+
+  openResultModal() {
+    this.setState({
       isResultModalOpen: true,
     });
   }
@@ -88,7 +95,7 @@ class App extends Component {
                 isSwitchOn={this.state.isSwitchOn}
                 onToggleDisplay={this.toggleDisplay}
               />
-              <WinningNumbersContainer winningNumbers={this.state.winningNumbers} onShowResult={this.openResultModal} />
+              <WinningNumbersContainer onSetwinnningNmbers={this.setWinningNumbers} />
             </>
           ) : null}
         </Container>

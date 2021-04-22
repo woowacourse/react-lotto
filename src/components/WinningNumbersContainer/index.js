@@ -48,7 +48,7 @@ class WinningNumbersContainer extends Component {
       return;
     }
 
-    this.props.onShowResult({ mainNumbers, bonusNumber });
+    this.props.onSetwinnningNmbers({ mainNumbers, bonusNumber });
   }
 
   validateNumbers(mainNumbers, bonusNumber) {
