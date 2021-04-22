@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import { LOTTO } from '../utils/constants';
 
 export default class PurchaseForm extends React.Component {
-  static calculatePurchaseTicketCount(inputValue) {
-    return Math.floor(Number(inputValue) / LOTTO.UNIT_PRICE);
-  }
-
   static propTypes = {
     setTickets: PropTypes.func.isRequired,
     tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
@@ -24,6 +20,8 @@ export default class PurchaseForm extends React.Component {
     this.state = { ...this.initialState };
     this.resetState = this.resetState.bind(this);
 
+    this.calculatePurchaseTicketCount = this.calculatePurchaseTicketCount.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -32,10 +30,14 @@ export default class PurchaseForm extends React.Component {
     this.setState({ ...this.initialState });
   }
 
+  calculatePurchaseTicketCount(inputValue) {
+    return Math.floor(Number(inputValue) / LOTTO.UNIT_PRICE);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
-    const ticketCount = PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue);
+    const ticketCount = this.calculatePurchaseTicketCount(this.state.inputValue);
 
     this.props.setTickets(ticketCount);
   }
@@ -85,7 +87,7 @@ export default class PurchaseForm extends React.Component {
         {this.state.isValid ? (
           this.props.tickets.length === 0 && (
             <div className="text-blue-700 h-4 ">
-              {`${PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue)}장의 로또를 구매하실 수
+              {`${this.calculatePurchaseTicketCount(this.state.inputValue)}장의 로또를 구매하실 수
                 있습니다. `}
             </div>
           )
