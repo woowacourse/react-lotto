@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO } from '../utils/constants';
+import cx from 'classnames';
 
 export default class PurchaseForm extends React.Component {
   static calculatePurchaseTicketCount(inputValue) {
@@ -58,11 +59,10 @@ export default class PurchaseForm extends React.Component {
           <input
             id="purchase-input"
             type="number"
-            className={`
-              w-full py-2 px-3 mr-2 appearance-textfield border rounded shadow text-gray-700 leading-tight
-              focus:outline-none focus:ring-1.5
-              ${this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'}
-            `}
+            className={cx(
+              'w-full py-2 px-3 mr-2 appearance-textfield border rounded shadow text-gray-700 leading-tight focus:outline-none focus:ring-1.5',
+              this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'
+            )}
             placeholder="구입 금액"
             onChange={this.handleInputChange}
             value={this.state.inputValue}
@@ -79,13 +79,13 @@ export default class PurchaseForm extends React.Component {
         </div>
         {this.state.isValid ? (
           this.props.tickets.length === 0 && (
-            <div className="text-blue-700 h-4 ">
+            <div className="text-blue-700 h-4">
               {`${PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue)}장의 로또를 구매하실 수
                 있습니다. `}
             </div>
           )
         ) : (
-          <div className="text-rose-500 h-4 ">
+          <div className="text-rose-500 h-4">
             {`${LOTTO.MIN_PRICE.toLocaleString('en-US')}원 이상 ${LOTTO.MAX_PRICE.toLocaleString('en-US')}원 이하의
             금액을 입력해주세요.`}
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 export default class TicketDetail extends React.Component {
   static propTypes = {
@@ -46,18 +47,18 @@ export default class TicketDetail extends React.Component {
                 />
                 <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner" />
                 <div
-                  className={`dot absolute w-6 h-6 rounded-full shadow ${
-                    this.state.isFocused ? 'bg-blue-500' : 'bg-white'
-                  } -left-1 -top-1 transform duration-350
-                    ${this.state.isDetail ? 'translate-x-full bg-blue-500' : 'translate-x-0 '}
-                  `}
+                  className={cx(
+                    'dot absolute w-6 h-6 rounded-full shadow -left-1 -top-1 transform duration-350',
+                    this.state.isFocused ? 'bg-blue-500' : 'bg-white',
+                    this.state.isDetail ? 'translate-x-full bg-blue-500' : 'translate-x-0 '
+                  )}
                 />
               </div>
               <div className="ml-3 text-gray-700 font-medium select-none ">번호 보기</div>
             </label>
           </div>
         </div>
-        <div className={`flex flex-wrap ${this.state.isDetail ? 'flex-col' : ''}`}>
+        <div className={cx('flex flex-wrap', this.state.isDetail && 'flex-col')}>
           {this.props.tickets.map((ticket, index) => (
             <div key={ticket.join(index)} className="flex items-center my-2">
               <span className="mx-1 text-4xl mr-2" role="img" aria-label="lotto-ticket">

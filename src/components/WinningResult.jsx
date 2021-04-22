@@ -110,7 +110,7 @@ export default function WinningResult(props) {
       <div className="d-flex justify-center mt-5">
         <button
           type="button"
-          className="w-full  py-2 px-4 rounded
+          className="w-full py-2 px-4 rounded
             text-white font-bold
             bg-blue-600 hover:bg-blue-700
             focus:outline-none focus:ring-1.5

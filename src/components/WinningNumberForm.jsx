@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO, MESSAGE } from '../utils/constants';
+import cx from 'classnames';
 
 export default class WinningNumberForm extends React.Component {
   static propTypes = {
@@ -174,11 +175,12 @@ export default class WinningNumberForm extends React.Component {
                     <input
                       id={`winning-number-${index}`}
                       type="number"
-                      className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5 ${
+                      className={cx(
+                        'border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5',
                         this.isValidInputValue(this.state.winningNumberInputValues[index])
                           ? 'ring-blue-700'
                           : 'ring-rose-500'
-                      }`}
+                      )}
                       name={`winning-number-${index}`}
                       value={this.state.winningNumberInputValues[index]}
                       onChange={this.handleWinningNumberInputChange}
@@ -197,9 +199,10 @@ export default class WinningNumberForm extends React.Component {
                 <input
                   id="bonus-number"
                   type="number"
-                  className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5 ${
+                  className={cx(
+                    'border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5',
                     this.isValidInputValue(this.state.bonusNumberInputValue) ? 'ring-blue-700' : 'ring-rose-500'
-                  }`}
+                  )}
                   value={this.state.bonusNumberInputValue}
                   onChange={this.handleBonusNumberInputChange}
                   onFocus={this.handleInputFocus}
@@ -209,11 +212,12 @@ export default class WinningNumberForm extends React.Component {
           </div>
 
           <div
-            className={`${
+            className={cx(
               this.isFormValid() || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
                 ? 'text-blue-700'
-                : 'text-rose-500'
-            } font-semibold h-4 mt-4`}
+                : 'text-rose-500',
+              'font-semibold h-4 mt-4'
+            )}
           >
             {this.state.validationMessage}
           </div>
