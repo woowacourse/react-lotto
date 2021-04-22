@@ -22,27 +22,38 @@
       - LottoItem
     - WinningNumberSection
       - WinningNumberForm
-  - Modal
+    - LotteryCountDown
+  - LottoResultModal
     - ResultSection
     - EarningRateSection
 
-### 디렉토리 구조
+### 디렉터리 구조
 
 ```markdown
 - /src
+  |- App.js
+  |- index.js
   |- /components
   | |- /Main
   | | |- index.js
+  | | |- Main.js
   | | |- PurchaseForm.js
   | | |- LottoListSection.js
   | | |- LottoItem.js
   | | |- WinningNumberSection.js
   | | |- WinningNumberForm.js
+  | | |- LotteryCountDown.js
   | |- /Modal
   | | |- index.js
-  | | |- ResultSection.js
+  | | |- LottoResultModal.js
+  | | |- LottoResultSection.js
   | | |- EarningRateSection.js
   |- /css
+  |- /constants
+  | |-index.js
+  |- /utils
+  | |-index.js
+  | |-lottoUtils.js
 ```
 
 ## 📝 Requirements

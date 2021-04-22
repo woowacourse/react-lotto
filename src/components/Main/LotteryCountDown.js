@@ -32,33 +32,3 @@ export default function LotteryCountDown(props) {
     </div>
   );
 }
-
-// export default class LotteryCountDown extends Component {
-//   state = {
-//     remainTime: 0,
-//   };
-
-//   const componentDidMount = () => {
-//     tick();
-//     intervalId = setInterval(tick, 1000);
-//   };
-
-//   const componentWillUnmount = () => {
-//     clearInterval(intervalId);
-//   };
-
-//   const tick = () => {
-//     const currentTime = new Date();
-//     const gap = props.announcementDate - currentTime;
-
-//     if (gap < 1000) {
-//       props.setAnnouncementDate(getAnnouncementDate());
-//     }
-
-//     setState({ remainTime: gap });
-//   };
-
-//   render() {
-
-//   }
-// }
