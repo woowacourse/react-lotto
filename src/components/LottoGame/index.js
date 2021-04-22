@@ -71,20 +71,17 @@ const LottoGame = () => {
         </div>
       </div>
       {isModalOpened && (
-        <Modal
-          container={
-            <LottoResultContainer
-              restartGame={restartGame}
-              lottoResult={getLottoResult(
-                purchaseAmount,
-                lottoTickets,
-                resultNumbers.winningNumbers,
-                resultNumbers.bonusNumber
-              )}
-            />
-          }
-          closeModal={closeResultModal}
-        />
+        <Modal closeModal={closeResultModal}>
+          <LottoResultContainer
+            restartGame={restartGame}
+            lottoResult={getLottoResult(
+              purchaseAmount,
+              lottoTickets,
+              resultNumbers.winningNumbers,
+              resultNumbers.bonusNumber
+            )}
+          />
+        </Modal>
       )}
     </>
   );
