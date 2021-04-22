@@ -3,7 +3,7 @@ import generateLottoNumbers from './utils/generateTicket';
 import PurchaseForm from './components/PurchaseForm';
 import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
-import Modal from './components/Modal';
+import ResultModal from './components/ResultModal';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -110,7 +110,7 @@ export default class App extends React.Component {
           )}
         </main>
         {this.state.isModalOpen && (
-          <Modal
+          <ResultModal
             tickets={this.state.tickets}
             winningNumbers={this.state.winningNumbers}
             bonusNumber={this.state.bonusNumber}

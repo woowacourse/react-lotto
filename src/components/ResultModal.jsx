@@ -47,7 +47,7 @@ const getWinningCount = (ticket, winningNumbers, bonusNumber) => {
   return [count, ticket.includes(bonusNumber)];
 };
 
-Modal.propTypes = {
+ResultModal.propTypes = {
   tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   winningNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   bonusNumber: PropTypes.number.isRequired,
@@ -55,7 +55,7 @@ Modal.propTypes = {
   close: PropTypes.func.isRequired,
 };
 
-export default function Modal(props) {
+export default function ResultModal(props) {
   const ticketRanks = props.tickets
     .map((ticket) => getWinningCount(ticket, props.winningNumbers, props.bonusNumber))
     .map(getWinningRank)
