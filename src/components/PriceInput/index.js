@@ -6,27 +6,30 @@ class PriceInput extends Component {
     super(props);
 
     this.state = {
-      isValidPriceUnit: true,
+      priceInputValue: '',
       errorMessage: '',
     };
     this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
+    this.handleChangePriceInputValue = this.handleChangePriceInputValue.bind(this);
   }
 
   handleSubmitPrice(event) {
     event.preventDefault();
 
-    const $priceInput = event.target.price;
-
     try {
-      this.validatePriceUnit($priceInput.valueAsNumber);
-      this.setState({ isValidPriceUnit: true, errorMessage: '' });
+      this.validatePriceUnit(Number(this.state.priceInputValue));
+      this.setState({ errorMessage: '' });
     } catch (error) {
-      this.setState({ isValidPriceUnit: false, errorMessage: error.message });
+      this.setState({ errorMessage: error.message });
       return;
     }
 
-    this.props.onPurchaseLottos($priceInput.valueAsNumber);
-    $priceInput.value = '';
+    this.props.onSetPrice(Number(this.state.priceInputValue));
+    this.setState({ priceInputValue: '' });
+  }
+
+  handleChangePriceInputValue(event) {
+    this.setState({ priceInputValue: event.target.value });
   }
 
   validatePriceUnit(price) {
@@ -34,10 +37,6 @@ class PriceInput extends Component {
   }
 
   render() {
-    const errorMessage = this.state.isValidPriceUnit ? null : (
-      <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>
-    );
-
     return (
       <Root>
         <Form onSubmit={this.handleSubmitPrice}>
@@ -46,13 +45,15 @@ class PriceInput extends Component {
             <Input
               type="number"
               id="price"
+              value={this.state.priceInputValue}
+              onChange={this.handleChangePriceInputValue}
               min="1000"
               placeholder="구입 금액"
               disabled={this.props.isDisabled}
               required
             />
             <SubmitButton disabled={this.props.isDisabled}>확인</SubmitButton>
-            {errorMessage}
+            {this.state.errorMessage && <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>}
           </InputWrapper>
         </Form>
       </Root>

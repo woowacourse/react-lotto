@@ -25,7 +25,7 @@ class App extends Component {
 
     this.state = initialState;
 
-    this.handleUpdatePrice = this.handleUpdatePrice.bind(this);
+    this.setPrice = this.setPrice.bind(this);
     this.purchaseLottos = this.purchaseLottos.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
     this.setWinningNumbers = this.setWinningNumbers.bind(this);
@@ -33,20 +33,15 @@ class App extends Component {
     this.resetGame = this.resetGame.bind(this);
   }
 
-  handleUpdatePrice(event) {
-    const price = event.target.value;
-    this.setState({ price });
+  setPrice(price) {
+    this.setState({ price }, this.purchaseLottos);
   }
 
-  purchaseLottos(price) {
-    this.setState({ price, isPurchaseDone: true }, this.createLottos);
-  }
-
-  createLottos() {
+  purchaseLottos() {
     const count = this.state.price / Lotto.PRICE_UNIT;
     const lottos = Array.from({ length: count }, () => new Lotto(Lotto.generateLottoNumbers()));
 
-    this.setState({ lottos });
+    this.setState({ lottos, isPurchaseDone: true });
   }
 
   toggleDisplay() {
@@ -83,11 +78,7 @@ class App extends Component {
         <Container>
           <Title>🎰 개미 로또</Title>
           {this.state.isPurchaseDone ? <AnnounceTimer /> : null}
-          <PriceInput
-            isDisabled={this.state.isPurchaseDone}
-            onPurchaseLottos={this.purchaseLottos}
-            onUpdatePrice={this.handleUpdatePrice}
-          />
+          <PriceInput isDisabled={this.state.isPurchaseDone} onSetPrice={this.setPrice} />
           {this.state.isPurchaseDone ? (
             <>
               <LottosContainer
