@@ -47,6 +47,12 @@ export default class PurchaseForm extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.isReset && !prevProps.isReset) {
+      this.resetState();
+    }
+  }
+
   render() {
     return (
       <form className="mt-5 mb-4" onSubmit={this.handleSubmit}>
@@ -91,11 +97,5 @@ export default class PurchaseForm extends React.Component {
         )}
       </form>
     );
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isReset && !prevProps.isReset) {
-      this.resetState();
-    }
   }
 }
