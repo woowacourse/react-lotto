@@ -43,6 +43,5 @@ export const getTotalProfit = (payment: number, winnerCounts: number[]) => {
     0
   );
 
-  console.log(income);
   return ((income - payment) / payment) * 100;
 };
