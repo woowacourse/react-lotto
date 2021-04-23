@@ -7,6 +7,7 @@ import ResultTableRow from './ResultTableRow/ResultTableRow';
 import { getTotalProfit, getWinnerCounts } from '../../services/game';
 import TICKET from '../../constants/ticket';
 import { MATCH, PRIZE, RANK_INDEX } from '../../constants/game';
+import { Ticket, WinningNumber } from '../../types';
 
 type Props = {
   handleModalClose: () => void;

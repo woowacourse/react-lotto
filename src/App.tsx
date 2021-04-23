@@ -7,6 +7,7 @@ import { AppWrapper } from './App.styles';
 import { issueTickets } from './services/tickets';
 import { getRemainedTime } from './utils/date';
 import RemainedTime from './components/RemainedTime/RemainedTime';
+import { Ticket, WinningNumber } from './types';
 
 type State = {
   tickets: Ticket[];

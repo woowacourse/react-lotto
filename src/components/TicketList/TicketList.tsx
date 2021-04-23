@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Toggle from '../common/Toggle';
 import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
 import TicketItem from './TicketItem/TicketItem';
+import { Ticket } from '../../types';
 
 type Props = {
   tickets: Ticket[];

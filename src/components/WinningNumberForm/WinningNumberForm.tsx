@@ -5,6 +5,7 @@ import { Wrapper } from '../common/Wrapper';
 import Button from '../common/Button';
 import { isValidWinningNumber, isWinningNumberDuplicated } from '../../services/validation';
 import ALERT_MESSAGE from '../../constants/alertMessage';
+import { WinningNumber } from '../../types';
 
 type Props = {
   formRef: React.RefObject<HTMLFormElement>;
