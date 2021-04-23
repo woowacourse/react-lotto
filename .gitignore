@@ -4,6 +4,7 @@
 .firebaserc
 firebase.json
 .firebase/
+PR.md
 
 # dependencies
 /node_modules

@@ -1,122 +1,114 @@
-import React, { Component } from 'react';
+import { useState, useRef } from 'react';
+
+import ALERT_MESSAGE from './constants/alertMessage';
+import { getRemainedTime } from './utils/date';
+import { GREENWICH_MILLISECONDS } from './services/game';
+import { issueTickets } from './services/tickets';
+
+import { AppWrapper } from './App.styles';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import TicketList from './components/TicketList/TicketList';
 import ResultModal from './components/ResultModal/ResultModal';
 import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
-import { AppWrapper } from './App.styles';
-import { issueTickets } from './services/tickets';
-import ALERT_MESSAGE from './constants/alertMessage';
-import { getRemainedTime } from './utils/date';
-import { GREENWICH_MILLISECONDS } from './services/game';
 import RemainedTimeIndicator from './components/RemainedTimeIndicator/RemainedTimeIndicator';
 
-type State = {
+type AppState = {
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
-  remainTime: Date | null;
+  remainedTime: Date | null;
 };
 
-export default class App extends Component<{}, State> {
-  winningNumberFormRef: React.RefObject<HTMLFormElement>;
-  remainTimer: NodeJS.Timeout | null;
+const App = () => {
+  let winningNumberFormRef: React.RefObject<HTMLFormElement> = useRef(null);
+  let remainedTimeTimeout: NodeJS.Timeout | null = null;
 
-  constructor(props: {}) {
-    super(props);
-    this.winningNumberFormRef = React.createRef();
-    this.remainTimer = null;
+  const [appState, setAppState] = useState<AppState>({
+    tickets: [],
+    winningNumber: {
+      numbers: [],
+      bonus: 0,
+    },
+    isModalOpen: false,
+    remainedTime: null,
+  });
 
-    this.state = {
-      tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainTime: null,
-    };
+  const handleRemainedTime = () => {
+    setAppState(state => ({
+      ...state,
+      remainedTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
+    }));
+  };
 
-    this.handlePayment = this.handlePayment.bind(this);
-    this.handleWinningNumber = this.handleWinningNumber.bind(this);
-    this.handleModal = this.handleModal.bind(this);
-    this.handleRemainedTime = this.handleRemainedTime.bind(this);
-  }
-
-  handleRemainedTime() {
-    this.setState({
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
-    });
-  }
-
-  handlePayment(payment: number) {
+  const handlePayment = (payment: number) => {
     const tickets: Ticket[] = issueTickets(payment);
-    this.setState({
+    setAppState(state => ({
+      ...state,
       tickets,
-    });
-
-    this.handleRemainedTime();
-    this.remainTimer = setInterval(() => {
-      this.handleRemainedTime();
+    }));
+    handleRemainedTime();
+    // TODO : 이거 전역변수인데 고쳐라
+    remainedTimeTimeout = setInterval(() => {
+      handleRemainedTime();
     }, 1000);
-  }
+  };
 
-  handleWinningNumber(winningNumber: WinningNumber) {
-    const ticketCount = this.state.tickets.length;
+  const handleModal = (isOpen: boolean) => {
+    setAppState(state => ({
+      ...state,
+      isModalOpen: isOpen,
+    }));
+  };
+
+  const handleWinningNumber = (winningNumber: WinningNumber) => {
+    const ticketCount = appState.tickets.length;
 
     if (ticketCount === 0) {
       alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
       return;
     }
 
-    this.setState({
+    setAppState(state => ({
+      ...state,
       winningNumber,
-    });
+    }));
 
-    this.handleModal(true);
-  }
+    handleModal(true);
+  };
 
-  handleModal(isOpen: boolean) {
-    this.setState({
-      isModalOpen: isOpen,
-    });
-  }
-
-  resetGame() {
-    this.setState({
+  const resetGame = () => {
+    setAppState(state => ({
       tickets: [],
       winningNumber: {
         numbers: [],
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: null,
-    });
+      remainedTime: null,
+    }));
 
-    this.winningNumberFormRef.current?.reset();
-    this.remainTimer && clearInterval(this.remainTimer);
-  }
+    winningNumberFormRef.current?.reset();
+    remainedTimeTimeout && clearInterval(remainedTimeTimeout);
+  };
 
-  render() {
-    return (
-      <AppWrapper display="flex">
-        <h1 className="app-title">🎱 행운의 로또</h1>
-        <PaymentForm handlePayment={this.handlePayment} />
-        {this.state.remainTime && <RemainedTimeIndicator remainTime={this.state.remainTime} />}
-        <TicketList tickets={this.state.tickets} />
-        <WinningNumberForm
-          handleWinningNumber={this.handleWinningNumber}
-          formRef={this.winningNumberFormRef}
+  return (
+    <AppWrapper display="flex">
+      <h1 className="app-title">🎱 행운의 로또</h1>
+      <PaymentForm handlePayment={handlePayment} />
+      {appState.remainedTime && <RemainedTimeIndicator remainedTime={appState.remainedTime} />}
+      <TicketList tickets={appState.tickets} />
+      <WinningNumberForm handleWinningNumber={handleWinningNumber} formRef={winningNumberFormRef} />
+
+      {appState.isModalOpen && (
+        <ResultModal
+          handleModalClose={() => handleModal(false)}
+          resetGame={() => resetGame()}
+          tickets={appState.tickets}
+          winningNumber={appState.winningNumber}
         />
+      )}
+    </AppWrapper>
+  );
+};
 
-        {this.state.isModalOpen && (
-          <ResultModal
-            handleModalClose={() => this.handleModal(false)}
-            resetGame={() => this.resetGame()}
-            tickets={this.state.tickets}
-            winningNumber={this.state.winningNumber}
-          />
-        )}
-      </AppWrapper>
-    );
-  }
-}
+export default App;

@@ -1,54 +1,39 @@
-import React, { Component } from 'react';
+import { useState, useCallback } from 'react';
 import Toggle from '../common/Toggle';
 import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
 import TicketItem from './TicketItem/TicketItem';
 
-type Props = {
+type TicketListProps = {
   tickets: Ticket[];
 };
 
-type State = {
-  isToggled: boolean;
+const TicketList = ({ tickets }: TicketListProps) => {
+  const [isToggled, setIsToggled] = useState(false);
+
+  const onToggle = useCallback(
+    (isToggled: boolean) => {
+      setIsToggled(isToggled);
+    },
+    [isToggled]
+  );
+
+  return (
+    <TicketListWrapper>
+      <TicketListHeader>
+        <label className="ticket-list-header-label">총 {tickets.length}개를 구매하였습니다</label>
+        <div className="flex-auto d-flex justify-end pr-1">
+          <Toggle onToggle={onToggle}>번호보기</Toggle>
+        </div>
+      </TicketListHeader>
+      <List isToggled={isToggled}>
+        {tickets.map(ticket => {
+          return (
+            <TicketItem key={ticket.id} ticketNumbers={ticket.numbers} isDetailMode={isToggled} />
+          );
+        })}
+      </List>
+    </TicketListWrapper>
+  );
 };
 
-export default class TicketList extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      isToggled: false,
-    };
-
-    this.onToggle = this.onToggle.bind(this);
-  }
-
-  onToggle(isToggled: boolean) {
-    this.setState(state => ({ isToggled }));
-  }
-
-  render() {
-    return (
-      <TicketListWrapper>
-        <TicketListHeader>
-          <label className="ticket-list-header-label">
-            총 {this.props.tickets.length}개를 구매하였습니다
-          </label>
-          <div className="flex-auto d-flex justify-end pr-1">
-            <Toggle onToggle={this.onToggle}>번호보기</Toggle>
-          </div>
-        </TicketListHeader>
-        <List isToggled={this.state.isToggled}>
-          {this.props.tickets.map(ticket => {
-            return (
-              <TicketItem
-                key={ticket.id}
-                ticketNumbers={ticket.numbers}
-                isDetailMode={this.state.isToggled}
-              />
-            );
-          })}
-        </List>
-      </TicketListWrapper>
-    );
-  }
-}
+export default TicketList;
