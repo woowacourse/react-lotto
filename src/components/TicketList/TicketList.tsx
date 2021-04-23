@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { TicketListWrapper, List } from './TicketList.styles';
 import Toggle from '../common/Toggle';
 import TicketItem from './TicketItem/TicketItem';
@@ -11,48 +11,42 @@ type State = {
   isToggled: boolean;
 };
 
-export default class TicketList extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const TicketList = ({ tickets }: Props) => {
+  const [isToggled, setIsToggled] = useState<State['isToggled']>(false);
 
-    this.state = {
-      isToggled: false,
-    };
+  const onToggle = (isToggled: boolean) => {
+    setIsToggled(isToggled);
+  };
 
-    this.onToggle = this.onToggle.bind(this);
-  }
-
-  onToggle(isToggled: boolean) {
-    this.setState({ isToggled });
-  }
-
-  render() {
-    return (
-      <TicketListWrapper>
-        <div className="ticket-list-header">
-          <label className="ticket-list-header-label">
-            총 <span>{this.props.tickets.length}</span> 개를 구매하였습니다
-          </label>
-          <div className="flex-auto d-flex justify-end pr-1">
-            <Toggle onToggle={this.onToggle}>번호보기</Toggle>
-          </div>
+  return (
+    <TicketListWrapper>
+      <div className="ticket-list-header">
+        <label className="ticket-list-header-label">
+          총 <span>{tickets.length}</span> 개를 구매하였습니다
+        </label>
+        <div className="flex-auto d-flex justify-end pr-1">
+          <Toggle onToggle={onToggle}>번호보기</Toggle>
         </div>
-        <div className="ticket-list-main">
-          <List isToggled={this.state.isToggled}>
-            {this.props.tickets.length === 0 ? (
-              <span className="no-tickets">로또를 구매해주세요</span>
-            ) : (
-              this.props.tickets.map(ticket => (
+      </div>
+      <div className="ticket-list-main">
+        <List isToggled={isToggled}>
+          {tickets.length === 0 ? (
+            <span className="no-tickets">로또를 구매해주세요</span>
+          ) : (
+            tickets.map(ticket => {
+              return (
                 <TicketItem
                   key={ticket.id}
                   ticketNumbers={ticket.numbers}
-                  isDetailMode={this.state.isToggled}
+                  isDetailMode={isToggled}
                 />
-              ))
-            )}
-          </List>
-        </div>
-      </TicketListWrapper>
-    );
-  }
-}
+              );
+            })
+          )}
+        </List>
+      </div>
+    </TicketListWrapper>
+  );
+};
+
+export default TicketList;

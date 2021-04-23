@@ -25,7 +25,7 @@ export const alertByWinningNumberCase = (winningNumber: number) => {
 };
 
 export const alertByWinningNumbersCase = (winningNumbers: WinningNumber) => {
-  if (!isWinningNumberDuplicated(winningNumbers)) {
+  if (isWinningNumberDuplicated(winningNumbers)) {
     alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
   }
 };

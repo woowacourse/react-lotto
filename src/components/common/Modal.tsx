@@ -44,23 +44,24 @@ const ModalClose = styled.div`
   }
 `;
 
-type ModalProps = {
+type Props = {
   handleModalClose: () => void;
+  children?: React.ReactNode;
 };
 
-export default class Modal extends Component<ModalProps> {
-  render() {
-    return (
-      <ModalWrapper>
-        <ModalInner>
-          <ModalClose onClick={this.props.handleModalClose}>
-            <svg viewBox="0 0 40 40">
-              <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-            </svg>
-          </ModalClose>
-          {this.props.children}
-        </ModalInner>
-      </ModalWrapper>
-    );
-  }
-}
+const Modal = (props: Props) => {
+  return (
+    <ModalWrapper>
+      <ModalInner>
+        <ModalClose onClick={props.handleModalClose}>
+          <svg viewBox="0 0 40 40">
+            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </svg>
+        </ModalClose>
+        {props.children}
+      </ModalInner>
+    </ModalWrapper>
+  );
+};
+
+export default Modal;

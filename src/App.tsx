@@ -8,19 +8,14 @@ import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm'
 import ResultModal from './components/ResultModal/ResultModal';
 
 import { issueTickets } from './services/tickets';
-import { getRemainedTime } from './utils/date';
-
-import { GREENWICH_MILLISECONDS, TIMER_TICK } from './constants/timer';
 
 type State = {
   tickets: Ticket[];
   winningNumber: WinningNumber;
   isModalOpen: boolean;
-  remainTime: Date | null;
 };
 
 const App = () => {
-  let remainTimer: NodeJS.Timeout | null = null;
   const winningNumberFormRef = useRef<HTMLFormElement>(null);
 
   const [state, setState] = useState<State>({
@@ -30,41 +25,21 @@ const App = () => {
       bonus: 0,
     },
     isModalOpen: false,
-    remainTime: null,
   });
 
-  const tickRemainTime = () => {
-    setState({
-      ...state,
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
-    });
-  };
-
-  const handleRemainedTime = () => {
-    tickRemainTime();
-    remainTimer = setInterval(() => {
-      tickRemainTime();
-    }, TIMER_TICK);
-  };
-
   const handlePayment = (payment: number) => {
-    const tickets: Ticket[] = issueTickets(payment);
     setState({
       ...state,
-      tickets,
+      tickets: issueTickets(payment),
     });
-
-    handleRemainedTime();
   };
 
   const handleWinningNumber = (winningNumber: WinningNumber) => {
-    setState({ ...state, winningNumber });
-
-    handleModal(true);
+    setState({ ...state, winningNumber, isModalOpen: true });
   };
 
-  const handleModal = (isOpen: boolean) => {
-    setState({ ...state, isModalOpen: isOpen });
+  const handleModalClose = () => {
+    setState({ ...state, isModalOpen: false });
   };
 
   const resetGame = () => {
@@ -75,18 +50,16 @@ const App = () => {
         bonus: 0,
       },
       isModalOpen: false,
-      remainTime: null,
     });
 
     winningNumberFormRef.current?.reset();
-    remainTimer && clearInterval(remainTimer);
   };
 
   return (
     <AppWrapper display="flex">
       <h1 className="app-title">🎱 행운의 로또</h1>
       <PaymentForm handlePayment={handlePayment} />
-      {state.remainTime && <RemainedTime remainTime={state.remainTime} />}
+      {state.tickets.length > 0 && <RemainedTime />}
       <TicketList tickets={state.tickets} />
       {state.tickets.length > 0 && (
         <WinningNumberForm
@@ -96,7 +69,7 @@ const App = () => {
       )}
       {state.isModalOpen && (
         <ResultModal
-          handleModalClose={() => handleModal(false)}
+          handleModalClose={() => handleModalClose()}
           resetGame={resetGame}
           tickets={state.tickets}
           winningNumber={state.winningNumber}
