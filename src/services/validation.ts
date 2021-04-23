@@ -1,4 +1,3 @@
-import ALERT_MESSAGE from '../constants/alertMessage';
 import TICKET from '../constants/ticket';
 import { WinningNumber } from '../types';
 import { hasDuplicateElement } from '../utils/validation';

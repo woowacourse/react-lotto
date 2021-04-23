@@ -3,23 +3,21 @@ import { getDate, getHours, getMinutes, getRemainedTime, getSeconds } from '../.
 import { RemainedTimeWrapper } from './RemainedTime.styles';
 
 const RemainedTime = () => {
-  const [remainTime, setRemainTime] = useState(0);
+  const [remainTime, setRemainTime] = useState(getRemainedTime());
 
-  const date = getDate(remainTime);
-  const hours = getHours(remainTime);
-  const minutes = getMinutes(remainTime);
-  const seconds = getSeconds(remainTime);
+  useEffect(() => {
+    const remainTimerId = setInterval(() => {
+      setRemainTime(getRemainedTime());
+    }, 1000);
 
-  const remainTimerId = setInterval(() => {
-    setRemainTime(getRemainedTime());
-  }, 1000);
-
-  useEffect(() => clearInterval(remainTimerId));
+    return () => clearInterval(remainTimerId);
+  }, []);
 
   return (
     <RemainedTimeWrapper>
       <p className="remain-time-text">
-        당첨발표까지 {date}일 {hours}시 {minutes}분 {seconds}초 남았습니다.
+        당첨발표까지 {getDate(remainTime)}일 {getHours(remainTime)}시 {getMinutes(remainTime)}분{' '}
+        {getSeconds(remainTime)}초 남았습니다.
       </p>
     </RemainedTimeWrapper>
   );
