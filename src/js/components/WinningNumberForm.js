@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import WinningNumberInput from './WinningNumberInput';
+import RoundNumberInput from './common/RoundNumberInput';
 import { LOTTO } from '../constants/lottoData';
 import { hasDuplicatedItem, isInRange } from '../utils/validator';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/messages';
@@ -90,19 +90,18 @@ export default class WinningNumberForm extends PureComponent {
     return (
       <section className="WinningNumberForm">
         <h2>당첨 번호 6개와 보너스 번호 1개를 입력해주세요.</h2>
-        <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber}>
+        <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber} onChange={this.onChangeNumber}>
           <div className="number-input-box">
             <section className="numbers-box">
               <h3>당첨 번호</h3>
               <ul>
                 {WINNING_NUMBER_INPUT_LABEL.NUMBERS.map((label) => (
                   <li key={label}>
-                    <WinningNumberInput
-                      onChangeInput={this.onChangeNumber}
+                    <RoundNumberInput
+                      inputLabel={label}
                       inputName={WINNING_NUMBER_INPUT_NAME.NUMBER}
                       min={LOTTO.MIN_NUMBER}
                       max={LOTTO.MAX_NUMBER}
-                      inputLabel={label}
                     />
                   </li>
                 ))}
@@ -110,12 +109,11 @@ export default class WinningNumberForm extends PureComponent {
             </section>
             <section className="bonus-number-box">
               <h3>보너스 번호</h3>
-              <WinningNumberInput
-                onChangeInput={this.onChangeNumber}
+              <RoundNumberInput
+                inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
                 inputName={WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER}
                 min={LOTTO.MIN_NUMBER}
                 max={LOTTO.MAX_NUMBER}
-                inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
               />
             </section>
           </div>

@@ -1,4 +1,6 @@
-.WinningNumberInput {
+import styled from 'styled-components';
+
+export const WinningNumberInputLabel = styled.label`
   position: relative;
 
   span {
@@ -31,4 +33,4 @@
     border-color: var(--color-pink-3);
     box-shadow: 0 0 0 1px var(--color-pink-3);
   }
-}
+`;
