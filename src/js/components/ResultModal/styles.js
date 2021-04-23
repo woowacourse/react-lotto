@@ -1,4 +1,6 @@
-.ResultModal {
+import styled from 'styled-components';
+
+export const ResultModalContainer = styled.section`
   display: flex;
   position: fixed;
   top: 0;
@@ -76,4 +78,4 @@
       }
     }
   }
-}
+`;
