@@ -17,7 +17,7 @@ class RestartButton extends Component {
   render() {
     return (
       <RestartButtonWrapperDiv>
-        <Button buttonType="reset" clickHandler={this.handleRestart}>
+        <Button type="reset" onClick={this.handleRestart}>
           다시 시작하기
         </Button>
       </RestartButtonWrapperDiv>

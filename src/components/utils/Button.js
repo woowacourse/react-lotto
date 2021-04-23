@@ -19,9 +19,9 @@ class Button extends Component {
   render() {
     return (
       <StyledButton
-        type={this.props.buttonType || 'submit'}
+        type={this.props.type || 'submit'}
         size={this.props.size}
-        onClick={this.props.clickHandler}
+        onClick={this.props.onClick}
       >
         {this.props.children}
       </StyledButton>
