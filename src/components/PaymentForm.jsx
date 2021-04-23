@@ -1,41 +1,47 @@
-import React, { Component } from 'react';
-import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from '../utils';
+import React, { Component } from "react";
+import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
 class PaymentForm extends Component {
   constructor(props) {
     super(props);
-    this.messageRef = React.createRef();
+    this.state = {
+      errorInputMessage: "",
+    };
   }
 
   handleInputCheck = ({ target }) => {
-    if (target.value === '') {
+    if (target.value === "") {
       this.props.setMoney(null);
       return;
     }
 
     const money = Number(target.value);
-    const $message = this.messageRef.current;
 
     this.props.setMoney(money);
 
     if (this.isValidPayment(money)) {
-      $message.innerText = '';
+      this.setState({
+        errorInputMessage: "",
+      });
 
       return;
     }
 
-    $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
+    this.setState({
+      errorInputMessage: MESSAGE.PAYMENT_FORM.INVALID_PAYMENT,
+    });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
-    const $message = this.messageRef.current;
     const money = Number($input.value);
 
     if (!this.isValidPayment(money)) {
-      $message.innerText = MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
+      this.setState({
+        errorInputMessage: MESSAGE.PAYMENT_FORM.INVALID_PAYMENT,
+      });
 
       return;
     }
@@ -66,7 +72,7 @@ class PaymentForm extends Component {
             placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}
-            value={money ? money : ''}
+            value={money ? money : ""}
             disabled={this.props.lotteries.length !== 0}
           />
           <button
@@ -78,7 +84,7 @@ class PaymentForm extends Component {
             확인
           </button>
         </div>
-        <p ref={this.messageRef}></p>
+        <p>{this.state.errorInputMessage}</p>
       </form>
     );
   }
