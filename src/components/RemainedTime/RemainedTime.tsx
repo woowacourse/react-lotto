@@ -16,6 +16,9 @@ const RemainedTime = () => {
 
   useEffect(() => {
     handleRemainedTime();
+    return () => {
+      clearTimeout(remainTimer);
+    };
   }, []);
 
   return (
