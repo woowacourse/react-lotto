@@ -1,4 +1,6 @@
-.PriceForm {
+import styled from 'styled-components';
+
+export const PriceFormContainer = styled.section`
   margin-bottom: 2rem;
 
   .price-form {
@@ -45,4 +47,4 @@
       }
     }
   }
-}
+`;
