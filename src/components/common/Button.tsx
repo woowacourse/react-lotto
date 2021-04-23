@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-type ButtonProps = {
+interface Props {
   fullWidth?: boolean;
-};
+}
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button<Props>`
   background-color: #00bcd4;
   height: 36px;
   min-width: 64px;

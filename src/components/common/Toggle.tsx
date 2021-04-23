@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 
 const ToggleWrapper = styled.label`
@@ -119,28 +119,21 @@ const ToggleWrapper = styled.label`
     background-color: rgba(0, 188, 212, 0.6);
   }
 `;
-
-type Props = {
+interface Props {
   onToggle: (isToggled: boolean) => void;
+}
+
+const Toggle: FC<Props> = ({ onToggle, children }) => {
+  const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
+    onToggle(event.target.checked);
+  };
+
+  return (
+    <ToggleWrapper>
+      <input onChange={handleToggle} type="checkbox" className="toggle-button" />
+      <span className="toggle-text">{children}</span>
+    </ToggleWrapper>
+  );
 };
 
-export default class Toggle extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.handleToggle = this.handleToggle.bind(this);
-  }
-
-  handleToggle(event: React.ChangeEvent<HTMLInputElement>) {
-    this.props.onToggle(event.target.checked);
-  }
-
-  render() {
-    return (
-      <ToggleWrapper>
-        <input onChange={this.handleToggle} type="checkbox" className="toggle-button" />
-        <span className="toggle-text">{this.props.children}</span>
-      </ToggleWrapper>
-    );
-  }
-}
+export default Toggle;
