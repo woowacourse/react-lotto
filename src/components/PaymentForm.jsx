@@ -5,40 +5,51 @@ class PaymentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      money: "",
       errorInputMessage: "",
     };
   }
 
-  handleInputCheck = ({ target }) => {
-    if (target.value === "") {
-      this.props.setMoney(null);
+  componentDidUpdate = (prevProps) => {
+    if (this.props.isDisabled === prevProps.isDisabled) {
       return;
     }
 
-    const money = Number(target.value);
+    if (!this.props.isDisabled) {
+      this.setState(() => ({
+        money: "",
+      }));
+    }
+  };
 
-    this.props.setMoney(money);
+  handleInputCheck = ({ target }) => {
+    const money = target.value;
 
-    if (this.isValidPayment(money)) {
+    if (money === "") {
       this.setState({
-        errorInputMessage: "",
+        money: "",
       });
 
       return;
     }
 
     this.setState({
-      errorInputMessage: MESSAGE.PAYMENT_FORM.INVALID_PAYMENT,
+      money,
+    });
+
+    const errorInputMessage = this.isValidPayment(money)
+      ? ""
+      : MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
+
+    this.setState({
+      errorInputMessage,
     });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const $input = event.target[SELECTOR.ID.PAYMENT_INPUT];
-    const money = Number($input.value);
-
-    if (!this.isValidPayment(money)) {
+    if (!this.isValidPayment(this.state.money)) {
       this.setState({
         errorInputMessage: MESSAGE.PAYMENT_FORM.INVALID_PAYMENT,
       });
@@ -46,7 +57,7 @@ class PaymentForm extends Component {
       return;
     }
 
-    this.props.setLotteries(money);
+    this.props.onMoneySubmit(this.state.money);
   };
 
   isValidPayment(value) {
@@ -54,8 +65,6 @@ class PaymentForm extends Component {
   }
 
   render() {
-    const { money } = this.props;
-
     return (
       <form className="mt-5" onSubmit={this.handleSubmit}>
         <label
@@ -72,14 +81,14 @@ class PaymentForm extends Component {
             placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}
-            value={money ? money : ""}
-            disabled={this.props.lotteries.length !== 0}
+            value={this.state.money}
+            disabled={this.props.isDisabled}
           />
           <button
             id={SELECTOR.ID.PAYMENT_SUBMIT}
             className="btn btn-cyan"
             type="submit"
-            disabled={this.props.lotteries.length !== 0}
+            disabled={this.props.isDisabled}
           >
             확인
           </button>
