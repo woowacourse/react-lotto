@@ -1,4 +1,6 @@
-.PurchasedLotto {
+import styled from 'styled-components';
+
+export const PurchasedLottoContainer = styled.section`
   margin-bottom: 2rem;
 
   ul {
@@ -83,4 +85,4 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(151, 151, 151);
   }
-}
+`;
