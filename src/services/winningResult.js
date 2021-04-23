@@ -27,10 +27,7 @@ export const getRanks = counts => {
 export const getTotalProfit = counts => {
   const totalProfit = counts
     .filter(count => count !== 0)
-    .reduce((sum, count) => {
-      sum += getProfit(getRank(count));
-      return sum;
-    }, 0);
+    .reduce((sum, count) => (sum += getProfit(getRank(count))), 0);
 
   const cost = counts.length * LOTTO.UNIT;
   return ((totalProfit - cost) / cost) * 100;
