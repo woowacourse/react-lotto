@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
+import Flex from '../utils/Flex';
+
 import { LOTTO } from '../../constants/lotto';
 
 import {
   BonusNumberInputWrapperDiv,
-  NumberInputDiv,
   NumberInput,
 } from './BonusNumberInput.style';
 class BonusNumberInput extends Component {
@@ -12,7 +13,7 @@ class BonusNumberInput extends Component {
     return (
       <BonusNumberInputWrapperDiv>
         <p>보너스 번호</p>
-        <NumberInputDiv>
+        <Flex>
           <NumberInput
             type="number"
             name="bonus-number"
@@ -21,7 +22,7 @@ class BonusNumberInput extends Component {
             min={LOTTO.START_NUM}
             max={LOTTO.END_NUM}
           />
-        </NumberInputDiv>
+        </Flex>
       </BonusNumberInputWrapperDiv>
     );
   }

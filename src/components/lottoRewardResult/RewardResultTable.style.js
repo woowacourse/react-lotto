@@ -4,12 +4,6 @@ export const RewardResultTitle = styled.h2`
   text-align: center;
 `;
 
-export const RewardResultWrapperDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const RewardTable = styled.table`
   border-collapse: collapse;
   border: 3px solid #eb7a7a;

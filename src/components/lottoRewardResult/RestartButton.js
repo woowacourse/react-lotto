@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
 import Button from '../utils/Button';
+import Flex from '../utils/Flex';
 
 import { MESSAGE } from '../../constants/messages';
-
-import { RestartButtonWrapperDiv } from './RestartButton.style';
 
 class RestartButton extends Component {
   handleRestart = () => {
@@ -16,11 +15,11 @@ class RestartButton extends Component {
 
   render() {
     return (
-      <RestartButtonWrapperDiv>
+      <Flex marginTop={'0.4rem'}>
         <Button type="reset" onClick={this.handleRestart}>
           다시 시작하기
         </Button>
-      </RestartButtonWrapperDiv>
+      </Flex>
     );
   }
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Flex from '../utils/Flex';
+
 import {
   getLottoProfitResult,
   getMatchedCounts,
@@ -9,7 +11,6 @@ import {
 
 import {
   RewardResultTitle,
-  RewardResultWrapperDiv,
   RewardTable,
   ProfitMessage,
 } from './RewardResultTable.style';
@@ -45,7 +46,7 @@ class RewardResultTable extends Component {
     return (
       <>
         <RewardResultTitle id="title-dialog">🏆 당첨 통계 🏆</RewardResultTitle>
-        <RewardResultWrapperDiv>
+        <Flex>
           <RewardTable>
             <thead>
               <tr>
@@ -56,7 +57,7 @@ class RewardResultTable extends Component {
             </thead>
             <tbody>{this.getRewardResults()}</tbody>
           </RewardTable>
-        </RewardResultWrapperDiv>
+        </Flex>
 
         <ProfitMessage>
           당신의 총 수익률은

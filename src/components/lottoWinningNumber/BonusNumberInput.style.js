@@ -11,12 +11,6 @@ export const BonusNumberInputWrapperDiv = styled.div`
   }
 `;
 
-export const NumberInputDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const NumberInput = styled.input`
   margin-right: 0.25rem;
   margin-left: 0.25rem;
