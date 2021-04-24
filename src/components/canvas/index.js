@@ -10,11 +10,11 @@ class Canvas extends React.Component {
   addAnimation() {}
 
   render() {
-    return <canvas id='canvas'></canvas>;
+    return <canvas id='canvas' />;
   }
 
   componentDidMount() {
-    let colors = [
+    const colors = [
       ...Array(6).fill('rgba(252, 209, 83, 1)'),
       ...Array(6).fill('rgba(255, 143, 78, 1)'),
       ...Array(6).fill('rgba(60, 188, 255, 1)'),
@@ -22,10 +22,10 @@ class Canvas extends React.Component {
       ...Array(6).fill('rgba(255, 76, 76, 1)'),
     ];
 
-    let k = 1;
+    let isBallDrawn = false;
     const ball = [];
     const ballCount = 30;
-    for (let i = 0; i < ballCount; i++) {
+    [...new Array(ballCount)].forEach((_, i) => {
       ball[i] = {
         x: 0,
         y: 0,
@@ -33,7 +33,7 @@ class Canvas extends React.Component {
         dy: -2,
         color: colors[i],
       };
-    }
+    });
 
     const ballRadius = 15;
 
@@ -47,11 +47,11 @@ class Canvas extends React.Component {
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < ballCount; i++) {
+      [...new Array(ballCount)].forEach((_, i) => {
         const currentDegreeIdx = i % 5;
         const currentDegree = degrees[currentDegreeIdx];
 
-        if (k == 1) {
+        if (isBallDrawn === false) {
           ball[i].x = Math.random() * canvas.width - ballRadius;
           ball[i].y = Math.random() * canvas.height - ballRadius;
         }
@@ -84,22 +84,23 @@ class Canvas extends React.Component {
             degrees[idx] = degree - 0.001 * (idx + 1);
           }
         });
-      }
+      });
+
       move();
       rebound();
       requestAnimationFrame(draw);
     }
 
     function move() {
-      for (let i = 0; i < ballCount; i++) {
+      [...new Array(ballCount)].forEach((_, i) => {
         ball[i].x = ball[i].x + ball[i].dx;
         ball[i].y = ball[i].y + ball[i].dy;
-        k = 0;
-      }
+        isBallDrawn = true;
+      });
     }
 
     function rebound() {
-      for (let i = 0; i < ballCount; i++) {
+      [...new Array(ballCount)].forEach((_, i) => {
         if (
           ball[i].x + ball[i].dx > canvas.width - ballRadius ||
           ball[i].x + ball[i].dx < ballRadius
@@ -112,7 +113,7 @@ class Canvas extends React.Component {
         ) {
           ball[i].dy = -ball[i].dy + Math.random() + 0.2;
         }
-      }
+      });
     }
 
     draw();

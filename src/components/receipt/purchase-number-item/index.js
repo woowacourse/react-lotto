@@ -32,7 +32,7 @@ class PurchaseNumberItem extends React.Component {
                   numberValue={number}
                   toggled={this.props.toggled}
                   ballColor={chooseBallColor(number)}
-                ></LotteryBall>
+                />
               );
             })}
           </div>

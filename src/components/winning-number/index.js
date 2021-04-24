@@ -79,7 +79,7 @@ class WinningNumber extends React.Component {
             );
           })}
         </div>
-        <Button buttonText='결과 확인하기'></Button>
+        <Button buttonText='결과 확인하기' />
       </form>
     );
   }

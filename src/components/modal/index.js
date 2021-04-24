@@ -66,7 +66,7 @@ class Modal extends React.Component {
                   toggled={true}
                   colored={true}
                   ballColor={chooseBallColor(number)}
-                ></LotteryBall>
+                />
               ))}
               {
                 <div className='plus-icon'>
@@ -79,7 +79,7 @@ class Modal extends React.Component {
                   toggled={true}
                   colored={true}
                   ballColor={chooseBallColor(this.props.bonusNumber)}
-                ></LotteryBall>
+                />
               }
             </div>
             <div className='modal-numbers-container'>
@@ -93,7 +93,7 @@ class Modal extends React.Component {
                   winningBallCount={this.countWinningBall(ticket)}
                   bonusBallCount={this.countBonusBall(ticket)}
                   onCalculateTotalPrize={(prize) => this.calculateTotalPrize(prize)}
-                ></PurchaseNumberItem>
+                />
               ))}
               <div className='modal-result-text'>
                 <p>{`구입 금액: ${this.props.moneyAmount}원`}</p>
@@ -101,7 +101,7 @@ class Modal extends React.Component {
                 <p>{`수익률: ${this.state.earningRate}%`}</p>
               </div>
             </div>
-            <Button onClick={this.props.onResetButtonClick} buttonText='다시 시작하기'></Button>
+            <Button onClick={this.props.onResetButtonClick} buttonText='다시 시작하기' />
           </div>
         </div>
       </>

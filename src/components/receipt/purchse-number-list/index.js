@@ -15,7 +15,7 @@ class PurchaseNumberList extends React.Component {
             key={uuidv4()}
             ticketNumbers={ticket}
             toggled={this.props.showBalls}
-          ></PurchaseNumberItem>
+          />
         ))}
       </ul>
     );

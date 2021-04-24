@@ -36,7 +36,7 @@ class MoneyInput extends React.Component {
           placeholder='1,000'
           isCurrentInput={true}
         />
-        <Button buttonText='구입' customClass='money-input-button'></Button>
+        <Button buttonText='구입' customClass='money-input-button' />
       </form>
     );
   }
