@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LOTTERY, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
+import { MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
 class PaymentForm extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class PaymentForm extends Component {
       money,
     });
 
-    const errorInputMessage = this.isValidPayment(money)
+    const errorInputMessage = this.props.isValidPayment(money)
       ? ""
       : MESSAGE.PAYMENT_FORM.INVALID_PAYMENT;
 
@@ -49,7 +49,7 @@ class PaymentForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!this.isValidPayment(this.state.money)) {
+    if (!this.props.isValidPayment(this.state.money)) {
       this.setState({
         errorInputMessage: MESSAGE.PAYMENT_FORM.INVALID_PAYMENT,
       });
@@ -59,10 +59,6 @@ class PaymentForm extends Component {
 
     this.props.onMoneySubmit(this.state.money);
   };
-
-  isValidPayment(value) {
-    return value > 0 && value % LOTTERY.PRICE === 0;
-  }
 
   render() {
     return (
@@ -78,7 +74,7 @@ class PaymentForm extends Component {
             id={SELECTOR.ID.PAYMENT_INPUT}
             className="w-100 mr-2 pl-2"
             type="number"
-            placeholder={`구입 금액 (${LOTTERY.PRICE}원 단위)`}
+            placeholder={`구입 금액 (${this.props.paymentMinUnit}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}
             value={this.state.money}

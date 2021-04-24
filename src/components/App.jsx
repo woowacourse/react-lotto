@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { LotteryMachine, ProfitCalculator } from "../services";
+import { LOTTERY } from "../utils";
 import LotteriesDetail from "./LotteriesDetail";
 import PaymentForm from "./PaymentForm";
 import WinningNumbersForm from "./WinningNumbersForm";
@@ -60,6 +61,8 @@ class App extends Component {
 
               this.setState({ lotteries });
             }}
+            isValidPayment={(value) => value > 0 && value % LOTTERY.PRICE === 0}
+            paymentMinUnit={LOTTERY.PRICE}
           />
           {lotteries.length > 0 && (
             <>
