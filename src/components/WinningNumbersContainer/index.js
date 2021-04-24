@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Lotto } from '../../models';
 import {
   Root,
@@ -12,70 +12,59 @@ import {
   InputErrorMessage,
 } from './style';
 
-class WinningNumbersContainer extends Component {
-  constructor(props) {
-    super(props);
+const WinningNumbersContainer = ({ onSetWinningNumbers }) => {
+  const [mainNumbersInputValue, setMainNumbersInputValue] = useState(Array.from({ length: 6 }, () => ''));
+  const [bonusNumberInputValue, setBonusNumberInputValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    this.state = {
-      mainNumbersInputValue: Array.from({ length: 6 }, () => ''),
-      bonusNumberInputValue: '',
-      errorMessage: '',
-    };
-
-    this.handleSubmitWinningNumbers = this.handleSubmitWinningNumbers.bind(this);
-    this.handleChangeWinningNumbers = this.handleChangeWinningNumbers.bind(this);
-  }
-
-  handleSubmitWinningNumbers(event) {
+  const onSubmitWinningNumbers = (event) => {
     event.preventDefault();
 
-    const mainNumbers = this.state.mainNumbersInputValue.map((value) => Number(value));
-    const bonusNumber = Number(this.state.bonusNumberInputValue);
+    const mainNumbers = mainNumbersInputValue.map((value) => Number(value));
+    const bonusNumber = Number(bonusNumberInputValue);
 
     try {
-      this.validateNumbers(mainNumbers, bonusNumber);
-      this.setState({ errorMessage: '' });
+      validateNumbers(mainNumbers, bonusNumber);
+      setErrorMessage('');
     } catch (error) {
-      this.setState({ errorMessage: error.message });
+      setErrorMessage(error.message);
       return;
     }
 
-    this.props.onSetwinnningNmbers({ mainNumbers, bonusNumber });
-  }
+    onSetWinningNumbers({ mainNumbers, bonusNumber });
+  };
 
-  handleChangeWinningNumbers({ target, currentTarget }) {
+  const onchangeWinningNumbers = ({ target, currentTarget }) => {
     if (target.name === 'main-number') {
-      this.setMainNumbers(target);
-      this.moveNumberInputFocus(target, currentTarget);
+      setMainNumbers(target);
+      moveNumberInputFocus(target, currentTarget);
     }
 
     if (target.name === 'bonus-number') {
-      this.setBonusNumber(target);
+      setBonusNumber(target);
     }
-  }
+  };
 
-  setMainNumbers($mainNumberInput) {
+  const setMainNumbers = ($mainNumberInput) => {
     const currentNumberIndex = Number($mainNumberInput.dataset.index);
-    this.setState({
-      mainNumbersInputValue: [
-        ...this.state.mainNumbersInputValue.slice(0, currentNumberIndex),
-        $mainNumberInput.value,
-        ...this.state.mainNumbersInputValue.slice(currentNumberIndex + 1),
-      ],
-    });
-  }
+    setMainNumbersInputValue([
+      ...mainNumbersInputValue.slice(0, currentNumberIndex),
+      $mainNumberInput.value,
+      ...mainNumbersInputValue.slice(currentNumberIndex + 1),
+    ]);
+  };
 
-  setBonusNumber($bonusNumberInput) {
-    this.setState({ bonusNumberInputValue: $bonusNumberInput.value });
-  }
+  const setBonusNumber = ($bonusNumberInput) => {
+    setBonusNumberInputValue($bonusNumberInput.value);
+  };
 
-  validateNumbers(mainNumbers, bonusNumber) {
+  const validateNumbers = (mainNumbers, bonusNumber) => {
     const isDuplicated = Lotto.NUMBERS_LENGTH >= new Set([...mainNumbers, bonusNumber]).size;
 
     if (isDuplicated) throw Error('중복된 당첨번호가 존재합니다 🤢');
-  }
+  };
 
-  moveNumberInputFocus(target, currentTarget) {
+  const moveNumberInputFocus = (target, currentTarget) => {
     const currentNumberValue = target.valueAsNumber;
     const currentNumberIndex = Number(target.dataset.index);
 
@@ -84,40 +73,38 @@ class WinningNumbersContainer extends Component {
 
       numberInputs[currentNumberIndex + 1].focus();
     }
-  }
+  };
 
-  render() {
-    const numberInputs = Array.from({ length: Lotto.NUMBERS_LENGTH }, (_, idx) => (
-      <NumberInput key={idx} data-index={idx} type="number" name="main-number" min="1" max="45" required />
-    ));
+  const numberInputs = Array.from({ length: Lotto.NUMBERS_LENGTH }, (_, idx) => (
+    <NumberInput key={idx} data-index={idx} type="number" name="main-number" min="1" max="45" required />
+  ));
 
-    return (
-      <Root>
-        <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
-        <Form onSubmit={this.handleSubmitWinningNumbers} onChange={this.handleChangeWinningNumbers}>
-          <FlexContainer>
-            <NumbersContainer>
-              <NumberInputType>당첨번호</NumberInputType>
-              <FlexContainer>{numberInputs}</FlexContainer>
-            </NumbersContainer>
-            <NumbersContainer>
-              <NumberInputType>보너스번호</NumberInputType>
-              <NumberInput
-                type="number"
-                data-index={Lotto.NUMBERS_LENGTH}
-                name="bonus-number"
-                min="1"
-                max="45"
-                required
-              />
-            </NumbersContainer>
-          </FlexContainer>
-          {this.state.errorMessage && <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>}
-          <SubmitButton>결과 확인하기</SubmitButton>
-        </Form>
-      </Root>
-    );
-  }
-}
+  return (
+    <Root>
+      <NumberInputGuide>지난 주 당첨번호 6개와 보너스번호 1개를 입력해주세요.</NumberInputGuide>
+      <Form onSubmit={onSubmitWinningNumbers} onChange={onchangeWinningNumbers}>
+        <FlexContainer>
+          <NumbersContainer>
+            <NumberInputType>당첨번호</NumberInputType>
+            <FlexContainer>{numberInputs}</FlexContainer>
+          </NumbersContainer>
+          <NumbersContainer>
+            <NumberInputType>보너스번호</NumberInputType>
+            <NumberInput
+              type="number"
+              data-index={Lotto.NUMBERS_LENGTH}
+              name="bonus-number"
+              min="1"
+              max="45"
+              required
+            />
+          </NumbersContainer>
+        </FlexContainer>
+        {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
+        <SubmitButton>결과 확인하기</SubmitButton>
+      </Form>
+    </Root>
+  );
+};
 
 export default WinningNumbersContainer;

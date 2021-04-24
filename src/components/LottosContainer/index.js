@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Root,
   FlexContainer,
@@ -11,35 +11,27 @@ import {
   LottoNumbers,
 } from './style';
 
-class LottosContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const lottos = this.props.lottos.map((lotto, idx) => {
-      return (
-        <LottoItem key={idx}>
-          💎 {this.props.isSwitchOn ? <LottoNumbers>{lotto.numbers.join(',')}</LottoNumbers> : null}
-        </LottoItem>
-      );
-    });
-
+const LottosContainer = ({ lottos, isSwitchOn, onToggleDisplay }) => {
+  const lottoList = lottos.map((lotto, idx) => {
     return (
-      <Root>
-        <FlexContainer>
-          <TotalPurchase>총 {this.props.lottos.length}개를 구매하였습니다.</TotalPurchase>
-          <SwitchWrapper>
-            <SwitchLabel>
-              번호보기
-              <ToggleSwitch type="checkbox" checked={this.props.isSwitchOn} onChange={this.props.onToggleDisplay} />
-            </SwitchLabel>
-          </SwitchWrapper>
-        </FlexContainer>
-        <LottoWrapper isSwitchOn={this.props.isSwitchOn}>{lottos}</LottoWrapper>
-      </Root>
+      <LottoItem key={idx}>💎 {isSwitchOn ? <LottoNumbers>{lotto.numbers.join(',')}</LottoNumbers> : null}</LottoItem>
     );
-  }
-}
+  });
+
+  return (
+    <Root>
+      <FlexContainer>
+        <TotalPurchase>총 {lottos.length}개를 구매하였습니다.</TotalPurchase>
+        <SwitchWrapper>
+          <SwitchLabel>
+            번호보기
+            <ToggleSwitch type="checkbox" checked={isSwitchOn} onChange={onToggleDisplay} />
+          </SwitchLabel>
+        </SwitchWrapper>
+      </FlexContainer>
+      <LottoWrapper isSwitchOn={isSwitchOn}>{lottoList}</LottoWrapper>
+    </Root>
+  );
+};
 
 export default LottosContainer;

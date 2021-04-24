@@ -1,64 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Root, Form, Label, InputWrapper, Input, SubmitButton, InputErrorMessage } from './style';
 
-class PriceInput extends Component {
-  constructor(props) {
-    super(props);
+const PriceInput = ({ onSetPrice, isDisabled }) => {
+  const [priceInputValue, setPriceInputValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    this.state = {
-      priceInputValue: '',
-      errorMessage: '',
-    };
-    this.handleSubmitPrice = this.handleSubmitPrice.bind(this);
-    this.handleChangePriceInputValue = this.handleChangePriceInputValue.bind(this);
-  }
-
-  handleSubmitPrice(event) {
+  const onSubmitPrice = (event) => {
     event.preventDefault();
 
     try {
-      this.validatePriceUnit(Number(this.state.priceInputValue));
-      this.setState({ errorMessage: '' });
+      validatePriceUnit(Number(priceInputValue));
+      setErrorMessage('');
     } catch (error) {
-      this.setState({ errorMessage: error.message });
+      setErrorMessage(error.message);
       return;
     }
 
-    this.props.onSetPrice(Number(this.state.priceInputValue));
-    this.setState({ priceInputValue: '' });
-  }
+    onSetPrice(Number(priceInputValue));
+    setPriceInputValue('');
+  };
 
-  handleChangePriceInputValue(event) {
-    this.setState({ priceInputValue: event.target.value });
-  }
+  const onChangePriceInputValue = (event) => {
+    setPriceInputValue(event.target.value);
+  };
 
-  validatePriceUnit(price) {
+  const validatePriceUnit = (price) => {
     if (price % 1000 !== 0) throw Error('1,000원 단위로 입력해주세요 🐱‍');
-  }
+  };
 
-  render() {
-    return (
-      <Root>
-        <Form onSubmit={this.handleSubmitPrice}>
-          <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
-          <InputWrapper>
-            <Input
-              type="number"
-              id="price"
-              value={this.state.priceInputValue}
-              onChange={this.handleChangePriceInputValue}
-              min="1000"
-              placeholder="구입 금액"
-              disabled={this.props.isDisabled}
-              required
-            />
-            <SubmitButton disabled={this.props.isDisabled}>확인</SubmitButton>
-            {this.state.errorMessage && <InputErrorMessage>{this.state.errorMessage}</InputErrorMessage>}
-          </InputWrapper>
-        </Form>
-      </Root>
-    );
-  }
-}
+  return (
+    <Root>
+      <Form onSubmit={onSubmitPrice}>
+        <Label htmlFor="price">구입할 금액을 입력해주세요.</Label>
+        <InputWrapper>
+          <Input
+            type="number"
+            id="price"
+            value={priceInputValue}
+            onChange={onChangePriceInputValue}
+            min="1000"
+            placeholder="구입 금액"
+            disabled={isDisabled}
+            required
+          />
+          <SubmitButton disabled={isDisabled}>확인</SubmitButton>
+          {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
+        </InputWrapper>
+      </Form>
+    </Root>
+  );
+};
 
 export default PriceInput;
