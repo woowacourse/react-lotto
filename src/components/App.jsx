@@ -18,7 +18,7 @@ class App extends Component {
     };
   }
 
-  setWinningResult = (winningNumbers, bonusNumber) => {
+  onWinningNumberSubmit = (winningNumbers, bonusNumber) => {
     const rankCount = this.profitCalculator.getRankCount({
       winningNumbers,
       bonusNumber,
@@ -67,7 +67,9 @@ class App extends Component {
           {lotteries.length > 0 && (
             <>
               <LotteriesDetail lotteries={lotteries} />
-              <WinningNumbersForm setWinningResult={this.setWinningResult} />
+              <WinningNumbersForm
+                onWinningNumberSubmit={this.onWinningNumberSubmit}
+              />
             </>
           )}
           {winningResult && (

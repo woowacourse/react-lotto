@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { hasDuplicatedNumber, LOTTERY, MESSAGE } from '../utils';
+import React, { Component } from "react";
+import { hasDuplicatedNumber, LOTTERY, MESSAGE } from "../utils";
 
 class WinningNumbersForm extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class WinningNumbersForm extends Component {
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const inputNumbers = [...this.state.winningNumbers, this.state.bonusNumber];
@@ -24,9 +24,9 @@ class WinningNumbersForm extends Component {
       return;
     }
 
-    $input.innerText = '';
+    $input.innerText = "";
     this.setState({ isSubmit: true });
-    this.props.setWinningResult(
+    this.props.onWinningNumberSubmit(
       this.state.winningNumbers,
       this.state.bonusNumber
     );
