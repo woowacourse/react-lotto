@@ -80,14 +80,15 @@ const App = () => {
           </>
         )}
       </Container>
-      <ResultModal
-        isOpen={isResultModalOpen}
-        price={price}
-        lottos={lottos}
-        winningNumbers={winningNumbers}
-        onResetGame={resetGame}
-        onCloseModal={onCloseResultModal}
-      />
+      {isResultModalOpen && (
+        <ResultModal
+          price={price}
+          lottos={lottos}
+          winningNumbers={winningNumbers}
+          onResetGame={resetGame}
+          onCloseModal={onCloseResultModal}
+        />
+      )}
     </Root>
   );
 };

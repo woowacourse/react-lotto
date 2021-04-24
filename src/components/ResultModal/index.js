@@ -62,7 +62,7 @@ const ResultModal = ({ winningNumbers, lottos, isOpen, price, onCloseModal, onRe
   const { rankCount, earningRate } = calculateResult();
   return (
     <Root>
-      <Modal isOpen={isOpen} onClick={clickDimmedArea}>
+      <Modal onClick={clickDimmedArea}>
         <ModalInner>
           <CloseButton onClick={closeModal}>
             <svg viewBox="0 0 40 40">
