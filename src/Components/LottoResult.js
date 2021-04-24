@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../Constants";
 import LottoContext from "../Contexts/LottoContext";
@@ -30,6 +29,14 @@ const Button = styled.button`
   }
 `;
 
+const Tr = styled.tr`
+  text-align: center;
+`;
+
+const Message = styled.p`
+  font-weight: bold;
+`;
+
 export default class LottoResult extends Component {
   render() {
     const { rankCount, earningRate } = this.context.state.lottoResult;
@@ -39,38 +46,23 @@ export default class LottoResult extends Component {
         <h2>🏆 당첨 통계 🏆</h2>
         <ResultTable>
           <thead>
-            <tr
-              css={css`
-                text-align: center;
-              `}
-            >
+            <Tr>
               <th>일치 갯수</th>
               <th>당첨금</th>
               <th>당첨 갯수</th>
-            </tr>
+            </Tr>
           </thead>
           <tbody>
             {Object.values(RANKINGS).map((ranking) => (
-              <tr
-                css={css`
-                  text-align: center;
-                `}
-                key={ranking}
-              >
+              <Tr key={ranking}>
                 <td>{PRIZE_TABLE[ranking].condition}</td>
                 <td>{PRIZE_TABLE[ranking].prize}원</td>
                 <td>{rankCount[ranking]}개</td>
-              </tr>
+              </Tr>
             ))}
           </tbody>
         </ResultTable>
-        <p
-          css={css`
-            font-weight: bold;
-          `}
-        >
-          {GUIDE_MESSAGE.EARNING_RATE(earningRate)}
-        </p>
+        <Message>{GUIDE_MESSAGE.EARNING_RATE(earningRate)}</Message>
         <Button type="button" onClick={this.context.action.clear}>
           다시 시작하기
         </Button>

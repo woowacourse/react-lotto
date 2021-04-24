@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import LottoContext from "../Contexts/LottoContext";
@@ -12,8 +11,23 @@ const Header = styled.h2`
   font-weight: normal;
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const InputSection = styled.section`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
 const InputHeader = styled.h3`
   text-align: center;
+`;
+
+const InputBoxContainer = styled.div`
+  display: flex;
 `;
 
 const InputBox = styled.input`
@@ -77,25 +91,10 @@ export default class WinningNumberInput extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
-        <div
-          css={css`
-            display: flex;
-            justify-content: space-between;
-          `}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              flex-direction: column;
-            `}
-          >
+        <FlexContainer>
+          <InputSection>
             <InputHeader>당첨 번호</InputHeader>
-            <div
-              css={css`
-                display: flex;
-              `}
-            >
+            <InputBoxContainer>
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox
                   key={index}
@@ -106,16 +105,10 @@ export default class WinningNumberInput extends Component {
                   required="required"
                 ></InputBox>
               ))}
-            </div>
-          </div>
+            </InputBoxContainer>
+          </InputSection>
 
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              flex-direction: column;
-            `}
-          >
+          <InputSection>
             <InputHeader>보너스 번호</InputHeader>
             <InputBox
               name="bonus-number"
@@ -124,8 +117,8 @@ export default class WinningNumberInput extends Component {
               max="45"
               required="required"
             ></InputBox>
-          </div>
-        </div>
+          </InputSection>
+        </FlexContainer>
         {!this.state.isValidInput && (
           <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
         )}

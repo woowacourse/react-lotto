@@ -1,28 +1,26 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+
+const Li = styled.li`
+  display: flex;
+  align-items: center;
+`;
+
+const TicketWrapper = styled.span`
+  margin-right: 10px;
+  font-size: 24px;
+`;
 
 export default class Lotto extends Component {
   render() {
     return (
-      <li
-        css={css`
-          display: flex;
-          align-items: center;
-        `}
-      >
-        <span
-          css={css`
-            margin-right: 10px;
-            font-size: 24px;
-          `}
-        >
-          🎟️
-        </span>
+      <Li>
+        <TicketWrapper>🎟️</TicketWrapper>
         {this.props.isNumberVisible && (
           <span>{this.props.lottoNumbers.join(", ")}</span>
         )}
-      </li>
+      </Li>
     );
   }
 }

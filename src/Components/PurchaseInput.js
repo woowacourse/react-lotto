@@ -1,6 +1,5 @@
 import React, { Component, createRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
 import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
@@ -9,6 +8,11 @@ import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
 const Form = styled.form`
   width: 100%;
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  margin-top: 0.5rem;
 `;
 
 const Input = styled.input`
@@ -65,12 +69,7 @@ export default class PurchaseInput extends Component {
     return (
       <Form onSubmit={this.onSubmit} ref={this.formRef}>
         <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
-        <div
-          css={css`
-            display: flex;
-            margin-top: 0.5rem;
-          `}
-        >
+        <FlexContainer>
           <Input
             id="purchase-input"
             name="purchase-input"
@@ -80,7 +79,7 @@ export default class PurchaseInput extends Component {
             required
           />
           <Button type="submit">확인</Button>
-        </div>
+        </FlexContainer>
         {!this.state.isValidInput && (
           <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
         )}
