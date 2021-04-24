@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import PurchaseNumberItem from '../purchase-number-item';
+import PurchaseNumberItem from '../PurchaseNumberItem';
 
 class PurchaseNumberList extends React.Component {
   constructor(props) {

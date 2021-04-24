@@ -1,6 +1,7 @@
 import React from 'react';
-import PurchaseNumberList from './purchse-number-list';
-import ToggleButton from '../util-component/toggle';
+import PropTypes from 'prop-types';
+import PurchaseNumberList from './PurchaseNumberList';
+import ToggleButton from '../UtilComponent/Toggle';
 import './style.scss';
 
 class Receipt extends React.Component {
@@ -30,5 +31,9 @@ class Receipt extends React.Component {
     );
   }
 }
+
+Receipt.propTypes = {
+  receipt: PropTypes.array,
+};
 
 export default Receipt;

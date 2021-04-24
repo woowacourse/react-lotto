@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import chooseBallColor from '../../utils/color-ball';
-import PurchaseNumberItem from '../receipt/purchase-number-item';
-import LotteryBall from '../receipt/lottery-ball';
-import Button from '../util-component/button';
+import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
+import LotteryBall from '../Receipt/LotteryBall';
+import Button from '../UtilComponent/Button';
 import './style.scss';
 
 class Modal extends React.Component {
@@ -108,5 +109,14 @@ class Modal extends React.Component {
     );
   }
 }
+
+Modal.propTypes = {
+  winningNumber: PropTypes.array,
+  bonusNumber: PropTypes.number,
+  receipt: PropTypes.array,
+  moneyAmount: PropTypes.number,
+  onResetButtonClick: PropTypes.func,
+  onModalClose: PropTypes.func,
+};
 
 export default Modal;

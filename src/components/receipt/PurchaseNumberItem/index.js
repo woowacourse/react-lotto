@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import LotteryBall from '../lottery-ball';
+import LotteryBall from '../LotteryBall';
 import chooseBallColor from '../../../utils/color-ball';
 import calculatePrize from '../../../utils/calculate-prize';
 import './style.scss';

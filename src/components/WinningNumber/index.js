@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import NumberInput from '../util-component/number-input/index';
-import Button from '../util-component/button/index';
-import { isInputValueExist, isInputValueDuplicated, isInputValueChanged } from './validations';
+import NumberInput from '../UtilComponent/NumberInput/index';
+import Button from '../UtilComponent/Button/index';
+import { isInputValueExist, isInputValueDuplicated, isInputValueChanged } from './Validations';
 import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
 import './style.scss';
 
@@ -84,4 +85,10 @@ class WinningNumber extends React.Component {
     );
   }
 }
+
+WinningNumber.propTypes = {
+  onHandleSubmit: PropTypes.func,
+  onModalButtonClick: PropTypes.func,
+};
+
 export default WinningNumber;
