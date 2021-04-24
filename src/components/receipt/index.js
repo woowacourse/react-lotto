@@ -25,10 +25,7 @@ class Receipt extends React.Component {
           <p>구입한 로또 번호</p>
           <ToggleButton onHandleToggle={this.handleToggle} />
         </div>
-        <PurchaseNumberList
-          receipt={this.props.receipt}
-          showBalls={this.state.showBalls}
-        ></PurchaseNumberList>
+        <PurchaseNumberList receipt={this.props.receipt} showBalls={this.state.showBalls} />
       </div>
     );
   }

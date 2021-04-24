@@ -59,9 +59,9 @@ class TimeLeft extends React.Component {
       <>
         <div className='belt-up'></div>
         <div className='time-container'>
-          <marquee className='time-sub-title'>
+          <div className='time-sub-title'>
             🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {this.state.timeLeft} </span>
-          </marquee>
+          </div>
         </div>
       </>
     );

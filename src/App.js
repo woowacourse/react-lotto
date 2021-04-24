@@ -8,7 +8,7 @@ import getRandomNumber from './utils/random-number';
 import Canvas from './components/canvas';
 import TimeLeft from './components/time-left';
 import { hideScroll, showScroll } from './utils/scroll';
-import muyaho from './sound/muyaho.mp3';
+import muyahoAudio from './sound/muyaho.mp3';
 import Lottie from 'react-lottie';
 import coinSpin from './animation/coinSpin.json';
 import './style.scss';
@@ -27,7 +27,7 @@ class App extends React.Component {
     };
 
     this.moneyInputRef = React.createRef();
-    this.audio = new Audio(muyaho);
+    this.audio = new Audio(muyahoAudio);
   }
 
   handleMoneySubmit(money) {
@@ -95,10 +95,10 @@ class App extends React.Component {
   render() {
     return (
       <div ref={this.bodyRef}>
-        {this.state.isMoneyInputValid && <TimeLeft></TimeLeft>}
+        {this.state.isMoneyInputValid && <TimeLeft />}
         {this.state.isMoneyInputValid && (
           <audio controls autoPlay hidden>
-            <source src={muyaho} type='audio/mp3' />
+            <source src={muyahoAudio} type='audio/mp3' />
           </audio>
         )}
         <Canvas />
@@ -109,7 +109,7 @@ class App extends React.Component {
             this.handleMoneySubmit(money);
             this.makeReceipt(ticketCount);
           }}
-        ></MoneyInput>
+        />
         {this.state.isLoading && (
           <Lottie
             speed={1}
@@ -123,13 +123,13 @@ class App extends React.Component {
         )}
         {!this.state.isLoading && this.state.isMoneyInputValid && (
           <>
-            <Receipt receipt={this.state.receipt}></Receipt>
+            <Receipt receipt={this.state.receipt} />
             <WinningNumber
               onHandleSubmit={(winningNumbers, bonusNumber) =>
                 this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
               }
               onModalButtonClick={() => this.handleModalButtonClick()}
-            ></WinningNumber>
+            />
           </>
         )}
         {!this.state.isLoading && this.state.isModalOpen && (
@@ -141,7 +141,7 @@ class App extends React.Component {
               moneyAmount={this.state.moneyAmount}
               onResetButtonClick={() => this.handleResetButtonClick()}
               onModalClose={() => this.handleModalClose()}
-            ></Modal>
+            />
           </>
         )}
       </div>

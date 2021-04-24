@@ -71,3 +71,16 @@
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
+
+.time-sub-title {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(-100%, 0);
+  }
+  100% {
+    transform: translate(120%, 0);
+  }
+}
