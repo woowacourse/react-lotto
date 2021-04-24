@@ -6,9 +6,9 @@ import Button from '../common/Button';
 import {
   isValidWinningNumber,
   alertByWinningNumberCase,
-  isWinningNumberDuplicated,
   alertByWinningNumbersCase,
 } from '../../services/validation';
+import { hasDuplicateElement } from '../../utils/validation';
 
 type Props = {
   formRef: React.RefObject<HTMLFormElement>;
@@ -43,12 +43,13 @@ const WinningNumberForm = ({ handleWinningNumber, formRef }: Props) => {
     event.preventDefault();
 
     const { first, second, third, fourth, fifth, sixth, bonus } = state;
+    const numbers = [first, second, third, fourth, fifth, sixth];
     const winningNumber = {
-      numbers: [first, second, third, fourth, fifth, sixth],
+      numbers,
       bonus,
     };
 
-    if (isWinningNumberDuplicated(winningNumber)) {
+    if (hasDuplicateElement<number>([...numbers, bonus])) {
       alertByWinningNumbersCase(winningNumber);
       return;
     }
