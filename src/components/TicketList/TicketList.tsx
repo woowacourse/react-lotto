@@ -7,12 +7,8 @@ type Props = {
   tickets: Ticket[];
 };
 
-type State = {
-  isToggled: boolean;
-};
-
 const TicketList = ({ tickets }: Props) => {
-  const [isToggled, setIsToggled] = useState<State['isToggled']>(false);
+  const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const onToggle = (isToggled: boolean) => {
     setIsToggled(isToggled);

@@ -11,10 +11,6 @@ type Props = {
   handlePayment: (newPayment: number) => void;
 };
 
-type State = {
-  payment: number;
-};
-
 const PaymentForm = ({ handlePayment }: Props) => {
   const [payment, setPayment] = useState(0);
 
