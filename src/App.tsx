@@ -1,4 +1,4 @@
-import { createRef, RefObject, useState } from 'react';
+import { useRef, useState } from 'react';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import TicketList from './components/TicketList/TicketList';
 import ResultModal from './components/ResultModal/ResultModal';
@@ -16,7 +16,7 @@ const App = () => {
     bonus: 0,
   });
 
-  const winningNumberFormRef: RefObject<HTMLFormElement> = createRef();
+  const winningNumberFormRef = useRef<HTMLFormElement>(null);
 
   const handlePayment = (payment: number) => {
     setTickets(issueTickets(payment));
