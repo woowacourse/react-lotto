@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import NumberInput from '../UtilComponent/NumberInput/index';
 import Button from '../UtilComponent/Button/index';
-import { isInputValueExist, isInputValueDuplicated, isInputValueChanged } from './Validations';
 import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
 import './style.scss';
 
@@ -30,14 +29,33 @@ class WinningNumber extends React.Component {
     this.props.onModalButtonClick();
   }
 
+  isInputValueChanged(currentInputValue, inputValue) {
+    if (currentInputValue === inputValue) {
+      return false;
+    }
+    return true;
+  }
+
+  isInputValueExist(inputValue) {
+    if (!inputValue) return false;
+    return true;
+  }
+
+  isInputValueDuplicated({ winningNumberInputs }, inputValue) {
+    if (!winningNumberInputs.includes(inputValue)) {
+      return false;
+    }
+    return true;
+  }
+
   onChangeWinningNumber(e, index) {
     const inputValue = Number(e.target.value);
-    if (!isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
+    if (!this.isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
 
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
     newWinningNumberInputs[index] = inputValue;
 
-    if (!isInputValueExist(inputValue)) {
+    if (!this.isInputValueExist(inputValue)) {
       this.setState({
         winningNumberInputs: newWinningNumberInputs,
         currentInputIndex: index,
@@ -45,7 +63,7 @@ class WinningNumber extends React.Component {
       return;
     }
 
-    if (isInputValueDuplicated(this.state, inputValue)) {
+    if (this.isInputValueDuplicated(this.state, inputValue)) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
