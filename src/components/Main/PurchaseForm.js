@@ -34,9 +34,9 @@ export default class PurchaseForm extends Component {
     return (
       <section className="mt-5">
         <form className="w-100" onSubmit={this.onSubmitPurchaseForm}>
-          <label className="w-100">
-            구입할 금액을 입력해주세요. (단위: 원)
-            <div className="d-flex justify-space-between items-center mt-1">
+          <div className="d-flex justify-space-between items-center mt-1">
+            <label className="w-100 mr-3">
+              구입할 금액을 입력해주세요. (단위: 원)
               <input
                 className="money-input flex-auto mr-3"
                 name="money-input"
@@ -48,11 +48,15 @@ export default class PurchaseForm extends Component {
                 required
                 disabled={isActive ? false : true}
               />
-              <button type="submit" className="basic-button" disabled={isActive ? false : true}>
-                확인
-              </button>
-            </div>
-          </label>
+            </label>
+            <button
+              type="submit"
+              className="basic-button align-self-end money-submit-button"
+              disabled={isActive ? false : true}
+            >
+              확인
+            </button>
+          </div>
         </form>
       </section>
     );
