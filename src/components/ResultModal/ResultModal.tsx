@@ -16,7 +16,6 @@ interface Props {
 }
 
 const ResultModal: FC<Props> = ({ handleModalClose, resetGame, tickets, winningNumber }) => {
-  const { FIRST, SECOND, THIRD, FOURTH, FIFTH } = RANK_INDEX;
   const { winnerCounts, profit } = computeResult(tickets, winningNumber);
 
   return (
@@ -33,13 +32,13 @@ const ResultModal: FC<Props> = ({ handleModalClose, resetGame, tickets, winningN
               </tr>
             </thead>
             <tbody>
-              {[FIFTH, FOURTH, THIRD, SECOND, FIRST].map((rank, index) => (
+              {Object.values(RANK_INDEX).map(index => (
                 <ResultTableRow
                   key={index}
-                  match={MATCH[rank]}
-                  prize={PRIZE[rank]}
-                  isBonus={rank === SECOND}
-                  matchCount={winnerCounts[rank]}
+                  match={MATCH[index]}
+                  prize={PRIZE[index]}
+                  isBonus={index === RANK_INDEX.SECOND}
+                  matchCount={winnerCounts[index]}
                 />
               ))}
             </tbody>
