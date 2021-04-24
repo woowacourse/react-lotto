@@ -43,6 +43,7 @@ export default class PurchaseForm extends Component {
                 type="number"
                 placeholder="구입 금액"
                 min="1000"
+                max="100000"
                 value={this.props.moneyInput || ''}
                 onChange={this.onMoneyInputChange}
                 required
