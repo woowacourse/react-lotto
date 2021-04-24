@@ -42,8 +42,16 @@ export const LOTTO_VALUE = {
   MATCHED_COUNT: {
     FIRST: 6,
     THIRD: 5,
-    FORTH: 4,
+    FOURTH: 4,
     FIFTH: 3,
+  },
+
+  WINNING_CONDITION_TEXT: {
+    FIRST: '6개',
+    SECOND: '5개 + 보너스볼',
+    THIRD: '5개',
+    FOURTH: '4개',
+    FIFTH: '3개',
   },
 };
 
