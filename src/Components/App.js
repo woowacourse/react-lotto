@@ -17,6 +17,7 @@ import {
 } from "../Constants";
 
 import { countMatchedNumbers, createDistinctRandomIntegers } from "../utils";
+import LottoResult from "./LottoResult";
 
 const Container = styled.div`
   display: flex;
@@ -129,7 +130,11 @@ export default class App extends Component {
           <Container>
             <Header />
             <Main />
-            {this.state.isModalOpen && <Modal />}
+            {this.state.isModalOpen && (
+              <Modal>
+                <LottoResult />
+              </Modal>
+            )}
           </Container>
         </LottoContext.Provider>
       </>
