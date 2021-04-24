@@ -9,48 +9,36 @@ import ResultModal from './components/ResultModal/ResultModal';
 
 import { issueTickets } from './services/tickets';
 
-type State = {
-  tickets: Ticket[];
-  winningNumber: WinningNumber;
-  isModalOpen: boolean;
-};
-
 const App = () => {
   const winningNumberFormRef = useRef<HTMLFormElement>(null);
 
-  const [state, setState] = useState<State>({
-    tickets: [],
-    winningNumber: {
-      numbers: [],
-      bonus: 0,
-    },
-    isModalOpen: false,
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [winningNumber, setWinningNumber] = useState<WinningNumber>({
+    numbers: [],
+    bonus: 0,
   });
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handlePayment = (payment: number) => {
-    setState({
-      ...state,
-      tickets: issueTickets(payment),
-    });
+    setTickets(issueTickets(payment));
   };
 
   const handleWinningNumber = (winningNumber: WinningNumber) => {
-    setState({ ...state, winningNumber, isModalOpen: true });
+    setWinningNumber(winningNumber);
+    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setState({ ...state, isModalOpen: false });
+    setIsModalOpen(false);
   };
 
   const resetGame = () => {
-    setState({
-      tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
+    setTickets([]);
+    setWinningNumber({
+      numbers: [],
+      bonus: 0,
     });
+    setIsModalOpen(false);
 
     winningNumberFormRef.current?.reset();
   };
@@ -59,20 +47,20 @@ const App = () => {
     <AppWrapper display="flex">
       <h1 className="app-title">🎱 행운의 로또</h1>
       <PaymentForm handlePayment={handlePayment} />
-      {state.tickets.length > 0 && <RemainedTime />}
-      <TicketList tickets={state.tickets} />
-      {state.tickets.length > 0 && (
+      {tickets.length > 0 && <RemainedTime />}
+      <TicketList tickets={tickets} />
+      {tickets.length > 0 && (
         <WinningNumberForm
           handleWinningNumber={handleWinningNumber}
           formRef={winningNumberFormRef}
         />
       )}
-      {state.isModalOpen && (
+      {isModalOpen && (
         <ResultModal
           handleModalClose={() => handleModalClose()}
           resetGame={resetGame}
-          tickets={state.tickets}
-          winningNumber={state.winningNumber}
+          tickets={tickets}
+          winningNumber={winningNumber}
         />
       )}
     </AppWrapper>
