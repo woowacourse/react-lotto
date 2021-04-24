@@ -1,12 +1,12 @@
 import React from 'react';
-import Modal from './components/modal';
-import MoneyInput from './components/money-input';
-import Receipt from './components/receipt';
-import WinningNumber from './components/winning-number';
+import Modal from './components/Modal';
+import MoneyInput from './components/MoneyInput';
+import Receipt from './components/Receipt';
+import WinningNumber from './components/WinningNumber';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import getRandomNumber from './utils/random-number';
-import Canvas from './components/canvas';
-import TimeLeft from './components/time-left';
+import Canvas from './components/Canvas';
+import TimeLeft from './components/TimeLeft';
 import { hideScroll, showScroll } from './utils/scroll';
 import muyahoAudio from './sound/muyaho.mp3';
 import Lottie from 'react-lottie';
