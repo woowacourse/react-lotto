@@ -1,4 +1,6 @@
 import { RANK_INDEX, PRIZE } from '../constants/game';
+import TICKET from '../constants/ticket';
+import { Ticket, WinningNumber } from '../types';
 
 const hasBonus = (ticketNumbers: number[], bonus: number) => {
   return ticketNumbers.includes(bonus);
@@ -52,4 +54,12 @@ export const getTotalProfit = (payment: number, winnerCounts: number[]) => {
   );
 
   return ((income - payment) / payment) * 100;
+};
+
+export const computeResult = (tickets: Ticket[], winningNumber: WinningNumber) => {
+  const payment = tickets.length * TICKET.PRICE;
+  const winnerCounts = getWinnerCounts(tickets, winningNumber);
+  const profit = getTotalProfit(payment, winnerCounts);
+
+  return { winnerCounts, profit };
 };

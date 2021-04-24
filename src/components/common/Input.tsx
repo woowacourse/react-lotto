@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-type InputProps = {
+interface Props {
   fullWidth?: boolean;
-};
+}
 
-const Input = styled.input<InputProps>`
+const Input = styled.input<Props>`
   padding: 0.5rem;
   margin: 0 0.25rem;
 

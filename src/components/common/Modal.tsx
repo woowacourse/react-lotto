@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
@@ -44,23 +44,23 @@ const ModalClose = styled.div`
   }
 `;
 
-type ModalProps = {
+interface Props {
   handleModalClose: () => void;
+}
+
+const Modal: FC<Props> = ({ handleModalClose, children }) => {
+  return (
+    <ModalWrapper>
+      <ModalInner>
+        <ModalClose onClick={handleModalClose}>
+          <svg viewBox="0 0 40 40">
+            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </svg>
+        </ModalClose>
+        {children}
+      </ModalInner>
+    </ModalWrapper>
+  );
 };
 
-export default class Modal extends Component<ModalProps> {
-  render() {
-    return (
-      <ModalWrapper>
-        <ModalInner>
-          <ModalClose onClick={this.props.handleModalClose}>
-            <svg viewBox="0 0 40 40">
-              <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-            </svg>
-          </ModalClose>
-          {this.props.children}
-        </ModalInner>
-      </ModalWrapper>
-    );
-  }
-}
+export default Modal;

@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import TICKET from '../constants/ticket';
+import { Ticket } from '../types';
 import { getRandomNumber } from '../utils/random';
 
 const generateTicket = (): Ticket => {

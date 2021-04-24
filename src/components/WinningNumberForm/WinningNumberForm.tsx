@@ -1,55 +1,66 @@
-import React, { Component } from 'react';
+import { ChangeEvent, FC, FormEvent, RefObject, useState } from 'react';
 import { WinningNumberFormWrapper } from './WinningNumberForm.styles';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';
 import Button from '../common/Button';
 import { isValidWinningNumber, isWinningNumberDuplicated } from '../../services/validation';
 import ALERT_MESSAGE from '../../constants/alertMessage';
+import { WinningNumber } from '../../types';
 
-type Props = {
-  formRef: React.RefObject<HTMLFormElement>;
+interface Props {
+  formRef: RefObject<HTMLFormElement>;
   handleWinningNumber: (winningNumber: WinningNumber) => void;
+}
+
+interface SetMap {
+  first: (value: number) => void;
+  second: (value: number) => void;
+  third: (value: number) => void;
+  fourth: (value: number) => void;
+  fifth: (value: number) => void;
+  sixth: (value: number) => void;
+  bonus: (value: number) => void;
+}
+
+const isInSetMap = (name: string, setMap: SetMap): name is keyof SetMap => {
+  return Object.keys(setMap).includes(name);
 };
 
-type State = {
-  [key: string]: number;
-};
+const WinningNumberForm: FC<Props> = ({ formRef, handleWinningNumber }) => {
+  const [first, setFirst] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [third, setThird] = useState(0);
+  const [fourth, setFourth] = useState(0);
+  const [fifth, setFifth] = useState(0);
+  const [sixth, setSixth] = useState(0);
+  const [bonus, setBonus] = useState(0);
 
-export default class WinningNumberForm extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const setMap: SetMap = {
+    first: (value: number) => setFirst(value),
+    second: (value: number) => setSecond(value),
+    third: (value: number) => setThird(value),
+    fourth: (value: number) => setFourth(value),
+    fifth: (value: number) => setFifth(value),
+    sixth: (value: number) => setSixth(value),
+    bonus: (value: number) => setBonus(value),
+  };
 
-    this.state = {
-      first: 0,
-      second: 0,
-      third: 0,
-      fourth: 0,
-      fifth: 0,
-      sixth: 0,
-      bonus: 0,
-    };
-
-    this.handleWinningNumberInputChange = this.handleWinningNumberInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleWinningNumberInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleWinningNumberInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, valueAsNumber: value } = event.target;
 
     if (!isValidWinningNumber(value)) {
       alert(ALERT_MESSAGE.NUMBER_RANGE_EXCEEDED);
       event.target.value = '';
-      this.setState({ [name]: 0 });
+      if (isInSetMap(name, setMap)) setMap[name](0);
       return;
     }
 
-    this.setState({ [name]: value });
-  }
+    if (isInSetMap(name, setMap)) setMap[name](value);
+  };
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { first, second, third, fourth, fifth, sixth, bonus } = this.state;
     const winningNumber = {
       numbers: [first, second, third, fourth, fifth, sixth],
       bonus,
@@ -60,34 +71,31 @@ export default class WinningNumberForm extends Component<Props, State> {
       return;
     }
 
-    this.props.handleWinningNumber(winningNumber);
-  }
+    handleWinningNumber(winningNumber);
+  };
 
-  render() {
-    return (
-      <WinningNumberFormWrapper onSubmit={this.handleSubmit} ref={this.props.formRef}>
-        <label className="input-label">당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
-        <Wrapper className="winning-number-input-wrapper" display="flex">
-          <div>
-            <h4 className="input-caption">당첨 번호</h4>
-            <Wrapper display="flex" onChange={this.handleWinningNumberInputChange}>
-              <Input type="number" name="first" required />
-              <Input type="number" name="second" required />
-              <Input type="number" name="third" required />
-              <Input type="number" name="fourth" required />
-              <Input type="number" name="fifth" required />
-              <Input type="number" name="sixth" required />
-            </Wrapper>
-          </div>
-          <div>
-            <h4 className="input-caption">보너스 번호</h4>
-            <Wrapper display="flex" onChange={this.handleWinningNumberInputChange}>
-              <Input type="number" name="bonus" required />
-            </Wrapper>
-          </div>
-        </Wrapper>
-        <Button fullWidth>결과 확인하기</Button>
-      </WinningNumberFormWrapper>
-    );
-  }
-}
+  return (
+    <WinningNumberFormWrapper onSubmit={handleSubmit} ref={formRef}>
+      <label className="input-label">당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</label>
+      <Wrapper className="winning-number-input-wrapper" display="flex">
+        <div>
+          <h4 className="input-caption">당첨 번호</h4>
+          <Wrapper display="flex" onChange={handleWinningNumberInputChange}>
+            {['first', 'second', 'third', 'fourth', 'fifth', 'sixth'].map((el, idx) => (
+              <Input key={idx} type="number" name={el} required />
+            ))}
+          </Wrapper>
+        </div>
+        <div>
+          <h4 className="input-caption">보너스 번호</h4>
+          <Wrapper display="flex" onChange={handleWinningNumberInputChange}>
+            <Input type="number" name="bonus" required />
+          </Wrapper>
+        </div>
+      </Wrapper>
+      <Button fullWidth>결과 확인하기</Button>
+    </WinningNumberFormWrapper>
+  );
+};
+
+export default WinningNumberForm;

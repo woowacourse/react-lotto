@@ -1,9 +1,9 @@
 export const RANK_INDEX = {
-  FIRST: 0,
-  SECOND: 1,
-  THIRD: 2,
-  FOURTH: 3,
   FIFTH: 4,
+  FOURTH: 3,
+  THIRD: 2,
+  SECOND: 1,
+  FIRST: 0,
 };
 
 export const PRIZE = {
