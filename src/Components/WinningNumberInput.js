@@ -59,23 +59,22 @@ export default class WinningNumberInput extends Component {
 
     this.state = {
       isValidInput: true,
+      winningNumbers: [0, 0, 0, 0, 0, 0],
+      bonusNumber: 0,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeWinningNumber = this.onChangeWinningNumber.bind(this);
+    this.onChangeBonusNumber = this.onChangeBonusNumber.bind(this);
   }
 
   onSubmit(event) {
     event.preventDefault();
 
-    const { elements } = event.target;
-    const winningNumbers = Array.from(elements["winning-number"], ($input) =>
-      Number($input.value)
-    );
-    const bonusNumber = Number(elements["bonus-number"].value);
+    const { winningNumbers, bonusNumber } = this.state;
 
     this.setState(
       {
-        ...this.state,
         isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
       },
       () => {
@@ -85,6 +84,22 @@ export default class WinningNumberInput extends Component {
         this.context.action.openModal();
       }
     );
+  }
+
+  onChangeWinningNumber(event) {
+    this.setState((prev) => {
+      const newWinningNumbers = [...prev.winningNumbers];
+
+      newWinningNumbers[event.target.dataset.winningNumbersIndex] = Number(
+        event.target.value
+      );
+
+      return { winningNumbers: newWinningNumbers };
+    });
+  }
+
+  onChangeBonusNumber(event) {
+    this.setState({ bonusNumber: Number(event.target.value) });
   }
 
   render() {
@@ -98,10 +113,13 @@ export default class WinningNumberInput extends Component {
               {Array.from({ length: 6 }, (_, index) => (
                 <InputBox
                   key={index}
+                  data-winning-numbers-index={index}
                   name="winning-number"
                   type="number"
                   min="1"
                   max="45"
+                  value={this.state.winningNumbers[index] || ""}
+                  onChange={this.onChangeWinningNumber}
                   required="required"
                 ></InputBox>
               ))}
@@ -115,6 +133,8 @@ export default class WinningNumberInput extends Component {
               type="number"
               min="1"
               max="45"
+              value={this.state.bonusNumber || ""}
+              onChange={this.onChangeBonusNumber}
               required="required"
             ></InputBox>
           </InputSection>
