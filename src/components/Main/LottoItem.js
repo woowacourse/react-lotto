@@ -26,25 +26,28 @@ export default class LottoItem extends Component {
     );
   };
 
+  getWinningCount = (matchedCount) => {
+    const hasBonusNumber = this.state.numbers.includes(this.props.bonusNumber);
+
+    switch (matchedCount) {
+      case LOTTO_VALUE.MATCHED_COUNT.FIRST:
+        return LOTTO_VALUE.RANK.FIRST;
+      case LOTTO_VALUE.MATCHED_COUNT.THIRD:
+        return hasBonusNumber ? LOTTO_VALUE.RANK.SECOND : LOTTO_VALUE.RANK.THIRD;
+      case LOTTO_VALUE.MATCHED_COUNT.FOURTH:
+        return LOTTO_VALUE.RANK.FOURTH;
+      case LOTTO_VALUE.MATCHED_COUNT.FIFTH:
+        return LOTTO_VALUE.RANK.FIFTH;
+      default:
+        return;
+    }
+  };
+
   increaseWinningCounts = () => {
     const matchedCount = this.getMatchedCount();
+    const winningCount = this.getWinningCount(matchedCount);
 
-    if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.FIRST) {
-      this.props.increaseWinningCounts(LOTTO_VALUE.RANK.FIRST);
-    }
-    if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.THIRD) {
-      if (this.state.numbers.includes(this.props.bonusNumber)) {
-        this.props.increaseWinningCounts(LOTTO_VALUE.RANK.SECOND);
-      } else {
-        this.props.increaseWinningCounts(LOTTO_VALUE.RANK.THIRD);
-      }
-    }
-    if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.FOURTH) {
-      this.props.increaseWinningCounts(LOTTO_VALUE.RANK.FOURTH);
-    }
-    if (matchedCount === LOTTO_VALUE.MATCHED_COUNT.FIFTH) {
-      this.props.increaseWinningCounts(LOTTO_VALUE.RANK.FIFTH);
-    }
+    winningCount && this.props.increaseWinningCounts(winningCount);
   };
 
   render() {
