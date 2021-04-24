@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { RemainedTimeWrapper } from './RemainedTime.styles';
 import { GREENWICH_MILLISECONDS, TIMER_TICK } from '../../constants/timer';
 import { getRemainedTime } from '../../utils/date';
-import { RemainedTimeWrapper } from './RemainedTime.styles';
 
 const RemainedTime = () => {
   let remainTimer: NodeJS.Timeout | null = null;

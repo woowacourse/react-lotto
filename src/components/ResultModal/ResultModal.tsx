@@ -5,8 +5,8 @@ import Modal from '../common/Modal';
 import Button from '../common/Button';
 import Wrapper from '../common/Wrapper';
 import TICKET from '../../constants/ticket';
-import { getTotalProfit, getWinnerCounts } from '../../services/game';
 import { MATCH, PRIZE, RANK_INDEX } from '../../constants/game';
+import { getTotalProfit, getWinnerCounts } from '../../services/game';
 
 type Props = {
   handleModalClose: () => void;

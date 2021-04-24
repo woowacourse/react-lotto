@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TicketListWrapper, List } from './TicketList.styles';
-import Toggle from '../common/Toggle';
 import TicketItem from './TicketItem/TicketItem';
+import Toggle from '../common/Toggle';
 
 type Props = {
   tickets: Ticket[];

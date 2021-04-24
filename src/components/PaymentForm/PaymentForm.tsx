@@ -1,11 +1,12 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { PaymentFormWrapper, PaymentFormLabel } from './PaymentForm.styles';
+
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Wrapper from '../common/Wrapper';
+
 import { alertByPaymentCase, isValidPayment } from '../../services/validation';
 import TICKET from '../../constants/ticket';
-import { useState } from 'react';
 
 type Props = {
   handlePayment: (newPayment: number) => void;
