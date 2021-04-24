@@ -45,7 +45,7 @@ export const LOTTO_VALUE = {
   MATCHED_COUNT: {
     FIRST: 6,
     THIRD: 5,
-    FORTH: 4,
+    FOURTH: 4,
     FIFTH: 3,
   },
 };
