@@ -17,14 +17,27 @@ export default class App extends Component {
       [LOTTO_VALUE.RANK.FIFTH]: 0,
     },
     lottoCount: 0,
-    mainComponentKey: new Date(),
     announcementDate: getAnnouncementDate(),
+    winningNumbers: {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+      sixth: 0,
+    },
+    bonusNumber: 0,
+    moneyInput: 0,
   };
 
   initialState = this.state;
 
   resetState = () => {
-    this.setState({ ...this.initialState, mainComponentKey: new Date() });
+    this.setState({ ...this.initialState });
+  };
+
+  setMoneyInput = (moneyInput) => {
+    this.setState({ moneyInput });
   };
 
   setWinningCounts = (winningCounts) => {
@@ -44,6 +57,16 @@ export default class App extends Component {
     this.setState({
       lottoCount,
     });
+  };
+
+  setWinningNumbers = (winningNumbers) => {
+    this.setState({
+      winningNumbers,
+    });
+  };
+
+  setBonusNumber = (bonusNumber) => {
+    this.setState({ bonusNumber });
   };
 
   setAnnouncementDate = (announcementDate) => {
@@ -72,11 +95,16 @@ export default class App extends Component {
           setAnnouncementDate={this.setAnnouncementDate}
           isModalOpened={this.state.isModalOpened}
           openModal={this.openModal}
+          moneyInput={this.state.moneyInput}
+          setMoneyInput={this.setMoneyInput}
           increaseWinningCounts={this.increaseWinningCounts}
           setWinningCounts={this.setWinningCounts}
           lottoCount={this.state.lottoCount}
           setLottoCount={this.setLottoCount}
-          key={this.state.mainComponentKey}
+          winningNumbers={this.state.winningNumbers}
+          bonusNumber={this.state.bonusNumber}
+          setWinningNumbers={this.setWinningNumbers}
+          setBonusNumber={this.setBonusNumber}
         />
         {this.state.isModalOpened && (
           <ResultModal

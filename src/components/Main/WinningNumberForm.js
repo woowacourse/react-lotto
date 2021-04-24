@@ -24,8 +24,18 @@ export default class WinningNumberForm extends Component {
     }
 
     this.props.setWinningNumbers(winningNumbers);
-    this.props.setBonusNumber(bonusNumber);
     this.props.openModal();
+  };
+
+  onBonusNumberChange = (event) => {
+    this.props.setBonusNumber(event.target.valueAsNumber);
+  };
+
+  onWinningNumberInputChange = (event) => {
+    this.props.setWinningNumbers({
+      ...this.props.winningNumbers,
+      [event.target.dataset.key]: event.target.valueAsNumber,
+    });
   };
 
   render() {
@@ -38,9 +48,12 @@ export default class WinningNumberForm extends Component {
               <fieldset id="winning-number-fieldset" className="d-flex flex-col flex-auto">
                 <legend className="text-center font-bold">당첨번호</legend>
                 <div className="d-flex flex-row justify-space-between">
-                  <input type="number" min="1" max="45" className="winning-number-input" required />
-                  {Array.from({ length: 6 }).map(() => (
+                  {Object.keys(this.props.winningNumbers).map((key) => (
                     <input
+                      key={key}
+                      data-key={key}
+                      value={this.props.winningNumbers[key] || ''}
+                      onChange={this.onWinningNumberInputChange}
                       type="number"
                       min="1"
                       max="45"
@@ -56,7 +69,15 @@ export default class WinningNumberForm extends Component {
                 className="d-flex flex-col justify-center items-center"
               >
                 <legend className="text-center font-bold">보너스</legend>
-                <input type="number" className="winning-number-input" min="1" max="45" required />
+                <input
+                  type="number"
+                  className="winning-number-input"
+                  min="1"
+                  max="45"
+                  value={this.props.bonusNumber || ''}
+                  onChange={this.onBonusNumberChange}
+                  required
+                />
               </fieldset>
             </div>
           </label>

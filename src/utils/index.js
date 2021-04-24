@@ -21,3 +21,15 @@ export const getRandomNumberArray = (min, max, length) => {
 
   return Array.from(numbers);
 };
+
+export const keyGenerator = (function () {
+  let key = 0;
+
+  const increaseKey = function () {
+    key = key + 1;
+  };
+  return function getKey() {
+    increaseKey();
+    return key;
+  };
+})();

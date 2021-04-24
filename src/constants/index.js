@@ -9,9 +9,6 @@ export const CLASS_NAME = {
 
 export const ID = {
   MAIN: {
-    PURCHASE_FORM: {
-      INPUT: 'money-input',
-    },
     WINNING_NUMBER_FORM: {
       WINNING_NUMBER_FIELDSET: 'winning-number-fieldset',
       BONUS_NUMBER_FIELDSET: 'bonus-number-fieldset',
