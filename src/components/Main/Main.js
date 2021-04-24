@@ -18,6 +18,8 @@ export default class Main extends Component {
           winningNumbers={this.props.winningNumbers}
           bonusNumber={this.props.bonusNumber}
           increaseWinningCounts={this.props.increaseWinningCounts}
+          isLottoListToggled={this.props.isLottoListToggled}
+          setToggleLottoList={this.props.setToggleLottoList}
         />
         <WinningNumberForm
           lottoCount={this.props.lottoCount}

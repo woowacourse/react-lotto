@@ -9,6 +9,7 @@ import { getAnnouncementDate } from './utils/lottoUtils';
 export default class App extends Component {
   state = {
     isModalOpened: false,
+    isLottoListToggled: false,
     winningCounts: {
       [LOTTO_VALUE.RANK.FIRST]: 0,
       [LOTTO_VALUE.RANK.SECOND]: 0,
@@ -87,6 +88,10 @@ export default class App extends Component {
     this.setWinningCounts(this.initialState.winningCounts);
   };
 
+  setToggleLottoList = (isLottoListToggled) => {
+    this.setState({ isLottoListToggled });
+  };
+
   render() {
     return (
       <div className="app d-flex justify-center items-center">
@@ -94,6 +99,8 @@ export default class App extends Component {
           announcementDate={this.state.announcementDate}
           setAnnouncementDate={this.setAnnouncementDate}
           isModalOpened={this.state.isModalOpened}
+          isLottoListToggled={this.state.isLottoListToggled}
+          setToggleLottoList={this.setToggleLottoList}
           openModal={this.openModal}
           moneyInput={this.state.moneyInput}
           setMoneyInput={this.setMoneyInput}
