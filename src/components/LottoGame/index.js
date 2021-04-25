@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PurchaseAmountForm from './PurchaseAmountForm';
 import LottoTicketList from './LottoTicketList';
 import LottoResultForm from './LottoResultForm';
@@ -17,56 +17,30 @@ import {
   RANK,
 } from '../../constants/standard';
 
-export default class LottoGame extends Component {
-  constructor() {
-    super();
+const LottoGame = props => {
+  const [purchaseAmount, setPurchaseAmount] = useState('');
+  const [isPurchaseAmountSubmitted, setPurchaseAmountState] = useState(false);
+  const [lottoTickets, setLottoTickets] = useState([]);
+  const [resultNumbers, setResultNumbers] = useState({ winningNumbers: [], bonusNumber: 0 });
+  const [isModalOpened, setModalState] = useState(false);
 
-    this.initState = {
-      purchaseAmount: '',
-      isPurchaseAmountSubmitted: false,
-      lottoTickets: [],
-      resultNumbers: { winningNumbers: [], bonusNumber: 0 },
-      isModalOpened: false,
-    };
+  const handleChange = e => {
+    setPurchaseAmount(e.target.value);
+  };
 
-    this.state = {
-      ...this.initState,
-    };
+  const submitPurchaseAmount = () => {
+    setPurchaseAmountState(true);
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.submitPurchaseAmount = this.submitPurchaseAmount.bind(this);
-    this.publishLottoTickets = this.publishLottoTickets.bind(this);
-    this.setResultNumbers = this.setResultNumbers.bind(this);
-    this.openResultModal = this.openResultModal.bind(this);
-    this.closeResultModal = this.closeResultModal.bind(this);
-    this.restartGame = this.restartGame.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  submitPurchaseAmount() {
-    this.setState({ isPurchaseAmountSubmitted: true });
-  }
-
-  publishLottoTickets(purchaseAmount) {
-    const lottoTickets = this.setLottoTickets(purchaseAmount);
-
-    this.setState({ purchaseAmount, lottoTickets });
-  }
-
-  setLottoTickets(purchaseAmount) {
+  const publishLottoTickets = purchaseAmount => {
     const amountOfLottoTicket = purchaseAmount / UNIT_AMOUNT;
     const lottoTickets = Array(amountOfLottoTicket)
       .fill()
-      .map(() => this.generateLottoNumbers());
+      .map(() => generateLottoNumbers());
 
-    return lottoTickets;
-  }
-  generateLottoNumbers() {
+    setLottoTickets(lottoTickets);
+  };
+  const generateLottoNumbers = () => {
     const ticketNumbers = new Set();
 
     while (ticketNumbers.size < LOTTO_NUMBER_COUNT) {
@@ -74,20 +48,16 @@ export default class LottoGame extends Component {
     }
 
     return [...ticketNumbers].sort((a, b) => a - b);
-  }
+  };
 
-  setResultNumbers(resultNumbers) {
-    this.setState({ resultNumbers });
-  }
-
-  getLottoResult() {
-    const rankCount = this.getRankCount();
-    const earningRate = this.getEarningRate(rankCount);
+  const getLottoResult = () => {
+    const rankCount = getRankCount();
+    const earningRate = getEarningRate(rankCount);
 
     return { rankCount, earningRate };
-  }
+  };
 
-  getRankCount() {
+  const getRankCount = () => {
     const rankCount = {
       [WINNING_RANK.FIRST]: 0,
       [WINNING_RANK.SECOND]: 0,
@@ -96,78 +66,74 @@ export default class LottoGame extends Component {
       [WINNING_RANK.FIFTH]: 0,
     };
 
-    this.state.lottoTickets.forEach(ticket => {
-      const rank = this.getRank(ticket);
+    lottoTickets.forEach(ticket => {
+      const rank = getRank(ticket);
       rank && rankCount[rank]++;
     });
 
     return rankCount;
-  }
+  };
 
-  getRank(ticket) {
-    const hasBonusNumber = ticket.includes(this.state.resultNumbers.bonusNumber);
-    const winnigCount = LOTTO_NUMBER_COUNT * 2 - new Set([...ticket, ...this.state.resultNumbers.winningNumbers]).size;
+  const getRank = ticket => {
+    const hasBonusNumber = ticket.includes(resultNumbers.bonusNumber);
+    const winnigCount = LOTTO_NUMBER_COUNT * 2 - new Set([...ticket, ...resultNumbers.winningNumbers]).size;
     const winningRank = hasBonusNumber && winnigCount === HIT_COUNT.FIVE ? WINNING_RANK.SECOND : RANK[winnigCount];
 
     return winningRank;
-  }
+  };
 
-  getEarningRate(rankCount) {
+  const getEarningRate = rankCount => {
     const totalProfit = Object.entries(rankCount).reduce((acc, [rank, count]) => acc + PROFITS[rank] * count, 0);
-    const earningRate = Number(
-      (((totalProfit - this.state.purchaseAmount) / this.state.purchaseAmount) * 100).toFixed(2)
-    );
+    const earningRate = Number((((totalProfit - purchaseAmount) / purchaseAmount) * 100).toFixed(2));
 
     return earningRate;
-  }
+  };
 
-  restartGame() {
-    this.setState({
-      ...this.initState,
-    });
-  }
+  const restartGame = () => {
+    setPurchaseAmount('');
+    setPurchaseAmountState(false);
+    setLottoTickets([]);
+    setResultNumbers({ winningNumbers: [], bonusNumber: 0 });
+    setModalState(false);
+  };
 
-  openResultModal() {
-    this.setState({ isModalOpened: true });
-  }
+  const openResultModal = () => {
+    setModalState(true);
+  };
 
-  closeResultModal() {
-    this.setState({ isModalOpened: false });
-  }
+  const closeResultModal = () => {
+    setModalState(false);
+  };
 
-  render() {
-    const { purchaseAmount, isPurchaseAmountSubmitted, lottoTickets, isModalOpened } = this.state;
-    return (
-      <>
-        <div className="flex justify-center mt-5">
-          <div className="w-full">
-            <h1 className="text-center">🎱 행운의 로또</h1>
-            <PurchaseAmountForm
-              purchaseAmount={purchaseAmount}
-              isPurchaseAmountSubmitted={isPurchaseAmountSubmitted}
-              handleChange={this.handleChange}
-              publishLottoTickets={this.publishLottoTickets}
-              submitPurchaseAmount={this.submitPurchaseAmount}
-            />
-            {isPurchaseAmountSubmitted && (
-              <>
-                <AnnouncementTime />
-                <LottoTicketList lottoTickets={lottoTickets} />
-                <LottoResultForm
-                  setResultNumbers={this.setResultNumbers}
-                  openResultModal={this.openResultModal}
-                ></LottoResultForm>
-              </>
-            )}
-          </div>
-        </div>
-        {isModalOpened && (
-          <Modal
-            container={<LottoResultContainer restartGame={this.restartGame} lottoResult={this.getLottoResult()} />}
-            closeModal={this.closeResultModal}
+  return (
+    <>
+      <div className="flex justify-center mt-5">
+        <div className="w-full">
+          <h1 className="text-center">🎱 행운의 로또</h1>
+          <PurchaseAmountForm
+            purchaseAmount={purchaseAmount}
+            isPurchaseAmountSubmitted={isPurchaseAmountSubmitted}
+            handleChange={handleChange}
+            publishLottoTickets={publishLottoTickets}
+            submitPurchaseAmount={submitPurchaseAmount}
           />
-        )}
-      </>
-    );
-  }
-}
+          {isPurchaseAmountSubmitted && (
+            <>
+              <AnnouncementTime />
+              <LottoTicketList lottoTickets={lottoTickets} />
+              <LottoResultForm setResultNumbers={setResultNumbers} openResultModal={openResultModal}></LottoResultForm>
+            </>
+          )}
+        </div>
+      </div>
+      {isModalOpened && (
+        <Modal
+          container={<LottoResultContainer restartGame={restartGame} lottoResult={getLottoResult()} />}
+          closeModal={closeResultModal}
+        />
+      )}
+    </>
+  );
+};
+
+export default LottoGame;
