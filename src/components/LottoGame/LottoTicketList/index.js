@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
-const LottoTicketItem = ({ isToggleOn, numbers }) => {
+const LottoTicketItem = ({ isShow, numbers }) => {
   return (
     <div className="lotto-wrapper flex items-center">
       <span className="lotto mx-1 text-4xl">🎟️ </span>
-      {isToggleOn && <span className="ml-3 text-2xl ">{numbers.join(', ')}</span>}
+      {isShow && <span className="ml-3 text-2xl ">{numbers.join(', ')}</span>}
     </div>
   );
 };
 
 const LottoTicketList = ({ lottoTickets }) => {
-  const [isToggleOn, setToggle] = useState(false);
+  const [isToggleOn, toggle] = useReducer(prev => !prev, false);
 
   const handleToggle = () => {
-    setToggle(isToggleOn => !isToggleOn);
+    toggle();
   };
 
   return (
@@ -32,7 +32,7 @@ const LottoTicketList = ({ lottoTickets }) => {
       <div className="mt-4 scroll">
         <div className="flex flex-wrap flex-row">
           {lottoTickets.map((lottoTicket, index) => (
-            <LottoTicketItem key={index} numbers={lottoTicket} isToggleOn={isToggleOn} />
+            <LottoTicketItem key={index} numbers={lottoTicket} isShow={isToggleOn} />
           ))}
         </div>
       </div>

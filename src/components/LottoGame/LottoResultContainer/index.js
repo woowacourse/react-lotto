@@ -11,7 +11,7 @@ const RankCountItem = ({ rank, rankCount }) => {
   );
 };
 
-const LottoResultContainer = ({ lottoResult, restartGame }) => {
+const LottoResultContainer = ({ lottoResult, handleRestart }) => {
   return (
     <>
       <h2 className="text-center">🏆 당첨 통계 🏆</h2>
@@ -36,7 +36,7 @@ const LottoResultContainer = ({ lottoResult, restartGame }) => {
       <p className="text-center font-bold">당신의 총 수익률은 {lottoResult.earningRate}%입니다.</p>
 
       <div className="flex justify-center mt-5">
-        <button type="button" className="btn btn-cyan" onClick={restartGame}>
+        <button type="button" className="btn btn-cyan" onClick={handleRestart}>
           다시 시작하기
         </button>
       </div>

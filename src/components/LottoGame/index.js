@@ -63,17 +63,19 @@ const LottoGame = () => {
             handleChange={handleChange}
             buyLottoTickets={buyLottoTickets}
           />
-          {isPurchaseAmountSubmitted && <AnnounceTime />}
-          {isPurchaseAmountSubmitted && <LottoTicketList lottoTickets={lottoTickets} />}
-          {isPurchaseAmountSubmitted && (
-            <LottoResultForm setResultNumbers={setResultNumbers} openResultModal={openResultModal} />
-          )}
+          {isPurchaseAmountSubmitted ? (
+            <>
+              <AnnounceTime />
+              <LottoTicketList lottoTickets={lottoTickets} />
+              <LottoResultForm setResultNumbers={setResultNumbers} openResultModal={openResultModal} />
+            </>
+          ) : null}
         </div>
       </div>
       {isModalOpened && (
         <Modal closeModal={closeResultModal}>
           <LottoResultContainer
-            restartGame={restartGame}
+            handleRestart={restartGame}
             lottoResult={getLottoResult(
               purchaseAmount,
               lottoTickets,
