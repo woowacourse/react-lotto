@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO, MESSAGE } from '../utils/constants';
 import cx from 'classnames';
+import generateId from '../utils/generateId';
+import inputValidator from '../utils/inputValidator';
+import formValidator from '../utils/formValidator';
+import NumberInput from './NumberInput';
 
 export default class WinningNumberForm extends React.Component {
   static propTypes = {
@@ -13,152 +17,69 @@ export default class WinningNumberForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.winningNumberInputIds = Array.from({ length: LOTTO.LENGTH }).map(() => generateId());
+    this.bonusNumberInputId = generateId();
+
     this.initialState = {
-      winningNumberInputValues: Array(LOTTO.LENGTH).fill(''),
-      bonusNumberInputValue: '',
+      ...Object.fromEntries(this.winningNumberInputIds.map((id) => [id, ''])),
+      [this.bonusNumberInputId]: '',
       validationMessage: MESSAGE.REQUIRE_WINNING_NUMBER_INPUT,
     };
 
     this.state = { ...this.initialState };
     this.resetState = this.resetState.bind(this);
 
-    this.isFormValid = this.isFormValid.bind(this);
-    this.isValidInputValue = this.isValidInputValue.bind(this);
-
-    this.isAllNumberInRange = this.isAllNumberInRange.bind(this);
-    this.hasUniqueInputValues = this.hasUniqueInputValues.bind(this);
-
-    this.isNumberInRange = this.isNumberInRange.bind(this);
-    this.isUniqueInputValue = this.isUniqueInputValue.bind(this);
+    this.getInputs = this.getInputs.bind(this);
 
     this.setValidationMessage = this.setValidationMessage.bind(this);
-    this.getValidationMessage = this.getValidationMessage.bind(this);
-    this.getInputValidationMessage = this.getInputValidationMessage.bind(this);
-    this.getFormValidationMessage = this.getFormValidationMessage.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleWinningNumberInputChange = this.handleWinningNumberInputChange.bind(this);
-    this.handleBonusNumberInputChange = this.handleBonusNumberInputChange.bind(this);
-
     this.handleInputFocus = this.handleInputFocus.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  getInputs() {
+    return [...this.winningNumberInputIds.map((id) => this.state[id]), this.state[this.bonusNumberInputId]];
   }
 
   resetState() {
     this.setState({ ...this.initialState });
   }
 
-  isFormValid() {
-    return this.isAllNumberInRange() && this.hasUniqueInputValues();
-  }
-
-  isValidInputValue(value) {
-    return this.isNumberInRange(value) && this.isUniqueInputValue(value);
-  }
-
-  isAllNumberInRange(arr = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]) {
-    return arr.every(this.isNumberInRange);
-  }
-
-  hasUniqueInputValues(arr = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue]) {
-    return new Set(arr).size === arr.length;
-  }
-
-  isNumberInRange(value) {
-    return LOTTO.MIN_NUMBER <= Number(value) && Number(value) <= LOTTO.MAX_NUMBER;
-  }
-
-  isUniqueInputValue(value) {
-    return (
-      [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue].filter(
-        (inputValue) => inputValue === value
-      ).length === 1
-    );
-  }
-
   setValidationMessage(value) {
-    this.setState({ validationMessage: this.getValidationMessage(value) });
-  }
-
-  getValidationMessage(value) {
-    if (!this.isValidInputValue(value)) {
-      return this.getInputValidationMessage(value);
-    }
-
-    if (!this.isFormValid()) {
-      return this.getFormValidationMessage();
-    }
-
-    return MESSAGE.WINNING_NUMBER.VALID_FORM;
-  }
-
-  getInputValidationMessage(value) {
-    if (value === '') {
-      return MESSAGE.WINNING_NUMBER.NON_NUMBER_VALUE;
-    }
-
-    if (!this.isUniqueInputValue(value)) {
-      return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
-    }
-
-    if (!this.isNumberInRange(value)) {
-      return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
-    }
-
-    return '';
-  }
-
-  getFormValidationMessage() {
-    const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
-    const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
-
-    if (!this.hasUniqueInputValues(nonEmptyInputValues)) {
-      return MESSAGE.WINNING_NUMBER.DUPLICATED_NUMBERS;
-    }
-
-    if (!this.isAllNumberInRange(nonEmptyInputValues)) {
-      return MESSAGE.WINNING_NUMBER.OUT_OF_RANGE;
-    }
-    if (this.hasEmptyInputValues()) {
-      return MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT;
-    }
-
-    return '';
-  }
-
-  hasEmptyInputValues() {
-    const inputValues = [...this.state.winningNumberInputValues, this.state.bonusNumberInputValue];
-    const nonEmptyInputValues = inputValues.filter((inputValue) => inputValue !== '');
-
-    return nonEmptyInputValues.length < inputValues.length;
+    this.setState({ validationMessage: formValidator.getValidationMessage(this.getInputs(), value) });
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    this.props.setWinningNumbers(this.state.winningNumberInputValues.map(Number));
-    this.props.setBonusNumber(Number(this.state.bonusNumberInputValue));
-  }
+    const winningNumbers = this.winningNumberInputIds.map((id) => Number(this.state[id]));
+    const bonusNumber = Number(this.state[this.bonusNumberInputId]);
 
-  handleWinningNumberInputChange({ target: { name, value } }) {
-    this.setState(
-      {
-        winningNumberInputValues: this.state.winningNumberInputValues.map((inputValue, index) =>
-          name.includes(index) ? value : inputValue
-        ),
-      },
-      this.setValidationMessage.bind(this, value)
-    );
-  }
-
-  handleBonusNumberInputChange({ target: { value } }) {
-    this.setState({ bonusNumberInputValue: value }, this.setValidationMessage.bind(this, value));
+    this.props.setWinningNumbers(winningNumbers);
+    this.props.setBonusNumber(bonusNumber);
   }
 
   handleInputFocus({ target: { value } }) {
     this.setValidationMessage(value);
   }
 
+  handleInputChange(event) {
+    const { value, name } = event.target;
+
+    this.setState({ [name]: value }, this.setValidationMessage.bind(this, value));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isReset && !prevProps.isReset) {
+      this.resetState();
+    }
+  }
+
   render() {
+    const inputs = this.getInputs();
+    const isFormValid = formValidator.isFormValid(inputs);
+
     return (
       <>
         <h2 className="text-xl font-semibold mb-3 mt-6">지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
@@ -167,53 +88,36 @@ export default class WinningNumberForm extends React.Component {
             <div className="flex flex-col">
               <h3 className="mt-0 mb-3 text-center font-semibold text-lg">당첨 번호</h3>
               <div className="flex mx-auto">
-                {Array.from({ length: LOTTO.LENGTH }).map((_, index) => (
-                  <React.Fragment key={index}>
-                    <label htmlFor={`winning-number-${index}`} className="sr-only">
-                      {index + 1}번째 당첨 번호
-                    </label>
-                    <input
-                      id={`winning-number-${index}`}
-                      type="number"
-                      className={cx(
-                        'border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5',
-                        this.isValidInputValue(this.state.winningNumberInputValues[index])
-                          ? 'ring-blue-700'
-                          : 'ring-rose-500'
-                      )}
-                      name={`winning-number-${index}`}
-                      value={this.state.winningNumberInputValues[index]}
-                      onChange={this.handleWinningNumberInputChange}
-                      onFocus={this.handleInputFocus}
-                    />
-                  </React.Fragment>
+                {this.winningNumberInputIds.map((id) => (
+                  <NumberInput
+                    key={id}
+                    name={id}
+                    value={this.state[id]}
+                    isBonus={false}
+                    isValid={inputValidator.isValidInputValue(inputs, this.state[id])}
+                    onChange={this.handleInputChange}
+                    onFocus={this.handleInputFocus}
+                  />
                 ))}
               </div>
             </div>
-            <div className="flex flex-col ">
+            <div className="flex flex-col">
               <h3 className="mt-0 mb-3 text-center font-semibold text-lg">보너스 번호</h3>
-              <div className="flex justify-center">
-                <label htmlFor="bonus-number" className="sr-only">
-                  보너스 번호
-                </label>
-                <input
-                  id="bonus-number"
-                  type="number"
-                  className={cx(
-                    'border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:ring-1.5',
-                    this.isValidInputValue(this.state.bonusNumberInputValue) ? 'ring-blue-700' : 'ring-rose-500'
-                  )}
-                  value={this.state.bonusNumberInputValue}
-                  onChange={this.handleBonusNumberInputChange}
-                  onFocus={this.handleInputFocus}
-                />
-              </div>
+              <NumberInput
+                key={this.bonusNumberInputId}
+                name={this.bonusNumberInputId}
+                value={this.state[this.bonusNumberInputId]}
+                isBonus
+                isValid={inputValidator.isValidInputValue(inputs, this.state[this.bonusNumberInputId])}
+                onChange={this.handleInputChange}
+                onFocus={this.handleInputFocus}
+              />
             </div>
           </div>
 
           <div
             className={cx(
-              this.isFormValid() || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
+              isFormValid || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
                 ? 'text-blue-700'
                 : 'text-rose-500',
               'font-semibold h-4 mt-4'
@@ -224,18 +128,12 @@ export default class WinningNumberForm extends React.Component {
           <button
             type="submit"
             className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 focus:outline-none focus:ring-1.5 text-white w-11/12"
-            disabled={!this.isFormValid()}
+            disabled={!isFormValid}
           >
             결과 확인하기
           </button>
         </form>
       </>
     );
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isReset && !prevProps.isReset) {
-      this.resetState();
-    }
   }
 }
