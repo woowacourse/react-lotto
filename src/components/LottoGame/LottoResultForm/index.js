@@ -1,16 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_COUNT } from '../../../constants/standard';
 import { hasDuplicatedItemInList, isNumbersInValidRange } from '../../../utils/validator';
 import { MESSAGE } from '../../../constants/messages';
 
-export default class LottoResultForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
+const LottoResultForm = ({ setResultNumbers, openResultModal }) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const winningNumbers = Array(LOTTO_NUMBER_COUNT)
       .fill()
@@ -27,35 +21,35 @@ export default class LottoResultForm extends Component {
       return;
     }
 
-    this.props.setResultNumbers({ winningNumbers, bonusNumber });
-    this.props.openResultModal();
-  }
+    setResultNumbers({ winningNumbers, bonusNumber });
+    openResultModal();
+  };
 
-  render() {
-    return (
-      <form className="mt-9" onSubmit={this.handleSubmit}>
-        <div className="flex-auto d-inline-block mb-5">지난 주 당첨번호와 보너스 번호를 입력해주세요.</div>
-        <div className="flex">
+  return (
+    <form className="mt-9" onSubmit={handleSubmit}>
+      <div className="flex-auto d-inline-block mb-5">지난 주 당첨번호와 보너스 번호를 입력해주세요.</div>
+      <div className="flex">
+        <div>
+          <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
           <div>
-            <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
-            <div>
-              <input name="winning-1" type="number" className="winning-number mx-1 text-center" required />
-              <input name="winning-2" type="number" className="winning-number mx-1 text-center" required />
-              <input name="winning-3" type="number" className="winning-number mx-1 text-center" required />
-              <input name="winning-4" type="number" className="winning-number mx-1 text-center" required />
-              <input name="winning-5" type="number" className="winning-number mx-1 text-center" required />
-              <input name="winning-6" type="number" className="winning-number mx-1 text-center" required />
-            </div>
-          </div>
-          <div className="flex-grow">
-            <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
-            <div className="flex justify-center">
-              <input name="bonus" type="number" className="bonus-number text-center" required />
-            </div>
+            <input name="winning-1" type="number" className="winning-number mx-1 text-center" required />
+            <input name="winning-2" type="number" className="winning-number mx-1 text-center" required />
+            <input name="winning-3" type="number" className="winning-number mx-1 text-center" required />
+            <input name="winning-4" type="number" className="winning-number mx-1 text-center" required />
+            <input name="winning-5" type="number" className="winning-number mx-1 text-center" required />
+            <input name="winning-6" type="number" className="winning-number mx-1 text-center" required />
           </div>
         </div>
-        <button className="mt-5 btn btn-cyan w-full">결과 확인하기</button>
-      </form>
-    );
-  }
-}
+        <div className="flex-grow">
+          <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
+          <div className="flex justify-center">
+            <input name="bonus" type="number" className="bonus-number text-center" required />
+          </div>
+        </div>
+      </div>
+      <button className="mt-5 btn btn-cyan w-full">결과 확인하기</button>
+    </form>
+  );
+};
+
+export default LottoResultForm;
