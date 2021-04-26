@@ -10,11 +10,11 @@ type Index = {
 };
 
 const getRankIndex = (ticketNumbers: number[], winningNumbers: number[]) => {
-  const bonus = winningNumbers.pop();
+  const [bonus] = winningNumbers.slice(-1);
   if (!bonus) {
     return;
   }
-  const numbers = winningNumbers;
+  const numbers = winningNumbers.slice(0, -1);
   const rankIndexMap: Index = {
     6: RANK_INDEX.FIRST,
     5: hasBonus(ticketNumbers, bonus) ? RANK_INDEX.SECOND : RANK_INDEX.THIRD,
