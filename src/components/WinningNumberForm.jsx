@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-handler-names */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO, MESSAGE } from '../utils/constants';
+import WinningNumberInput from './WinningNumberInput';
 
 export default class WinningNumberForm extends React.Component {
   static propTypes = {
@@ -164,24 +166,15 @@ export default class WinningNumberForm extends React.Component {
               <h3 className="mt-0 mb-3 text-center font-semibold text-lg">당첨 번호</h3>
               <div className="flex mx-auto">
                 {Array.from({ length: LOTTO.LENGTH }).map((_, index) => (
-                  <React.Fragment key={index}>
-                    <label htmlFor={`winning-number-${index}`} className="sr-only">
-                      {index + 1}번째 당첨 번호
-                    </label>
-                    <input
-                      id={`winning-number-${index}`}
-                      type="number"
-                      className={`border rounded appearance-textfield shadow mx-1 text-xl text-center w-14 h-14 focus:outline-none focus:shadow-outline focus:ring-1.5 ${
-                        this.isValidInputValue(this.state.winningNumberInputValues[index])
-                          ? 'ring-blue-700'
-                          : 'ring-rose-500'
-                      }`}
-                      name={`winning-number-${index}`}
-                      value={this.state.winningNumberInputValues[index]}
-                      onChange={this.handleWinningNumberInputChange}
-                      onFocus={this.handleInputFocus}
-                    />
-                  </React.Fragment>
+                  <WinningNumberInput
+                    key={index}
+                    index={index}
+                    isBonusInput={false}
+                    winningNumberInputValues={this.state.winningNumberInputValues}
+                    isValidInputValue={this.isValidInputValue}
+                    handleWinningNumberInputChange={this.handleWinningNumberInputChange}
+                    handleInputFocus={this.handleInputFocus}
+                  />
                 ))}
               </div>
             </div>
@@ -204,7 +197,6 @@ export default class WinningNumberForm extends React.Component {
               </div>
             </div>
           </div>
-
           <div
             className={`${
               this.isFormValid() || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
