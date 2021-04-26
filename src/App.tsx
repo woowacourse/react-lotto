@@ -1,8 +1,6 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import ALERT_MESSAGE from './constants/alertMessage';
-import { getRemainedTime } from './utils/date';
-import { GREENWICH_MILLISECONDS } from './services/game';
 import { issueTickets } from './services/tickets';
 
 import { AppWrapper } from './App.styles';
@@ -14,53 +12,35 @@ import RemainedTimeIndicator from './components/RemainedTimeIndicator/RemainedTi
 
 type AppState = {
   tickets: Ticket[];
-  winningNumber: WinningNumber;
-  isModalOpen: boolean;
-  remainedTime: Date | null;
+  winningNumbers: number[];
+  isModalVisible: boolean;
 };
 
 const App = () => {
   let winningNumberFormRef: React.RefObject<HTMLFormElement> = useRef(null);
-  let remainedTimeTimeout: NodeJS.Timeout | null = null;
 
   const [appState, setAppState] = useState<AppState>({
     tickets: [],
-    winningNumber: {
-      numbers: [],
-      bonus: 0,
-    },
-    isModalOpen: false,
-    remainedTime: null,
+    winningNumbers: [],
+    isModalVisible: false,
   });
-
-  const handleRemainedTime = () => {
-    setAppState(state => ({
-      ...state,
-      remainedTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
-    }));
-  };
 
   const handlePayment = (payment: number) => {
     const tickets: Ticket[] = issueTickets(payment);
-    setAppState(state => ({
-      ...state,
+    setAppState({
+      ...appState,
       tickets,
-    }));
-    handleRemainedTime();
-    // TODO : 이거 전역변수인데 고쳐라
-    remainedTimeTimeout = setInterval(() => {
-      handleRemainedTime();
-    }, 1000);
+    });
   };
 
   const handleModal = (isOpen: boolean) => {
-    setAppState(state => ({
-      ...state,
-      isModalOpen: isOpen,
-    }));
+    setAppState({
+      ...appState,
+      isModalVisible: isOpen,
+    });
   };
 
-  const handleWinningNumber = (winningNumber: WinningNumber) => {
+  const handleWinningNumber = (winningNumberInputs: number[]) => {
     const ticketCount = appState.tickets.length;
 
     if (ticketCount === 0) {
@@ -68,43 +48,37 @@ const App = () => {
       return;
     }
 
-    setAppState(state => ({
-      ...state,
-      winningNumber,
-    }));
-
-    handleModal(true);
+    setAppState({
+      ...appState,
+      winningNumbers: [...winningNumberInputs],
+      isModalVisible: true,
+    });
   };
 
   const resetGame = () => {
-    setAppState(state => ({
+    setAppState({
+      ...appState,
       tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainedTime: null,
-    }));
-
+      winningNumbers: [],
+      isModalVisible: false,
+    });
     winningNumberFormRef.current?.reset();
-    remainedTimeTimeout && clearInterval(remainedTimeTimeout);
   };
 
   return (
     <AppWrapper display="flex">
       <h1 className="app-title">🎱 행운의 로또</h1>
       <PaymentForm handlePayment={handlePayment} />
-      {appState.remainedTime && <RemainedTimeIndicator remainedTime={appState.remainedTime} />}
+      {!!appState.tickets.length && <RemainedTimeIndicator />}
       <TicketList tickets={appState.tickets} />
       <WinningNumberForm handleWinningNumber={handleWinningNumber} formRef={winningNumberFormRef} />
 
-      {appState.isModalOpen && (
+      {appState.isModalVisible && (
         <ResultModal
           handleModalClose={() => handleModal(false)}
           resetGame={() => resetGame()}
           tickets={appState.tickets}
-          winningNumber={appState.winningNumber}
+          winningNumbers={appState.winningNumbers}
         />
       )}
     </AppWrapper>

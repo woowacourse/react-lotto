@@ -20,12 +20,12 @@ export const alertByWinningNumberCase = (winningNumber: number): void => {
   }
 };
 
-export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber): boolean => {
-  return hasDuplicateElement<number>([...numbers, bonus]);
+export const isWinningNumberDuplicated = (winningNumbers: number[]): boolean => {
+  return hasDuplicateElement<number>(winningNumbers);
 };
 
-export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber): void => {
-  if (!hasDuplicateElement<number>([...numbers, bonus])) {
+export const alertByWinningNumbersCase = (winningNumbers: number[]): void => {
+  if (!hasDuplicateElement<number>(winningNumbers)) {
     alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
   }
 };

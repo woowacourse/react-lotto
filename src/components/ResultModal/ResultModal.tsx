@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import TICKET from '../../constants/ticket';
 import { MATCH, PRIZE, RANK_INDEX } from '../../constants/game';
 
@@ -14,21 +14,22 @@ type ResultModalProps = {
   handleModalClose: () => void;
   resetGame: () => void;
   tickets: Ticket[];
-  winningNumber: WinningNumber;
+  winningNumbers: number[];
 };
 
-const ResultModal = ({ tickets, winningNumber, handleModalClose, resetGame }: ResultModalProps) => {
-  useEffect(() => {
-    computeResult();
-  }, [tickets, winningNumber]);
-
-  const computeResult: () => [number[], number] = useCallback(() => {
+const ResultModal = ({
+  tickets,
+  winningNumbers,
+  handleModalClose,
+  resetGame,
+}: ResultModalProps) => {
+  const computeResult: () => [number[], number] = () => {
     const payment = tickets.length * TICKET.PRICE;
-    const winnerCounts = getWinnerCounts(tickets, winningNumber);
+    const winnerCounts = getWinnerCounts(tickets, winningNumbers);
     const profit = getTotalProfit(payment, winnerCounts);
 
     return [winnerCounts, profit];
-  }, [tickets, winningNumber]);
+  };
 
   const [
     [firstWinnerCount, secondWinnerCount, thirdWinnerCount, fourthWinnerCount, fifthWinnerCount],

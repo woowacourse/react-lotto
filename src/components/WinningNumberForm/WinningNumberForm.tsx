@@ -12,7 +12,7 @@ import {
 
 type WinningNumberFormProps = {
   formRef: React.RefObject<HTMLFormElement>;
-  handleWinningNumber: (winningNumber: WinningNumber) => void;
+  handleWinningNumber: (winningNumbers: number[]) => void;
 };
 
 type WinningNumberInput = {
@@ -34,44 +34,39 @@ const WinningNumberForm = ({ formRef, handleWinningNumber }: WinningNumberFormPr
     initialWinningNumberInput
   );
 
-  const handleWinningNumberInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, valueAsNumber: value } = event.target;
+  const handleWinningNumberInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, valueAsNumber: value } = event.target;
 
-      if (!isValidWinningNumber(value)) {
-        alertByWinningNumberCase(value);
-        event.target.value = '';
-        setWinningNumberInput(state => ({ ...state, [name]: 0 }));
-        return;
-      }
+    if (!isValidWinningNumber(value)) {
+      alertByWinningNumberCase(value);
+      event.target.value = '';
+      setWinningNumberInput({ ...winningNumberInput, [name]: 0 });
+      return;
+    }
 
-      setWinningNumberInput(state => {
-        return { ...state, [name]: value };
-      });
-    },
-    [setWinningNumberInput]
-  );
+    setWinningNumberInput({ ...winningNumberInput, [name]: value });
+  };
 
-  const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-      // TODO: 일단 이렇게 받아오는건 손을 좀 보자
-      const { first, second, third, fourth, fifth, sixth, bonus } = winningNumberInput;
-      const winningNumber = {
-        numbers: [first, second, third, fourth, fifth, sixth],
-        bonus,
-      };
+    const winningNumbers = [
+      winningNumberInput.first,
+      winningNumberInput.second,
+      winningNumberInput.third,
+      winningNumberInput.fourth,
+      winningNumberInput.fifth,
+      winningNumberInput.sixth,
+      winningNumberInput.bonus,
+    ];
 
-      if (isWinningNumberDuplicated(winningNumber)) {
-        alertByWinningNumbersCase(winningNumber);
-        return;
-      }
+    if (isWinningNumberDuplicated(winningNumbers)) {
+      alertByWinningNumbersCase(winningNumbers);
+      return;
+    }
 
-      handleWinningNumber(winningNumber);
-    },
-    [winningNumberInput]
-  );
+    handleWinningNumber(winningNumbers);
+  };
 
   return (
     <WinningNumberFormWrapper onSubmit={handleSubmit} ref={formRef}>
