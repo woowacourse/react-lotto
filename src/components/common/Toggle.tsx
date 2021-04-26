@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const ToggleWrapper = styled.label`
   z-index: 0;
   position: relative;
-
   .toggle-button {
     appearance: none;
     -moz-appearance: none;
@@ -24,13 +23,11 @@ const ToggleWrapper = styled.label`
     pointer-events: none;
     transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
   }
-
   .toggle-text {
     display: inline-block;
     width: 100%;
     cursor: pointer;
   }
-
   .toggle-text::before {
     content: '';
     float: right;
@@ -43,7 +40,6 @@ const ToggleWrapper = styled.label`
     vertical-align: top;
     transition: background-color 0.2s, opacity 0.2s;
   }
-
   .toggle-text::after {
     content: '';
     position: absolute;
@@ -57,61 +53,48 @@ const ToggleWrapper = styled.label`
       0 1px 5px 0 rgba(0, 0, 0, 0.12);
     transition: background-color 0.2s, transform 0.2s;
   }
-
   .toggle-button:checked {
     right: -10px;
     background-color: rgb(0, 188, 212);
   }
-
   .toggle-button:checked + .toggle-text::before {
     background-color: rgba(0, 188, 212, 0.6);
   }
-
   .toggle-button:checked + .toggle-text::after {
     background-color: rgb(0, 188, 212);
     transform: translateX(16px);
   }
-
   &:hover > .toggle-button {
     opacity: 0.04;
   }
-
   .toggle-button:focus {
     opacity: 0.12;
   }
-
   &:hover > .toggle-button:focus {
     opacity: 0.16;
   }
-
   .toggle-button:active {
     opacity: 1;
     transform: scale(0);
     transition: transform 0s, opacity 0s;
   }
-
   .toggle-button:active + .toggle-text::before {
     background-color: rgba(0, 188, 212, 0.6);
   }
-
   .toggle-button:checked:active + .toggle-text::before {
     background-color: rgba(0, 0, 0, 0.38);
   }
-
   .toggle-button:disabled {
     opacity: 0;
   }
-
   .toggle-button:disabled + .toggle-text {
     color: black;
     opacity: 0.38;
     cursor: default;
   }
-
   .toggle-button:disabled + .toggle-text::before {
     background-color: rgba(0, 0, 0, 0.38);
   }
-
   .toggle-button:checked:disabled + .toggle-text::before {
     background-color: rgba(0, 188, 212, 0.6);
   }
@@ -119,25 +102,20 @@ const ToggleWrapper = styled.label`
 
 type Props = {
   onToggle: (isToggled: boolean) => void;
+  children?: React.ReactNode;
 };
 
-export default class Toggle extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
+const Toggle = (props: Props) => {
+  const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onToggle(event.target.checked);
+  };
 
-    this.handleToggle = this.handleToggle.bind(this);
-  }
+  return (
+    <ToggleWrapper>
+      <input onChange={handleToggle} type="checkbox" className="toggle-button" />
+      <span className="toggle-text">{props.children}</span>
+    </ToggleWrapper>
+  );
+};
 
-  handleToggle(event: React.ChangeEvent<HTMLInputElement>) {
-    this.props.onToggle(event.target.checked);
-  }
-
-  render() {
-    return (
-      <ToggleWrapper>
-        <input onChange={this.handleToggle} type="checkbox" className="toggle-button" />
-        <span className="toggle-text">{this.props.children}</span>
-      </ToggleWrapper>
-    );
-  }
-}
+export default Toggle;

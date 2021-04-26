@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import { AppWrapper } from './App.styles';
 
 import PaymentForm from './components/PaymentForm/PaymentForm';
@@ -8,116 +8,63 @@ import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm'
 import ResultModal from './components/ResultModal/ResultModal';
 
 import { issueTickets } from './services/tickets';
-import { getRemainedTime } from './utils/date';
 
-import { GREENWICH_MILLISECONDS, TIMER_TICK } from './constants/timer';
+const App = () => {
+  const winningNumberFormRef = useRef<HTMLFormElement>(null);
 
-type State = {
-  tickets: Ticket[];
-  winningNumber: WinningNumber;
-  isModalOpen: boolean;
-  remainTime: Date | null;
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [winningNumber, setWinningNumber] = useState<WinningNumber>({
+    numbers: [],
+    bonus: 0,
+  });
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handlePayment = (payment: number) => {
+    setTickets(issueTickets(payment));
+  };
+
+  const handleWinningNumber = (winningNumber: WinningNumber) => {
+    setWinningNumber(winningNumber);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const resetGame = () => {
+    setTickets([]);
+    setWinningNumber({
+      numbers: [],
+      bonus: 0,
+    });
+    setIsModalOpen(false);
+
+    winningNumberFormRef.current?.reset();
+  };
+
+  return (
+    <AppWrapper display="flex">
+      <h1 className="app-title">🎱 행운의 로또</h1>
+      <PaymentForm handlePayment={handlePayment} />
+      {tickets.length > 0 && <RemainedTime />}
+      <TicketList tickets={tickets} />
+      {tickets.length > 0 && (
+        <WinningNumberForm
+          handleWinningNumber={handleWinningNumber}
+          formRef={winningNumberFormRef}
+        />
+      )}
+      {isModalOpen && (
+        <ResultModal
+          handleModalClose={() => handleModalClose()}
+          resetGame={resetGame}
+          tickets={tickets}
+          winningNumber={winningNumber}
+        />
+      )}
+    </AppWrapper>
+  );
 };
 
-export default class App extends Component<{}, State> {
-  winningNumberFormRef: React.RefObject<HTMLFormElement>;
-  remainTimer: NodeJS.Timeout | null;
-
-  constructor(props: {}) {
-    super(props);
-    this.winningNumberFormRef = React.createRef();
-    this.remainTimer = null;
-
-    this.state = {
-      tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainTime: null,
-    };
-
-    this.handlePayment = this.handlePayment.bind(this);
-    this.handleRemainedTime = this.handleRemainedTime.bind(this);
-    this.handleWinningNumber = this.handleWinningNumber.bind(this);
-    this.handleModal = this.handleModal.bind(this);
-    this.resetGame = this.resetGame.bind(this);
-  }
-
-  tickRemainTime() {
-    this.setState({
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
-    });
-  }
-
-  handleRemainedTime() {
-    this.tickRemainTime();
-    this.remainTimer = setInterval(() => {
-      this.tickRemainTime();
-    }, TIMER_TICK);
-  }
-
-  handlePayment(payment: number) {
-    const tickets: Ticket[] = issueTickets(payment);
-    this.setState({
-      tickets,
-    });
-
-    this.handleRemainedTime();
-  }
-
-  handleWinningNumber(winningNumber: WinningNumber) {
-    this.setState({
-      winningNumber,
-    });
-
-    this.handleModal(true);
-  }
-
-  handleModal(isOpen: boolean) {
-    this.setState({
-      isModalOpen: isOpen,
-    });
-  }
-
-  resetGame() {
-    this.setState({
-      tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainTime: null,
-    });
-
-    this.winningNumberFormRef.current?.reset();
-    this.remainTimer && clearInterval(this.remainTimer);
-  }
-
-  render() {
-    return (
-      <AppWrapper display="flex">
-        <h1 className="app-title">🎱 행운의 로또</h1>
-        <PaymentForm handlePayment={this.handlePayment} />
-        {this.state.remainTime && <RemainedTime remainTime={this.state.remainTime} />}
-        <TicketList tickets={this.state.tickets} />
-        {this.state.tickets.length > 0 && (
-          <WinningNumberForm
-            handleWinningNumber={this.handleWinningNumber}
-            formRef={this.winningNumberFormRef}
-          />
-        )}
-        {this.state.isModalOpen && (
-          <ResultModal
-            handleModalClose={() => this.handleModal(false)}
-            resetGame={this.resetGame}
-            tickets={this.state.tickets}
-            winningNumber={this.state.winningNumber}
-          />
-        )}
-      </AppWrapper>
-    );
-  }
-}
+export default App;

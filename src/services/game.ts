@@ -29,7 +29,6 @@ export const getWinnerCounts = (tickets: Ticket[], winningNumber: WinningNumber)
 
   tickets.forEach(({ numbers }) => {
     const rankIndex = getRankIndex(numbers, winningNumber);
-
     if (rankIndex === undefined) return;
 
     winnerCounts[rankIndex] += 1;
