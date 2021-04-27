@@ -29,41 +29,27 @@ class WinningNumber extends React.Component {
     this.props.onModalButtonClick();
   }
 
-  isInputValueChanged(currentInputValue, inputValue) {
-    if (currentInputValue === inputValue) {
-      return false;
-    }
-    return true;
-  }
-
   isInputValueExist(inputValue) {
     if (!inputValue) return false;
     return true;
   }
 
-  isInputValueDuplicated({ winningNumberInputs }, inputValue) {
-    if (!winningNumberInputs.includes(inputValue)) {
-      return false;
+  isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
+    const idx = winningNumberInputs.findIndex((el) => el === inputValue);
+    if (idx !== -1 && idx !== index) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   onChangeWinningNumber(e, index) {
     const inputValue = Number(e.target.value);
-    if (!this.isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
-
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
     newWinningNumberInputs[index] = inputValue;
 
-    if (!this.isInputValueExist(inputValue)) {
-      this.setState({
-        winningNumberInputs: newWinningNumberInputs,
-        currentInputIndex: index,
-      });
-      return;
-    }
+    if (!this.isInputValueExist(inputValue)) return;
 
-    if (this.isInputValueDuplicated(this.state, inputValue)) {
+    if (this.isInputValueDuplicated(this.state, inputValue, index)) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
@@ -73,6 +59,21 @@ class WinningNumber extends React.Component {
     this.setState({
       winningNumberInputs: newWinningNumberInputs,
       currentInputIndex: index + 1,
+    });
+  }
+
+  onChangeInputNumber(e, index) {
+    let inputValue = e.target.value;
+    const newWinningNumberInputs = [...this.state.winningNumberInputs];
+
+    if (inputValue.length > 2) {
+      inputValue = inputValue.slice(0, 2);
+    }
+
+    newWinningNumberInputs.splice(index, 1, Number(inputValue));
+    this.setState({
+      winningNumberInputs: newWinningNumberInputs,
+      currentInputIndex: index,
     });
   }
 
@@ -94,6 +95,7 @@ class WinningNumber extends React.Component {
                 }
                 defaultValue={number ? number : ''}
                 onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
+                onChangeInput={(e) => this.onChangeInputNumber(e, index)}
               />
             );
           })}
