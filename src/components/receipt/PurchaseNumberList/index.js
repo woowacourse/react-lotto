@@ -5,14 +5,15 @@ import PurchaseNumberItem from '../PurchaseNumberItem';
 class PurchaseNumberList extends React.Component {
   constructor(props) {
     super(props);
+    this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
   }
 
   render() {
     return (
       <ul>
-        {this.props.receipt.map((ticket) => (
+        {this.props.receipt.map((ticket, idx) => (
           <PurchaseNumberItem
-            key={uuidv4()}
+            key={this.numberItemIds[idx]}
             ticketNumbers={ticket}
             toggled={this.props.showBalls}
           />

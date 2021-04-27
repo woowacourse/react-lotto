@@ -17,6 +17,8 @@ class Modal extends React.Component {
       earningRate: 0,
     };
     this.tempTotalPrize = 0;
+    this.winningNumberIds = [...Array(this.props.winningNumber.length)].map(() => uuidv4());
+    this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
   }
 
   countWinningBall(ticket) {
@@ -60,9 +62,9 @@ class Modal extends React.Component {
             <h1 className='modal-header'>슈퍼 로또</h1>
             <h1 className='modal-sub-header'>당첨 결과 번호</h1>
             <div className='result-numbers-container'>
-              {this.props.winningNumber.map((number) => (
+              {this.props.winningNumber.map((number, idx) => (
                 <LotteryBall
-                  key={uuidv4()}
+                  key={this.winningNumberIds[idx]}
                   numberValue={number}
                   toggled={true}
                   colored={true}
@@ -84,9 +86,9 @@ class Modal extends React.Component {
               }
             </div>
             <div className='modal-numbers-container'>
-              {this.props.receipt.map((ticket) => (
+              {this.props.receipt.map((ticket, idx) => (
                 <PurchaseNumberItem
-                  key={uuidv4()}
+                  key={this.numberItemIds[idx]}
                   bonusNumber={this.props.bonusNumber}
                   winningNumber={this.props.winningNumber}
                   ticketNumbers={ticket}

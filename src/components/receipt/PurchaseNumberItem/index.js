@@ -8,6 +8,7 @@ import './style.scss';
 class PurchaseNumberItem extends React.Component {
   constructor(props) {
     super(props);
+    this.lotteryBallIds = [...Array(this.props.ticketNumbers.length)].map(() => uuidv4());
   }
 
   render() {
@@ -15,7 +16,7 @@ class PurchaseNumberItem extends React.Component {
       <>
         <li className='purchase-number-item'>
           <div className='lottery-balls-container'>
-            {this.props.ticketNumbers.map((number) => {
+            {this.props.ticketNumbers.map((number, idx) => {
               {
                 this.props.winningBallCount &&
                   this.props.onCalculateTotalPrize(
@@ -28,7 +29,7 @@ class PurchaseNumberItem extends React.Component {
                     this.props.winningNumber &&
                     [...this.props.winningNumber, this.props.bonusNumber].includes(number)
                   }
-                  key={uuidv4()}
+                  key={this.lotteryBallIds[idx]}
                   numberValue={number}
                   toggled={this.props.toggled}
                   ballColor={chooseBallColor(number)}

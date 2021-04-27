@@ -10,7 +10,10 @@ class WinningNumber extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0),
+      winningNumberInputs: [...new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH)].map((el) => ({
+        value: 0,
+        id: uuidv4(),
+      })),
       currentInputIndex: 0,
     };
   }
@@ -35,7 +38,7 @@ class WinningNumber extends React.Component {
   }
 
   isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
-    const idx = winningNumberInputs.findIndex((el) => el === inputValue);
+    const idx = winningNumberInputs.findIndex((el) => el.value === inputValue);
     if (idx !== -1 && idx !== index) {
       return true;
     }
@@ -45,7 +48,7 @@ class WinningNumber extends React.Component {
   onChangeWinningNumber(e, index) {
     const inputValue = Number(e.target.value);
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
-    newWinningNumberInputs[index] = inputValue;
+    newWinningNumberInputs[index].value = inputValue;
 
     if (!this.isInputValueExist(inputValue)) return;
 
@@ -70,7 +73,10 @@ class WinningNumber extends React.Component {
       inputValue = inputValue.slice(0, 2);
     }
 
-    newWinningNumberInputs.splice(index, 1, Number(inputValue));
+    newWinningNumberInputs.splice(index, 1, {
+      value: Number(inputValue),
+      id: this.state.winningNumberInputs[index].id,
+    });
     this.setState({
       winningNumberInputs: newWinningNumberInputs,
       currentInputIndex: index,
@@ -81,13 +87,13 @@ class WinningNumber extends React.Component {
     return (
       <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
         <div className='winning-number-form'>
-          {[...this.state.winningNumberInputs].map((number, index) => {
+          {[...this.state.winningNumberInputs].map(({ number, id }, index) => {
             return (
               <NumberInput
                 isCurrentInput={this.state.currentInputIndex === index}
                 min='1'
                 max='45'
-                key={uuidv4()}
+                key={id}
                 customClass={
                   index < this.state.winningNumberInputs.length - 1
                     ? 'winning-number'
