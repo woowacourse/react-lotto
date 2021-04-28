@@ -16,6 +16,7 @@ class WinningNumbersForm extends Component {
     event.preventDefault();
 
     const inputNumbers = [...this.state.winningNumbers, this.state.bonusNumber];
+    console.log(inputNumbers);
 
     if (hasDuplicatedNumber(inputNumbers)) {
       this.setState({
@@ -49,7 +50,7 @@ class WinningNumbersForm extends Component {
   };
 
   handleBonusNumberChange = ({ target }) => {
-    const bonusNumber = target.value;
+    const bonusNumber = Number(target.value);
 
     this.setState({ bonusNumber });
   };
