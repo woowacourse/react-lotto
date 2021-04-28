@@ -8,7 +8,6 @@ export default class Main extends Component {
         <h1 className="text-center m-0">🎱 행운의 로또</h1>
         <PurchaseForm
           setLottoCount={this.props.setLottoCount}
-          lottoCount={this.props.lottoCount}
           moneyInput={this.props.moneyInput}
           setMoneyInput={this.props.setMoneyInput}
         />
