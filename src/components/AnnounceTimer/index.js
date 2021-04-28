@@ -1,29 +1,20 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Root, TimerWrapper, Title, TimeArea } from './style';
 
-class AnnounceTimer extends Component {
-  constructor(props) {
-    super(props);
+const AnnounceTimer = () => {
+  const [minutes, setMinutes] = useState(10);
+  const [seconds, setSeconds] = useState(0);
 
-    this.state = {
-      minutes: 10,
-      seconds: 0,
-    };
-  }
-
-  componentDidMount() {
-    this.timerId = setInterval(() => {
-      this.timePass();
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      timePass();
     }, 1000);
-  }
+    return () => {
+      clearInterval(timerId);
+    };
+  });
 
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
-
-  timePass() {
-    const { minutes, seconds } = this.state;
-
+  const timePass = () => {
     if (minutes === 0 && seconds === 0) {
       clearInterval(this.timerId);
       return;
@@ -31,26 +22,20 @@ class AnnounceTimer extends Component {
 
     const nextMinutes = seconds > 0 ? minutes : minutes - 1;
     const nextSeconds = seconds > 0 ? seconds - 1 : 59;
+    setMinutes(nextMinutes);
+    setSeconds(nextSeconds);
+  };
 
-    this.setState({
-      minutes: nextMinutes,
-      seconds: nextSeconds,
-    });
-  }
+  const currentTime = String(minutes).padStart(2, '0') + ': ' + String(seconds).padStart(2, '0');
 
-  render() {
-    const currentTime =
-      String(this.state.minutes).padStart(2, '0') + ': ' + String(this.state.seconds).padStart(2, '0');
-
-    return (
-      <Root>
-        <TimerWrapper>
-          <Title>🎉 당첨 발표까지 남은 시간 🥂</Title>
-          <TimeArea>{currentTime}</TimeArea>
-        </TimerWrapper>
-      </Root>
-    );
-  }
-}
+  return (
+    <Root>
+      <TimerWrapper>
+        <Title>🎉 당첨 발표까지 남은 시간 🥂</Title>
+        <TimeArea>{currentTime}</TimeArea>
+      </TimerWrapper>
+    </Root>
+  );
+};
 
 export default AnnounceTimer;

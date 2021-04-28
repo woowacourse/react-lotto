@@ -6,8 +6,6 @@ const Root = styled.div`
 `;
 
 const Modal = styled.div`
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   display: flex;
   position: fixed;
   top: 0;
