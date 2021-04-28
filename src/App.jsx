@@ -1,23 +1,23 @@
 import React from 'react';
-import generateLottoNumbers from './utils/generateTicket';
 import PurchaseForm from './components/PurchaseForm';
 import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
 import Modal from './components/Modal';
 import WinningResult from './components/WinningResult';
+import { deepFreeze, generateLottoNumbers } from './utils';
 
 export default class App extends React.Component {
+  static initialState = deepFreeze({
+    tickets: [],
+    winningNumbers: [],
+    bonusNumber: 0,
+    isModalOpen: false,
+  });
+
   constructor(props) {
     super(props);
 
-    this.initialState = {
-      tickets: [],
-      winningNumbers: [],
-      bonusNumber: 0,
-      isModalOpen: false,
-    };
-
-    this.state = { ...this.initialState };
+    this.state = { ...App.initialState };
 
     this.setTickets = this.setTickets.bind(this);
     this.setWinningNumbers = this.setWinningNumbers.bind(this);
@@ -51,7 +51,7 @@ export default class App extends React.Component {
   }
 
   handleResetClick() {
-    this.setState({ ...this.initialState });
+    this.setState({ ...App.initialState });
   }
 
   handleModalClose() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LOTTO } from '../utils/constants';
+import { LOTTO } from '../utils';
 
 const winningTable = [
   { money: 0, label: '', rank: 0 },

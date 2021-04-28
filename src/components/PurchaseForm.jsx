@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LOTTO } from '../utils/constants';
 import cx from 'classnames';
+import { LOTTO, deepFreeze } from '../utils';
 
 export default class PurchaseForm extends React.Component {
   static calculatePurchaseTicketCount(inputValue) {
@@ -14,15 +14,15 @@ export default class PurchaseForm extends React.Component {
     isReset: PropTypes.bool.isRequired,
   };
 
+  static initialState = deepFreeze({
+    inputValue: '',
+    isValid: false,
+  });
+
   constructor(props) {
     super(props);
 
-    this.initialState = {
-      inputValue: '',
-      isValid: false,
-    };
-
-    this.state = { ...this.initialState };
+    this.state = { ...PurchaseForm.initialState };
     this.resetState = this.resetState.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,7 @@ export default class PurchaseForm extends React.Component {
   }
 
   resetState() {
-    this.setState({ ...this.initialState });
+    this.setState({ ...PurchaseForm.initialState });
   }
 
   handleSubmit(event) {

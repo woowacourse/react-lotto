@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LOTTO, MESSAGE } from '../utils/constants';
 import cx from 'classnames';
-import generateId from '../utils/generateId';
-import inputValidator from '../utils/inputValidator';
-import formValidator from '../utils/formValidator';
+import { LOTTO, MESSAGE, generateId, inputValidator, formValidator, deepFreeze } from '../utils';
 import NumberInput from './NumberInput';
-
 export default class WinningNumberForm extends React.Component {
   static propTypes = {
     setWinningNumbers: PropTypes.func.isRequired,
@@ -20,11 +16,11 @@ export default class WinningNumberForm extends React.Component {
     this.winningNumberInputIds = Array.from({ length: LOTTO.LENGTH }).map(() => generateId());
     this.bonusNumberInputId = generateId();
 
-    this.initialState = {
+    this.initialState = deepFreeze({
       ...Object.fromEntries(this.winningNumberInputIds.map((id) => [id, ''])),
       [this.bonusNumberInputId]: '',
       validationMessage: MESSAGE.REQUIRE_WINNING_NUMBER_INPUT,
-    };
+    });
 
     this.state = { ...this.initialState };
     this.resetState = this.resetState.bind(this);
