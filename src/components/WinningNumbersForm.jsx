@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { hasDuplicatedNumber, LOTTERY, MESSAGE } from "../utils";
+import { hasDuplicatedValue, LOTTERY, MESSAGE } from "../utils";
 
 class WinningNumbersForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isSubmit: false,
-      winningNumbers: Array(LOTTERY.NUMBER_COUNT).fill(null),
-      bonusNumber: null,
+      winningNumberInputs: Array(LOTTERY.NUMBER_COUNT).fill(""),
+      bonusNumberInput: "",
       errorInputMessage: "",
     };
   }
@@ -15,10 +15,14 @@ class WinningNumbersForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const inputNumbers = [...this.state.winningNumbers, this.state.bonusNumber];
-    console.log(inputNumbers);
+    const inputs = [
+      ...this.state.winningNumberInputs,
+      this.state.bonusNumberInput,
+    ];
 
-    if (hasDuplicatedNumber(inputNumbers)) {
+    console.log(inputs);
+
+    if (hasDuplicatedValue(inputs)) {
       this.setState({
         errorInputMessage: MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER,
       });
@@ -31,28 +35,30 @@ class WinningNumbersForm extends Component {
     });
     this.setState({ isSubmit: true });
     this.props.onWinningNumberSubmit(
-      this.state.winningNumbers,
-      this.state.bonusNumber
+      this.state.winningNumberInputs.map((input) => Number(input)),
+      Number(this.state.bonusNumber)
     );
   };
 
   handleWinningNumberChange = ({ target }) => {
     const targetIndex = Number(target.dataset.index);
-    const winningNumbers = this.state.winningNumbers.map((number, index) => {
-      if (index !== targetIndex) {
-        return number;
+    const winningNumberInputs = this.state.winningNumberInputs.map(
+      (input, index) => {
+        if (index !== targetIndex) {
+          return input;
+        }
+
+        return target.value;
       }
+    );
 
-      return Number(target.value);
-    });
-
-    this.setState({ winningNumbers });
+    this.setState({ winningNumberInputs });
   };
 
   handleBonusNumberChange = ({ target }) => {
-    const bonusNumber = Number(target.value);
+    const bonusNumberInput = target.value;
 
-    this.setState({ bonusNumber });
+    this.setState({ bonusNumberInput });
   };
 
   render() {
@@ -65,13 +71,14 @@ class WinningNumbersForm extends Component {
           <div>
             <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
             <div>
-              {this.state.winningNumbers.map((_, index) => (
+              {this.state.winningNumberInputs.map((_, index) => (
                 <input
                   key={index}
                   onChange={this.handleWinningNumberChange}
                   data-index={index}
                   className="winning-number mx-1 text-center"
                   type="number"
+                  value={this.state.winningNumberInputs[index]}
                   min={LOTTERY.MIN_NUMBER}
                   max={LOTTERY.MAX_NUMBER}
                   required
@@ -87,6 +94,7 @@ class WinningNumbersForm extends Component {
                 className="bonus-number text-center"
                 onChange={this.handleBonusNumberChange}
                 type="number"
+                value={this.state.bonusNumberInput}
                 min={LOTTERY.MIN_NUMBER}
                 max={LOTTERY.MAX_NUMBER}
                 disabled={this.state.isSubmit}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
+import { isNumber, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
 class PaymentForm extends Component {
   constructor(props) {
@@ -23,6 +23,10 @@ class PaymentForm extends Component {
   };
 
   handleInputCheck = ({ target }) => {
+    if (!isNumber(target.value)) {
+      return;
+    }
+
     const money = target.value;
 
     if (money === "") {
@@ -73,7 +77,7 @@ class PaymentForm extends Component {
           <input
             id={SELECTOR.ID.PAYMENT_INPUT}
             className="w-100 mr-2 pl-2"
-            type="number"
+            type="text"
             placeholder={`구입 금액 (${this.props.paymentMinUnit}원 단위)`}
             onChange={this.handleInputCheck}
             max={MAX_PAYMENT}

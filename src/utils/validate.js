@@ -1,5 +1,5 @@
-export const hasDuplicatedNumber = numbers => {
-  const set = new Set(numbers);
+export const hasDuplicatedValue = (values) => {
+  const set = new Set(values);
 
-  return set.size !== numbers.length;
+  return set.size !== values.length;
 };
