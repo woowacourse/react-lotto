@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { hasDuplicatedValue, LOTTERY, MESSAGE } from "../utils";
+import { hasDuplicatedValue, isNumber, LOTTERY, MESSAGE } from "../utils";
 
 class WinningNumbersForm extends Component {
   constructor(props) {
@@ -20,8 +20,6 @@ class WinningNumbersForm extends Component {
       this.state.bonusNumberInput,
     ];
 
-    console.log(inputs);
-
     if (hasDuplicatedValue(inputs)) {
       this.setState({
         errorInputMessage: MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER,
@@ -41,6 +39,14 @@ class WinningNumbersForm extends Component {
   };
 
   handleWinningNumberChange = ({ target }) => {
+    if (!isNumber(target.value)) {
+      return;
+    }
+
+    if (target.value.length > 1) {
+      return;
+    }
+
     const targetIndex = Number(target.dataset.index);
     const winningNumberInputs = this.state.winningNumberInputs.map(
       (input, index) => {
@@ -56,6 +62,14 @@ class WinningNumbersForm extends Component {
   };
 
   handleBonusNumberChange = ({ target }) => {
+    if (!isNumber(target.value)) {
+      return;
+    }
+
+    if (target.value.length > 1) {
+      return;
+    }
+
     const bonusNumberInput = target.value;
 
     this.setState({ bonusNumberInput });
@@ -77,7 +91,7 @@ class WinningNumbersForm extends Component {
                   onChange={this.handleWinningNumberChange}
                   data-index={index}
                   className="winning-number mx-1 text-center"
-                  type="number"
+                  type="text"
                   value={this.state.winningNumberInputs[index]}
                   min={LOTTERY.MIN_NUMBER}
                   max={LOTTERY.MAX_NUMBER}
@@ -93,7 +107,7 @@ class WinningNumbersForm extends Component {
               <input
                 className="bonus-number text-center"
                 onChange={this.handleBonusNumberChange}
-                type="number"
+                type="text"
                 value={this.state.bonusNumberInput}
                 min={LOTTERY.MIN_NUMBER}
                 max={LOTTERY.MAX_NUMBER}

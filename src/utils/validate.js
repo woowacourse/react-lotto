@@ -3,3 +3,7 @@ export const hasDuplicatedValue = (values) => {
 
   return set.size !== values.length;
 };
+
+export const isNumber = (string) => {
+  return !/[^0-9]/g.test(string);
+};
