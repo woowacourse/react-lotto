@@ -1,10 +1,12 @@
 const deepFreeze = (object) => {
-  const propNames = Object.getOwnPropertyNames(object);
+  const ownProperties = Object.getOwnPropertyNames(object);
 
-  for (const key of propNames) {
+  for (const key of ownProperties) {
     const value = object[key];
 
-    object[key] = value && typeof value === 'object' ? deepFreeze(value) : value;
+    if (value !== null && typeof value === 'object') {
+      object[key] = deepFreeze(value);
+    }
   }
 
   return Object.freeze(object);
