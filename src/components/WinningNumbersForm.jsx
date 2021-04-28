@@ -4,11 +4,11 @@ import { hasDuplicatedNumber, LOTTERY, MESSAGE } from "../utils";
 class WinningNumbersForm extends Component {
   constructor(props) {
     super(props);
-    this.messageRef = React.createRef();
     this.state = {
       isSubmit: false,
       winningNumbers: Array(LOTTERY.NUMBER_COUNT).fill(null),
       bonusNumber: null,
+      errorInputMessage: "",
     };
   }
 
@@ -16,15 +16,18 @@ class WinningNumbersForm extends Component {
     event.preventDefault();
 
     const inputNumbers = [...this.state.winningNumbers, this.state.bonusNumber];
-    const $input = this.messageRef.current;
 
     if (hasDuplicatedNumber(inputNumbers)) {
-      $input.innerText = MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER;
+      this.setState({
+        errorInputMessage: MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER,
+      });
 
       return;
     }
 
-    $input.innerText = "";
+    this.setState({
+      errorInputMessage: "",
+    });
     this.setState({ isSubmit: true });
     this.props.onWinningNumberSubmit(
       this.state.winningNumbers,
@@ -91,7 +94,7 @@ class WinningNumbersForm extends Component {
             </div>
           </div>
         </div>
-        <p ref={this.messageRef}></p>
+        <p className="mt-3">{this.state.errorInputMessage}</p>
         <button
           type="submit"
           className="open-result-modal-button mt-5 btn btn-cyan w-100"

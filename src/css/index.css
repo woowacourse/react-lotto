@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-@import './shared/index.css';
-@import './ui/index.css';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
+@import "./shared/index.css";
+@import "./ui/index.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
 
 html,
 body {
-  margin: 0;
   height: 100%;
   font-size: 16px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 #app {

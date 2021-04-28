@@ -4,7 +4,8 @@ import { LOTTERY } from "../utils";
 import LotteriesDetail from "./LotteriesDetail";
 import PaymentForm from "./PaymentForm";
 import WinningNumbersForm from "./WinningNumbersForm";
-import WinningResultModal from "./WinningResultModal";
+import Modal from "./Modal";
+import WinningResult from "./WinningResult";
 
 class App extends Component {
   constructor() {
@@ -48,7 +49,7 @@ class App extends Component {
   };
 
   render() {
-    const { lotteries, winningResult } = this.state;
+    const { lotteries, winningResult, isResultModalOpen } = this.state;
 
     return (
       <div id="app" className="d-flex justify-center mt-5">
@@ -72,14 +73,17 @@ class App extends Component {
               />
             </>
           )}
-          {winningResult && (
-            <WinningResultModal
-              winningResult={winningResult}
-              isModalOpen={this.state.isResultModalOpen}
-              closeModal={this.closeResultModal}
-              resetApp={this.resetApp}
-            />
-          )}
+          <Modal
+            isModalOpen={isResultModalOpen}
+            closeModal={this.closeResultModal}
+          >
+            {isResultModalOpen && (
+              <WinningResult
+                winningResult={winningResult}
+                resetApp={this.resetApp}
+              />
+            )}
+          </Modal>
         </div>
       </div>
     );
