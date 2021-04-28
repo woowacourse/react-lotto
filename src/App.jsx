@@ -4,6 +4,7 @@ import PurchaseForm from './components/PurchaseForm';
 import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
 import Modal from './components/Modal';
+import WinningResult from './components/WinningResult';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,11 +24,8 @@ export default class App extends React.Component {
     this.setBonusNumber = this.setBonusNumber.bind(this);
     this.setIsModalOpen = this.setIsModalOpen.bind(this);
 
-    this.handleResetClick = this.resetState.bind(this);
-    this.handleCloseClick = this.closeModal.bind(this);
-
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleDimmedClick = this.handleDimmedClick.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   setTickets(ticketCount) {
@@ -44,44 +42,20 @@ export default class App extends React.Component {
 
   setIsModalOpen() {
     this.setState({
-      isModalOpen: this.state.tickets.length > 0 && this.state.winningNumbers.length > 0 && this.state.bonusNumber > 0,
+      isModalOpen: [
+        this.state.tickets.length > 0,
+        this.state.winningNumbers.length > 0,
+        this.state.bonusNumber > 0,
+      ].every(Boolean),
     });
   }
 
-  resetState() {
+  handleResetClick() {
     this.setState({ ...this.initialState });
   }
 
-  closeModal() {
+  handleModalClose() {
     this.setState({ isModalOpen: false });
-  }
-
-  handleKeyUp({ key }) {
-    if (!this.state.isModalOpen) {
-      return;
-    }
-
-    const table = {
-      Escape: this.handleCloseClick,
-    };
-
-    return table[key]?.();
-  }
-
-  handleDimmedClick({ target }) {
-    if (this.state.isModalOpen && target.classList.contains('modal')) {
-      this.closeModal();
-    }
-  }
-
-  componentDidMount() {
-    document.addEventListener('keyup', this.handleKeyUp);
-    document.addEventListener('click', this.handleDimmedClick);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keyup', this.handleKeyUp);
-    document.removeEventListener('click', this.handleDimmedClick);
   }
 
   render() {
@@ -109,13 +83,14 @@ export default class App extends React.Component {
           )}
         </main>
         {this.state.isModalOpen && (
-          <Modal
-            tickets={this.state.tickets}
-            winningNumbers={this.state.winningNumbers}
-            bonusNumber={this.state.bonusNumber}
-            onResetClick={this.handleResetClick}
-            onCloseClick={this.handleCloseClick}
-          />
+          <Modal onClose={this.handleModalClose}>
+            <WinningResult
+              onReset={this.handleResetClick}
+              tickets={this.state.tickets}
+              winningNumbers={this.state.winningNumbers}
+              bonusNumber={this.state.bonusNumber}
+            />
+          </Modal>
         )}
       </>
     );

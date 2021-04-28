@@ -1,37 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WinningResult from './WinningResult';
+import CloseButton from './CloseButton';
 
-Modal.propTypes = {
-  onCloseClick: PropTypes.func.isRequired,
-};
-
-export default function Modal(props) {
-  const handleCloseKeyUp = ({ key }) => {
-    const keys = ['Enter', ' '];
-
-    if (keys.includes(key)) {
-      props.onCloseClick();
-    }
+export default class Modal extends React.Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired,
   };
 
-  return (
-    <div className="modal fixed inset-0 flex w-full bg-black bg-opacity-50" role="dialog" aria-modal="true">
-      <div className="modal-inner relative m-auto p-10 bg-white rounded-xl">
-        <button
-          className="modal-close absolute right-2 top-2 m-4 w-6 focus:outline-none cursor-pointer focus:ring-blue-700 focus:ring-1.5"
-          role="switch"
-          aria-checked="false"
-          aria-label="modal-close"
-          onKeyUp={handleCloseKeyUp}
-          onClick={props.onCloseClick}
-        >
-          <svg className="text-blue-500 hover:text-blue-700 stroke-current stroke-5" viewBox="0 0 40 40">
-            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-          </svg>
-        </button>
-        <WinningResult {...props} />
+  constructor(props) {
+    super(props);
+
+    this.ref = React.createRef();
+
+    this.handleDimmedClick = this.handleDimmedClick.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+  }
+
+  handleDimmedClick(event) {
+    if (event.currentTarget === event.target) {
+      this.props.onClose();
+    }
+  }
+
+  handleKeyUp(event) {
+    if (event.key === 'Escape') {
+      this.props.onClose();
+    }
+  }
+
+  componentDidMount() {
+    this.ref.current.focus();
+  }
+
+  render() {
+    return (
+      <div
+        className="modal fixed inset-0 flex w-full bg-black bg-opacity-50"
+        role="presentation"
+        tabIndex="-1"
+        onKeyUp={this.handleKeyUp}
+        onClick={this.handleDimmedClick}
+        ref={this.ref}
+      >
+        <div className="modal-inner relative m-auto p-10 bg-white rounded-xl">
+          <CloseButton onClick={this.props.onClose} />
+          {this.props.children}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
