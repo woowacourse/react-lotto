@@ -1,38 +1,43 @@
-import { Component } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toFormattedTimeString, getAnnouncementDate } from '../../utils/lottoUtils';
 
-export default class LotteryCountDown extends Component {
-  state = {
-    remainTime: 0,
-  };
+const useInterval = (callback, delay) => {
+  const savedCallback = useRef(callback);
 
-  componentDidMount = () => {
-    this.tick();
-    this.intervalId = setInterval(this.tick, 1000);
-  };
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
 
-  componentWillUnmount = () => {
-    clearInterval(this.intervalId);
-  };
+  useEffect(() => {
+    if (delay === null) return;
 
-  tick = () => {
+    const id = setInterval(savedCallback.current, delay);
+
+    return () => clearInterval(id);
+  }, [delay]);
+};
+
+export default function Component({ announcementDate, setAnnouncementDate }) {
+  const [remainTime, setRemainTime] = useState(0);
+
+  const tick = () => {
     const currentTime = new Date();
-    const gap = this.props.announcementDate - currentTime;
+    const gap = announcementDate - currentTime;
 
     if (gap < 1000) {
-      this.props.setAnnouncementDate(getAnnouncementDate());
+      setAnnouncementDate(getAnnouncementDate());
     }
 
-    this.setState({ remainTime: gap });
+    setRemainTime(gap);
   };
 
-  render() {
-    return (
-      <div className="mt-5 text-center">
-        <h3 className="m-1">🎉 당첨 번호 발표 시간 🎉</h3>
-        <p className="m-1">{this.props.announcementDate.toLocaleString('ko-KR')}</p>
-        <p className="mt-1">남은 시간 : {toFormattedTimeString(this.state.remainTime)}</p>
-      </div>
-    );
-  }
+  useInterval(tick, 1000);
+
+  return (
+    <div className="mt-5 text-center">
+      <h3 className="m-1">🎉 당첨 번호 발표 시간 🎉</h3>
+      <p className="m-1">{announcementDate.toLocaleString('ko-KR')}</p>
+      <p className="mt-1">남은 시간 : {toFormattedTimeString(remainTime)}</p>
+    </div>
+  );
 }
