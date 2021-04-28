@@ -50,7 +50,7 @@ export default class PurchaseForm extends React.Component {
 
   render() {
     return (
-      <form className="mt-5 mb-4" onSubmit={this.handleSubmit}>
+      <form className="mb-4 mt-5" onSubmit={this.handleSubmit}>
         <h2 className="text-xl font-semibold">구입할 금액을 입력해주세요.</h2>
         <div className="flex my-2">
           <label htmlFor="purchase-input" className="sr-only">
@@ -60,7 +60,7 @@ export default class PurchaseForm extends React.Component {
             id="purchase-input"
             type="number"
             className={cx(
-              'w-full py-2 px-3 mr-2 appearance-textfield border rounded shadow text-gray-700 leading-tight focus:outline-none focus:ring-1.5',
+              'appearance-textfield mr-2 px-3 py-2 w-full text-gray-700 leading-tight border rounded focus:outline-none shadow focus:ring-1.5',
               this.state.isValid ? 'ring-blue-700' : 'ring-rose-500'
             )}
             placeholder="구입 금액"
@@ -70,8 +70,7 @@ export default class PurchaseForm extends React.Component {
           />
           <button
             type="submit"
-            className="text-white font-bold  min-w-1/8 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700
-            focus:outline-none focus:ring-2"
+            className="px-4 py-2 min-w-1/8 text-white font-bold bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded focus:outline-none focus:ring-2"
             disabled={this.props.tickets.length > 0 || !this.state.isValid}
           >
             확인
@@ -79,13 +78,13 @@ export default class PurchaseForm extends React.Component {
         </div>
         {this.state.isValid ? (
           this.props.tickets.length === 0 && (
-            <div className="text-blue-700 h-4">
+            <div className="h-4 text-blue-700">
               {`${PurchaseForm.calculatePurchaseTicketCount(this.state.inputValue)}장의 로또를 구매하실 수
                 있습니다. `}
             </div>
           )
         ) : (
-          <div className="text-rose-500 h-4">
+          <div className="h-4 text-rose-500">
             {`${LOTTO.MIN_PRICE.toLocaleString('en-US')}원 이상 ${LOTTO.MAX_PRICE.toLocaleString('en-US')}원 이하의
             금액을 입력해주세요.`}
           </div>

@@ -82,11 +82,11 @@ export default class WinningNumberForm extends React.Component {
 
     return (
       <>
-        <h2 className="text-xl font-semibold mb-3 mt-6">지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
+        <h2 className="mb-3 mt-6 text-xl font-semibold">지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.</h2>
         <form className="flex flex-col items-center w-full" onSubmit={this.handleSubmit}>
           <div className="flex justify-evenly w-full">
             <div className="flex flex-col">
-              <h3 className="mt-0 mb-3 text-center font-semibold text-lg">당첨 번호</h3>
+              <h3 className="mb-3 mt-0 text-center text-lg font-semibold">당첨 번호</h3>
               <div className="flex mx-auto">
                 {this.winningNumberInputIds.map((id) => (
                   <NumberInput
@@ -102,7 +102,7 @@ export default class WinningNumberForm extends React.Component {
               </div>
             </div>
             <div className="flex flex-col">
-              <h3 className="mt-0 mb-3 text-center font-semibold text-lg">보너스 번호</h3>
+              <h3 className="mb-3 mt-0 text-center text-lg font-semibold">보너스 번호</h3>
               <NumberInput
                 key={this.bonusNumberInputId}
                 name={this.bonusNumberInputId}
@@ -120,14 +120,14 @@ export default class WinningNumberForm extends React.Component {
               isFormValid || this.state.validationMessage === MESSAGE.WINNING_NUMBER.REQUIRED_NEXT_INPUT
                 ? 'text-blue-700'
                 : 'text-rose-500',
-              'font-semibold h-4 mt-4'
+              'mt-4 h-4 font-semibold'
             )}
           >
             {this.state.validationMessage}
           </div>
           <button
             type="submit"
-            className="font-bold mt-5 py-2 px-4 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 focus:outline-none focus:ring-1.5 text-white w-11/12"
+            className="mt-5 px-4 py-2 w-11/12 text-white font-bold bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded focus:outline-none focus:ring-1.5"
             disabled={!isFormValid}
           >
             결과 확인하기

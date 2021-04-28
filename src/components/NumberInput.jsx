@@ -28,9 +28,7 @@ export default class NumberInput extends React.Component {
           type="number"
           name={this.props.name}
           className={cx(
-            'appearance-textfield mx-1 w-14 h-14',
-            'text-xl text-center',
-            'border rounded shadow focus:outline-none focus:ring-1.5',
+            'appearance-textfield mx-1 w-14 h-14 text-center text-xl border rounded focus:outline-none shadow focus:ring-1.5',
             this.props.isValid ? 'ring-blue-700' : 'ring-rose-500',
             this.props.value !== '' && !this.props.isValid && 'ring-1.5'
           )}

@@ -89,8 +89,8 @@ export default class App extends React.Component {
 
     return (
       <>
-        <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white focus:ring-red-500">
-          <h1 className="text-center text-4xl	font-bold mb-14 space-x-2">
+        <main className="m-16 mx-auto p-9 max-w-screen-sm bg-white rounded-xl focus:ring-red-500">
+          <h1 className="text-4xl	font-bold mb-14 text-center space-x-2">
             <span role="img" aria-label="good-luck">
               🎱
             </span>
