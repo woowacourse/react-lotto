@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
-import LottoContext from "../Contexts/LottoContext";
 import { isDistinctNumbers } from "../utils";
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
@@ -53,19 +53,17 @@ const Button = styled.button`
   }
 `;
 
-const WinningNumberInput = () => {
+const WinningNumberInput = ({ updateLottoResult }) => {
   const [winningNumbers, setWinningNumbers] = useState([0, 0, 0, 0, 0, 0]);
   const [bonusNumber, setBonusNumber] = useState(0);
   const [isNumbersDuplicated, setIsNumbersDuplicated] = useState(false);
-  const { action } = useContext(LottoContext);
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
       if (isDistinctNumbers([...winningNumbers, bonusNumber])) {
-        action.updateLottoResult(winningNumbers, bonusNumber);
-        action.openModal();
+        updateLottoResult(winningNumbers, bonusNumber);
       }
 
       setIsNumbersDuplicated(
@@ -133,6 +131,10 @@ const WinningNumberInput = () => {
       <Button type="submit">확인</Button>
     </form>
   );
+};
+
+WinningNumberInput.propTypes = {
+  updateLottoResult: PropTypes.func.isRequired,
 };
 
 export default WinningNumberInput;

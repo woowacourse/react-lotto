@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-
-import LottoContext from "../Contexts/LottoContext";
 
 import Lotto from "./Lotto";
 
@@ -16,12 +14,10 @@ const Ul = styled.ul`
       : ""};
 `;
 
-const LottoBox = ({ isNumberVisible }) => {
-  const { state } = useContext(LottoContext);
-
+const LottoBox = ({ isNumberVisible, lottos }) => {
   return (
     <Ul isFlexBox={!isNumberVisible}>
-      {state.lottos.map((lottoNumbers, index) => (
+      {lottos.map((lottoNumbers, index) => (
         <Lotto
           key={lottoNumbers.toString() + index}
           lottoNumbers={lottoNumbers}
@@ -34,6 +30,7 @@ const LottoBox = ({ isNumberVisible }) => {
 
 LottoBox.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
+  lottos: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 };
 
 export default LottoBox;

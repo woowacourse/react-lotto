@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../Constants";
-import LottoContext from "../Contexts/LottoContext";
 
 const ResultTable = styled.table`
   border-collapse: collapse;
@@ -37,9 +37,8 @@ const Message = styled.p`
   font-weight: bold;
 `;
 
-const LottoResult = () => {
-  const { state, action } = useContext(LottoContext);
-  const { rankCount, earningRate } = state.lottoResult;
+const LottoResult = ({ result, clearLottoApp }) => {
+  const { rankCount, earningRate } = result;
 
   return (
     <>
@@ -63,11 +62,19 @@ const LottoResult = () => {
         </tbody>
       </ResultTable>
       <Message>{GUIDE_MESSAGE.EARNING_RATE(earningRate)}</Message>
-      <Button type="button" onClick={action.clear}>
+      <Button type="button" onClick={clearLottoApp}>
         다시 시작하기
       </Button>
     </>
   );
+};
+
+LottoResult.propTypes = {
+  result: PropTypes.shape({
+    rankCount: PropTypes.objectOf(PropTypes.number),
+    earningRate: PropTypes.number,
+  }),
+  clearLottoApp: PropTypes.func.isRequired,
 };
 
 export default LottoResult;

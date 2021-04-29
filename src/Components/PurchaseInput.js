@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-import LottoContext from "../Contexts/LottoContext";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../utils";
 import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
@@ -34,19 +34,18 @@ const Button = styled.button`
   }
 `;
 
-const PurchaseInput = () => {
+const PurchaseInput = ({ createLottos }) => {
   const [price, setPrice] = useState(0);
-  const { action } = useContext(LottoContext);
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
       if (isDivisible(price, LOTTO_PRICE)) {
-        action.createLottos(price / LOTTO_PRICE);
+        createLottos(price / LOTTO_PRICE);
         setPrice(0);
       } else {
-        action.createLottos(0);
+        createLottos(0);
       }
     },
     [price]
@@ -81,6 +80,10 @@ const PurchaseInput = () => {
       />
     </Form>
   );
+};
+
+PurchaseInput.propTypes = {
+  createLottos: PropTypes.func.isRequired,
 };
 
 export default PurchaseInput;

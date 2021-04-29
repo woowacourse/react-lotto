@@ -1,8 +1,6 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-
-import LottoContext from "../Contexts/LottoContext";
 
 const ModalContainer = styled.div`
   opacity: 1;
@@ -53,9 +51,8 @@ const Svg = styled.svg`
   }
 `;
 
-const Modal = ({ children }) => {
+const Modal = ({ children = "", close }) => {
   const modalCloseSvgRef = useRef();
-  const { action } = useContext(LottoContext);
 
   const onMouseDown = useCallback(
     (event) => {
@@ -63,7 +60,7 @@ const Modal = ({ children }) => {
         event.currentTarget === event.target ||
         event.target === modalCloseSvgRef.current
       ) {
-        action.closeModal();
+        close();
       }
     },
     [modalCloseSvgRef.current]
@@ -85,6 +82,7 @@ const Modal = ({ children }) => {
 
 Modal.propTypes = {
   children: PropTypes.element,
+  close: PropTypes.func.isRequired,
 };
 
 export default Modal;

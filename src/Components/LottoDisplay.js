@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-import LottoContext from "../Contexts/LottoContext";
 import LottoBox from "./LottoBox";
 import Toggle from "./common/Toggle";
 import { GUIDE_MESSAGE } from "../Constants";
@@ -15,10 +15,9 @@ const Header = styled.h2`
   align-items: center;
 `;
 
-const LottoDisplay = () => {
+const LottoDisplay = ({ lottos }) => {
   const [isToggled, setIsToggled] = useState(false);
-  const { state } = useContext(LottoContext);
-  const lottoCount = state.lottos.length;
+  const lottoCount = lottos.length;
 
   const onToggle = useCallback(({ target }) => {
     setIsToggled(target.checked);
@@ -30,9 +29,13 @@ const LottoDisplay = () => {
         <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottoCount)}</span>
         <Toggle text={"번호 보기"} onToggle={onToggle} />
       </Header>
-      <LottoBox isNumberVisible={isToggled} />
+      <LottoBox isNumberVisible={isToggled} lottos={lottos} />
     </div>
   );
+};
+
+LottoDisplay.propTypes = {
+  lottos: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 };
 
 export default LottoDisplay;
