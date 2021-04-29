@@ -15,7 +15,7 @@ export default function LottoListSection({
           총 <span>{lottoCount}</span>개를 구매하였습니다.
         </div>
         <label className="toggle-button">
-          <input type="checkbox" onChange={onToggle} />
+          <input type="checkbox" checked={isLottoListToggled} onChange={onToggle} />
           <span className="toggle-slider"></span>
         </label>
       </div>
