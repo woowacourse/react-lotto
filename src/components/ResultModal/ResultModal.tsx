@@ -28,6 +28,8 @@ const ResultModal = ({
     const winnerCounts = getWinnerCounts(tickets, winningNumbers);
     const profit = getTotalProfit(payment, winnerCounts);
 
+    console.log(winnerCounts);
+
     return [winnerCounts, profit];
   };
 

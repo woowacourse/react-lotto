@@ -40,10 +40,8 @@ const App = () => {
     });
   };
 
-  const handleWinningNumber = (winningNumberInputs: number[]) => {
-    const ticketCount = appState.tickets.length;
-
-    if (ticketCount === 0) {
+  const submitWinningNumber = (winningNumberInputs: number[]) => {
+    if (appState.tickets.length === 0) {
       alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
       return;
     }
@@ -69,9 +67,9 @@ const App = () => {
     <AppWrapper display="flex">
       <h1 className="app-title">🎱 행운의 로또</h1>
       <PaymentForm handlePayment={handlePayment} />
-      {!!appState.tickets.length && <RemainedTimeIndicator />}
+      {appState.tickets.length !== 0 && <RemainedTimeIndicator />}
       <TicketList tickets={appState.tickets} />
-      <WinningNumberForm handleWinningNumber={handleWinningNumber} formRef={winningNumberFormRef} />
+      <WinningNumberForm submitWinningNumber={submitWinningNumber} formRef={winningNumberFormRef} />
 
       {appState.isModalVisible && (
         <ResultModal

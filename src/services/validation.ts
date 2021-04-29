@@ -24,11 +24,5 @@ export const isWinningNumberDuplicated = (winningNumbers: number[]): boolean => 
   return hasDuplicateElement<number>(winningNumbers);
 };
 
-export const alertByWinningNumbersCase = (winningNumbers: number[]): void => {
-  if (!hasDuplicateElement<number>(winningNumbers)) {
-    alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
-  }
-};
-
 //TODO: answer Submit에서 alert 한번, 이후 handlewinndingNumber에서 alert 또 한번이 과연 맞는건가?
 // 역할로써는 분리가 맞는데, 두번의 alert는 좀...

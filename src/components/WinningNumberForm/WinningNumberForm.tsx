@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { WinningNumberFormWrapper } from './WinningNumberForm.styles';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';
@@ -7,65 +7,43 @@ import {
   isValidWinningNumber,
   alertByWinningNumberCase,
   isWinningNumberDuplicated,
-  alertByWinningNumbersCase,
 } from '../../services/validation';
+import { WINNING_NUMBER_INDEX, WINNING_NUMBER_LEGNTH } from '../../constants/game';
+import ALERT_MESSAGE from '../../constants/alertMessage';
 
 type WinningNumberFormProps = {
   formRef: React.RefObject<HTMLFormElement>;
-  handleWinningNumber: (winningNumbers: number[]) => void;
+  submitWinningNumber: (winningNumbers: number[]) => void;
 };
 
-type WinningNumberInput = {
-  [key: string]: number;
-};
-
-const initialWinningNumberInput = {
-  first: 0,
-  second: 0,
-  third: 0,
-  fourth: 0,
-  fifth: 0,
-  sixth: 0,
-  bonus: 0,
-};
-
-const WinningNumberForm = ({ formRef, handleWinningNumber }: WinningNumberFormProps) => {
-  const [winningNumberInput, setWinningNumberInput] = useState<WinningNumberInput>(
-    initialWinningNumberInput
+const WinningNumberForm = ({ formRef, submitWinningNumber }: WinningNumberFormProps) => {
+  const [winningNumberInputs, setWinningNumberInputs] = useState<number[]>(
+    new Array(WINNING_NUMBER_LEGNTH).fill(0)
   );
 
-  const handleWinningNumberInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, valueAsNumber: value } = event.target;
-
+  const handleWinningNumberInputsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name: winningNumberIndex, valueAsNumber: value } = event.target;
+    const newWinningInputs = [...winningNumberInputs];
     if (!isValidWinningNumber(value)) {
       alertByWinningNumberCase(value);
       event.target.value = '';
-      setWinningNumberInput({ ...winningNumberInput, [name]: 0 });
+      newWinningInputs.splice(Number(winningNumberIndex), 1, 0);
       return;
     }
 
-    setWinningNumberInput({ ...winningNumberInput, [name]: value });
+    newWinningInputs.splice(Number(winningNumberIndex), 1, value);
+    setWinningNumberInputs(newWinningInputs);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const winningNumbers = [
-      winningNumberInput.first,
-      winningNumberInput.second,
-      winningNumberInput.third,
-      winningNumberInput.fourth,
-      winningNumberInput.fifth,
-      winningNumberInput.sixth,
-      winningNumberInput.bonus,
-    ];
-
-    if (isWinningNumberDuplicated(winningNumbers)) {
-      alertByWinningNumbersCase(winningNumbers);
+    if (isWinningNumberDuplicated(winningNumberInputs)) {
+      alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
       return;
     }
 
-    handleWinningNumber(winningNumbers);
+    submitWinningNumber(winningNumberInputs);
   };
 
   return (
@@ -74,19 +52,19 @@ const WinningNumberForm = ({ formRef, handleWinningNumber }: WinningNumberFormPr
       <Wrapper className="winning-number-input-wrapper" display="flex">
         <div>
           <h4 className="input-caption">당첨 번호</h4>
-          <Wrapper display="flex" onChange={handleWinningNumberInputChange}>
-            <Input type="number" name="first" required />
-            <Input type="number" name="second" required />
-            <Input type="number" name="third" required />
-            <Input type="number" name="fourth" required />
-            <Input type="number" name="fifth" required />
-            <Input type="number" name="sixth" required />
+          <Wrapper display="flex" onChange={handleWinningNumberInputsChange}>
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.FIRST)} required />
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.SECOND)} required />
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.THIRD)} required />
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.FOURTH)} required />
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.FIFTH)} required />
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.SIXTH)} required />
           </Wrapper>
         </div>
         <div>
           <h4 className="input-caption">보너스 번호</h4>
-          <Wrapper display="flex" onChange={handleWinningNumberInputChange}>
-            <Input type="number" name="bonus" required />
+          <Wrapper display="flex" onChange={handleWinningNumberInputsChange}>
+            <Input type="number" name={String(WINNING_NUMBER_INDEX.BONUS)} required />
           </Wrapper>
         </div>
       </Wrapper>
