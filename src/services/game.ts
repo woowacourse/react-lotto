@@ -37,7 +37,7 @@ export const getWinnerCounts = (tickets: Ticket[], winningNumbers: number[]) => 
     const rankIndex = getRankIndex(numbers, winningNumbers);
     console.log('rankIndex', rankIndex);
 
-    if (rankIndex !== 0 && !rankIndex) return;
+    if (typeof rankIndex !== 'number') return;
 
     winnerCounts[rankIndex] += 1;
   });
