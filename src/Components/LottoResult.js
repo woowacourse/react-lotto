@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 
 import { GUIDE_MESSAGE, PRIZE_TABLE, RANKINGS } from "../Constants";
@@ -37,38 +37,37 @@ const Message = styled.p`
   font-weight: bold;
 `;
 
-export default class LottoResult extends Component {
-  render() {
-    const { rankCount, earningRate } = this.context.state.lottoResult;
+const LottoResult = () => {
+  const { state, action } = useContext(LottoContext);
+  const { rankCount, earningRate } = state.lottoResult;
 
-    return (
-      <>
-        <h2>🏆 당첨 통계 🏆</h2>
-        <ResultTable>
-          <thead>
-            <Tr>
-              <th>일치 갯수</th>
-              <th>당첨금</th>
-              <th>당첨 갯수</th>
+  return (
+    <>
+      <h2>🏆 당첨 통계 🏆</h2>
+      <ResultTable>
+        <thead>
+          <Tr>
+            <th>일치 갯수</th>
+            <th>당첨금</th>
+            <th>당첨 갯수</th>
+          </Tr>
+        </thead>
+        <tbody>
+          {Object.values(RANKINGS).map((ranking) => (
+            <Tr key={ranking}>
+              <td>{PRIZE_TABLE[ranking].condition}</td>
+              <td>{PRIZE_TABLE[ranking].prize}원</td>
+              <td>{rankCount[ranking]}개</td>
             </Tr>
-          </thead>
-          <tbody>
-            {Object.values(RANKINGS).map((ranking) => (
-              <Tr key={ranking}>
-                <td>{PRIZE_TABLE[ranking].condition}</td>
-                <td>{PRIZE_TABLE[ranking].prize}원</td>
-                <td>{rankCount[ranking]}개</td>
-              </Tr>
-            ))}
-          </tbody>
-        </ResultTable>
-        <Message>{GUIDE_MESSAGE.EARNING_RATE(earningRate)}</Message>
-        <Button type="button" onClick={this.context.action.clear}>
-          다시 시작하기
-        </Button>
-      </>
-    );
-  }
-}
+          ))}
+        </tbody>
+      </ResultTable>
+      <Message>{GUIDE_MESSAGE.EARNING_RATE(earningRate)}</Message>
+      <Button type="button" onClick={action.clear}>
+        다시 시작하기
+      </Button>
+    </>
+  );
+};
 
-LottoResult.contextType = LottoContext;
+export default LottoResult;

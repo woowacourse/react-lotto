@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 
 import PurchaseInput from "./PurchaseInput";
@@ -12,18 +12,17 @@ const MainContainer = styled.main`
   min-width: 400px;
 `;
 
-export default class Main extends Component {
-  render() {
-    const lottoCount = this.context.state.lottos.length;
+const Main = () => {
+  const { state } = useContext(LottoContext);
+  const lottoCount = state.lottos.length;
 
-    return (
-      <MainContainer>
-        <PurchaseInput />
-        {lottoCount !== 0 && <LottoDisplay />}
-        {lottoCount !== 0 && <WinningNumberInput />}
-      </MainContainer>
-    );
-  }
-}
+  return (
+    <MainContainer>
+      <PurchaseInput />
+      {lottoCount !== 0 && <LottoDisplay />}
+      {lottoCount !== 0 && <WinningNumberInput />}
+    </MainContainer>
+  );
+};
 
-Main.contextType = LottoContext;
+export default Main;

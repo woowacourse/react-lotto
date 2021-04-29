@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
@@ -53,40 +53,39 @@ const Svg = styled.svg`
   }
 `;
 
-export default class Modal extends Component {
-  constructor(props) {
-    super(props);
+const Modal = ({ children }) => {
+  const modalCloseSvgRef = useRef();
+  const { action } = useContext(LottoContext);
 
-    this.modalCloseSvgRef = createRef();
-    this.onMouseDown = this.onMouseDown.bind(this);
-  }
+  const onMouseDown = useCallback(
+    (event) => {
+      if (
+        event.currentTarget === event.target ||
+        event.target === modalCloseSvgRef.current
+      ) {
+        action.closeModal();
+      }
+    },
+    [modalCloseSvgRef.current]
+  );
 
-  onMouseDown(event) {
-    if (
-      event.currentTarget === event.target ||
-      event.target === this.modalCloseSvgRef.current
-    ) {
-      this.context.action.closeModal();
-    }
-  }
-
-  render() {
-    return (
-      <ModalContainer onMouseDown={this.onMouseDown}>
-        <ModalInner>
-          <ModalClose>
-            <Svg viewBox="0 0 40 40" ref={this.modalCloseSvgRef}>
-              <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
-            </Svg>
-          </ModalClose>
-          {this.props.children}
-        </ModalInner>
-      </ModalContainer>
-    );
-  }
-}
+  return (
+    <ModalContainer onMouseDown={onMouseDown}>
+      <ModalInner>
+        <ModalClose>
+          <Svg viewBox="0 0 40 40" ref={modalCloseSvgRef}>
+            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </Svg>
+        </ModalClose>
+        {children}
+      </ModalInner>
+    </ModalContainer>
+  );
+};
 
 Modal.contextType = LottoContext;
 Modal.propTypes = {
   children: PropTypes.element,
 };
+
+export default Modal;

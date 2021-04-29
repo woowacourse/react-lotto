@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import LottoContext from "../Contexts/LottoContext";
@@ -34,63 +34,54 @@ const Button = styled.button`
   }
 `;
 
-export default class PurchaseInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isValidInput: true,
-      price: 0,
-    };
+const PurchaseInput = () => {
+  const [isValidInput, setIsValidInput] = useState(true);
+  const [price, setPrice] = useState(0);
+  const { action } = useContext(LottoContext);
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChangePrice = this.onChangePrice.bind(this);
-  }
+  useEffect(() => {
+    if (isValidInput) {
+      action.createLottos(price / LOTTO_PRICE);
+      setPrice(0);
+    } else {
+      action.createLottos(0);
+    }
+  }, [isDivisible]);
 
-  onSubmit(event) {
-    event.preventDefault();
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    this.setState(
-      {
-        isValidInput: isDivisible(this.state.price, LOTTO_PRICE),
-      },
-      () => {
-        if (this.state.isValidInput) {
-          this.context.action.createLottos(this.state.price / LOTTO_PRICE);
-          this.setState({ price: 0 });
-        } else {
-          this.context.action.createLottos(0);
-        }
-      }
-    );
-  }
+      setIsValidInput(isDivisible(price, LOTTO_PRICE));
+    },
+    [price]
+  );
 
-  onChangePrice(event) {
-    this.setState({ price: Number(event.target.value) });
-  }
+  const onChangePrice = useCallback((event) => {
+    setPrice(Number(event.target.value));
+  }, []);
 
-  render() {
-    return (
-      <Form onSubmit={this.onSubmit} ref={this.formRef}>
-        <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
-        <FlexContainer>
-          <Input
-            id="purchase-input"
-            name="purchase-input"
-            type="number"
-            placeholder="구입 금액"
-            value={this.state.price || ""}
-            onChange={this.onChangePrice}
-            min={LOTTO_PRICE}
-            required
-          />
-          <Button type="submit">확인</Button>
-        </FlexContainer>
-        {!this.state.isValidInput && (
-          <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
-        )}
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={onSubmit}>
+      <label htmlFor="purchase-input">{GUIDE_MESSAGE.PURCHASE_INPUT}</label>
+      <FlexContainer>
+        <Input
+          id="purchase-input"
+          name="purchase-input"
+          type="number"
+          placeholder="구입 금액"
+          value={price || ""}
+          onChange={onChangePrice}
+          min={LOTTO_PRICE}
+          required
+        />
+        <Button type="submit">확인</Button>
+      </FlexContainer>
+      {!isValidInput && (
+        <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
+      )}
+    </Form>
+  );
+};
 
-PurchaseInput.contextType = LottoContext;
+export default PurchaseInput;

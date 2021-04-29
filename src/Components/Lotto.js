@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
@@ -12,20 +12,18 @@ const TicketWrapper = styled.span`
   font-size: 24px;
 `;
 
-export default class Lotto extends Component {
-  render() {
-    return (
-      <Li>
-        <TicketWrapper>🎟️</TicketWrapper>
-        {this.props.isNumberVisible && (
-          <span>{this.props.lottoNumbers.join(", ")}</span>
-        )}
-      </Li>
-    );
-  }
-}
+const Lotto = ({ lottoNumbers, isNumberVisible }) => {
+  return (
+    <Li>
+      <TicketWrapper>🎟️</TicketWrapper>
+      {isNumberVisible && <span>{lottoNumbers.join(", ")}</span>}
+    </Li>
+  );
+};
 
 Lotto.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
   lottoNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
+
+export default Lotto;
