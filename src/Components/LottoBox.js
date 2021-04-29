@@ -12,6 +12,9 @@ const Ul = styled.ul`
         flex-wrap: wrap;
         `
       : ""};
+
+  max-height: 40vh;
+  overflow: scroll;
 `;
 
 const LottoBox = ({ isNumberVisible, lottos }) => {
