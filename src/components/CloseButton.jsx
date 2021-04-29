@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-CloseButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-
-export default function CloseButton({ onClick }) {
+const CloseButton = ({ onClick }) => {
   return (
     <button
       className="modal-close absolute right-2 top-2 m-4 w-6 focus:outline-none cursor-pointer focus:ring-blue-700 focus:ring-1.5"
@@ -19,4 +15,10 @@ export default function CloseButton({ onClick }) {
       </svg>
     </button>
   );
-}
+};
+
+CloseButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export default CloseButton;

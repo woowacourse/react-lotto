@@ -1,98 +1,69 @@
-import React from 'react';
-import PurchaseForm from './components/PurchaseForm';
-import TicketDetail from './components/TicketDetail';
-import WinningNumberForm from './components/WinningNumberForm';
-import Modal from './components/Modal';
-import WinningResult from './components/WinningResult';
-import { deepFreeze, generateLottoNumbers } from './utils';
+import React, { useEffect, useState } from 'react';
+import { generateLottoNumbers } from './utils';
+import { PurchaseForm, TicketDetail, WinningNumberForm, Modal, WinningResult } from './components';
 
-export default class App extends React.Component {
-  static initialState = deepFreeze({
-    tickets: [],
-    winningNumbers: [],
-    bonusNumber: 0,
-    isModalOpen: false,
-  });
+const App = () => {
+  const [tickets, setTickets] = useState([]);
+  const [winningNumbers, setWinningNumbers] = useState([]);
+  const [bonusNumber, setBonusNumber] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    const isOpen = [tickets.length > 0, winningNumbers.length > 0, bonusNumber > 0].every(Boolean);
 
-    this.state = { ...App.initialState };
+    setIsModalOpen(isOpen);
+  }, [tickets, winningNumbers, bonusNumber]);
 
-    this.setTickets = this.setTickets.bind(this);
-    this.setWinningNumbers = this.setWinningNumbers.bind(this);
-    this.setBonusNumber = this.setBonusNumber.bind(this);
-    this.setIsModalOpen = this.setIsModalOpen.bind(this);
+  const setTicketCount = (ticketCount) => {
+    setTickets(Array.from({ length: ticketCount }, generateLottoNumbers));
+  };
 
-    this.handleResetClick = this.handleResetClick.bind(this);
-    this.handleModalClose = this.handleModalClose.bind(this);
-  }
+  const handleResetClick = () => {
+    setTickets([]);
+    setWinningNumbers([]);
+    setBonusNumber(0);
+    setIsModalOpen(false);
+  };
 
-  setTickets(ticketCount) {
-    this.setState({ tickets: Array.from({ length: ticketCount }, generateLottoNumbers) }, this.setIsModalOpen);
-  }
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
-  setWinningNumbers(winningNumbers) {
-    this.setState({ winningNumbers }, this.setIsModalOpen);
-  }
+  const isReset = [winningNumbers.length === 0, bonusNumber === 0].every(Boolean);
 
-  setBonusNumber(bonusNumber) {
-    this.setState({ bonusNumber }, this.setIsModalOpen);
-  }
-
-  setIsModalOpen() {
-    this.setState({
-      isModalOpen: [
-        this.state.tickets.length > 0,
-        this.state.winningNumbers.length > 0,
-        this.state.bonusNumber > 0,
-      ].every(Boolean),
-    });
-  }
-
-  handleResetClick() {
-    this.setState({ ...App.initialState });
-  }
-
-  handleModalClose() {
-    this.setState({ isModalOpen: false });
-  }
-
-  render() {
-    const isReset = this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0;
-
-    return (
-      <>
-        <main className="m-16 mx-auto p-9 max-w-screen-sm bg-white rounded-xl focus:ring-red-500">
-          <h1 className="text-4xl	font-bold mb-14 text-center space-x-2">
-            <span role="img" aria-label="good-luck">
-              🎱
-            </span>
-            <span>행운의 로또</span>
-          </h1>
-          <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} isReset={isReset} />
-          {this.state.tickets.length > 0 && (
-            <>
-              <TicketDetail tickets={this.state.tickets} />
-              <WinningNumberForm
-                setWinningNumbers={this.setWinningNumbers}
-                setBonusNumber={this.setBonusNumber}
-                isReset={isReset}
-              />
-            </>
-          )}
-        </main>
-        {this.state.isModalOpen && (
-          <Modal onClose={this.handleModalClose}>
-            <WinningResult
-              onReset={this.handleResetClick}
-              tickets={this.state.tickets}
-              winningNumbers={this.state.winningNumbers}
-              bonusNumber={this.state.bonusNumber}
+  return (
+    <>
+      <main className="m-16 mx-auto p-9 max-w-screen-sm bg-white rounded-xl focus:ring-red-500">
+        <h1 className="text-4xl	font-bold mb-14 text-center space-x-2">
+          <span role="img" aria-label="good-luck">
+            🎱
+          </span>
+          <span>행운의 로또</span>
+        </h1>
+        <PurchaseForm setTicketCount={setTicketCount} tickets={tickets} isReset={isReset} />
+        {tickets.length > 0 && (
+          <>
+            <TicketDetail tickets={tickets} />
+            <WinningNumberForm
+              setWinningNumbers={setWinningNumbers}
+              setBonusNumber={setBonusNumber}
+              isReset={isReset}
             />
-          </Modal>
+          </>
         )}
-      </>
-    );
-  }
-}
+      </main>
+      {isModalOpen && (
+        <Modal onClose={handleModalClose}>
+          <WinningResult
+            onReset={handleResetClick}
+            tickets={tickets}
+            winningNumbers={winningNumbers}
+            bonusNumber={bonusNumber}
+          />
+        </Modal>
+      )}
+    </>
+  );
+};
+
+export default App;
