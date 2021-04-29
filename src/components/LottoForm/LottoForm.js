@@ -1,7 +1,7 @@
 import { PurchaseForm, LottoListSection, WinningNumberForm, LotteryCountDown } from '.';
 import LottoItem from './LottoItem';
 
-export default function Main({
+export default function LottoForm({
   setLottoCount,
   moneyInput,
   setMoneyInput,

@@ -1,8 +1,9 @@
 import './index.css';
 import './css/index.css';
 import React, { useState } from 'react';
-import { Main } from './components/Main';
-import { EarningRateSection, LottoResultTable, Modal } from './components/Modal';
+import { LottoForm } from './components/LottoForm';
+import { Modal } from './components/shared';
+import { EarningRateSection, LottoResultTable } from './components/LottoResult';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
 
@@ -70,7 +71,7 @@ export default function App() {
 
   return (
     <div className="app d-flex justify-center items-center">
-      <Main
+      <LottoForm
         announcementDate={announcementDate}
         setAnnouncementDate={setAnnouncementDate}
         isModalOpened={isModalOpened}
