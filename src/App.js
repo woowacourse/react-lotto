@@ -68,10 +68,6 @@ export default function App() {
     setWinningCounts(initialState.winningCounts);
   };
 
-  const setToggleLottoList = () => {
-    setIsLottoListToggled(!isLottoListToggled);
-  };
-
   return (
     <div className="app d-flex justify-center items-center">
       <Main
@@ -79,7 +75,7 @@ export default function App() {
         setAnnouncementDate={setAnnouncementDate}
         isModalOpened={isModalOpened}
         isLottoListToggled={isLottoListToggled}
-        setToggleLottoList={setToggleLottoList}
+        setIsLottoListToggled={setIsLottoListToggled}
         openModal={openModal}
         moneyInput={moneyInput}
         setMoneyInput={setMoneyInput}
