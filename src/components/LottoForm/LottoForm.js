@@ -25,6 +25,7 @@ export default function LottoForm({
         setLottoCount={setLottoCount}
         moneyInput={moneyInput}
         setMoneyInput={setMoneyInput}
+        lottoCount={lottoCount}
       />
       <LottoListSection
         isModalOpened={isModalOpened}

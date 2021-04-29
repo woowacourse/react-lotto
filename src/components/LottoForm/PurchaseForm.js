@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { LOTTO_PRICE, MESSAGE } from '../../constants';
 
-export default function PurchaseForm({ setLottoCount, setMoneyInput, moneyInput }) {
-  const [isActive, setIsActive] = useState(true);
+export default function PurchaseForm({ lottoCount, setLottoCount, setMoneyInput, moneyInput }) {
+  const isActive = lottoCount === 0;
   const isValidPrice = (price) => {
     return price % LOTTO_PRICE === 0;
   };
@@ -18,7 +17,6 @@ export default function PurchaseForm({ setLottoCount, setMoneyInput, moneyInput 
     }
 
     setLottoCount(moneyInput / LOTTO_PRICE);
-    setIsActive(false);
   };
 
   const onMoneyInputChange = ({ target }) => {
