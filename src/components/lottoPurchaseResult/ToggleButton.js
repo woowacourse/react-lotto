@@ -10,13 +10,13 @@ import {
 
 class ToggleButton extends Component {
   render() {
-    const { setIsToggled } = this.props;
+    const { setIsShowNumbers } = this.props;
 
     return (
       <Flex alignItems="center">
         <ToggleButtonInput
           id="show-details"
-          onChange={setIsToggled}
+          onChange={setIsShowNumbers}
           type="checkbox"
         />
 

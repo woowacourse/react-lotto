@@ -13,17 +13,17 @@ class PurchaseResult extends Component {
     super(props);
 
     this.state = {
-      isToggled: false,
+      isShowNumbers: false,
     };
   }
 
-  setIsToggled = () => {
-    this.setState({ isToggled: !this.state.isToggled });
+  setIsShowNumbers = () => {
+    this.setState({ isShowNumbers: !this.state.isShowNumbers });
   };
 
   render() {
     const { lottos } = this.props;
-    const { isToggled } = this.state;
+    const { isShowNumbers } = this.state;
 
     return (
       <PurchaseResultSection aria-label="purchase-lotto">
@@ -31,10 +31,10 @@ class PurchaseResult extends Component {
           <label>
             총 <span>{lottos.length}</span>개를 구매하였습니다.
           </label>
-          <ToggleButton setIsToggled={this.setIsToggled} />
+          <ToggleButton setIsShowNumbers={this.setIsShowNumbers} />
         </Flex>
 
-        {isToggled ? (
+        {isShowNumbers ? (
           <LottoDetailList lottos={lottos} />
         ) : (
           <LottoIconList lottoCount={lottos.length} />
