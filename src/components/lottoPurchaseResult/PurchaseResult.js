@@ -7,7 +7,7 @@ import ToggleButton from './ToggleButton';
 import {
   PurchaseResultSection,
   PurchaseResultMessageDiv,
-} from './PurchaseResult.style';
+} from './styles/PurchaseResult.style';
 
 class PurchaseResult extends Component {
   constructor(props) {

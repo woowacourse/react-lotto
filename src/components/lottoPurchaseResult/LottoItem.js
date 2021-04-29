@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { LottoItemLi, LottoNumbersSpan } from './LottoItem.style';
+import { LottoItemLi, LottoNumbersSpan } from './styles/LottoItem.style';
 
 class LottoItem extends Component {
   render() {

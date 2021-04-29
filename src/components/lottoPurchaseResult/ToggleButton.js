@@ -5,7 +5,7 @@ import {
   ToggleButtonInput,
   ToggleButtonLabel,
   ToggleButtonSpan,
-} from './ToggleButton.style';
+} from './styles/ToggleButton.style';
 
 class ToggleButton extends Component {
   render() {

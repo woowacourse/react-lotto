@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Button from '../utils/Button';
 import Flex from '../utils/Flex';
+
 class RestartButton extends Component {
   render() {
     const { handleRestart } = this.props;

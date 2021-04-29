@@ -10,7 +10,7 @@ import {
   PurchaseInputForm,
   PurchaseFormFlexDiv,
   PurchaseInput,
-} from './LottoPurchaseForm.style';
+} from './styles/LottoPurchaseForm.style';
 
 class LottoPurchaseForm extends Component {
   constructor(props) {

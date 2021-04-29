@@ -6,7 +6,7 @@ import {
   NumberListUl,
   WinningNumberCheckbox,
   WinningNumberLabel,
-} from './NumberList.style';
+} from './styles/NumberList.style';
 
 class NumberList extends Component {
   render() {

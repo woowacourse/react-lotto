@@ -8,7 +8,7 @@ import Button from '../utils/Button';
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
 
-import { WinningNumberSelectForm } from './WinningNumberForm.style';
+import { WinningNumberSelectForm } from './styles/WinningNumberForm.style';
 import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 class WinningNumberForm extends Component {

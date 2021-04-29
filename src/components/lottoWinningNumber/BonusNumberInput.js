@@ -7,7 +7,7 @@ import { LOTTO } from '../../constants/lotto';
 import {
   BonusNumberInputWrapperDiv,
   NumberInput,
-} from './BonusNumberInput.style';
+} from './styles/BonusNumberInput.style';
 class BonusNumberInput extends Component {
   render() {
     return (

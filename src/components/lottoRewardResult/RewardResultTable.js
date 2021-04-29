@@ -13,7 +13,7 @@ import {
   RewardResultTitle,
   RewardTable,
   ProfitMessage,
-} from './RewardResultTable.style';
+} from './styles/RewardResultTable.style';
 
 class RewardResultTable extends Component {
   constructor(props) {

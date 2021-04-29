@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-import { ModalSection, ModalInnerDiv, ModalCloseButton } from './Modal.style';
+import {
+  ModalSection,
+  ModalInnerDiv,
+  ModalCloseButton,
+} from './styles/Modal.style';
 
 class Modal extends Component {
   handleCloseModal = ({ currentTarget, target }) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import LottoItem from './LottoItem';
 
-import { LottoDetailListUl } from './LottoDetailList.style';
+import { LottoDetailListUl } from './styles/LottoDetailList.style';
 
 class LottoDetailList extends Component {
   render() {
