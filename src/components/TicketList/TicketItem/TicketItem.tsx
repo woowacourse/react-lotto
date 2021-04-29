@@ -1,11 +1,11 @@
 import { TicketItemWrapper } from './TicketItem.styles';
 
-type TicketItemProps = {
+interface Props {
   ticketNumbers: number[];
   isDetailMode: boolean;
-};
+}
 
-const TicketItem = ({ ticketNumbers, isDetailMode }: TicketItemProps) => {
+const TicketItem = ({ ticketNumbers, isDetailMode }: Props) => {
   return (
     <TicketItemWrapper>
       <span className="ticket-icon">🎟️ </span>

@@ -11,12 +11,12 @@ import {
 import { WINNING_NUMBER_INDEX, WINNING_NUMBER_LEGNTH } from '../../constants/game';
 import ALERT_MESSAGE from '../../constants/alertMessage';
 
-type WinningNumberFormProps = {
+interface Props {
   formRef: React.RefObject<HTMLFormElement>;
   submitWinningNumber: (winningNumbers: number[]) => void;
-};
+}
 
-const WinningNumberForm = ({ formRef, submitWinningNumber }: WinningNumberFormProps) => {
+const WinningNumberForm = ({ formRef, submitWinningNumber }: Props) => {
   const [winningNumberInputs, setWinningNumberInputs] = useState<number[]>(
     new Array(WINNING_NUMBER_LEGNTH).fill(0)
   );

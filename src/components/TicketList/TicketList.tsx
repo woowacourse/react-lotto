@@ -3,11 +3,11 @@ import Toggle from '../common/Toggle';
 import { TicketListHeader, TicketListWrapper, List } from './TicketList.styles';
 import TicketItem from './TicketItem/TicketItem';
 
-type TicketListProps = {
+interface Props {
   tickets: Ticket[];
-};
+}
 
-const TicketList = ({ tickets }: TicketListProps) => {
+const TicketList = ({ tickets }: Props) => {
   const [isToggled, setIsToggled] = useState(false);
 
   const onToggle = useCallback(

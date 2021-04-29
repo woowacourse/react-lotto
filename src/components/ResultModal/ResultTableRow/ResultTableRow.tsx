@@ -1,13 +1,13 @@
 import { getKRMoneyString } from '../../../utils/format';
 
-type ResultTableRowProps = {
+interface Props {
   match: number;
   prize: number;
   matchCount: number;
   isBonus?: boolean;
-};
+}
 
-const ResultTableRow = ({ match, prize, matchCount, isBonus }: ResultTableRowProps) => {
+const ResultTableRow = ({ match, prize, matchCount, isBonus }: Props) => {
   return (
     <tr>
       <td>

@@ -10,19 +10,14 @@ import { ResultModalWrapper, ResultTable } from './ResultModal.styles';
 
 import { getTotalProfit, getWinnerCounts } from '../../services/game';
 
-type ResultModalProps = {
+interface Props {
   handleModalClose: () => void;
   resetGame: () => void;
   tickets: Ticket[];
   winningNumbers: number[];
-};
+}
 
-const ResultModal = ({
-  tickets,
-  winningNumbers,
-  handleModalClose,
-  resetGame,
-}: ResultModalProps) => {
+const ResultModal = ({ tickets, winningNumbers, handleModalClose, resetGame }: Props) => {
   const computeResult: () => [number[], number] = () => {
     const payment = tickets.length * TICKET.PRICE;
     const winnerCounts = getWinnerCounts(tickets, winningNumbers);
