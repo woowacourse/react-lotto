@@ -9,7 +9,6 @@ import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
 
 import { WinningNumberSelectForm } from './styles/WinningNumberForm.style';
-import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 class WinningNumberForm extends Component {
   constructor(props) {
@@ -73,9 +72,7 @@ class WinningNumberForm extends Component {
         />
         <BonusNumberInput />
 
-        <Button minWidth={CSS_ATTRIBUTE.RESULT_BUTTON_WIDTH}>
-          결과 확인하기
-        </Button>
+        <Button minWidth="70%">결과 확인하기</Button>
       </WinningNumberSelectForm>
     );
   }

@@ -5,7 +5,6 @@ import Flex from '../utils/Flex';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
-import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 import {
   PurchaseInputForm,
@@ -54,9 +53,7 @@ class LottoPurchaseForm extends Component {
             max={LOTTO.MAX_PRICE}
             step={LOTTO.UNIT}
           />
-          <Button minWidth={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>
-            확인
-          </Button>
+          <Button minWidth="64px">확인</Button>
         </Flex>
       </PurchaseInputForm>
     );
