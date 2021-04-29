@@ -16,7 +16,7 @@ interface Props {
   submitWinningNumber: (winningNumbers: number[]) => void;
 }
 
-const WinningNumberForm = ({ formRef, submitWinningNumber }: Props) => {
+const WinningNumberForm: React.VFC<Props> = ({ formRef, submitWinningNumber }) => {
   const [winningNumberInputs, setWinningNumberInputs] = useState<number[]>(
     new Array(WINNING_NUMBER_LEGNTH).fill(0)
   );

@@ -7,7 +7,7 @@ interface Props {
   tickets: Ticket[];
 }
 
-const TicketList = ({ tickets }: Props) => {
+const TicketList: React.VFC<Props> = ({ tickets }) => {
   const [isToggled, setIsToggled] = useState(false);
 
   const onToggle = useCallback(

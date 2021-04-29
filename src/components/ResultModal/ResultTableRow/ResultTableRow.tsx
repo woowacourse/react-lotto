@@ -7,7 +7,7 @@ interface Props {
   isBonus?: boolean;
 }
 
-const ResultTableRow = ({ match, prize, matchCount, isBonus }: Props) => {
+const ResultTableRow: React.VFC<Props> = ({ match, prize, matchCount, isBonus }) => {
   return (
     <tr>
       <td>

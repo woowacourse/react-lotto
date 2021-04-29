@@ -9,7 +9,7 @@ interface Props {
   handlePayment: (newPayment: number) => void;
 }
 
-const PaymentForm = ({ handlePayment }: Props) => {
+const PaymentForm: React.VFC<Props> = ({ handlePayment }) => {
   const [payment, setPayment] = useState<number>(0);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

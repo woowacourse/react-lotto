@@ -17,7 +17,12 @@ interface Props {
   winningNumbers: number[];
 }
 
-const ResultModal = ({ tickets, winningNumbers, handleModalClose, resetGame }: Props) => {
+const ResultModal: React.VFC<Props> = ({
+  tickets,
+  winningNumbers,
+  handleModalClose,
+  resetGame,
+}) => {
   const computeResult: () => [number[], number] = () => {
     const payment = tickets.length * TICKET.PRICE;
     const winnerCounts = getWinnerCounts(tickets, winningNumbers);

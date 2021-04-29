@@ -4,7 +4,7 @@ import { RemainedTimeIndicatorWrapper } from './RemainedTimeIndicator.styles';
 import { getRemainedTime } from '../../utils/date';
 import { GREENWICH_MILLISECONDS } from '../../services/game';
 
-const RemainedTimeIndicator = () => {
+const RemainedTimeIndicator: React.VFC = () => {
   let remainedTimeTimeout: NodeJS.Timeout | undefined = undefined;
   const [remainedTime, setRemainedTime] = useState<Date>(new Date());
 
