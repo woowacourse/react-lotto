@@ -41,16 +41,16 @@ class WinningNumber extends React.Component {
     return true;
   }
 
-  isInputValueDuplicated({ winningNumberInputs }, inputValue) {
-    if (!winningNumberInputs.includes(inputValue)) {
-      return false;
+  isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
+    const currentIndex = winningNumberInputs.findIndex((el) => el === inputValue);
+    if (currentIndex !== -1 && currentIndex !== index) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   onChangeWinningNumber(e, index) {
-    const inputValue = Number(e.target.value);
-    if (!this.isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
+    const inputValue = Number(e.target.value.slice(0, 2));
 
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
     newWinningNumberInputs[index] = inputValue;
@@ -63,7 +63,7 @@ class WinningNumber extends React.Component {
       return;
     }
 
-    if (this.isInputValueDuplicated(this.state, inputValue)) {
+    if (this.isInputValueDuplicated(this.state, inputValue, index)) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
@@ -73,6 +73,22 @@ class WinningNumber extends React.Component {
     this.setState({
       winningNumberInputs: newWinningNumberInputs,
       currentInputIndex: index + 1,
+    });
+  }
+
+  onChangeInputNumber(e, index) {
+    let inputValue = e.target.value;
+    const newWinningNumberInputs = [...this.state.winningNumberInputs];
+
+    if (inputValue.length > 2) {
+      inputValue = Number(inputValue.slice(0, 2));
+    }
+
+    newWinningNumberInputs.splice(index, 1, inputValue);
+
+    this.setState({
+      winningNumberInputs: newWinningNumberInputs,
+      currentInputIndex: index,
     });
   }
 
