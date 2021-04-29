@@ -2,7 +2,7 @@ import './index.css';
 import './css/index.css';
 import React, { useState } from 'react';
 import { Main } from './components/Main';
-import { ResultModal } from './components/Modal';
+import { EarningRateSection, LottoResultTable, Modal } from './components/Modal';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
 
@@ -89,12 +89,13 @@ export default function App() {
         setBonusNumber={setBonusNumber}
       />
       {isModalOpened && (
-        <ResultModal
-          closeModal={closeModal}
-          winningCounts={winningCounts}
-          paidMoney={lottoCount * LOTTO_PRICE}
-          resetAllState={resetState}
-        />
+        <Modal closeModal={closeModal}>
+          <LottoResultTable winningCounts={winningCounts} />
+          <EarningRateSection paidMoney={lottoCount * LOTTO_PRICE} winningCounts={winningCounts} />
+          <button type="button" className="restart-button basic-button mt-5" onClick={resetState}>
+            다시 시작하기
+          </button>
+        </Modal>
       )}
     </div>
   );

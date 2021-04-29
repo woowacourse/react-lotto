@@ -2,9 +2,10 @@ import { LOTTO_VALUE } from '../../constants';
 
 const rankKey = ['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH'];
 
-export default function ResultSection({ winningCounts }) {
+export default function LottoResultTable({ winningCounts }) {
   return (
     <table className="mt-3">
+      <caption className="text-center mb-5 font-bold text-xll">💵 당첨 결과</caption>
       <tbody>
         <tr>
           <th className="p-2">일치 갯수</th>
