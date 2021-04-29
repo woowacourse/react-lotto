@@ -7,6 +7,10 @@ import RewardModalInner from './lottoRewardResult/RewardModalInner';
 
 import Modal from './utils/Modals';
 
+import { createLottos } from '../services/lottoPurchase';
+
+import { MESSAGE } from '../constants/messages';
+
 import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
 
 class App extends Component {
@@ -37,9 +41,9 @@ class App extends Component {
     });
   };
 
-  setWinningNumbers = (numbers, bonusNumber) => {
+  setWinningNumbers = winningNumbers => {
     this.setState({
-      winningNumbers: { numbers, bonusNumber },
+      winningNumbers,
     });
   };
 
@@ -49,8 +53,28 @@ class App extends Component {
     });
   };
 
+  handlePurchaseLotto = inputPrice => {
+    this.setLottos(createLottos(inputPrice));
+  };
+
+  handleWinningNumber = (numbers, bonusNumber) => {
+    this.setWinningNumbers({ numbers, bonusNumber });
+    this.setIsModalOpened(true);
+  };
+
+  handleModalClosed = () => {
+    this.setIsModalOpened(false);
+  };
+
+  handleRestart = () => {
+    if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
+      this.initState();
+      this.purchaseFormRef.current.resetLottoPurchaseForm();
+    }
+  };
+
   render() {
-    const { lottos, isModalOpened } = this.state;
+    const { lottos, winningNumbers, isModalOpened } = this.state;
     const isPurchased = lottos.length > 0;
 
     return (
@@ -59,7 +83,7 @@ class App extends Component {
         <MainWrapperDiv>
           <WidthFullDiv>
             <LottoPurchaseForm
-              setLottos={this.setLottos}
+              handlePurchaseLotto={this.handlePurchaseLotto}
               ref={this.purchaseFormRef}
             />
 
@@ -67,8 +91,7 @@ class App extends Component {
               <>
                 <PurchaseResult lottos={lottos} />
                 <WinningNumberForm
-                  setWinningNumbers={this.setWinningNumbers}
-                  setIsModalOpened={this.setIsModalOpened}
+                  handleWinningNumber={this.handleWinningNumber}
                 />
               </>
             )}
@@ -76,12 +99,11 @@ class App extends Component {
         </MainWrapperDiv>
 
         {isModalOpened && (
-          <Modal setIsModalOpened={this.setIsModalOpened}>
+          <Modal handleModalClosed={this.handleModalClosed}>
             <RewardModalInner
-              lottos={this.state.lottos}
-              winningNumbers={this.state.winningNumbers}
-              initState={this.initState}
-              purchaseForm={this.purchaseFormRef.current}
+              lottos={lottos}
+              winningNumbers={winningNumbers}
+              handleRestart={this.handleRestart}
             />
           </Modal>
         )}

@@ -8,10 +8,12 @@ class Modal extends Component {
     const isCloseButtonClicked = target.classList.contains('close-modal');
 
     if (!isDimmedClicked && !isCloseButtonClicked) return;
-    this.props.setIsModalOpened(false);
+    this.props.handleModalClosed();
   };
 
   render() {
+    const { children } = this.props;
+
     return (
       <ModalSection
         role="dialog"
@@ -33,7 +35,7 @@ class Modal extends Component {
               />
             </svg>
           </ModalCloseButton>
-          {this.props.children}
+          {children}
         </ModalInnerDiv>
       </ModalSection>
     );

@@ -18,28 +18,27 @@ class PurchaseResult extends Component {
     };
   }
 
-  setIsToggled = isToggled => {
-    this.setState({
-      isToggled,
-    });
+  setIsToggled = () => {
+    this.setState({ isToggled: !this.state.isToggled });
   };
 
   render() {
+    const { lottos } = this.props;
     const { isToggled } = this.state;
 
     return (
       <PurchaseResultSection aria-label="purchase-lotto">
         <PurchaseResultMessageDiv>
           <label>
-            총 <span>{this.props.lottos.length}</span>개를 구매하였습니다.
+            총 <span>{lottos.length}</span>개를 구매하였습니다.
           </label>
           <ToggleButton setIsToggled={this.setIsToggled} />
         </PurchaseResultMessageDiv>
 
         {isToggled ? (
-          <LottoDetailList lottos={this.props.lottos} />
+          <LottoDetailList lottos={lottos} />
         ) : (
-          <LottoIconList lottoCount={this.props.lottos.length} />
+          <LottoIconList lottoCount={lottos.length} />
         )}
       </PurchaseResultSection>
     );

@@ -4,14 +4,13 @@ import Button from '../utils/Button';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
+import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 import {
   PurchaseInputForm,
   PurchaseFormFlexDiv,
   PurchaseInput,
 } from './LottoPurchaseForm.style';
-import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
-import { createLottos } from '../../services/lottoPurchase';
 
 class LottoPurchaseForm extends Component {
   constructor(props) {
@@ -30,17 +29,18 @@ class LottoPurchaseForm extends Component {
     this.inputRef.current.focus();
   }
 
-  handlePurchaseLotto = e => {
+  handlePurchaseLottoInput = e => {
     e.preventDefault();
 
-    const inputPrice = e.target.elements.price.value;
-    const lottos = createLottos(inputPrice);
-    this.props.setLottos(lottos);
+    this.props.handlePurchaseLotto(e.target.elements.price.value);
   };
 
   render() {
     return (
-      <PurchaseInputForm ref={this.formRef} onSubmit={this.handlePurchaseLotto}>
+      <PurchaseInputForm
+        ref={this.formRef}
+        onSubmit={this.handlePurchaseLottoInput}
+      >
         <label htmlFor="input-price">구입할 금액을 입력해주세요.</label>
         <PurchaseFormFlexDiv>
           <PurchaseInput

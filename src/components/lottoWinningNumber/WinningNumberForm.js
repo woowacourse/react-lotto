@@ -35,26 +35,42 @@ class WinningNumberForm extends Component {
       return;
     }
 
-    this.props.setWinningNumbers(this.state.numbers, bonusNumber);
-    this.props.setIsModalOpened(true);
+    this.props.handleWinningNumber(this.state.numbers, bonusNumber);
   };
 
   setNumbers = numbers => {
     this.setState({ numbers });
   };
 
-  pickNumber = number => {
-    const newNumbers = [...this.state.numbers, number];
+  handleChangeNumbers = pickedNumber => {
+    const duplicatedNumber = this.state.numbers.find(
+      number => number === pickedNumber,
+    );
+    const prevNumbers = this.state.numbers;
 
-    this.setNumbers({ numbers: newNumbers });
+    const newNumbers = duplicatedNumber
+      ? prevNumbers.filter(number => number !== pickedNumber)
+      : [...prevNumbers, pickedNumber];
+
+    if (newNumbers.length === LOTTO.BUNDLE_SIZE + 1) {
+      alert(MESSAGE.EXCEEDED_LOTTO_COUNT);
+      return;
+    }
+
+    this.setNumbers(newNumbers);
   };
 
   render() {
+    const { numbers } = this.state;
+
     return (
       <WinningNumberSelectForm onSubmit={this.handleCheckWinningResult}>
         <h2>당첨번호 입력하기</h2>
         <p>당첨 번호 6개를 선택하고, 보너스 번호를 입력해주세요</p>
-        <NumberList setNumbers={this.setNumbers} numbers={this.state.numbers} />
+        <NumberList
+          handleChangeNumbers={this.handleChangeNumbers}
+          numbers={numbers}
+        />
         <BonusNumberInput />
 
         <Button size={CSS_ATTRIBUTE.RESULT_BUTTON_WIDTH}>결과 확인하기</Button>

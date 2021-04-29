@@ -8,16 +8,14 @@ import {
 } from './ToggleButton.style';
 
 class ToggleButton extends Component {
-  handleToggedButton = e => {
-    this.props.setIsToggled(e.target.checked);
-  };
-
   render() {
+    const { setIsToggled } = this.props;
+
     return (
       <ToggleButtonDiv>
         <ToggleButtonInput
           id="show-details"
-          onChange={this.handleToggedButton}
+          onChange={setIsToggled}
           type="checkbox"
         />
 

@@ -5,16 +5,12 @@ import RestartButton from './RestartButton';
 
 class RewardModalInner extends Component {
   render() {
+    const { lottos, winningNumbers, handleRestart } = this.props;
+
     return (
       <>
-        <RewardResultTable
-          lottos={this.props.lottos}
-          winningNumbers={this.props.winningNumbers}
-        />
-        <RestartButton
-          initState={this.props.initState}
-          purchaseForm={this.props.purchaseForm}
-        />
+        <RewardResultTable lottos={lottos} winningNumbers={winningNumbers} />
+        <RestartButton handleRestart={handleRestart} />
       </>
     );
   }
