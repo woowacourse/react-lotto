@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import ErrorMessageBox from "./common/ErrorMessageBox";
 import { isDivisible } from "../utils";
 import { LOTTO_PRICE, ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
+import { MAX_PAYMENT } from "../Constants/lotto";
 
 const Form = styled.form`
   width: 100%;
@@ -67,6 +68,7 @@ const PurchaseInput = ({ createLottos }) => {
           value={price || ""}
           onChange={onChangePrice}
           min={LOTTO_PRICE}
+          max={MAX_PAYMENT}
           required
         />
         <Button type="submit">확인</Button>
