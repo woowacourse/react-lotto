@@ -4,12 +4,10 @@ import { StyledButton } from './styles/Button.style';
 
 class Button extends Component {
   render() {
+    const { type, size, onClick } = this.props;
+
     return (
-      <StyledButton
-        type={this.props.type || 'submit'}
-        size={this.props.size}
-        onClick={this.props.onClick}
-      >
+      <StyledButton type={type || 'submit'} size={size} onClick={onClick}>
         {this.props.children}
       </StyledButton>
     );

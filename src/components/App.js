@@ -99,7 +99,22 @@ class App extends Component {
         </MainWrapperDiv>
 
         {isModalOpened && (
-          <Modal handleModalClosed={this.handleModalClosed}>
+          <Modal
+            handleModalClosed={this.handleModalClosed}
+            backgroundColor={'rgba(0, 0, 0, 0.5)'}
+            transition={'opacity 0.25s ease'}
+            innerMaxWidth={'350px'}
+            innerBackgroundColor={'#fff'}
+            innerMargin={'auto'}
+            innerPadding={'2.5rem'}
+            innerTransition={'top 0.25s ease'}
+            closeButtonWidth={'20px'}
+            closeButtonHeight={'20px'}
+            closeButtonRightPosition={'30px'}
+            closeButtonTopPosition={'30px'}
+            closeButtonPathStroke={'gray'}
+            closeButtonPathStrokeWidth={'5'}
+          >
             <RewardModalInner
               lottos={lottos}
               winningNumbers={winningNumbers}

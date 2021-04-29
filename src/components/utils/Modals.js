@@ -16,7 +16,22 @@ class Modal extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const {
+      children,
+      backgroundColor,
+      transition,
+      innerMaxWidth,
+      innerBackgroundColor,
+      innerMargin,
+      innerPadding,
+      innerTransition,
+      closeButtonWidth,
+      closeButtonHeight,
+      closeButtonRightPosition,
+      closeButtonTopPosition,
+      closeButtonPathStroke,
+      closeButtonPathStrokeWidth,
+    } = this.props;
 
     return (
       <ModalSection
@@ -24,13 +39,27 @@ class Modal extends Component {
         aria-modal="true"
         aria-labelledby="title-dialog"
         onClick={this.handleCloseModal}
+        backgroundColor={backgroundColor}
+        transition={transition}
       >
-        <ModalInnerDiv>
+        <ModalInnerDiv
+          innerMaxWidth={innerMaxWidth}
+          innerBackgroundColor={innerBackgroundColor}
+          innerMargin={innerMargin}
+          innerPadding={innerPadding}
+          innerTransition={innerTransition}
+        >
           <ModalCloseButton
             className="close-modal"
             type="button"
             aria-label="close-button"
             onClick={this.handleCloseModal}
+            closeButtonWidth={closeButtonWidth}
+            closeButtonHeight={closeButtonHeight}
+            closeButtonRightPosition={closeButtonRightPosition}
+            closeButtonTopPosition={closeButtonTopPosition}
+            closeButtonPathStroke={closeButtonPathStroke}
+            closeButtonPathStrokeWidth={closeButtonPathStrokeWidth}
           >
             <svg className="close-modal" viewBox="0 0 40 40">
               <path

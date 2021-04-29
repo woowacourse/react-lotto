@@ -7,20 +7,22 @@ export const ModalSection = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.25s ease;
   z-index: 2;
+
+  background-color: ${props => props.backgroundColor};
+  transition: ${props => props.transition};
 `;
 
 export const ModalInnerDiv = styled.div`
-  transition: top 0.25s ease;
-  max-width: 350px;
-  margin: auto;
-  padding: 2.5rem;
-  overflow: auto;
-  background: #fff;
-  border-radius: 5px;
   position: relative;
+  overflow: auto;
+  border-radius: 5px;
+
+  max-width: ${props => props.innerMaxWidth};
+  background-color: ${props => props.innerBackgroundColor};
+  margin: ${props => props.innerMargin};
+  padding: ${props => props.innerPadding};
+  transition: ${props => props.innerTransition};
 
   @media screen and (max-width: 768px) {
     .modal-inner {
@@ -33,12 +35,13 @@ export const ModalInnerDiv = styled.div`
 
 export const ModalCloseButton = styled.button`
   padding: 0;
-  width: 20px;
-  height: 20px;
   position: absolute;
-  right: 30px;
-  top: 30px;
   cursor: pointer;
+
+  width: ${props => props.closeButtonWidth};
+  height: ${props => props.closeButtonHeight};
+  right: ${props => props.closeButtonRightPosition};
+  top: ${props => props.closeButtonTopPosition};
 
   & svg {
     display: inline-block;
@@ -46,10 +49,8 @@ export const ModalCloseButton = styled.button`
     padding: 0;
 
     & path {
-      stroke: gray;
-      fill: transparent;
-      stroke-linecap: round;
-      stroke-width: 5;
+      stroke: ${props => props.closeButtonPathStroke};
+      stroke-width: ${props => props.closeButtonPathStrokeWidth};
     }
   }
 `;
