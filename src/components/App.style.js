@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Main = styled.main`
+export const MainSection = styled.section`
   max-width: 450px;
   margin: 0 auto;
 

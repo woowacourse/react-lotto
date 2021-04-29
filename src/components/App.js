@@ -11,7 +11,7 @@ import { createLottos } from '../services/lottoPurchase';
 
 import { MESSAGE } from '../constants/messages';
 
-import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
+import { MainSection, MainWrapperDiv, WidthFullDiv } from './App.style';
 
 class App extends Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class App extends Component {
     const isPurchased = lottos.length > 0;
 
     return (
-      <Main>
+      <MainSection>
         <h1>🎱 행운의 로또</h1>
         <MainWrapperDiv>
           <WidthFullDiv>
@@ -107,7 +107,7 @@ class App extends Component {
             />
           </Modal>
         )}
-      </Main>
+      </MainSection>
     );
   }
 }
