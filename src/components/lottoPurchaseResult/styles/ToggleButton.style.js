@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const ToggleButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  padding-right: 0.1rem;
-`;
-
 export const ToggleButtonInput = styled.input`
   position: absolute;
   opacity: 0;

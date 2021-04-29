@@ -6,12 +6,13 @@ import WinningNumberForm from './lottoWinningNumber/WinningNumberForm';
 import RewardModalInner from './lottoRewardResult/RewardModalInner';
 
 import Modal from './utils/Modals';
+import Flex from './utils/Flex';
 
 import { createLottos } from '../services/lottoPurchase';
 
 import { MESSAGE } from '../constants/messages';
 
-import { MainSection, MainWrapperDiv, WidthFullDiv } from './App.style';
+import { MainSection, WidthFullDiv } from './App.style';
 
 class App extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class App extends Component {
     return (
       <MainSection>
         <h1>🎱 행운의 로또</h1>
-        <MainWrapperDiv>
+        <Flex flexDirection="column" alignItems="center">
           <WidthFullDiv>
             <LottoPurchaseForm
               handlePurchaseLotto={this.handlePurchaseLotto}
@@ -96,7 +97,7 @@ class App extends Component {
               </>
             )}
           </WidthFullDiv>
-        </MainWrapperDiv>
+        </Flex>
 
         {isModalOpened && (
           <Modal

@@ -46,7 +46,7 @@ class RewardResultTable extends Component {
     return (
       <>
         <RewardResultTitle id="title-dialog">🏆 당첨 통계 🏆</RewardResultTitle>
-        <Flex>
+        <Flex justifyContent="center" alignItems="center">
           <RewardTable>
             <thead>
               <tr>

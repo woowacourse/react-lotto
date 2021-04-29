@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
+import Flex from '../utils/Flex';
+
 import {
-  ToggleButtonDiv,
   ToggleButtonInput,
   ToggleButtonLabel,
   ToggleButtonSpan,
@@ -12,7 +13,7 @@ class ToggleButton extends Component {
     const { setIsToggled } = this.props;
 
     return (
-      <ToggleButtonDiv>
+      <Flex alignItems="center">
         <ToggleButtonInput
           id="show-details"
           onChange={setIsToggled}
@@ -23,7 +24,7 @@ class ToggleButton extends Component {
           <span>번호보기</span>
           <ToggleButtonSpan id="show-number-span"></ToggleButtonSpan>
         </ToggleButtonLabel>
-      </ToggleButtonDiv>
+      </Flex>
     );
   }
 }

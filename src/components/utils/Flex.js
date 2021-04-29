@@ -4,7 +4,30 @@ import { FlexBox } from './styles/FlexBox.style';
 
 class Flex extends Component {
   render() {
-    return <FlexBox>{this.props.children}</FlexBox>;
+    const {
+      children,
+      flexFlow,
+      justifyContent,
+      alignItems,
+      flexWrap,
+      flexBasis,
+      flexGrow,
+      flexShrink,
+    } = this.props;
+
+    return (
+      <FlexBox
+        FlexBox={flexFlow}
+        justifyContent={justifyContent}
+        alignItems={alignItems}
+        flexWrap={flexWrap}
+        flexBasis={flexBasis}
+        flexGrow={flexGrow}
+        flexShrink={flexShrink}
+      >
+        {children}
+      </FlexBox>
+    );
   }
 }
 

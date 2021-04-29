@@ -13,7 +13,7 @@ class BonusNumberInput extends Component {
     return (
       <BonusNumberInputWrapperDiv>
         <p>보너스 번호</p>
-        <Flex>
+        <Flex justifyContent="center" alignItems="center">
           <NumberInput
             type="number"
             name="bonus-number"

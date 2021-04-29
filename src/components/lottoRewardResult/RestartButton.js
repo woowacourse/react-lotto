@@ -8,7 +8,7 @@ class RestartButton extends Component {
     const { handleRestart } = this.props;
 
     return (
-      <Flex marginTop={'0.4rem'}>
+      <Flex justifyContent="center" alignItems="center">
         <Button type="reset" onClick={handleRestart}>
           다시 시작하기
         </Button>

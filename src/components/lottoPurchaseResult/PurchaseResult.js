@@ -4,10 +4,9 @@ import LottoIconList from './LottoIconList';
 import LottoDetailList from './LottoDetailList';
 import ToggleButton from './ToggleButton';
 
-import {
-  PurchaseResultSection,
-  PurchaseResultMessageDiv,
-} from './styles/PurchaseResult.style';
+import Flex from '../utils/Flex';
+
+import { PurchaseResultSection } from './styles/PurchaseResult.style';
 
 class PurchaseResult extends Component {
   constructor(props) {
@@ -28,12 +27,12 @@ class PurchaseResult extends Component {
 
     return (
       <PurchaseResultSection aria-label="purchase-lotto">
-        <PurchaseResultMessageDiv>
+        <Flex justifyContent="space-between" alignItems="center">
           <label>
             총 <span>{lottos.length}</span>개를 구매하였습니다.
           </label>
           <ToggleButton setIsToggled={this.setIsToggled} />
-        </PurchaseResultMessageDiv>
+        </Flex>
 
         {isToggled ? (
           <LottoDetailList lottos={lottos} />

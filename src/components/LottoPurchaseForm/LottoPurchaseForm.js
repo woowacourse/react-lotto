@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '../utils/Button';
+import Flex from '../utils/Flex';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
@@ -8,7 +9,6 @@ import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
 
 import {
   PurchaseInputForm,
-  PurchaseFormFlexDiv,
   PurchaseInput,
 } from './styles/LottoPurchaseForm.style';
 
@@ -42,7 +42,7 @@ class LottoPurchaseForm extends Component {
         onSubmit={this.handlePurchaseLottoInput}
       >
         <label htmlFor="input-price">구입할 금액을 입력해주세요.</label>
-        <PurchaseFormFlexDiv>
+        <Flex>
           <PurchaseInput
             ref={this.inputRef}
             type="number"
@@ -57,7 +57,7 @@ class LottoPurchaseForm extends Component {
           <Button minWidth={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>
             확인
           </Button>
-        </PurchaseFormFlexDiv>
+        </Flex>
       </PurchaseInputForm>
     );
   }

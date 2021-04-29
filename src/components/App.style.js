@@ -9,13 +9,6 @@ export const MainSection = styled.section`
   }
 `;
 
-export const MainWrapperDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-`;
-
 export const WidthFullDiv = styled.div`
   width: 100%;
 `;
