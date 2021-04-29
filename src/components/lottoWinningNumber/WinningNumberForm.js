@@ -73,7 +73,9 @@ class WinningNumberForm extends Component {
         />
         <BonusNumberInput />
 
-        <Button size={CSS_ATTRIBUTE.RESULT_BUTTON_WIDTH}>결과 확인하기</Button>
+        <Button minWidth={CSS_ATTRIBUTE.RESULT_BUTTON_WIDTH}>
+          결과 확인하기
+        </Button>
       </WinningNumberSelectForm>
     );
   }

@@ -54,7 +54,9 @@ class LottoPurchaseForm extends Component {
             max={LOTTO.MAX_PRICE}
             step={LOTTO.UNIT}
           />
-          <Button size={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>확인</Button>
+          <Button minWidth={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>
+            확인
+          </Button>
         </PurchaseFormFlexDiv>
       </PurchaseInputForm>
     );

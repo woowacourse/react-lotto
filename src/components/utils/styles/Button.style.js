@@ -7,9 +7,9 @@ export const StyledButton = styled.button`
   outline: 0;
   border-style: none;
   cursor: pointer;
-  background-color: #c71f1f;
-  border-color: #c71f1f;
-  color: #fce9e9;
 
-  min-width: ${props => props.size};
+  min-width: ${props => props.minWidth};
+  background-color: ${props => props.backgroundColor};
+  border-color: ${props => props.borderColor};
+  color: ${props => props.color};
 `;
