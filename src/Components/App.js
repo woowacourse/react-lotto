@@ -4,7 +4,6 @@ import { Global } from "@emotion/react";
 
 import GlobalStyles from "../Styles/GlobalStyles";
 import LottoContext from "../Contexts/LottoContext";
-import Header from "./Header";
 import Main from "./Main";
 import Modal from "./Modal";
 
@@ -23,7 +22,7 @@ const App = () => {
     <>
       <Global styles={GlobalStyles} />
       <Container>
-        <Header />
+        <h1>🎱 행운의 로또</h1>
         <Main />
         {state.isModalOpen && (
           <Modal>

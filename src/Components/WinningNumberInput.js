@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import styled from "@emotion/styled";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
@@ -54,23 +54,23 @@ const Button = styled.button`
 `;
 
 const WinningNumberInput = () => {
-  const [isValidInput, setIsValidInput] = useState(true);
   const [winningNumbers, setWinningNumbers] = useState([0, 0, 0, 0, 0, 0]);
   const [bonusNumber, setBonusNumber] = useState(0);
+  const [isNumbersDuplicated, setIsNumbersDuplicated] = useState(false);
   const { action } = useContext(LottoContext);
-
-  useEffect(() => {
-    if (!isValidInput) return;
-
-    action.updateLottoResult(winningNumbers, bonusNumber);
-    action.openModal();
-  }, [isValidInput]);
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
-      setIsValidInput(isDistinctNumbers([...winningNumbers, bonusNumber]));
+      if (isDistinctNumbers([...winningNumbers, bonusNumber])) {
+        action.updateLottoResult(winningNumbers, bonusNumber);
+        action.openModal();
+      }
+
+      setIsNumbersDuplicated(
+        !isDistinctNumbers([...winningNumbers, bonusNumber])
+      );
     },
     [winningNumbers, bonusNumber]
   );
@@ -127,9 +127,9 @@ const WinningNumberInput = () => {
           ></InputBox>
         </InputSection>
       </FlexContainer>
-      {!isValidInput && (
-        <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
-      )}
+      <ErrorMessageBox
+        text={isNumbersDuplicated ? ERROR_MESSAGE.DUPLICATED_NUMBER : ""}
+      />
       <Button type="submit">확인</Button>
     </form>
   );

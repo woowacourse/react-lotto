@@ -83,7 +83,6 @@ const Modal = ({ children }) => {
   );
 };
 
-Modal.contextType = LottoContext;
 Modal.propTypes = {
   children: PropTypes.element,
 };

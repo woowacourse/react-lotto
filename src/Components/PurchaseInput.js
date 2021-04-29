@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import styled from "@emotion/styled";
 
 import LottoContext from "../Contexts/LottoContext";
@@ -35,24 +35,19 @@ const Button = styled.button`
 `;
 
 const PurchaseInput = () => {
-  const [isValidInput, setIsValidInput] = useState(true);
   const [price, setPrice] = useState(0);
   const { action } = useContext(LottoContext);
-
-  useEffect(() => {
-    if (isValidInput) {
-      action.createLottos(price / LOTTO_PRICE);
-      setPrice(0);
-    } else {
-      action.createLottos(0);
-    }
-  }, [isDivisible]);
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
-      setIsValidInput(isDivisible(price, LOTTO_PRICE));
+      if (isDivisible(price, LOTTO_PRICE)) {
+        action.createLottos(price / LOTTO_PRICE);
+        setPrice(0);
+      } else {
+        action.createLottos(0);
+      }
     },
     [price]
   );
@@ -77,9 +72,13 @@ const PurchaseInput = () => {
         />
         <Button type="submit">확인</Button>
       </FlexContainer>
-      {!isValidInput && (
-        <ErrorMessageBox text={ERROR_MESSAGE.INVALID_PRICE_UNIT} />
-      )}
+      <ErrorMessageBox
+        text={
+          isDivisible(price, LOTTO_PRICE)
+            ? ""
+            : ERROR_MESSAGE.INVALID_PRICE_UNIT
+        }
+      />
     </Form>
   );
 };
