@@ -10,11 +10,11 @@ import ResultModal from './components/ResultModal/ResultModal';
 import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
 import RemainedTimeIndicator from './components/RemainedTimeIndicator/RemainedTimeIndicator';
 
-type AppState = {
+interface AppState {
   tickets: Ticket[];
   winningNumbers: number[];
   isModalVisible: boolean;
-};
+}
 
 const App = () => {
   let winningNumberFormRef: React.RefObject<HTMLFormElement> = useRef(null);
