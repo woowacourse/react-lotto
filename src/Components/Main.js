@@ -14,6 +14,8 @@ import {
   RANKINGS,
 } from "../Constants";
 import { countMatchedNumbers, createDistinctRandomIntegers } from "../utils";
+import WeeklyTimer from "./WeeklyTimer";
+import { LOTTO_DRAW_DAY } from "../Constants/lotto";
 
 const MainContainer = styled.main`
   width: 23vw;
@@ -109,6 +111,7 @@ const Main = () => {
   return (
     <MainContainer>
       <PurchaseInput createLottos={createLottos} />
+      {lottos.length !== 0 && <WeeklyTimer target={LOTTO_DRAW_DAY} />}
       {lottos.length !== 0 && <LottoDisplay lottos={lottos} />}
       {lottos.length !== 0 && (
         <WinningNumberInput updateLottoResult={updateLottoResult} />
