@@ -4,6 +4,7 @@ import {
   ModalSection,
   ModalInnerDiv,
   ModalCloseButton,
+  HiddenButtonName,
 } from './styles/Modal.style';
 
 class Modal extends Component {
@@ -61,12 +62,13 @@ class Modal extends Component {
             closeButtonPathStroke={closeButtonPathStroke}
             closeButtonPathStrokeWidth={closeButtonPathStrokeWidth}
           >
-            <svg className="close-modal" viewBox="0 0 40 40">
+            <svg aria-hidden="true" className="close-modal" viewBox="0 0 40 40">
               <path
                 className="close-modal"
                 d="M 10, 10 L 30,30 M 30,10 L 10,30"
               />
             </svg>
+            <HiddenButtonName>닫기 버튼</HiddenButtonName>
           </ModalCloseButton>
           {children}
         </ModalInnerDiv>
