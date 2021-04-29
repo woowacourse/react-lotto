@@ -1,4 +1,3 @@
-import './index.css';
 import './css/index.css';
 import React, { useState } from 'react';
 import { LottoForm } from './components/LottoForm';
