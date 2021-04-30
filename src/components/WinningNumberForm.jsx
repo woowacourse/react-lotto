@@ -6,6 +6,7 @@ import WinningNumberInput from './WinningNumberInput';
 const WinningNumberForm = (props) => {
   const { handleWinningNumbers, handleBonusNumber, isReset } = props;
 
+  const [currentValue, setCurrentValue] = useState('');
   const [validationMessage, setValidationMessage] = useState(MESSAGE.REQUIRE_WINNING_NUMBER_INPUT);
   const [bonusNumberInputValue, setBonusNumberInputValue] = useState('');
   const [winningNumberInputValues, setWinningNumberInputValues] = useState(
@@ -106,17 +107,21 @@ const WinningNumberForm = (props) => {
     setWinningNumberInputValues(
       winningNumberInputValues.map((inputValue, index) => (name.includes(index) ? value : inputValue))
     );
-    handleValidationMessage(value);
+    setCurrentValue(value);
   };
 
   const handleBonusNumberInputChange = ({ target: { value } }) => {
     setBonusNumberInputValue(value);
-    handleValidationMessage(value);
+    setCurrentValue(value);
   };
 
   const handleInputFocus = ({ target: { value } }) => {
-    handleValidationMessage(value);
+    setCurrentValue(value);
   };
+
+  useEffect(() => {
+    handleValidationMessage(currentValue);
+  }, [currentValue]);
 
   useEffect(() => {
     resetState();
