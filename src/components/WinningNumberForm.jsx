@@ -97,7 +97,7 @@ const WinningNumberForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //     this.props.handleWinningNumbers(this.state.winningNumberInputValues.map(Number));
+
     handleWinningNumbers(winningNumberInputValues.map(Number));
     handleBonusNumber(Number(bonusNumberInputValue));
   };

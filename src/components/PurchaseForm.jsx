@@ -30,9 +30,7 @@ const PurchaseForm = (props) => {
   };
 
   useEffect(() => {
-    if (isReset) {
-      resetState();
-    }
+    resetState();
   }, [isReset]);
 
   return (
@@ -63,7 +61,9 @@ const PurchaseForm = (props) => {
           확인
         </button>
       </div>
-      {isValid ? (
+      {tickets.length > 0 || isValid ? (
+        ''
+      ) : isValid ? (
         tickets.length === 0 && (
           <div className="text-blue-700 h-4 ">
             {`${calculatePurchaseTicketCount(inputValue)}장의 로또를 구매하실 수
