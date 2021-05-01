@@ -17,6 +17,7 @@ class Modal extends React.Component {
       earningRate: 0,
     };
     this.tempTotalPrize = 0;
+    this.onClickDimmer = this.onClickDimmer.bind(this);
   }
 
   countWinningBall(ticket) {
@@ -51,7 +52,7 @@ class Modal extends React.Component {
   render() {
     return (
       <>
-        <div className='modal' onClick={(e) => this.onClickDimmer(e)}>
+        <div className='modal' onClick={this.onClickDimmer}>
           <div className='modal-inner'>
             <div className='modal-top-spacing'></div>
             <Button customClass='modal-close-button' onClick={this.props.onModalClose}>

@@ -8,6 +8,7 @@ class MoneyInput extends React.Component {
   constructor(props) {
     super(props);
     this.formRef = React.createRef();
+    this.onMoneyInputSubmit = this.onMoneyInputSubmit.bind(this);
   }
 
   onMoneyInputSubmit(e) {
@@ -23,11 +24,7 @@ class MoneyInput extends React.Component {
 
   render() {
     return (
-      <form
-        className='money-input-form'
-        ref={this.formRef}
-        onSubmit={(e) => this.onMoneyInputSubmit(e)}
-      >
+      <form className='money-input-form' ref={this.formRef} onSubmit={this.onMoneyInputSubmit}>
         {<span className='money-unit'></span>}
         <NumberInput
           customClass='money-input'

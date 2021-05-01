@@ -13,6 +13,7 @@ class WinningNumber extends React.Component {
       winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0),
       currentInputIndex: 0,
     };
+    this.onWinningNumberSubmit = this.onWinningNumberSubmit.bind(this);
   }
 
   onWinningNumberSubmit(e) {
@@ -94,7 +95,7 @@ class WinningNumber extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
+      <form onSubmit={this.onWinningNumberSubmit}>
         <div className='winning-number-form'>
           {[...this.state.winningNumberInputs].map((number, index) => {
             return (
@@ -109,6 +110,7 @@ class WinningNumber extends React.Component {
                     : 'bonus-number'
                 }
                 defaultValue={number ? number : ''}
+                onInputChange={(e) => this.onChangeInputNumber(e, index)}
                 onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
               />
             );

@@ -7,10 +7,17 @@ class NumberInput extends React.Component {
   }
 
   render() {
-    const { customClass, onInputFocusOut, isCurrentInput, ...attributes } = this.props;
+    const {
+      customClass,
+      onInputFocusOut,
+      onInputChange,
+      isCurrentInput,
+      ...attributes
+    } = this.props;
     return (
       <input
         onBlur={onInputFocusOut}
+        onChange={onInputChange}
         className={`number-input ${customClass}`}
         type='number'
         {...attributes}

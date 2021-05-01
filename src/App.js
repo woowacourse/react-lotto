@@ -26,6 +26,9 @@ class App extends React.Component {
       winningNumber: [],
     };
 
+    this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
+    this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
     this.moneyInputRef = React.createRef();
     this.audio = new Audio(muyahoAudio);
   }
@@ -87,7 +90,7 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         isLoading: false,
-        receipt: [...Array(ticketCount)].map(() => this.makeAutoTicket()),
+        receipt: [...Array(ticketCount)].map(this.makeAutoTicket),
       });
     }, 1000);
   }
@@ -128,7 +131,7 @@ class App extends React.Component {
               onHandleSubmit={(winningNumbers, bonusNumber) =>
                 this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
               }
-              onModalButtonClick={() => this.handleModalButtonClick()}
+              onModalButtonClick={this.handleModalButtonClick}
             />
           </>
         )}
@@ -139,8 +142,8 @@ class App extends React.Component {
               bonusNumber={this.state.bonusNumber}
               receipt={this.state.receipt}
               moneyAmount={this.state.moneyAmount}
-              onResetButtonClick={() => this.handleResetButtonClick()}
-              onModalClose={() => this.handleModalClose()}
+              onResetButtonClick={this.handleResetButtonClick}
+              onModalClose={this.handleModalClose}
             />
           </>
         )}
