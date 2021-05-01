@@ -2,14 +2,8 @@ import { useState } from 'react';
 import { PurchaseForm } from '../containers/PurchaseForm';
 import { UserLotto } from '../containers/UserLotto';
 import { WinningNumbers } from '../containers/WinningNumbers';
-/* eslint-disable react/sort-comp */
-import { Component } from 'react';
-import PurchaseForm from '../containers/PurchaseForm';
-import UserLotto from '../containers/UserLotto';
-import WinningNumbers from '../containers/WinningNumbers';
-import UserResult from '../containers/UserResult';
+import { UserResult } from '../containers/UserResult';
 import { Title } from '../shared';
-import { createLotto } from './service';
 import './style.css';
 
 const initialState = {
