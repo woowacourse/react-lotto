@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import { useState, useEffect } from 'react';
 import { ResultTable } from './ResultTable';
 import { Animation, Button, Title, XButton, Record } from '../../shared';
@@ -17,6 +20,12 @@ export const UserResult = (props) => {
   const [result, setResult] = useState(initialState.result);
   const { profit, rateOfReturn } = result;
   const removeLoader = () => setIsLoading(false);
+  const onClickDimmedArea = ({ target, currentTarget }) => {
+    if (target !== currentTarget) {
+      return;
+    }
+    onCloseUserResult();
+  };
 
   useEffect(() => {
     setResult(getComputedResult(lottoBundle, winningNumber));
@@ -24,7 +33,7 @@ export const UserResult = (props) => {
   }, []);
 
   return (
-    <div className="UserResult UserResult--open">
+    <div className="UserResult UserResult--open" onClick={onClickDimmedArea}>
       {isLoading ? (
         <div className="UserResult--loading">
           <Animation animationData={coin} speed={2} height="360px" />
