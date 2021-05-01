@@ -11,7 +11,7 @@ export default class Lotto extends Component {
       <div className="Lotto">
         <img className="Lotto__image" src={lottoImage} alt="lotto" />
         <span className="Lotto__number">
-          {numbers.map((v) => (v < 10 ? `0${v}` : v)).join(LOTTO_NUMBER_SEPARATOR)}
+          {numbers.map((v) => v.toString().padStart(2, '0')).join(LOTTO_NUMBER_SEPARATOR)}
         </span>
       </div>
     );
