@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { lottoImage } from '../../../statics';
 import { LOTTO_NUMBER_SEPARATOR } from '../../../constants';
 
@@ -16,3 +17,7 @@ export default class Lotto extends Component {
     );
   }
 }
+
+Lotto.propTypes = {
+  numbers: PropTypes.array.isRequired,
+};

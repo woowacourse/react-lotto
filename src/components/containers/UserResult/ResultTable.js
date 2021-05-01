@@ -1,4 +1,6 @@
 /* eslint-disable react/no-array-index-key */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getNumOfMatch } from './service';
 import { LottoBall } from '../../shared';
 import { RESULT_TABLE_DATA } from '../../../constants';
@@ -24,6 +26,11 @@ export const ResultTable = (props) => {
   );
 };
 
+ResultTable.propTypes = {
+  lottoBundle: PropTypes.array.isRequired,
+  winningNumber: PropTypes.object.isRequired,
+};
+
 export const ResultTableRow = (props) => {
   const { lotto, winningNumber } = props;
   const { winningNumbers, bonusNumber } = winningNumber;
@@ -39,4 +46,9 @@ export const ResultTableRow = (props) => {
       </td>
     </tr>
   );
+};
+
+ResultTableRow.propTypes = {
+  lotto: PropTypes.array.isRequired,
+  winningNumber: PropTypes.object.isRequired,
 };

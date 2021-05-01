@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import Lotto from './Lotto';
 import { ToggleButton } from '../../shared';
@@ -31,4 +32,8 @@ export const UserLotto = (props) => {
       </ul>
     </div>
   );
+};
+
+UserLotto.propTypes = {
+  lottoBundle: PropTypes.array.isRequired,
 };

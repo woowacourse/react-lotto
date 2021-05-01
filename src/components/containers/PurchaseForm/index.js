@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { createRef, useState, useEffect } from 'react';
+import React, { createRef, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '../../shared';
 import { validatePurchaseAmount, payForLotto, getLottoBundle } from './service';
 import { MESSAGE } from '../../../constants';
@@ -12,7 +13,7 @@ const initialState = {
 };
 
 export const PurchaseForm = (props) => {
-  const { setLottoBundle, shouldReset, didReset } = props;
+  const { setLottoBundle, shouldReset, finishReset } = props;
   const [validationMessage, setValidationMessage] = useState(initialState.validationMessage);
   const [isInputDisabled, setIsInputDisabled] = useState(initialState.isInputDisabled);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(
@@ -42,9 +43,9 @@ export const PurchaseForm = (props) => {
 
   useEffect(() => {
     paymentInput.current.focus();
-    setIsInputDisabled(false);
     paymentInput.current.value = '';
-    didReset();
+    setIsInputDisabled(false);
+    finishReset();
   }, [shouldReset]);
 
   return (
@@ -73,4 +74,10 @@ export const PurchaseForm = (props) => {
       <div className="ValidationMessage">{validationMessage}</div>
     </div>
   );
+};
+
+PurchaseForm.propTypes = {
+  setLottoBundle: PropTypes.func.isRequired,
+  shouldReset: PropTypes.bool.isRequired,
+  finishReset: PropTypes.func.isRequired,
 };

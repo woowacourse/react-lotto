@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { PurchaseForm } from '../containers/PurchaseForm';
 import { UserLotto } from '../containers/UserLotto';
 import { WinningNumbers } from '../containers/WinningNumbers';
@@ -35,7 +35,7 @@ export const App = () => {
     setShouldReset(true);
   };
 
-  const didReset = () => {
+  const finishReset = () => {
     setShouldReset(false);
   };
 
@@ -48,7 +48,7 @@ export const App = () => {
         <PurchaseForm
           setLottoBundle={setLottoBundle}
           shouldReset={shouldReset}
-          didReset={didReset}
+          finishReset={finishReset}
         />
         {isPurchased && (
           <>

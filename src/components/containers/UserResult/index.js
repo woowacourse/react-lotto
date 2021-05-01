@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { ResultTable } from './ResultTable';
 import { Animation, Button, Title, XButton, Record } from '../../shared';
 import { getComputedResult } from './service';
@@ -56,4 +56,11 @@ export const UserResult = (props) => {
       )}
     </div>
   );
+};
+
+UserResult.propTypes = {
+  lottoBundle: PropTypes.array.isRequired,
+  winningNumber: PropTypes.object.isRequired,
+  onCloseUserResult: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
 };

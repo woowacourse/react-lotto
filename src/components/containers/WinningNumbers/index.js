@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import WinningNumberList from './WinningNumberList';
 import { Animation, Button, Title } from '../../shared';
 import { getWinningNumber } from './service';
@@ -38,4 +39,10 @@ export const WinningNumbers = (props) => {
       </Button>
     </>
   );
+};
+
+WinningNumbers.propTypes = {
+  winningNumber: PropTypes.object.isRequired,
+  setWinningNumber: PropTypes.func.isRequired,
+  onShowUserResult: PropTypes.func.isRequired,
 };
