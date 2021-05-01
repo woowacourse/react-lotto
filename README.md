@@ -5,16 +5,6 @@
 <p align="middle">React 로또 어플리케이션</p>
 </p>
 
-## 🚀 Getting Started
-
-- Boilerplate는 페어와 협의하여 자유롭게 선택합니다.
-- CSS는 레벨1에 있는 코드를 직접 찾아서 자유롭게 재활용합니다.
-- 불필요한 Third-Party 없이 React에서 제공되는 것만으로 구현합니다.
-- 테스트 도구 선정부터 작성까지 일절 관여하지 않습니다. 자유롭게 즐겨보세요
-  <br>
-
-## 📝 Requirements
-
 ### Step1
 
 - [ ] `Class Component`를 사용합니다.
@@ -35,18 +25,4 @@
 - [ ] UI를 통해 **실시간으로** 당첨 번호 발표까지 남은 시간을 제공합니다.
 - [ ] 다시 시작하기 버튼을 누르면 당첨 번호 발표 시간도 사라진다.
 
-## 👏 Contributing
-
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
-
-<br>
-
-## 🐞 Bug Report
-
-버그를 발견한다면, [Issues](https://github.com/woowacourse/react-lotto/issues)에 등록해주세요.
-
-<br>
-
-## 📝 License
-
-This project is [MIT](https://github.com/woowacourse/react-lotto/blob/main/LICENSE) licensed.
+[기능 목록](./docs/README.md)
