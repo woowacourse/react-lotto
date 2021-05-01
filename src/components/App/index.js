@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PurchaseForm } from '../containers/PurchaseForm';
 /* eslint-disable react/sort-comp */
 import { Component } from 'react';
 import PurchaseForm from '../containers/PurchaseForm';
