@@ -21,9 +21,8 @@ class App extends React.Component {
       isModalOpen: false,
       isLoading: false,
       moneyAmount: 0,
-      bonusNumber: 0,
       receipt: [],
-      winningNumber: [],
+      lotto: { numbers: [], bonus: 0 },
     };
 
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -45,9 +44,13 @@ class App extends React.Component {
   }
 
   handleWinningNumberSubmit(winningNumbers, bonusNumber) {
+    if (typeof bonusNumber !== 'number') return;
+    if (!winningNumbers instanceof Array) return;
     this.setState({
-      winningNumber: winningNumbers,
-      bonusNumber: bonusNumber,
+      lotto: {
+        numbers: winningNumbers,
+        bonus: bonusNumber,
+      },
     });
   }
 
@@ -86,6 +89,7 @@ class App extends React.Component {
   }
 
   makeReceipt(ticketCount) {
+    if (typeof ticketCount !== 'number') return;
     this.setState({ isLoading: true });
     setTimeout(() => {
       this.setState({
@@ -95,14 +99,44 @@ class App extends React.Component {
     }, 1000);
   }
 
+  componentWillUnmount() {
+    this.audio = null;
+  }
   render() {
+    const receiptPage = (
+      <>
+        <Receipt receipt={this.state.receipt} />
+        <WinningNumber
+          onHandleSubmit={(winningNumbers, bonusNumber) =>
+            this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
+          }
+          onModalButtonClick={this.handleModalButtonClick}
+        />
+      </>
+    );
+
+    const modalPage = (
+      <>
+        <Modal
+          winningNumber={this.state.lotto.numbers}
+          bonusNumber={this.state.lotto.bonus}
+          receipt={this.state.receipt}
+          moneyAmount={this.state.moneyAmount}
+          onResetButtonClick={this.handleResetButtonClick}
+          onModalClose={this.handleModalClose}
+        />
+      </>
+    );
+
     return (
       <div ref={this.bodyRef}>
-        {this.state.isMoneyInputValid && <TimeLeft />}
         {this.state.isMoneyInputValid && (
-          <audio controls autoPlay hidden>
-            <source src={muyahoAudio} type='audio/mp3' />
-          </audio>
+          <>
+            <TimeLeft />
+            <audio controls autoPlay hidden>
+              <source src={muyahoAudio} type='audio/mp3' />
+            </audio>
+          </>
         )}
         <Canvas />
         <div className='title'>슈퍼 로또</div>
@@ -113,39 +147,23 @@ class App extends React.Component {
             this.makeReceipt(ticketCount);
           }}
         />
-        {this.state.isLoading && (
+        {this.state.isLoading ? (
           <Lottie
             speed={1}
-            height={'300px'}
-            width={'300px'}
+            height='300px'
+            width='300px'
             options={{
               animationData: coinSpin,
               loop: false,
             }}
           />
-        )}
-        {!this.state.isLoading && this.state.isMoneyInputValid && (
-          <>
-            <Receipt receipt={this.state.receipt} />
-            <WinningNumber
-              onHandleSubmit={(winningNumbers, bonusNumber) =>
-                this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
-              }
-              onModalButtonClick={this.handleModalButtonClick}
-            />
-          </>
-        )}
-        {!this.state.isLoading && this.state.isModalOpen && (
-          <>
-            <Modal
-              winningNumber={this.state.winningNumber}
-              bonusNumber={this.state.bonusNumber}
-              receipt={this.state.receipt}
-              moneyAmount={this.state.moneyAmount}
-              onResetButtonClick={this.handleResetButtonClick}
-              onModalClose={this.handleModalClose}
-            />
-          </>
+        ) : (
+          !this.state.isLoading && (
+            <>
+              {this.state.isMoneyInputValid && receiptPage}
+              {this.state.isModalOpen && modalPage}
+            </>
+          )
         )}
       </div>
     );
