@@ -124,7 +124,9 @@ const WinningNumberForm = (props) => {
   }, [currentValue]);
 
   useEffect(() => {
-    resetState();
+    if (isReset) {
+      resetState();
+    }
   }, [isReset]);
 
   return (

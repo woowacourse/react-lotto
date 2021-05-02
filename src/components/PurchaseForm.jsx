@@ -30,7 +30,9 @@ const PurchaseForm = (props) => {
   };
 
   useEffect(() => {
-    resetState();
+    if (isReset) {
+      resetState();
+    }
   }, [isReset]);
 
   return (
