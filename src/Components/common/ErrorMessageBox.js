@@ -1,19 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-const Message = styled.p`
+const Message = styled.div`
   color: red;
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 0;
+  padding: 0.3rem 0 0 0;
+  height: 1.2rem;
 `;
 
-export default class ErrorMessageBox extends Component {
-  render() {
-    return <Message>{this.props.text}</Message>;
-  }
-}
+const ErrorMessageBox = ({ text }) => {
+  return <Message>{text}</Message>;
+};
 
 ErrorMessageBox.propTypes = {
   text: PropTypes.string.isRequired,
 };
+export default ErrorMessageBox;

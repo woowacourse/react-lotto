@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
-import LottoContext from "../Contexts/LottoContext";
 import LottoBox from "./LottoBox";
 import Toggle from "./common/Toggle";
 import { GUIDE_MESSAGE } from "../Constants";
@@ -15,36 +15,27 @@ const Header = styled.h2`
   align-items: center;
 `;
 
-export default class LottoDisplay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggled: false,
-    };
+const LottoDisplay = ({ lottos }) => {
+  const [isToggled, setIsToggled] = useState(false);
+  const lottoCount = lottos.length;
 
-    this.onToggle = this.onToggle.bind(this);
-  }
+  const onToggle = useCallback(({ target }) => {
+    setIsToggled(target.checked);
+  }, []);
 
-  onToggle(event) {
-    this.setState({
-      ...this.state,
-      isToggled: event.target.checked,
-    });
-  }
+  return (
+    <div>
+      <Header>
+        <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottoCount)}</span>
+        <Toggle text={"번호 보기"} onToggle={onToggle} />
+      </Header>
+      <LottoBox isNumberVisible={isToggled} lottos={lottos} />
+    </div>
+  );
+};
 
-  render() {
-    const lottoCount = this.context.state.lottos.length;
+LottoDisplay.propTypes = {
+  lottos: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+};
 
-    return (
-      <div>
-        <Header>
-          <span>{GUIDE_MESSAGE.LOTTO_COUNT(lottoCount)}</span>
-          <Toggle text={"번호 보기"} onToggle={this.onToggle} />
-        </Header>
-        <LottoBox isNumberVisible={this.state.isToggled} />
-      </div>
-    );
-  }
-}
-
-LottoDisplay.contextType = LottoContext;
+export default LottoDisplay;

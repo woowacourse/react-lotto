@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 import ErrorMessageBox from "./common/ErrorMessageBox";
-import LottoContext from "../Contexts/LottoContext";
 import { isDistinctNumbers } from "../utils";
 import { ERROR_MESSAGE, GUIDE_MESSAGE } from "../Constants";
 
@@ -53,99 +53,88 @@ const Button = styled.button`
   }
 `;
 
-export default class WinningNumberInput extends Component {
-  constructor(props) {
-    super(props);
+const WinningNumberInput = ({ updateLottoResult }) => {
+  const [winningNumbers, setWinningNumbers] = useState([0, 0, 0, 0, 0, 0]);
+  const [bonusNumber, setBonusNumber] = useState(0);
+  const [isNumbersDuplicated, setIsNumbersDuplicated] = useState(false);
 
-    this.state = {
-      isValidInput: true,
-      winningNumbers: [0, 0, 0, 0, 0, 0],
-      bonusNumber: 0,
-    };
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeWinningNumber = this.onChangeWinningNumber.bind(this);
-    this.onChangeBonusNumber = this.onChangeBonusNumber.bind(this);
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-
-    const { winningNumbers, bonusNumber } = this.state;
-
-    this.setState(
-      {
-        isValidInput: isDistinctNumbers([...winningNumbers, bonusNumber]),
-      },
-      () => {
-        if (!this.state.isValidInput) return;
-
-        this.context.action.updateLottoResult(winningNumbers, bonusNumber);
-        this.context.action.openModal();
+      if (isDistinctNumbers([...winningNumbers, bonusNumber])) {
+        updateLottoResult(winningNumbers, bonusNumber);
       }
-    );
-  }
 
-  onChangeWinningNumber(event) {
-    this.setState((prev) => {
-      const newWinningNumbers = [...prev.winningNumbers];
+      setIsNumbersDuplicated(
+        !isDistinctNumbers([...winningNumbers, bonusNumber])
+      );
+    },
+    [winningNumbers, bonusNumber]
+  );
+
+  const onChangeWinningNumber = useCallback((event) => {
+    setWinningNumbers((prevWinningNumbers) => {
+      const newWinningNumbers = [...prevWinningNumbers];
 
       newWinningNumbers[event.target.dataset.winningNumbersIndex] = Number(
         event.target.value
       );
 
-      return { winningNumbers: newWinningNumbers };
+      return newWinningNumbers;
     });
-  }
+  }, []);
 
-  onChangeBonusNumber(event) {
-    this.setState({ bonusNumber: Number(event.target.value) });
-  }
+  const onChangeBonusNumber = useCallback((event) => {
+    setBonusNumber(Number(event.target.value));
+  }, []);
 
-  render() {
-    return (
-      <form onSubmit={this.onSubmit}>
-        <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
-        <FlexContainer>
-          <InputSection>
-            <InputHeader>당첨 번호</InputHeader>
-            <InputBoxContainer>
-              {Array.from({ length: 6 }, (_, index) => (
-                <InputBox
-                  key={index}
-                  data-winning-numbers-index={index}
-                  name="winning-number"
-                  type="number"
-                  min="1"
-                  max="45"
-                  value={this.state.winningNumbers[index] || ""}
-                  onChange={this.onChangeWinningNumber}
-                  required="required"
-                ></InputBox>
-              ))}
-            </InputBoxContainer>
-          </InputSection>
+  return (
+    <form onSubmit={onSubmit}>
+      <Header>{GUIDE_MESSAGE.WINNING_NUMBER}</Header>
+      <FlexContainer>
+        <InputSection>
+          <InputHeader>당첨 번호</InputHeader>
+          <InputBoxContainer>
+            {Array.from({ length: 6 }, (_, index) => (
+              <InputBox
+                key={index}
+                data-winning-numbers-index={index}
+                name="winning-number"
+                type="number"
+                min="1"
+                max="45"
+                value={winningNumbers[index] || ""}
+                onChange={onChangeWinningNumber}
+                required="required"
+              ></InputBox>
+            ))}
+          </InputBoxContainer>
+        </InputSection>
 
-          <InputSection>
-            <InputHeader>보너스 번호</InputHeader>
-            <InputBox
-              name="bonus-number"
-              type="number"
-              min="1"
-              max="45"
-              value={this.state.bonusNumber || ""}
-              onChange={this.onChangeBonusNumber}
-              required="required"
-            ></InputBox>
-          </InputSection>
-        </FlexContainer>
-        {!this.state.isValidInput && (
-          <ErrorMessageBox text={ERROR_MESSAGE.DUPLICATED_NUMBER} />
-        )}
-        <Button type="submit">확인</Button>
-      </form>
-    );
-  }
-}
+        <InputSection>
+          <InputHeader>보너스 번호</InputHeader>
+          <InputBox
+            name="bonus-number"
+            type="number"
+            min="1"
+            max="45"
+            value={bonusNumber || ""}
+            onChange={onChangeBonusNumber}
+            required="required"
+          ></InputBox>
+        </InputSection>
+      </FlexContainer>
+      <ErrorMessageBox
+        text={isNumbersDuplicated ? ERROR_MESSAGE.DUPLICATED_NUMBER : ""}
+      />
+      <Button type="submit">확인</Button>
+    </form>
+  );
+};
 
-WinningNumberInput.contextType = LottoContext;
+WinningNumberInput.propTypes = {
+  updateLottoResult: PropTypes.func.isRequired,
+};
+
+export default WinningNumberInput;

@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-
-import LottoContext from "../Contexts/LottoContext";
 
 import Lotto from "./Lotto";
 
@@ -14,26 +12,28 @@ const Ul = styled.ul`
         flex-wrap: wrap;
         `
       : ""};
+
+  max-height: 40vh;
+  overflow: scroll;
 `;
 
-export default class LottoBox extends Component {
-  render() {
-    return (
-      <Ul isFlexBox={!this.props.isNumberVisible}>
-        {this.context.state.lottos.map((lottoNumbers, index) => (
-          <Lotto
-            key={lottoNumbers.toString() + index}
-            lottoNumbers={lottoNumbers}
-            isNumberVisible={this.props.isNumberVisible}
-          />
-        ))}
-      </Ul>
-    );
-  }
-}
+const LottoBox = ({ isNumberVisible, lottos }) => {
+  return (
+    <Ul isFlexBox={!isNumberVisible}>
+      {lottos.map((lottoNumbers, index) => (
+        <Lotto
+          key={lottoNumbers.toString() + index}
+          lottoNumbers={lottoNumbers}
+          isNumberVisible={isNumberVisible}
+        />
+      ))}
+    </Ul>
+  );
+};
 
 LottoBox.propTypes = {
   isNumberVisible: PropTypes.bool.isRequired,
+  lottos: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 };
 
-LottoBox.contextType = LottoContext;
+export default LottoBox;

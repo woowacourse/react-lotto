@@ -1,14 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Global } from "@emotion/react";
 
 import GlobalStyles from "../Styles/GlobalStyles";
-import LottoContext, { LottoContextProvider } from "../Contexts/LottoContext";
-import Header from "./Header";
 import Main from "./Main";
-import Modal from "./Modal";
-
-import LottoResult from "./LottoResult";
 
 const Container = styled.div`
   display: flex;
@@ -16,25 +11,16 @@ const Container = styled.div`
   align-items: center;
 `;
 
-export default class App extends Component {
-  render() {
-    return (
-      <>
-        <Global styles={GlobalStyles} />
-        <LottoContextProvider>
-          <Container>
-            <Header />
-            <Main />
-            {this.context.state.isModalOpen && (
-              <Modal>
-                <LottoResult />
-              </Modal>
-            )}
-          </Container>
-        </LottoContextProvider>
-      </>
-    );
-  }
-}
+const App = () => {
+  return (
+    <>
+      <Global styles={GlobalStyles} />
+      <Container>
+        <h1>🎱 행운의 로또</h1>
+        <Main />
+      </Container>
+    </>
+  );
+};
 
-App.contextType = LottoContext;
+export default App;
