@@ -41,7 +41,7 @@ const App = () => {
     setIsModalOpen(false);
   };
 
-  const isReset = () => winningNumbers.length === 0 && bonusNumber === 0;
+  const isReset = winningNumbers.length === 0 && bonusNumber === 0;
 
   return (
     <>
@@ -59,7 +59,7 @@ const App = () => {
             <WinningNumberForm
               handleWinningNumbers={handleWinningNumbers}
               handleBonusNumber={handleBonusNumber}
-              isReset={isReset()}
+              isReset={isReset}
             />
           </>
         )}

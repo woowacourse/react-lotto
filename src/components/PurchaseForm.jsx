@@ -85,5 +85,5 @@ export default PurchaseForm;
 PurchaseForm.propTypes = {
   handleTickets: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  isReset: PropTypes.func.isRequired,
+  isReset: PropTypes.bool.isRequired,
 };
