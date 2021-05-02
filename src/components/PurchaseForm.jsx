@@ -5,27 +5,27 @@ import { LOTTO } from '../utils/constants';
 const PurchaseForm = (props) => {
   const { handleTickets, tickets, isReset } = props;
 
-  const [inputValue, setInputValue] = useState('');
+  const [purchaseInputValue, setPurchaseInputValue] = useState('');
   const [isValid, setIsValid] = useState(false);
 
   const resetState = () => {
-    setInputValue('');
+    setPurchaseInputValue('');
     setIsValid(false);
   };
 
-  const calculatePurchaseTicketCount = (inputValue) => {
-    return Math.floor(Number(inputValue) / LOTTO.UNIT_PRICE);
+  const calculatePurchaseTicketCount = (purchaseInputValue) => {
+    return Math.floor(Number(purchaseInputValue) / LOTTO.UNIT_PRICE);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const ticketCount = calculatePurchaseTicketCount(inputValue);
+    const ticketCount = calculatePurchaseTicketCount(purchaseInputValue);
     handleTickets(ticketCount);
   };
 
   const handleInputChange = ({ target: { value, valueAsNumber } }) => {
-    setInputValue(value);
+    setPurchaseInputValue(value);
     setIsValid(!(value === '' || valueAsNumber < LOTTO.MIN_PRICE || valueAsNumber > LOTTO.MAX_PRICE));
   };
 
@@ -52,7 +52,7 @@ const PurchaseForm = (props) => {
           `}
           placeholder="구입 금액"
           onChange={handleInputChange}
-          value={inputValue}
+          value={purchaseInputValue}
           disabled={tickets.length > 0}
         />
         <button
@@ -68,7 +68,7 @@ const PurchaseForm = (props) => {
       ) : isValid ? (
         tickets.length === 0 && (
           <div className="text-blue-700 h-4 ">
-            {`${calculatePurchaseTicketCount(inputValue)}장의 로또를 구매하실 수
+            {`${calculatePurchaseTicketCount(purchaseInputValue)}장의 로또를 구매하실 수
               있습니다. `}
           </div>
         )
