@@ -1,124 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import generateLottoNumbers from './utils/generateTicket';
 import PurchaseForm from './components/PurchaseForm';
 import TicketDetail from './components/TicketDetail';
 import WinningNumberForm from './components/WinningNumberForm';
 import ResultModal from './components/ResultModal';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [tickets, setTickets] = useState([]);
+  const [winningNumbers, setWinningNumbers] = useState([]);
+  const [bonusNumber, setBonusNumber] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    this.initialState = {
-      tickets: [],
-      winningNumbers: [],
-      bonusNumber: 0,
-      isModalOpen: false,
-    };
+  const handleTickets = (ticketCount) => {
+    setTickets(Array.from({ length: ticketCount }, generateLottoNumbers));
+    handleIsModalOpen();
+  };
 
-    this.state = { ...this.initialState };
+  const handleWinningNumbers = (winningNumbers) => {
+    setWinningNumbers(winningNumbers);
+    handleIsModalOpen();
+  };
 
-    this.setTickets = this.setTickets.bind(this);
-    this.setWinningNumbers = this.setWinningNumbers.bind(this);
-    this.setBonusNumber = this.setBonusNumber.bind(this);
-    this.setIsModalOpen = this.setIsModalOpen.bind(this);
+  const handleBonusNumber = (bonusNumber) => {
+    setBonusNumber(bonusNumber);
+    handleIsModalOpen();
+  };
 
-    this.resetState = this.resetState.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+  const handleIsModalOpen = () => {
+    setIsModalOpen(tickets.length > 0 && winningNumbers.length > 0 && bonusNumber > 0);
+  };
 
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleDimmedClick = this.handleDimmedClick.bind(this);
-  }
+  const resetState = () => {
+    setTickets([]);
+    setWinningNumbers([]);
+    setBonusNumber(0);
+    setIsModalOpen(false);
+  };
 
-  setTickets(ticketCount) {
-    this.setState({ tickets: Array.from({ length: ticketCount }, generateLottoNumbers) }, this.setIsModalOpen);
-  }
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-  setWinningNumbers(winningNumbers) {
-    this.setState({ winningNumbers }, this.setIsModalOpen);
-  }
+  const isReset = winningNumbers.length === 0 && bonusNumber === 0;
 
-  setBonusNumber(bonusNumber) {
-    this.setState({ bonusNumber }, this.setIsModalOpen);
-  }
-
-  setIsModalOpen() {
-    this.setState({
-      isModalOpen: this.state.tickets.length > 0 && this.state.winningNumbers.length > 0 && this.state.bonusNumber > 0,
-    });
-  }
-
-  resetState() {
-    this.setState({ ...this.initialState });
-  }
-
-  closeModal() {
-    this.setState({ isModalOpen: false });
-  }
-
-  handleKeyUp({ key }) {
-    if (!this.state.isModalOpen) {
-      return;
-    }
-
-    const table = {
-      Escape: () => this.closeModal(),
-      ' ': () => this.resetState(),
-    };
-
-    return table[key]?.();
-  }
-
-  handleDimmedClick({ target }) {
-    if (this.state.isModalOpen && target.classList.contains('modal')) {
-      this.closeModal();
-    }
-  }
-
-  componentDidMount() {
-    document.addEventListener('keyup', this.handleKeyUp);
-    document.addEventListener('click', this.handleDimmedClick);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keyup', this.handleKeyUp);
-    document.removeEventListener('click', this.handleDimmedClick);
-  }
-
-  render() {
-    const isReset = this.state.winningNumbers.length === 0 && this.state.bonusNumber === 0;
-
-    return (
-      <>
-        <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
-          <h1 className="text-center text-3xl	font-bold">
-            <span role="img" aria-label="good-luck">
-              🎱
-            </span>
-            {' 행운의 로또'}
-          </h1>
-          <PurchaseForm setTickets={this.setTickets} tickets={this.state.tickets} isReset={isReset} />
-          {this.state.tickets.length > 0 && (
-            <>
-              <TicketDetail tickets={this.state.tickets} />
-              <WinningNumberForm
-                setWinningNumbers={this.setWinningNumbers}
-                setBonusNumber={this.setBonusNumber}
-                isReset={isReset}
-              />
-            </>
-          )}
-        </main>
-        {this.state.isModalOpen && (
-          <ResultModal
-            tickets={this.state.tickets}
-            winningNumbers={this.state.winningNumbers}
-            bonusNumber={this.state.bonusNumber}
-            reset={this.resetState}
-            close={this.closeModal}
-          />
+  return (
+    <>
+      <main className="m-16 p-9 max-w-screen-sm mx-auto rounded-xl bg-white">
+        <h1 className="text-center text-3xl	font-bold">
+          <span role="img" aria-label="good-luck">
+            🎱
+          </span>
+          {' 행운의 로또'}
+        </h1>
+        <PurchaseForm handleTickets={handleTickets} tickets={tickets} isReset={isReset} />
+        {tickets.length > 0 && (
+          <>
+            <TicketDetail tickets={tickets} />
+            <WinningNumberForm
+              handleWinningNumbers={handleWinningNumbers}
+              handleBonusNumber={handleBonusNumber}
+              isReset={isReset}
+            />
+          </>
         )}
-      </>
-    );
-  }
-}
+      </main>
+      {isModalOpen && (
+        <ResultModal
+          tickets={tickets}
+          winningNumbers={winningNumbers}
+          bonusNumber={bonusNumber}
+          reset={resetState}
+          close={closeModal}
+        />
+      )}
+    </>
+  );
+};
+
+export default App;

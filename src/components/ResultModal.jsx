@@ -47,32 +47,26 @@ const getWinningCount = (ticket, winningNumbers, bonusNumber) => {
   return [count, ticket.includes(bonusNumber)];
 };
 
-ResultModal.propTypes = {
-  tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  winningNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  bonusNumber: PropTypes.number.isRequired,
-  reset: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired,
-};
+const ResultModal = (props) => {
+  const { tickets, winningNumbers, bonusNumber, reset, close } = props;
 
-export default function ResultModal(props) {
-  const ticketRanks = props.tickets
-    .map((ticket) => getWinningCount(ticket, props.winningNumbers, props.bonusNumber))
+  const ticketRanks = tickets
+    .map((ticket) => getWinningCount(ticket, winningNumbers, bonusNumber))
     .map(getWinningRank)
     .reduce(
       getWinningRankCount,
       Array.from({ length: winningTable.length }, () => 0)
     );
 
-  const profit = getProfit(ticketRanks, props.tickets);
+  const profit = getProfit(ticketRanks, tickets);
 
-  const handleResetClick = props.reset;
-  const handleCloseClick = props.close;
+  const handleResetClick = reset;
+  const handleCloseClick = close;
   const handleCloseKeyUp = ({ key }) => {
     const keys = ['Enter', ' '];
 
     if (keys.includes(key)) {
-      props.close();
+      close();
     }
   };
 
@@ -143,4 +137,14 @@ export default function ResultModal(props) {
       </div>
     </div>
   );
-}
+};
+
+export default ResultModal;
+
+ResultModal.propTypes = {
+  tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  winningNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
+  bonusNumber: PropTypes.number.isRequired,
+  reset: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+};
