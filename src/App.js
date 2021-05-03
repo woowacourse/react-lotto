@@ -67,7 +67,7 @@ export default function App() {
   const resetState = () => {
     setIsModalOpened(initialState.isModalOpened);
     setIsLottoListToggled(initialState.isLottoListToggled);
-    setAnnouncementDate(initialState.announcementDate);
+    setAnnouncementDate(getAnnouncementDate());
     setLottoInformation(initialState.lottoInformation);
   };
 
