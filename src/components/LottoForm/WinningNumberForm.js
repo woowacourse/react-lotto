@@ -22,19 +22,7 @@ export default function WinningNumberForm({
       return;
     }
 
-    setWinningNumbers(winningNumbers);
     openModal();
-  };
-
-  const onBonusNumberChange = (event) => {
-    setBonusNumber(event.target.valueAsNumber);
-  };
-
-  const onWinningNumberInputChange = (event) => {
-    setWinningNumbers({
-      ...winningNumbers,
-      [event.target.dataset.key]: event.target.valueAsNumber,
-    });
   };
 
   return (
@@ -46,16 +34,22 @@ export default function WinningNumberForm({
             <fieldset id="winning-number-fieldset" className="d-flex flex-col flex-auto">
               <legend className="text-center font-bold">당첨번호</legend>
               <div className="d-flex flex-row justify-space-between">
-                {Object.keys(winningNumbers).map((key, index) => (
+                {Object.entries(winningNumbers).map(([key, value]) => (
                   <input
                     key={key}
-                    data-key={key}
-                    value={winningNumbers[key] || ''}
-                    onChange={onWinningNumberInputChange}
+                    value={value || ''}
+                    onChange={(event) => {
+                      setWinningNumbers({
+                        ...winningNumbers,
+                        [key]: event.target.valueAsNumber,
+                      });
+                    }}
                     type="number"
                     min="1"
                     max="45"
-                    aria-label={`${index + 1}번 쨰 당첨번호 입력`}
+                    aria-label={`${
+                      Object.keys(winningNumbers).indexOf(key) + 1
+                    }번 쨰 당첨번호 입력`}
                     required
                     className="winning-number-input"
                   />
@@ -73,7 +67,9 @@ export default function WinningNumberForm({
                 min="1"
                 max="45"
                 value={bonusNumber || ''}
-                onChange={onBonusNumberChange}
+                onChange={(event) => {
+                  setBonusNumber(event.target.valueAsNumber);
+                }}
                 aria-label="보너스 번호 입력"
                 required
               />
