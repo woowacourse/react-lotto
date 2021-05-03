@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Styled from './Result.style';
 import Button from '../../components/Button/Button';
@@ -8,15 +8,28 @@ import Modal from '../../components/Modal/Modal';
 import WinningTable from '../../components/WinningTable/WinningTable';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { getProfitRate, getWinningResult } from '../../services/Result';
+import {
+  getExistBonusNumber,
+  getExistMoneyInput,
+  getExistNewLottoList,
+  getExistWinningNumber,
+} from '../../sessionData';
 
-const Result = (props) => {
-  if (!props.location?.state) return <Redirect to="/" />;
+const Result = () => {
+  const existWinningNumber = getExistWinningNumber();
+  const existBonusNumber = getExistBonusNumber();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  if (existWinningNumber === null || existBonusNumber === null) return <Redirect to="/" />;
 
-  const { lottoList, moneyInput, winningNumber, bonusNumber } = props.location?.state;
+  const lottoList = getExistNewLottoList();
+  const moneyInput = getExistMoneyInput();
+  const winningNumber = existWinningNumber;
+  const bonusNumber = existBonusNumber;
+
   const winningResult = getWinningResult(lottoList, { winningNumber, bonusNumber });
   const profitRate = getProfitRate(winningResult, moneyInput);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenDetail = () => {
     setIsModalOpen(true);
@@ -26,6 +39,10 @@ const Result = (props) => {
     if (event.target !== event.currentTarget) return;
 
     setIsModalOpen(false);
+  };
+
+  const handleRestart = () => {
+    sessionStorage.clear();
   };
 
   return (
@@ -61,7 +78,9 @@ const Result = (props) => {
       <Styled.ButtonContainer>
         <Button onClick={handleOpenDetail}>✨ 결과 확인</Button>
         <Link to="/">
-          <Button bgColor="#d6d6d6">↪️ 다시 시작</Button>
+          <Button bgColor="#d6d6d6" onClick={handleRestart}>
+            ↪️ 다시 시작
+          </Button>
         </Link>
       </Styled.ButtonContainer>
 

@@ -4,6 +4,7 @@ import LottoNumberItem from '../LottoNumberItem/LottoNumberItem';
 import Styled from './LottoNumberList.style';
 
 const LottoNumberList = (props) => {
+  console.log(props);
   const { lottoList, winningNumber, bonusNumber } = props;
   const winningNumbers = Object.values(winningNumber);
   const isRequiredValidate = !!(winningNumbers.length && bonusNumber);

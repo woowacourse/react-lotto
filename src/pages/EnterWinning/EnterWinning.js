@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Styled from './EnterWinning.style';
-import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH } from '../../constants';
+import { ALERT_MESSAGE, INPUT_NAME, LOTTO, PATH, SESSION } from '../../constants';
 import { initObject, isUniqueArray } from '../../utils';
 import Button from '../../components/Button/Button';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import {
+  getExistBonusNumber,
+  getExistMoneyInput,
+  getExistNewLottoList,
+  getExistWinningNumber,
+} from '../../sessionData';
 
-const EnterWinning = (props) => {
-  if (!props.location?.state) return <Redirect to="/" />;
+const EnterWinning = ({ history }) => {
+  const existMoneyInput = getExistMoneyInput();
+  const existNewLottoList = getExistNewLottoList();
+  const existWinningNumber = getExistWinningNumber();
+  const existBonusNumber = getExistBonusNumber();
+
+  if (existMoneyInput === null) return <Redirect to="/" />;
 
   const [winningNumber, setWinningNumber] = useState(
-    initObject(Object.values(INPUT_NAME.WINNING_NUMBER), '')
+    existWinningNumber || initObject(Object.values(INPUT_NAME.WINNING_NUMBER), '')
   );
-  const [bonusNumber, setBonusNumber] = useState('');
+  const [bonusNumber, setBonusNumber] = useState(existBonusNumber || '');
 
   const handleChangeWinningNumber = (event) => {
     setWinningNumber((prevState) => ({
@@ -28,9 +39,6 @@ const EnterWinning = (props) => {
   const handleSubmitWinningNumber = (event) => {
     event.preventDefault();
 
-    const { location, history } = props;
-    const { lottoList, moneyInput } = location.state;
-
     const numberList = [...Object.values(winningNumber), bonusNumber];
 
     if (!isUniqueArray(numberList)) {
@@ -38,9 +46,17 @@ const EnterWinning = (props) => {
       return;
     }
 
+    sessionStorage.setItem(SESSION.KEY.WINNING_NUMBER, JSON.stringify(winningNumber));
+    sessionStorage.setItem(SESSION.KEY.BONUS_NUMBER, bonusNumber);
+
     history.push({
       pathname: PATH.RESULT,
-      state: { lottoList, moneyInput, winningNumber, bonusNumber },
+      state: {
+        lottoList: existNewLottoList,
+        moneyInput: existMoneyInput,
+        winningNumber,
+        bonusNumber,
+      },
     });
   };
 
