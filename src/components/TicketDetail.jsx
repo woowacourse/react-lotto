@@ -32,7 +32,7 @@ const TicketDetail = (props) => {
               <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner" />
               <div
                 className={cx(
-                  'dot absolute -left-1 -top-1 w-6 h-6 rounded-full shadow transform duration-350',
+                  'absolute -left-1 -top-1 w-6 h-6 rounded-full shadow transform duration-350',
                   isFocused ? 'bg-blue-500' : 'bg-white',
                   isDetail ? 'translate-x-full bg-blue-500' : 'translate-x-0 '
                 )}
@@ -44,7 +44,7 @@ const TicketDetail = (props) => {
       </div>
       <div className={cx('flex flex-wrap', isDetail && 'flex-col')}>
         {props.tickets.map((ticket, index) => (
-          <div key={ticket.join(index)} className="flex items-center my-2">
+          <div key={ticket.join('-')} className="flex items-center my-2">
             <span className="mr-2 mx-1 text-4xl" role="img" aria-label="lotto-ticket">
               🎟️
             </span>
