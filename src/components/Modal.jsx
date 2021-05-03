@@ -31,7 +31,7 @@ const Modal = (props) => {
       ref={ref}
     >
       <div className="modal-inner relative m-auto p-10 bg-white rounded-xl">
-        <CloseButton onClick={props.onClose} />
+        <CloseButton onClick={props.onClose} type="button" />
         {props.children}
       </div>
     </div>
