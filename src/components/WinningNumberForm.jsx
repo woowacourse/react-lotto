@@ -6,7 +6,6 @@ import NumberInput from './NumberInput';
 
 const winningNumberInputIds = Array.from({ length: LOTTO.LENGTH }, generateId);
 const bonusNumberInputId = generateId();
-const ids = [...winningNumberInputIds, bonusNumberInputId];
 
 const initialInputs = Object.fromEntries([...winningNumberInputIds.map((id) => [id, '']), [bonusNumberInputId, '']]);
 const initialValidateMessage = MESSAGE.REQUIRE_WINNING_NUMBER_INPUT;
@@ -15,28 +14,35 @@ const WinningNumberForm = (props) => {
   const [inputs, setInputs] = useState(initialInputs);
   const [validationMessage, setValidationMessage] = useState(initialValidateMessage);
 
-  const inputValues = ids.map((id) => inputs[id]);
-  const isFormValid = formValidator.isFormValid(inputValues);
-
-  ids.forEach((id) => {
-    useEffect(() => {
-      setFormValidationMessage(inputs[id]);
-    }, [inputs[id]]);
-  });
-
   useEffect(() => {
     if (props.isReset) {
       resetState();
     }
   }, [props.isReset]);
 
+  const inputValues = Object.values(inputs);
+  const isFormValid = formValidator.isFormValid(inputValues);
+
   const resetState = () => {
     setInputs({ ...initialInputs });
     setFormValidationMessage(initialValidateMessage);
   };
 
-  const setFormValidationMessage = (value) => {
-    setValidationMessage(formValidator.getValidationMessage(inputValues, value));
+  const setFormValidationMessage = (values, value) => {
+    setValidationMessage(formValidator.getValidationMessage(values, value));
+  };
+
+  const handleInputFocus = ({ target: { value } }) => {
+    setFormValidationMessage(inputValues, value);
+  };
+
+  const handleInputChange = (event) => {
+    const { value, name } = event.target;
+    const newInputs = { ...inputs, [name]: value };
+    const newInputValues = Object.values(newInputs);
+
+    setInputs(newInputs);
+    setFormValidationMessage(newInputValues, value);
   };
 
   const handleSubmit = (event) => {
@@ -47,16 +53,6 @@ const WinningNumberForm = (props) => {
 
     props.setWinningNumbers(winningNumbers);
     props.setBonusNumber(bonusNumber);
-  };
-
-  const handleInputFocus = ({ target: { value } }) => {
-    setFormValidationMessage(value);
-  };
-
-  const handleInputChange = (event) => {
-    const { value, name } = event.target;
-
-    setInputs({ ...inputs, [name]: value });
   };
 
   return (
