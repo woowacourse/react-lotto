@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { generateLottoNumbers } from './utils';
 import { PurchaseForm, TicketDetail, WinningNumberForm, Modal, WinningResult } from './components';
 
+const defaultState = { tickets: [], winningNumbers: [], bonusNumber: 0, isModalOpen: false };
+
 const App = () => {
-  const [tickets, setTickets] = useState([]);
-  const [winningNumbers, setWinningNumbers] = useState([]);
-  const [bonusNumber, setBonusNumber] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tickets, setTickets] = useState(defaultState.tickets);
+  const [winningNumbers, setWinningNumbers] = useState(defaultState.winningNumbers);
+  const [bonusNumber, setBonusNumber] = useState(defaultState.bonusNumber);
+  const [isModalOpen, setIsModalOpen] = useState(defaultState.isModalOpen);
 
   useEffect(() => {
     const isOpen = [tickets.length > 0, winningNumbers.length > 0, bonusNumber > 0].every(Boolean);
@@ -19,10 +21,10 @@ const App = () => {
   };
 
   const handleResetClick = () => {
-    setTickets([]);
-    setWinningNumbers([]);
-    setBonusNumber(0);
-    setIsModalOpen(false);
+    setTickets(defaultState.tickets);
+    setWinningNumbers(defaultState.winningNumbers);
+    setBonusNumber(defaultState.bonusNumber);
+    setIsModalOpen(defaultState.isModalOpen);
   };
 
   const handleModalClose = () => {
