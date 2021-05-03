@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { LOTTO } from '../utils';
@@ -10,17 +10,6 @@ const calculatePurchaseTicketCount = (inputValue) => {
 const PurchaseForm = (props) => {
   const [inputValue, setInputValue] = useState('');
   const [isValid, setIsValid] = useState(false);
-
-  useEffect(() => {
-    if (props.isReset) {
-      resetState();
-    }
-  }, [props.isReset]);
-
-  const resetState = () => {
-    setInputValue('');
-    setIsValid(false);
-  };
 
   const handleInputChange = ({ target: { value, valueAsNumber } }) => {
     setInputValue(value);
@@ -82,7 +71,6 @@ const PurchaseForm = (props) => {
 PurchaseForm.propTypes = {
   setTicketCount: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  isReset: PropTypes.bool.isRequired,
 };
 
 export default PurchaseForm;

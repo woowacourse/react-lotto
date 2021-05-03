@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { LOTTO, MESSAGE, generateId, inputValidator, formValidator } from '../utils';
@@ -14,19 +14,8 @@ const WinningNumberForm = (props) => {
   const [inputs, setInputs] = useState(initialInputs);
   const [validationMessage, setValidationMessage] = useState(initialValidateMessage);
 
-  useEffect(() => {
-    if (props.isReset) {
-      resetState();
-    }
-  }, [props.isReset]);
-
   const inputValues = Object.values(inputs);
   const isFormValid = formValidator.isFormValid(inputValues);
-
-  const resetState = () => {
-    setInputs({ ...initialInputs });
-    setFormValidationMessage(initialValidateMessage);
-  };
 
   const setFormValidationMessage = (values, value) => {
     setValidationMessage(formValidator.getValidationMessage(values, value));
@@ -115,7 +104,6 @@ const WinningNumberForm = (props) => {
 WinningNumberForm.propTypes = {
   setWinningNumbers: PropTypes.func.isRequired,
   setBonusNumber: PropTypes.func.isRequired,
-  isReset: PropTypes.bool.isRequired,
 };
 
 export default WinningNumberForm;
