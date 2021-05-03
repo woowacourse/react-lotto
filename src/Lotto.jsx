@@ -11,6 +11,8 @@ const Lotto = ({ onReset }) => {
   const [bonusNumber, setBonusNumber] = useState(defaultState.bonusNumber);
   const [isModalOpen, setIsModalOpen] = useState(defaultState.isModalOpen);
 
+  const hasTickets = tickets.length > 0;
+
   useEffect(() => {
     const isOpen = [tickets.length > 0, winningNumbers.length > 0, bonusNumber > 0].every(Boolean);
 
@@ -34,8 +36,8 @@ const Lotto = ({ onReset }) => {
           </span>
           <span>행운의 로또</span>
         </h1>
-        <PurchaseForm setTicketCount={setTicketCount} tickets={tickets} />
-        {tickets.length > 0 && (
+        <PurchaseForm setTicketCount={setTicketCount} isDisabled={hasTickets} />
+        {hasTickets && (
           <>
             <TicketDetail tickets={tickets} />
             <WinningNumberForm setWinningNumbers={setWinningNumbers} setBonusNumber={setBonusNumber} />

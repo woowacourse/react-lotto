@@ -7,9 +7,15 @@ const calculatePurchaseTicketCount = (inputValue) => {
   return Math.floor(Number(inputValue) / LOTTO.UNIT_PRICE);
 };
 
-const PurchaseForm = (props) => {
+const PurchaseForm = ({ setTicketCount, isDisabled }) => {
   const [inputValue, setInputValue] = useState('');
   const [isValid, setIsValid] = useState(false);
+
+  const validationMessage = isValid
+    ? `${calculatePurchaseTicketCount(inputValue)}장의 로또를 구매하실 수 있습니다. `
+    : `${LOTTO.MIN_PRICE.toLocaleString('en-US')}원 이상 ${LOTTO.MAX_PRICE.toLocaleString(
+        'en-US'
+      )}원 이하의금액을 입력해주세요.`;
 
   const handleInputChange = ({ target: { value, valueAsNumber } }) => {
     setInputValue(value);
@@ -21,7 +27,7 @@ const PurchaseForm = (props) => {
 
     const ticketCount = calculatePurchaseTicketCount(inputValue);
 
-    props.setTicketCount(ticketCount);
+    setTicketCount(ticketCount);
   };
 
   return (
@@ -41,36 +47,24 @@ const PurchaseForm = (props) => {
           placeholder="구입 금액"
           onChange={handleInputChange}
           value={inputValue}
-          disabled={props.tickets.length > 0}
+          disabled={isDisabled}
         />
         <button
           type="submit"
           className="px-4 py-2 min-w-1/8 text-white font-bold bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded focus:outline-none focus:ring-2"
-          disabled={props.tickets.length > 0 || !isValid}
+          disabled={isDisabled || !isValid}
         >
           확인
         </button>
       </div>
-      {isValid ? (
-        props.tickets.length === 0 && (
-          <div className="h-4 text-blue-700">
-            {`${calculatePurchaseTicketCount(inputValue)}장의 로또를 구매하실 수
-                있습니다. `}
-          </div>
-        )
-      ) : (
-        <div className="h-4 text-rose-500">
-          {`${LOTTO.MIN_PRICE.toLocaleString('en-US')}원 이상 ${LOTTO.MAX_PRICE.toLocaleString('en-US')}원 이하의
-            금액을 입력해주세요.`}
-        </div>
-      )}
+      {!isDisabled && <div className={cx('h-4', isValid ? 'text-blue-700' : 'text-rose-500')}>{validationMessage}</div>}
     </form>
   );
 };
 
 PurchaseForm.propTypes = {
   setTicketCount: PropTypes.func.isRequired,
-  tickets: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default PurchaseForm;
