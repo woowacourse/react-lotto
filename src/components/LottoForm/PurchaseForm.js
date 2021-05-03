@@ -2,16 +2,12 @@ import { LOTTO_PRICE, MESSAGE } from '../../constants';
 
 export default function PurchaseForm({ lottoCount, setLottoCount, setMoneyInput, moneyInput }) {
   const isActive = lottoCount === 0;
-  const isValidPrice = (price) => {
-    return price % LOTTO_PRICE === 0;
-  };
+  const isValidPrice = moneyInput % LOTTO_PRICE === 0;
 
   const onSubmitPurchaseForm = (event) => {
     event.preventDefault();
 
-    const moneyInput = event.target.elements['money-input'].valueAsNumber;
-
-    if (!isValidPrice(moneyInput)) {
+    if (!isValidPrice) {
       alert(MESSAGE.ALERT.INVALID_MONEY_UNIT);
       return;
     }

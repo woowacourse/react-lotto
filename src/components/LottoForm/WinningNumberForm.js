@@ -17,14 +17,7 @@ export default function WinningNumberForm({
       return;
     }
 
-    const winningNumberInputs =
-      event.target.elements[ID.MAIN.WINNING_NUMBER_FORM.WINNING_NUMBER_FIELDSET].elements;
-    const winningNumbers = Array.from(winningNumberInputs).map(($input) => $input.valueAsNumber);
-    const bonusNumberInput =
-      event.target.elements[ID.MAIN.WINNING_NUMBER_FORM.BONUS_NUMBER_FIELDSET].elements;
-    const [bonusNumber] = Array.from(bonusNumberInput).map(($input) => $input.valueAsNumber);
-
-    if (isDuplicatedArray([...winningNumbers, bonusNumber])) {
+    if (isDuplicatedArray([...Object.values(winningNumbers), bonusNumber])) {
       alert(MESSAGE.ALERT.DUPLICATED_WINNING_NUMBERS);
       return;
     }
