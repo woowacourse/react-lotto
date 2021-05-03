@@ -1,72 +1,130 @@
 import './css/index.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LottoForm } from './components/LottoForm';
 import { Modal } from './components/shared';
 import { EarningRateSection, LottoResultTable } from './components/LottoResult';
 import { LOTTO_VALUE, LOTTO_PRICE } from './constants';
 import { getAnnouncementDate } from './utils/lottoUtils';
+import { getRandomNumberArray } from './utils';
+import idGenerator from './utils/idGenerator';
 
 const initialState = {
   isModalOpened: false,
   isLottoListToggled: false,
-  winningCounts: {
-    [LOTTO_VALUE.RANK.FIRST]: 0,
-    [LOTTO_VALUE.RANK.SECOND]: 0,
-    [LOTTO_VALUE.RANK.THIRD]: 0,
-    [LOTTO_VALUE.RANK.FOURTH]: 0,
-    [LOTTO_VALUE.RANK.FIFTH]: 0,
+
+  lottoItems: [],
+  lottoInformation: {
+    moneyInput: 0,
+    lottoCount: 0,
+    winningNumbers: {
+      first: 0,
+      second: 0,
+      third: 0,
+      fourth: 0,
+      fifth: 0,
+      sixth: 0,
+    },
+    bonusNumber: 0,
+    winningCounts: {
+      [LOTTO_VALUE.RANK.FIRST]: 0,
+      [LOTTO_VALUE.RANK.SECOND]: 0,
+      [LOTTO_VALUE.RANK.THIRD]: 0,
+      [LOTTO_VALUE.RANK.FOURTH]: 0,
+      [LOTTO_VALUE.RANK.FIFTH]: 0,
+    },
   },
-  lottoCount: 0,
-  announcementDate: getAnnouncementDate(),
-  winningNumbers: {
-    first: 0,
-    second: 0,
-    third: 0,
-    fourth: 0,
-    fifth: 0,
-    sixth: 0,
-  },
-  bonusNumber: 0,
-  moneyInput: 0,
+};
+
+const getMatchedCount = (array1, array2) => {
+  return array1.length + array2.length - new Set([...array1, ...array2]).size;
+};
+
+const getWinningRank = (matchedCount, hasBonusNumber) => {
+  switch (matchedCount) {
+    case LOTTO_VALUE.MATCHED_COUNT.FIRST:
+      return LOTTO_VALUE.RANK.FIRST;
+    case LOTTO_VALUE.MATCHED_COUNT.THIRD:
+      return hasBonusNumber ? LOTTO_VALUE.RANK.SECOND : LOTTO_VALUE.RANK.THIRD;
+    case LOTTO_VALUE.MATCHED_COUNT.FOURTH:
+      return LOTTO_VALUE.RANK.FOURTH;
+    case LOTTO_VALUE.MATCHED_COUNT.FIFTH:
+      return LOTTO_VALUE.RANK.FIFTH;
+    default:
+      return;
+  }
 };
 
 export default function App() {
+  const [lottoInformation, setLottoInformation] = useState(initialState.lottoInformation);
+  const [lottoItems, setLottoItems] = useState(initialState.lottoItems);
+  const [announcementDate, setAnnouncementDate] = useState(getAnnouncementDate());
+
   const [isModalOpened, setIsModalOpened] = useState(initialState.isModalOpened);
   const [isLottoListToggled, setIsLottoListToggled] = useState(initialState.isLottoListToggled);
-  const [winningCounts, setWinningCounts] = useState(initialState.winningCounts);
-  const [lottoCount, setLottoCount] = useState(initialState.lottoCount);
-  const [announcementDate, setAnnouncementDate] = useState(initialState.announcementDate);
-  const [winningNumbers, setWinningNumbers] = useState(initialState.winningNumbers);
-  const [bonusNumber, setBonusNumber] = useState(initialState.bonusNumber);
-  const [moneyInput, setMoneyInput] = useState(initialState.moneyInput);
+
+  const { winningCounts, lottoCount, winningNumbers, bonusNumber } = lottoInformation;
 
   const resetState = () => {
     setIsModalOpened(initialState.isModalOpened);
     setIsLottoListToggled(initialState.isLottoListToggled);
-    setWinningCounts(initialState.winningCounts);
-    setLottoCount(initialState.lottoCount);
     setAnnouncementDate(initialState.announcementDate);
-    setWinningNumbers(initialState.winningNumbers);
-    setBonusNumber(initialState.bonusNumber);
-    setMoneyInput(initialState.moneyInput);
+    setLottoInformation(initialState.lottoInformation);
   };
 
-  const increaseWinningCounts = (rank) => {
-    setWinningCounts({
-      ...winningCounts,
-      [rank]: winningCounts[rank] + 1,
+  const getWinningResult = () => {
+    const winningNumberValues = Object.values(winningNumbers);
+
+    lottoItems.forEach((item) => {
+      const matchedCount = getMatchedCount(winningNumberValues, item.numbers);
+      const hasBonusNumber = winningNumberValues.includes(bonusNumber);
+      const rank = getWinningRank(matchedCount, hasBonusNumber);
+
+      if (rank) {
+        setLottoInformation({
+          ...lottoInformation,
+          winningCounts: {
+            ...winningCounts,
+            [rank]: winningCounts[rank] + 1,
+          },
+        });
+      }
     });
   };
 
   const openModal = () => {
+    getWinningResult();
     setIsModalOpened(true);
   };
 
   const closeModal = () => {
     setIsModalOpened(false);
 
-    setWinningCounts(initialState.winningCounts);
+    setLottoInformation({
+      ...lottoInformation,
+      winningCounts: initialState.lottoInformation.winningCounts,
+    });
   };
+
+  useEffect(() => {
+    const creatLottoItem = () => {
+      const newLottoItems = Array.from({ length: lottoCount }).map(() => {
+        const lottoItem = {
+          id: idGenerator.getId(),
+          numbers: getRandomNumberArray(
+            LOTTO_VALUE.MIN_NUMBER,
+            LOTTO_VALUE.MAX_NUMBER,
+            LOTTO_VALUE.NUMBER_COUNT
+          ),
+        };
+
+        return lottoItem;
+      });
+
+      setLottoItems(newLottoItems);
+    };
+
+    creatLottoItem();
+  }, [lottoCount]);
 
   return (
     <div className="app d-flex justify-center items-center">
@@ -77,16 +135,9 @@ export default function App() {
         isLottoListToggled={isLottoListToggled}
         setIsLottoListToggled={setIsLottoListToggled}
         openModal={openModal}
-        moneyInput={moneyInput}
-        setMoneyInput={setMoneyInput}
-        increaseWinningCounts={increaseWinningCounts}
-        setWinningCounts={setWinningCounts}
-        lottoCount={lottoCount}
-        setLottoCount={setLottoCount}
-        winningNumbers={winningNumbers}
-        bonusNumber={bonusNumber}
-        setWinningNumbers={setWinningNumbers}
-        setBonusNumber={setBonusNumber}
+        lottoInformation={lottoInformation}
+        setLottoInformation={setLottoInformation}
+        lottoItems={lottoItems}
       />
       {isModalOpened && (
         <Modal closeModal={closeModal}>

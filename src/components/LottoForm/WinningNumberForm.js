@@ -1,4 +1,4 @@
-import { ID, MESSAGE } from '../../constants';
+import { MESSAGE } from '../../constants';
 import { isDuplicatedArray } from '../../utils';
 
 export default function WinningNumberForm({

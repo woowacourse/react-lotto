@@ -2,57 +2,49 @@ import { PurchaseForm, LottoListSection, WinningNumberForm, LotteryCountDown } f
 import LottoItem from './LottoItem';
 
 export default function LottoForm({
-  setLottoCount,
-  moneyInput,
-  setMoneyInput,
   isModalOpened,
-  lottoCount,
-  winningNumbers,
-  bonusNumber,
-  increaseWinningCounts,
   isLottoListToggled,
   setIsLottoListToggled,
-  setWinningNumbers,
-  setBonusNumber,
   openModal,
   announcementDate,
   setAnnouncementDate,
+  lottoInformation,
+  setLottoInformation,
+  lottoItems,
+  creatLottoItem,
 }) {
+  const { lottoCount, winningNumbers, bonusNumber, moneyInput } = lottoInformation;
+
   return (
     <main className="main-container d-flex flex-col">
       <h1 className="text-center m-0">🎱 행운의 로또</h1>
       <PurchaseForm
-        setLottoCount={setLottoCount}
-        moneyInput={moneyInput}
-        setMoneyInput={setMoneyInput}
         lottoCount={lottoCount}
+        setLottoCount={(lottoCount) => setLottoInformation({ ...lottoInformation, lottoCount })}
+        moneyInput={moneyInput}
+        setMoneyInput={(moneyInput) => setLottoInformation({ ...lottoInformation, moneyInput })}
+        creatLottoItem={creatLottoItem}
       />
       <LottoListSection
         isModalOpened={isModalOpened}
+        isLottoListToggled={isLottoListToggled}
+        setIsLottoListToggled={setIsLottoListToggled}
         lottoCount={lottoCount}
         winningNumbers={winningNumbers}
         bonusNumber={bonusNumber}
-        increaseWinningCounts={increaseWinningCounts}
-        isLottoListToggled={isLottoListToggled}
-        setIsLottoListToggled={setIsLottoListToggled}
       >
-        {Array.from({ length: lottoCount }).map((_, index) => (
-          <LottoItem
-            key={index}
-            isToggled={isLottoListToggled}
-            winningNumbers={winningNumbers}
-            bonusNumber={bonusNumber}
-            increaseWinningCounts={increaseWinningCounts}
-            isModalOpened={isModalOpened}
-          />
+        {lottoItems.map(({ id, numbers }) => (
+          <LottoItem key={id} isToggled={isLottoListToggled} numbers={numbers} />
         ))}
       </LottoListSection>
       <WinningNumberForm
         lottoCount={lottoCount}
-        setWinningNumbers={setWinningNumbers}
         winningNumbers={winningNumbers}
+        setWinningNumbers={(winningNumbers) =>
+          setLottoInformation({ ...lottoInformation, winningNumbers })
+        }
         bonusNumber={bonusNumber}
-        setBonusNumber={setBonusNumber}
+        setBonusNumber={(bonusNumber) => setLottoInformation({ ...lottoInformation, bonusNumber })}
         openModal={openModal}
       />
       <LotteryCountDown
