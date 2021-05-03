@@ -3,9 +3,7 @@ import { getIntersectionCount } from '../../utils';
 import LottoNumberItem from '../LottoNumberItem/LottoNumberItem';
 import Styled from './LottoNumberList.style';
 
-const LottoNumberList = (props) => {
-  console.log(props);
-  const { lottoList, winningNumber, bonusNumber } = props;
+const LottoNumberList = ({ lottoList, winningNumber, bonusNumber }) => {
   const winningNumbers = Object.values(winningNumber);
   const isRequiredValidate = !!(winningNumbers.length && bonusNumber);
 

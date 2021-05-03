@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from './Modal.style';
 
-const Modal = (props) => (
+const Modal = ({ children, ...props }) => (
   <Styled.Dimmer onClick={props.onClose}>
     <Styled.Container>
       <Styled.CloseButton onClick={props.onClose}>
@@ -9,7 +9,7 @@ const Modal = (props) => (
           <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
         </svg>
       </Styled.CloseButton>
-      {props.children}
+      {children}
     </Styled.Container>
   </Styled.Dimmer>
 );

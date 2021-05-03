@@ -9,7 +9,7 @@ import { getExistMoneyInput, getExistNewLottoList } from '../../sessionData';
 import { isEmptyObject } from '../../utils';
 import { Styled } from './Main.style';
 
-const Main = (props) => {
+const Main = ({ history }) => {
   const existMoneyInput = getExistMoneyInput();
   const existNewLottoList = getExistNewLottoList();
 
@@ -39,8 +39,6 @@ const Main = (props) => {
   };
 
   const handleClickEnterWinning = () => {
-    const { history } = props;
-    console.log(moneyInput);
     if (!moneyInput || isEmptyObject(lottoList)) {
       alert(ALERT_MESSAGE.NO_PURCHASED_LOTTO);
       return;
