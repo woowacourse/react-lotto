@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CloseButton from './CloseButton';
 
 const Modal = (props) => {
-  const ref = React.createRef();
+  const ref = useRef(null);
 
   useEffect(() => {
     ref.current.focus();
