@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import RoundNumberInput from './common/RoundNumberInput';
-import { LOTTO } from '../constants/lottoData';
-import { hasDuplicatedItem, isInRange } from '../utils/validator';
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/messages';
-import './WinningNumberForm.scss';
+import RoundNumberInput from '../common/RoundNumberInput';
+import { LOTTO } from '../../constants/lottoData';
+import { hasDuplicatedItem, isInRange } from '../../utils/validator';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constants/messages';
+import {
+  WinningNumberFormContainer,
+  WinningNumberInputContainer,
+  NumbersContainer,
+  BonusNumberContainer,
+  CheckMessageContainer,
+  WinningNumberSubmitButton,
+} from './styles.js';
 
 const WINNING_NUMBER_INPUT_NAME = {
   NUMBER: 'winning-number',
@@ -88,11 +95,11 @@ export default class WinningNumberForm extends PureComponent {
 
   render() {
     return (
-      <section className="WinningNumberForm">
+      <WinningNumberFormContainer>
         <h2>당첨 번호 6개와 보너스 번호 1개를 입력해주세요.</h2>
         <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber} onChange={this.onChangeNumber}>
-          <div className="number-input-box">
-            <section className="numbers-box">
+          <WinningNumberInputContainer>
+            <NumbersContainer>
               <h3>당첨 번호</h3>
               <ul>
                 {WINNING_NUMBER_INPUT_LABEL.NUMBERS.map((label) => (
@@ -106,8 +113,8 @@ export default class WinningNumberForm extends PureComponent {
                   </li>
                 ))}
               </ul>
-            </section>
-            <section className="bonus-number-box">
+            </NumbersContainer>
+            <BonusNumberContainer>
               <h3>보너스 번호</h3>
               <RoundNumberInput
                 inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
@@ -115,16 +122,14 @@ export default class WinningNumberForm extends PureComponent {
                 min={LOTTO.MIN_NUMBER}
                 max={LOTTO.MAX_NUMBER}
               />
-            </section>
-          </div>
-          <div className="check-message">
-            <p className={this.state.isCompletedInput ? 'success' : 'failure'}>{this.state.checkMessage}</p>
-          </div>
-          <button className="winning-number-submit-btn" disabled={!this.state.isCompletedInput}>
-            결과 확인하기
-          </button>
+            </BonusNumberContainer>
+          </WinningNumberInputContainer>
+          <CheckMessageContainer isCompletedInput={this.state.isCompletedInput}>
+            <p>{this.state.checkMessage}</p>
+          </CheckMessageContainer>
+          <WinningNumberSubmitButton disabled={!this.state.isCompletedInput}>결과 확인하기</WinningNumberSubmitButton>
         </form>
-      </section>
+      </WinningNumberFormContainer>
     );
   }
 }
