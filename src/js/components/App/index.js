@@ -47,7 +47,7 @@ const App = () => {
 
   return (
     <>
-      <Header className="lotto-header">
+      <Header>
         <h1>🎱 행운의 로또</h1>
       </Header>
       <main>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LOTTO } from '../../constants/lottoData';
 import { ERROR_MESSAGE } from '../../constants/messages';
-import { PriceFormContainer } from './styles';
+import { PriceFormContainer, PriceLabel, SubmitButtonContainer } from './styles';
 
 const validatePrice = (price) => {
   if (Number.isNaN(price)) {
@@ -41,22 +41,14 @@ const PriceForm = ({ createLottoList }) => {
 
   return (
     <PriceFormContainer>
-      <form className="price-form" onSubmit={onSubmitPrice}>
-        <label className="price-label">
-          <span className="price-text">구입할 금액을 입력해주세요.</span>
-          <input
-            className="price-input"
-            name="price"
-            placeholder="구입 금액"
-            type="number"
-            min="1000"
-            max=""
-            step="1000"
-          />
-        </label>
-        <div className="price-submit-btn-box">
-          <button className="price-submit-btn">확인</button>
-        </div>
+      <form onSubmit={onSubmitPrice}>
+        <PriceLabel>
+          <span>구입할 금액을 입력해주세요.</span>
+          <input name="price" placeholder="구입 금액" type="number" min="1000" max="" step="1000" />
+        </PriceLabel>
+        <SubmitButtonContainer>
+          <button>확인</button>
+        </SubmitButtonContainer>
       </form>
     </PriceFormContainer>
   );

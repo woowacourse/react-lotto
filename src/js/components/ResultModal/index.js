@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../../constants/lottoData';
 import { toFixedNumber } from '../../utils/format';
-import { ResultModalContainer } from './styles.js';
+import {
+  ResultModalContainer,
+  ModalInner,
+  CloseButton,
+  CloseIcon,
+  ResultTableContainer,
+  RateOfReturnMessage,
+  ResetButton,
+} from './styles.js';
 
 const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) => {
   const getNumbersMatchCount = (lottoTicket) => {
@@ -66,15 +74,15 @@ const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) =>
 
   return (
     <ResultModalContainer role="dialog" onClick={onCloseModalWithDimmed}>
-      <div className="modal-inner">
-        <button type="button" className="modal-close" onClick={closeResultModal}>
-          <svg viewBox="0 0 40 40">
-            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-          </svg>
-        </button>
+      <ModalInner>
+        <CloseButton type="button" onClick={closeResultModal}>
+          <CloseIcon viewBox="0 0 40 40">
+            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </CloseIcon>
+        </CloseButton>
 
         <h2>🏆 당첨 통계 🏆</h2>
-        <div>
+        <ResultTableContainer>
           <table>
             <thead>
               <tr>
@@ -95,12 +103,14 @@ const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) =>
                 ))}
             </tbody>
           </table>
-        </div>
-        <p className="rate-of-return-message">당신의 총 수익률은 {toFixedNumber(getRateOfReturn(result), 2)}%입니다.</p>
-        <button className="restart-btn" type="reset" onClick={restart}>
+        </ResultTableContainer>
+        <RateOfReturnMessage>
+          당신의 총 수익률은 {toFixedNumber(getRateOfReturn(result), 2)}%입니다.
+        </RateOfReturnMessage>
+        <ResetButton type="reset" onClick={restart}>
           다시 시작하기
-        </button>
-      </div>
+        </ResetButton>
+      </ModalInner>
     </ResultModalContainer>
   );
 };
