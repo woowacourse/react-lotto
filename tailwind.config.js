@@ -2,7 +2,6 @@ const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: 'jit',
   purge: ['./public/**/*.{html,css}', './src/**/*.{js,jsx,html,css}'],
   darkMode: false,
   theme: {
@@ -36,7 +35,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['disabled'],
+    },
   },
   plugins: [],
 };
