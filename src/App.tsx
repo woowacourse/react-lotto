@@ -67,7 +67,7 @@ const App = () => {
     <AppWrapper display="flex">
       <h1 className="app-title">🎱 행운의 로또</h1>
       <PaymentForm handlePayment={handlePayment} />
-      {appState.tickets.length !== 0 && <RemainedTimeIndicator />}
+      {appState.tickets.length > 0 && <RemainedTimeIndicator />}
       <TicketList tickets={appState.tickets} />
       <WinningNumberForm submitWinningNumber={submitWinningNumber} formRef={winningNumberFormRef} />
 
