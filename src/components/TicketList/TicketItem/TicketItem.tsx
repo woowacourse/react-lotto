@@ -5,7 +5,7 @@ interface Props {
   isDetailMode: boolean;
 }
 
-const TicketItem: React.VFC<Props> = ({ ticketNumbers, isDetailMode }) => {
+const TicketItem: React.VFC<Props> = ({ ticketNumbers, isDetailMode = false }) => {
   return (
     <TicketItemWrapper>
       <span className="ticket-icon">🎟️ </span>
