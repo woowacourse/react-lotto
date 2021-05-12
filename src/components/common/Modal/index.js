@@ -3,8 +3,8 @@ import React from 'react';
 import { CloseButton, CloseIcon, ModalContainer, ModalInner } from './styles';
 
 const Modal = ({ children, onClose }) => {
-  const onCloseWithDimmed = ({ target }) => {
-    if (target.classList.contains('ResultModal')) {
+  const onCloseWithDimmed = ({ target, currentTarget }) => {
+    if (target === currentTarget) {
       onClose();
     }
   };
