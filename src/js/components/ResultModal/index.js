@@ -1,16 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../../constants/lottoData';
 import { toFixedNumber } from '../../utils/format';
-import {
-  ResultModalContainer,
-  ModalInner,
-  CloseButton,
-  CloseIcon,
-  ResultTableContainer,
-  RateOfReturnMessage,
-  ResetButton,
-} from './styles.js';
+import Modal from '../common/Modal';
+import { RateOfReturnMessage, ResetButton, ResultTableContainer } from './styles.js';
 
 const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) => {
   const getNumbersMatchCount = (lottoTicket) => {
@@ -64,54 +57,38 @@ const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) =>
     }
   };
 
-  const onCloseModalWithDimmed = ({ target }) => {
-    if (target.classList.contains('ResultModal')) {
-      closeResultModal();
-    }
-  };
-
   const result = getResult() || [];
 
   return (
-    <ResultModalContainer role="dialog" onClick={onCloseModalWithDimmed}>
-      <ModalInner>
-        <CloseButton type="button" onClick={closeResultModal}>
-          <CloseIcon viewBox="0 0 40 40">
-            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
-          </CloseIcon>
-        </CloseButton>
-
-        <h2>🏆 당첨 통계 🏆</h2>
-        <ResultTableContainer>
-          <table>
-            <thead>
-              <tr>
-                <th>일치 갯수</th>
-                <th>당첨금</th>
-                <th>당첨 갯수</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(result)
-                .sort()
-                .map((matchCount) => (
-                  <tr key={matchCount}>
-                    <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
-                    <td>{WINNING_PRIZE_INFO[matchCount].PRIZE.toLocaleString('ko-KR')} 원</td>
-                    <td>{result[matchCount]}장</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </ResultTableContainer>
-        <RateOfReturnMessage>
-          당신의 총 수익률은 {toFixedNumber(getRateOfReturn(result), 2)}%입니다.
-        </RateOfReturnMessage>
-        <ResetButton type="reset" onClick={restart}>
-          다시 시작하기
-        </ResetButton>
-      </ModalInner>
-    </ResultModalContainer>
+    <Modal onClose={closeResultModal}>
+      <h2>🏆 당첨 통계 🏆</h2>
+      <ResultTableContainer>
+        <table>
+          <thead>
+            <tr>
+              <th>일치 갯수</th>
+              <th>당첨금</th>
+              <th>당첨 갯수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(result)
+              .sort()
+              .map((matchCount) => (
+                <tr key={matchCount}>
+                  <td>{WINNING_PRIZE_INFO[matchCount].DESCRIPTION}</td>
+                  <td>{WINNING_PRIZE_INFO[matchCount].PRIZE.toLocaleString('ko-KR')} 원</td>
+                  <td>{result[matchCount]}장</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </ResultTableContainer>
+      <RateOfReturnMessage>당신의 총 수익률은 {toFixedNumber(getRateOfReturn(result), 2)}%입니다.</RateOfReturnMessage>
+      <ResetButton type="reset" onClick={restart}>
+        다시 시작하기
+      </ResetButton>
+    </Modal>
   );
 };
 
