@@ -39,14 +39,6 @@ const GlobalStyle = createGlobalStyle`
   li {
     list-style: none;
   }
-
-  .d-none {
-    display: none;
-  }
-
-  .d-flex {
-    display: flex;
-  }
 `;
 
 export default GlobalStyle;
