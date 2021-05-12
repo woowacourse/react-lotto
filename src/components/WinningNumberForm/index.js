@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import RoundNumberInput from '../common/RoundNumberInput';
+import React, { useRef, useState } from 'react';
 import { LOTTO } from '../../constants/lottoData';
-import { hasDuplicatedItem, isInRange } from '../../utils/validator';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constants/messages';
+import { hasDuplicatedItem, isInRange } from '../../utils/validator';
+import RoundNumberInput from '../common/RoundNumberInput';
 import {
-  WinningNumberFormContainer,
-  WinningNumberInputContainer,
-  NumbersContainer,
   BonusNumberContainer,
   CheckMessageContainer,
+  NumbersContainer,
+  WinningNumberFormContainer,
+  WinningNumberInputContainer,
   WinningNumberSubmitButton,
 } from './styles.js';
 
@@ -42,99 +42,92 @@ const validateWinningNumber = (winningNumberList) => {
   return { isCompletedInput: true, checkMessage: SUCCESS_MESSAGE.INPUT_WINNING_NUMBER };
 };
 
-export default class WinningNumberForm extends PureComponent {
-  constructor(props) {
-    super(props);
+const WinningNumberForm = ({ setWinningNumber, openResultModal }) => {
+  const [isCompletedInput, setIsCompletedInput] = useState(false);
+  const [checkMessage, setCheckMessage] = useState('');
+  const formRef = useRef(null);
 
-    this.state = {
-      isCompletedInput: false,
-      checkMessage: '',
-    };
-
-    this.formRef = React.createRef();
-
-    this.onSubmitWinningNumber = this.onSubmitWinningNumber.bind(this);
-    this.onChangeNumber = this.onChangeNumber.bind(this);
-  }
-
-  getWinningNumberInputValue() {
-    const numbers = [...this.formRef.current[WINNING_NUMBER_INPUT_NAME.NUMBER]].map((ele) => ele.value);
-    const bonusNumber = this.formRef.current[WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER].value;
+  const getWinningNumberInputValue = () => {
+    const numbers = [...formRef.current[WINNING_NUMBER_INPUT_NAME.NUMBER]].map((ele) => ele.value);
+    const bonusNumber = formRef.current[WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER].value;
 
     return { numbers, bonusNumber };
-  }
+  };
 
-  onSubmitWinningNumber(event) {
+  const onSubmitWinningNumber = (event) => {
     event.preventDefault();
 
-    if (!this.state.isCompletedInput) {
+    if (!isCompletedInput) {
       return;
     }
 
-    const { numbers, bonusNumber } = this.getWinningNumberInputValue();
+    const { numbers, bonusNumber } = getWinningNumberInputValue();
 
-    this.props.setWinningNumber({
+    setWinningNumber({
       numbers: numbers.map((number) => Number(number)),
       bonusNumber: Number(bonusNumber),
     });
-    this.props.openResultModal();
-  }
+    openResultModal();
+  };
 
-  onChangeNumber({ target }) {
+  const onChangeNumber = ({ target }) => {
     if (!isInRange(target.value, { min: LOTTO.MIN_NUMBER, max: LOTTO.MAX_NUMBER })) {
-      this.setState({ isCompletedInput: false, checkMessage: ERROR_MESSAGE.OUT_OF_RANGE });
+      setIsCompletedInput(false);
+      setCheckMessage(ERROR_MESSAGE.OUT_OF_RANGE);
 
       return;
     }
 
-    const { numbers, bonusNumber } = this.getWinningNumberInputValue();
+    const { numbers, bonusNumber } = getWinningNumberInputValue();
     const typedNumberList = [...numbers, bonusNumber].filter((num) => num !== '');
 
-    this.setState(validateWinningNumber(typedNumberList));
-  }
+    const validationResult = validateWinningNumber(typedNumberList);
+    setIsCompletedInput(validationResult.isCompletedInput);
+    setCheckMessage(validationResult.checkMessage);
+  };
 
-  render() {
-    return (
-      <WinningNumberFormContainer>
-        <h2>당첨 번호 6개와 보너스 번호 1개를 입력해주세요.</h2>
-        <form ref={this.formRef} onSubmit={this.onSubmitWinningNumber} onChange={this.onChangeNumber}>
-          <WinningNumberInputContainer>
-            <NumbersContainer>
-              <h3>당첨 번호</h3>
-              <ul>
-                {WINNING_NUMBER_INPUT_LABEL.NUMBERS.map((label) => (
-                  <li key={label}>
-                    <RoundNumberInput
-                      inputLabel={label}
-                      inputName={WINNING_NUMBER_INPUT_NAME.NUMBER}
-                      min={LOTTO.MIN_NUMBER}
-                      max={LOTTO.MAX_NUMBER}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </NumbersContainer>
-            <BonusNumberContainer>
-              <h3>보너스 번호</h3>
-              <RoundNumberInput
-                inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
-                inputName={WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER}
-                min={LOTTO.MIN_NUMBER}
-                max={LOTTO.MAX_NUMBER}
-              />
-            </BonusNumberContainer>
-          </WinningNumberInputContainer>
-          <CheckMessageContainer isCompletedInput={this.state.isCompletedInput}>
-            <p>{this.state.checkMessage}</p>
-          </CheckMessageContainer>
-          <WinningNumberSubmitButton disabled={!this.state.isCompletedInput}>결과 확인하기</WinningNumberSubmitButton>
-        </form>
-      </WinningNumberFormContainer>
-    );
-  }
-}
+  return (
+    <WinningNumberFormContainer>
+      <h2>당첨 번호 6개와 보너스 번호 1개를 입력해주세요.</h2>
+      <form ref={formRef} onSubmit={onSubmitWinningNumber} onChange={onChangeNumber}>
+        <WinningNumberInputContainer>
+          <NumbersContainer>
+            <h3>당첨 번호</h3>
+            <ul>
+              {WINNING_NUMBER_INPUT_LABEL.NUMBERS.map((label) => (
+                <li key={label}>
+                  <RoundNumberInput
+                    inputLabel={label}
+                    inputName={WINNING_NUMBER_INPUT_NAME.NUMBER}
+                    min={LOTTO.MIN_NUMBER}
+                    max={LOTTO.MAX_NUMBER}
+                  />
+                </li>
+              ))}
+            </ul>
+          </NumbersContainer>
+          <BonusNumberContainer>
+            <h3>보너스 번호</h3>
+            <RoundNumberInput
+              inputLabel={WINNING_NUMBER_INPUT_LABEL.BONUS_NUMBER}
+              inputName={WINNING_NUMBER_INPUT_NAME.BONUS_NUMBER}
+              min={LOTTO.MIN_NUMBER}
+              max={LOTTO.MAX_NUMBER}
+            />
+          </BonusNumberContainer>
+        </WinningNumberInputContainer>
+        <CheckMessageContainer isCompletedInput={isCompletedInput}>
+          <p>{checkMessage}</p>
+        </CheckMessageContainer>
+        <WinningNumberSubmitButton disabled={!isCompletedInput}>결과 확인하기</WinningNumberSubmitButton>
+      </form>
+    </WinningNumberFormContainer>
+  );
+};
 
 WinningNumberForm.propTypes = {
   setWinningNumber: PropTypes.func.isRequired,
   openResultModal: PropTypes.func.isRequired,
 };
+
+export default React.memo(WinningNumberForm);
