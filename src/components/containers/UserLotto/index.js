@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Lotto from './Lotto';
+import { Lotto } from './Lotto';
 import { ToggleButton } from '../../shared';
 import styles from './style.css';
 

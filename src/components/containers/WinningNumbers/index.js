@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import WinningNumberList from './WinningNumberList';
+import { WinningNumberList } from './WinningNumberList';
 import { Animation, Button, Title } from '../../shared';
 import { getWinningNumber } from './service';
 import { dummyDrawNumber } from '../../../constants';
