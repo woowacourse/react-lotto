@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLoading } from '../../../hooks';
 import { WinningNumberList } from './WinningNumberList';
 import { Animation, Button, Title } from '../../shared';
 import { getWinningNumber } from './service';
@@ -12,23 +13,17 @@ const DRAW_NTH_KEY = 'drwNo';
 const DRAW_DATE_KEY = 'drwNoDate';
 const drawNth = dummyDrawNumber[DRAW_NTH_KEY];
 const drawDate = dummyDrawNumber[DRAW_DATE_KEY].split('-').join('.');
-const initialState = { isLoading: true };
 
 export const WinningNumbers = (props) => {
   const { winningNumber, setWinningNumber, onShowUserResult } = props;
-  const [isLoading, setIsLoading] = useState(initialState.isLoading);
-  const removeLoader = () => {
-    setIsLoading(false);
-  };
+  const { isLoaded, completeLoading } = useLoading(false);
 
   useEffect(() => {
     setWinningNumber(getWinningNumber());
-    setTimeout(removeLoader, COUNT_DOWN_ANIMATION_DURATION);
+    setTimeout(completeLoading, COUNT_DOWN_ANIMATION_DURATION);
   }, []);
 
-  return isLoading ? (
-    <Animation animationData={countDown} height="140px" />
-  ) : (
+  return isLoaded ? (
     <>
       <Title size="small">
         {drawNth}회차 당첨번호 {drawDate}
@@ -38,6 +33,8 @@ export const WinningNumbers = (props) => {
         당첨결과 확인하기
       </Button>
     </>
+  ) : (
+    <Animation animationData={countDown} height="140px" />
   );
 };
 

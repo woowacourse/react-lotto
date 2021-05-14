@@ -1,3 +1,4 @@
+import { useLoading } from './useLoading';
 import { useToggleButton } from './useToggleButton';
 
-export { useToggleButton };
+export { useLoading, useToggleButton };
