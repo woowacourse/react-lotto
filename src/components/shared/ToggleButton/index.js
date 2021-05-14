@@ -6,12 +6,18 @@ import styles from './style.css';
 const cx = classNames.bind(styles);
 
 export default function ToggleButton(props) {
-  const { className, onChange, children, ...rest } = props;
+  const { containerClassname, className, isToggled, onChange, children, ...rest } = props;
 
   return (
-    <div className={cx('ToggleButton', className)}>
+    <div className={cx('ToggleButton', containerClassname)}>
       <label className="ToggleButton__label">
-        <input type="checkbox" className="ToggleButton__input" onChange={onChange} {...rest} />
+        <input
+          type="checkbox"
+          className={cx('ToggleButton__input', className)}
+          checked={isToggled}
+          onChange={onChange}
+          {...rest}
+        />
         <span className="ToggleButton__text">{children}</span>
       </label>
     </div>
@@ -19,7 +25,9 @@ export default function ToggleButton(props) {
 }
 
 ToggleButton.propTypes = {
+  containerClassname: PropTypes.string,
   className: PropTypes.string,
+  isToggled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
