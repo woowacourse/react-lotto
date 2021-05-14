@@ -18,10 +18,22 @@ export default function Button(props) {
 Button.propTypes = {
   className: PropTypes.string,
   children: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['submit', 'reset', 'button']),
   onClick: PropTypes.func,
+  autofocus: PropTypes.bool,
+  disabled: PropTypes.bool,
+  form: PropTypes.string,
+  formAction: PropTypes.string,
+  formEncType: PropTypes.oneOf([
+    'application/x-www-form-urlencoded',
+    'multipart/form-data',
+    'text/plain',
+  ]),
+  formMethod: PropTypes.oneOf(['get', 'post']),
+  name: PropTypes.string,
+  value: PropTypes.string,
 };
 
 Button.defaultProps = {
-  type: 'button',
+  type: 'submit',
 };
