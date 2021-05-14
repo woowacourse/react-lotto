@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { hot } from 'react-hot-loader/root';
+import { LOTTO } from '../../constants/lottoData';
+import { getRandomNumber } from '../../utils/random';
 import PriceForm from '../PriceForm';
 import PurchasedLotto from '../PurchasedLotto';
 import ResultModal from '../ResultModal';
 import WinningNumberForm from '../WinningNumberForm';
-import { getRandomNumber } from '../../utils/random';
-import { LOTTO } from '../../constants/lottoData';
-import { Header } from './styles';
 
-const App = () => {
+const Main = () => {
   const [lottoList, setLottoList] = useState([]);
   const [winningNumber, setWinningNumber] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
@@ -46,29 +44,24 @@ const App = () => {
   };
 
   return (
-    <>
-      <Header>
-        <h1>🎱 행운의 로또</h1>
-      </Header>
-      <main>
-        <PriceForm createLottoList={createLottoList} />
-        {lottoList.length > 0 && (
-          <>
-            <PurchasedLotto lottoList={lottoList} />
-            <WinningNumberForm setWinningNumber={setWinningNumber} openResultModal={openResultModal} />
-          </>
-        )}
-        {isShowModal && (
-          <ResultModal
-            lottoList={lottoList}
-            winningNumber={winningNumber}
-            closeResultModal={closeResultModal}
-            restart={restart}
-          />
-        )}
-      </main>
-    </>
+    <main>
+      <PriceForm createLottoList={createLottoList} />
+      {lottoList.length > 0 && (
+        <>
+          <PurchasedLotto lottoList={lottoList} />
+          <WinningNumberForm setWinningNumber={setWinningNumber} openResultModal={openResultModal} />
+        </>
+      )}
+      {isShowModal && (
+        <ResultModal
+          lottoList={lottoList}
+          winningNumber={winningNumber}
+          closeResultModal={closeResultModal}
+          restart={restart}
+        />
+      )}
+    </main>
   );
 };
 
-export default hot(App);
+export default Main;
