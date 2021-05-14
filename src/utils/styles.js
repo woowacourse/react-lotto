@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import PALETTE from '../constants/palette';
 
 export const CUSTOM_SCROLLBAR = css`
   ::-webkit-scrollbar {
@@ -6,16 +7,16 @@ export const CUSTOM_SCROLLBAR = css`
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: ${PALETTE.GRAY_011};
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgb(184, 184, 184);
+    background: ${PALETTE.GRAY_008};
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(151, 151, 151);
+    background: ${PALETTE.GRAY_006};
   }
 `;

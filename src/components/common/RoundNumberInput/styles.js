@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 export const WinningNumberInputLabel = styled.label`
   position: relative;
@@ -11,26 +12,26 @@ export const WinningNumberInputLabel = styled.label`
   input {
     width: 60px;
     height: 60px;
-    border: 2px solid #aaa;
+    border: 2px solid ${PALETTE.GRAY_006};
     border-radius: 50%;
     text-align: center;
     font-size: 1.2rem;
-  }
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 
-  /* Firefox */
-  input[type='number'] {
-    -moz-appearance: textfield;
-  }
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
 
-  input:focus {
-    outline: none;
-    border-color: var(--color-pink-3);
-    box-shadow: 0 0 0 1px var(--color-pink-3);
+    &:focus {
+      outline: none;
+      border-color: ${PALETTE.PINK_003};
+      box-shadow: 0 0 0 1px ${PALETTE.PINK_003};
+    }
   }
 `;

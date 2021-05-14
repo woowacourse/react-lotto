@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 export const ToggleButtonContainer = styled.label`
   display: inline-block;
@@ -11,7 +12,7 @@ export const ToggleButtonContainer = styled.label`
     position: absolute;
 
     &:checked + span::after {
-      background-color: var(--color-pink-2);
+      background-color: ${PALETTE.PINK_002};
       transform: translateX(16px);
     }
   }

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 export const ModalContainer = styled.section`
   display: flex;
@@ -7,7 +8,7 @@ export const ModalContainer = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${PALETTE.BLACK_TRANSPARENT};
   z-index: 2;
 `;
 
@@ -17,7 +18,7 @@ export const ModalInner = styled.div`
   margin: auto;
   padding: 4rem 3rem;
   overflow: auto;
-  background: #fff;
+  background: white;
   border-radius: 5px;
   position: relative;
   text-align: center;

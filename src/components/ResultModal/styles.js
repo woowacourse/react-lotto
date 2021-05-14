@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../constants/palette';
 
 export const ResultTableContainer = styled.div`
   table {
@@ -6,7 +7,7 @@ export const ResultTableContainer = styled.div`
     border-collapse: collapse;
 
     tr {
-      border-bottom: 1px solid #999;
+      border-bottom: 1px solid ${PALETTE.GRAY_005};
 
       th,
       td {
@@ -15,7 +16,7 @@ export const ResultTableContainer = styled.div`
     }
 
     thead > tr {
-      border-bottom: 2px solid #666;
+      border-bottom: 2px solid ${PALETTE.GRAY_003};
     }
   }
 `;
@@ -24,17 +25,4 @@ export const RateOfReturnMessage = styled.p`
   margin-bottom: 1.5rem;
   font-weight: 500;
   font-size: 1.2rem;
-`;
-
-export const ResetButton = styled.button`
-  width: 100%;
-  height: 50px;
-  border: 0;
-  border-radius: 5px;
-  background-color: var(--color-pink-1);
-  font-size: 1rem;
-
-  &:hover {
-    background-color: var(--color-pink-3);
-  }
 `;

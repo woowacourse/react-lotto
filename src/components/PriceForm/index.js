@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { LOTTO } from '../../constants/lottoData';
 import { ERROR_MESSAGE } from '../../constants/messages';
 import { PriceFormContainer, PriceLabel, SubmitButtonContainer } from './styles';
+import TextButton from '../common/Button/TextButton';
 
 const validatePrice = (price) => {
   if (Number.isNaN(price)) {
@@ -47,7 +48,7 @@ const PriceForm = ({ createLottoList }) => {
           <input name="price" placeholder="구입 금액" type="number" min="1000" max="" step="1000" />
         </PriceLabel>
         <SubmitButtonContainer>
-          <button>확인</button>
+          <TextButton>확인</TextButton>
         </SubmitButtonContainer>
       </form>
     </PriceFormContainer>

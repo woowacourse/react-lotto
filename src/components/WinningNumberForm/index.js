@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { LOTTO } from '../../constants/lottoData';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constants/messages';
 import { hasDuplicatedItem, isInRange } from '../../utils/validator';
+import TextButton from '../common/Button/TextButton';
 import RoundNumberInput from '../common/RoundNumberInput';
 import {
   BonusNumberContainer,
@@ -10,7 +11,6 @@ import {
   NumbersContainer,
   WinningNumberFormContainer,
   WinningNumberInputContainer,
-  WinningNumberSubmitButton,
 } from './styles.js';
 
 const WINNING_NUMBER_INPUT_NAME = {
@@ -119,7 +119,9 @@ const WinningNumberForm = ({ setWinningNumber, openResultModal }) => {
         <CheckMessageContainer isCompletedInput={isCompletedInput}>
           <p>{checkMessage}</p>
         </CheckMessageContainer>
-        <WinningNumberSubmitButton disabled={!isCompletedInput}>결과 확인하기</WinningNumberSubmitButton>
+        <TextButton width="100%" disabled={!isCompletedInput}>
+          결과 확인하기
+        </TextButton>
       </form>
     </WinningNumberFormContainer>
   );

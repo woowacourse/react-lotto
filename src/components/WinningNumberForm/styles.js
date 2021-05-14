@@ -47,29 +47,6 @@ export const WinningNumberInputContainer = styled.div`
 export const CheckMessageContainer = styled.div`
   font-size: 0.9rem;
   margin-left: 1rem;
+  margin-bottom: 1.5rem;
   color: ${({ isCompletedInput }) => (isCompletedInput ? 'green' : 'red')};
-`;
-
-export const WinningNumberSubmitButton = styled.button`
-  font-size: 1rem;
-  width: 100%;
-  height: 50px;
-  border: 0;
-  border-radius: 5px;
-  margin-top: 1.5rem;
-  background-color: var(--color-pink-1);
-
-  &:disabled {
-    background-color: #bbb;
-    color: #555;
-    cursor: not-allowed;
-  }
-
-  &:disabled:hover {
-    background-color: #bbb;
-  }
-
-  &:hover {
-    background-color: var(--color-pink-3);
-  }
 `;

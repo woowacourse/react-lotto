@@ -3,7 +3,8 @@ import React from 'react';
 import { BONUS_COUNT, LOTTO, NUMBER_COUNT, WINNING_COUNT, WINNING_PRIZE_INFO } from '../../constants/lottoData';
 import { toFixedNumber } from '../../utils/format';
 import Modal from '../common/Modal';
-import { RateOfReturnMessage, ResetButton, ResultTableContainer } from './styles.js';
+import TextButton from '../common/Button/TextButton';
+import { RateOfReturnMessage, ResultTableContainer } from './styles.js';
 
 const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) => {
   const getNumbersMatchCount = (lottoTicket) => {
@@ -85,9 +86,9 @@ const ResultModal = ({ lottoList, winningNumber, closeResultModal, restart }) =>
         </table>
       </ResultTableContainer>
       <RateOfReturnMessage>당신의 총 수익률은 {toFixedNumber(getRateOfReturn(result), 2)}%입니다.</RateOfReturnMessage>
-      <ResetButton type="reset" onClick={restart}>
+      <TextButton type="reset" onClick={restart} width="100%">
         다시 시작하기
-      </ResetButton>
+      </TextButton>
     </Modal>
   );
 };
