@@ -16,7 +16,7 @@ export default function Table(props) {
 }
 
 Table.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -34,7 +34,7 @@ export const Thead = (props) => {
 };
 
 Thead.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -48,7 +48,7 @@ export const Tbody = (props) => {
 };
 
 Tbody.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -64,7 +64,7 @@ export const TbodyRow = (props) => {
 };
 
 TbodyRow.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.array.isRequired,
   rowIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
@@ -79,7 +79,7 @@ export const Tr = (props) => {
 };
 
 Tr.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -93,7 +93,7 @@ export const Th = (props) => {
 };
 
 Th.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -107,6 +107,6 @@ export const Td = (props) => {
 };
 
 Td.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

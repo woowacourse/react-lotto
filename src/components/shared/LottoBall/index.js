@@ -27,5 +27,5 @@ export default function LottoBall(props) {
 LottoBall.propTypes = {
   className: PropTypes.string,
   targetNumber: PropTypes.number.isRequired,
-  winningNumbers: PropTypes.array.isRequired,
+  winningNumbers: PropTypes.array,
 };
