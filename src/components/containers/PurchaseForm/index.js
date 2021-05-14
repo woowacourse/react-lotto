@@ -7,25 +7,24 @@ import { MESSAGE } from '../../../constants';
 import './style.css';
 
 const initialState = {
-  validationMessage: '',
-  isInputDisabled: false,
-  isSubmitButtonDisabled: true,
+  inputStatus: {
+    isValidAmount: false,
+    validationMessage: '',
+    isSubmitted: false,
+  },
 };
 
 export const PurchaseForm = (props) => {
   const { setLottoBundle, shouldReset, finishReset } = props;
-  const [validationMessage, setValidationMessage] = useState(initialState.validationMessage);
-  const [isInputDisabled, setIsInputDisabled] = useState(initialState.isInputDisabled);
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(
-    initialState.isSubmitButtonDisabled,
-  );
+  const [inputStatus, setInputStatus] = useState(initialState.inputStatus);
+  const { isValidAmount, validationMessage, isSubmitted } = inputStatus;
+
   const paymentInput = createRef();
   const onChangeInput = (e) => {
     const money = e.target.value;
-    const { validationMessage, isSubmitButtonDisabled } = validatePurchaseAmount(money);
+    const { isValidAmount, validationMessage } = validatePurchaseAmount(money);
 
-    setValidationMessage(validationMessage);
-    setIsSubmitButtonDisabled(isSubmitButtonDisabled);
+    setInputStatus((prevState) => ({ ...prevState, isValidAmount, validationMessage }));
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,14 +36,13 @@ export const PurchaseForm = (props) => {
       alert(MESSAGE.PURCHASE_AMOUNT_HAS_CHANGE(change));
     }
     setLottoBundle(getLottoBundle(numOfLotto));
-    setIsInputDisabled(true);
-    setIsSubmitButtonDisabled(true);
+    setInputStatus((prevState) => ({ ...prevState, isSubmitted: true }));
   };
 
   useEffect(() => {
     paymentInput.current.focus();
     paymentInput.current.value = '';
-    setIsInputDisabled(false);
+    setInputStatus(() => initialState.inputStatus);
     finishReset();
   }, [shouldReset]);
 
@@ -62,11 +60,15 @@ export const PurchaseForm = (props) => {
             placeholder="구입 금액"
             onChange={onChangeInput}
             ref={paymentInput}
-            disabled={isInputDisabled}
+            disabled={isSubmitted}
           />
         </label>
         <div className="PurchaseForm__button_wrapper">
-          <Button type="submit" className="PurchaseForm__button" disabled={isSubmitButtonDisabled}>
+          <Button
+            type="submit"
+            className="PurchaseForm__button"
+            disabled={!isValidAmount || isSubmitted}
+          >
             구매
           </Button>
         </div>

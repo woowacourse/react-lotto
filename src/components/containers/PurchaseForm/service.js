@@ -12,20 +12,20 @@ export const validatePurchaseAmount = (money) => {
   if (money % MIN_MONETARY_UNIT > 0) {
     return {
       validationMessage: MESSAGE.INVALID_PURCHASE_AMOUNT_UNDER_MONETARY_UNIT,
-      isSubmitButtonDisabled: true,
+      isValidAmount: false,
     };
   }
 
   if (money < LOTTO_UNIT_PRICE) {
     return {
       validationMessage: MESSAGE.INVALID_PURCHASE_AMOUNT_UNDER_LOTTO_UNIT_PRICE,
-      isSubmitButtonDisabled: true,
+      isValidAmount: false,
     };
   }
 
   return {
     validationMessage: '',
-    isSubmitButtonDisabled: false,
+    isValidAmount: true,
   };
 };
 
