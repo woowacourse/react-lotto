@@ -5,11 +5,11 @@ import styles from './style.css';
 
 const cx = classNames.bind(styles);
 
-export default function Button({ className, children, ...props }) {
-  const buttonClassnames = cx('Button', `${className}`);
+export default function Button(props) {
+  const { className, children, ...rest } = props;
 
   return (
-    <button className={buttonClassnames} {...props}>
+    <button className={cx('Button', className)} {...rest}>
       {children}
     </button>
   );
@@ -23,8 +23,5 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  className: '',
-  children: '',
   type: 'button',
-  onClick: () => {},
 };

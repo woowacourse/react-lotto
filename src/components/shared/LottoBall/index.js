@@ -6,8 +6,9 @@ import styles from './style.css';
 
 const cx = classNames.bind(styles);
 
-export default function LottoBall({ targetNumber: num, winningNumbers }) {
-  const lottoBallClass = cx({
+export default function LottoBall(props) {
+  const { className, targetNumber: num, winningNumbers, ...rest } = props;
+  const classnames = cx(className, {
     'LottoBall--zeros': num < 10,
     'LottoBall--tens': num >= 10 && num < 20,
     'LottoBall--twenties': num >= 20 && num < 30,
@@ -16,10 +17,15 @@ export default function LottoBall({ targetNumber: num, winningNumbers }) {
     'LottoBall--not_matched': winningNumbers && !winningNumbers.includes(num),
   });
 
-  return <Ball className={lottoBallClass}>{num.toString().padStart(2, '0')}</Ball>;
+  return (
+    <Ball className={classnames} {...rest}>
+      {num.toString().padStart(2, '0')}
+    </Ball>
+  );
 }
 
 LottoBall.propTypes = {
+  className: PropTypes.string,
   targetNumber: PropTypes.number.isRequired,
-  winningNumbers: PropTypes.array,
+  winningNumbers: PropTypes.array.isRequired,
 };

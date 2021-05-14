@@ -2,14 +2,16 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import PropTypes from 'prop-types';
 
-export default function Animation({ animationData, loop, ...others }) {
+export default function Animation(props) {
+  const { animationData, loop, ...rest } = props;
+
   return (
     <Lottie
       options={{
         animationData,
         loop,
       }}
-      {...others}
+      {...rest}
     />
   );
 }

@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './style.css';
+import classNames from 'classnames/bind';
+import styles from './style.css';
 
-export default function ToggleButton({ onChange, children }) {
+const cx = classNames.bind(styles);
+
+export default function ToggleButton(props) {
+  const { className, onChange, children, ...rest } = props;
+
   return (
-    <div className="ToggleButton">
+    <div className={cx('ToggleButton', className)}>
       <label className="ToggleButton__label">
-        <input type="checkbox" className="ToggleButton__input" onChange={onChange} />
+        <input type="checkbox" className="ToggleButton__input" onChange={onChange} {...rest} />
         <span className="ToggleButton__text">{children}</span>
       </label>
     </div>
@@ -14,6 +19,7 @@ export default function ToggleButton({ onChange, children }) {
 }
 
 ToggleButton.propTypes = {
-  onChange: PropTypes.func,
+  className: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
   children: PropTypes.node,
 };

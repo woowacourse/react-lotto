@@ -5,18 +5,17 @@ import styles from './style.css';
 
 const cx = classNames.bind(styles);
 
-export default function Ball({ className, children }) {
-  const ballClassnames = cx('Ball', `${className}`);
+export default function Ball(props) {
+  const { className, children, ...rest } = props;
 
-  return <span className={ballClassnames}>{children}</span>;
+  return (
+    <span className={cx('Ball', className)} {...rest}>
+      {children}
+    </span>
+  );
 }
 
 Ball.propTypes = {
   className: PropTypes.string,
   children: PropTypes.string,
-};
-
-Ball.defaultProps = {
-  className: '',
-  children: '',
 };
