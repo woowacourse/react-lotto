@@ -8,18 +8,18 @@ import styles from './style.css';
 const cx = classNames.bind(styles);
 
 export default function Modal(props) {
-  const { className, isLoading, loading, children, onClickDimmedArea, ...rest } = props;
+  const { className, isOpen, isLoaded, loading, children, onClickDimmedArea, ...rest } = props;
   return (
     <div
-      className={cx('Modal', 'Modal--open', className)}
+      className={cx('Modal', className, { 'Modal--open': isOpen })}
       onClick={onClickDimmedArea}
       role="dialog"
       {...rest}
     >
-      {isLoading ? (
-        <div className="Modal__Inner--loading">{loading}</div>
-      ) : (
+      {isLoaded ? (
         <div className="Modal__Inner">{children}</div>
+      ) : (
+        <div className="Modal__Inner--loading">{loading}</div>
       )}
     </div>
   );
@@ -27,12 +27,14 @@ export default function Modal(props) {
 
 Modal.propTypes = {
   className: PropTypes.string,
-  isLoading: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  isLoaded: PropTypes.bool,
   loading: PropTypes.node,
   children: PropTypes.node,
   onClickDimmedArea: PropTypes.func,
 };
 
 Modal.defaultProps = {
-  isLoading: false,
+  isOpen: false,
+  isLoaded: false,
 };

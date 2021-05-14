@@ -4,34 +4,31 @@ import { UserLotto } from '../containers/UserLotto';
 import { WinningNumbers } from '../containers/WinningNumbers';
 import { UserResult } from '../containers/UserResult';
 import { Title } from '../shared';
+import { useModal } from '../../hooks';
 import './style.css';
 
 const initialState = {
   lottoBundle: [],
   winningNumber: {},
   shouldReset: false,
-  isShowingUserResult: false,
 };
 
 export const App = () => {
   const [lottoBundle, setLottoBundle] = useState(initialState.lottoBundle);
+  const isPurchased = lottoBundle.length > 0;
   const [winningNumber, setWinningNumber] = useState(initialState.winningNumber);
   const [shouldReset, setShouldReset] = useState(initialState.shouldReset);
-  const [isShowingUserResult, setIsShowingUserResult] = useState(initialState.isShowingUserResult);
-  const isPurchased = Boolean(lottoBundle.length);
-
-  const onShowUserResult = () => {
-    setIsShowingUserResult(true);
-  };
-
-  const onCloseUserResult = () => {
-    setIsShowingUserResult(false);
-  };
+  const {
+    isOpen: isUserResultOpen,
+    open: showUserResult,
+    close: hideUserResult,
+    ...restUseModal
+  } = useModal();
 
   const onReset = () => {
     setLottoBundle(initialState.lottoBundle);
     setWinningNumber(initialState.winningNumber);
-    setIsShowingUserResult(initialState.isShowingUserResult);
+    hideUserResult();
     setShouldReset(true);
   };
 
@@ -56,16 +53,16 @@ export const App = () => {
             <WinningNumbers
               winningNumber={winningNumber}
               setWinningNumber={setWinningNumber}
-              onShowUserResult={onShowUserResult}
+              onShowUserResult={showUserResult}
             />
           </>
         )}
       </main>
-      {isShowingUserResult && (
+      {isUserResultOpen && (
         <UserResult
+          restUseModal={{ hideUserResult, ...restUseModal }}
           lottoBundle={lottoBundle}
           winningNumber={winningNumber}
-          onCloseUserResult={onCloseUserResult}
           onReset={onReset}
         />
       )}
