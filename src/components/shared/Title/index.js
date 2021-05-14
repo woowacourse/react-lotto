@@ -6,7 +6,7 @@ import styles from './style.css';
 const cx = classNames.bind(styles);
 
 export default function Title({ as, size, children }) {
-  const TitleClass = cx('Title', { [`Title--${size}`]: Boolean(size) });
+  const TitleClass = cx('Title', { [`Title--${size}`]: size });
 
   switch (as) {
     case 'h1':
