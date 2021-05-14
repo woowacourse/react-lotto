@@ -7,6 +7,7 @@ import ResultModal from '../ResultModal';
 import WinningNumberForm from '../WinningNumberForm';
 
 const Main = () => {
+  const [price, setPrice] = useState(0);
   const [lottoList, setLottoList] = useState([]);
   const [winningNumber, setWinningNumber] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
@@ -21,9 +22,9 @@ const Main = () => {
     return [...numberList].sort((a, b) => a - b);
   };
 
-  const createLottoList = (count = 0) => {
+  const createLottoList = () => {
     try {
-      setLottoList([...Array(count)].map(createLotto));
+      setLottoList([...Array(Math.floor(price / LOTTO.PRICE))].map(createLotto));
     } catch (e) {
       setLottoList([]);
     }
@@ -38,6 +39,7 @@ const Main = () => {
   };
 
   const restart = () => {
+    setPrice(0);
     setLottoList([]);
     setWinningNumber({});
     setIsShowModal(false);
@@ -45,7 +47,7 @@ const Main = () => {
 
   return (
     <main>
-      <PriceForm createLottoList={createLottoList} />
+      <PriceForm price={price} setPrice={setPrice} createLottoList={createLottoList} />
       {lottoList.length > 0 && (
         <>
           <PurchasedLotto lottoList={lottoList} />
