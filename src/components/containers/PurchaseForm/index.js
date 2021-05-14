@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { createRef, useState, useEffect } from 'react';
+import React, { createRef as useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../shared';
 import { validatePurchaseAmount, payForLotto, getLottoBundle } from './service';
@@ -19,7 +19,7 @@ export const PurchaseForm = (props) => {
   const [inputStatus, setInputStatus] = useState(initialState.inputStatus);
   const { isValidAmount, validationMessage, isSubmitted } = inputStatus;
 
-  const paymentInput = createRef();
+  const paymentInput = useRef(null);
   const onChangeInput = (e) => {
     const money = e.target.value;
     const { isValidAmount, validationMessage } = validatePurchaseAmount(money);
