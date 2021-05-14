@@ -29,5 +29,5 @@ export default function Title({ as, size, children }) {
 Title.propTypes = {
   as: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.any,
+  children: PropTypes.node,
 };

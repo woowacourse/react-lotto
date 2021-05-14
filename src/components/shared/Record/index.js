@@ -13,5 +13,5 @@ export default function Record({ label, children }) {
 
 Record.propTypes = {
   label: PropTypes.string.isRequired,
-  children: PropTypes.any.isRequired,
+  children: PropTypes.node.isRequired,
 };

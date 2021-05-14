@@ -15,5 +15,5 @@ export default function ToggleButton({ onChange, children }) {
 
 ToggleButton.propTypes = {
   onChange: PropTypes.func,
-  children: PropTypes.any,
+  children: PropTypes.node,
 };
