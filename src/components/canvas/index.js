@@ -23,100 +23,104 @@ class Canvas extends React.Component {
     ];
 
     let isBallDrawn = false;
-    const ball = [];
+    const balls = [];
     const ballCount = 30;
-    [...new Array(ballCount)].forEach((_, i) => {
-      ball[i] = {
-        x: 0,
-        y: 0,
-        dx: 2,
-        dy: -2,
-        color: colors[i],
-      };
-    });
-
-    const ballRadius = 15;
-
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    ctx.canvas.width = 200;
-    ctx.canvas.height = 200;
-
-    const degrees = [0, 0, 0, 0, 0];
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    try {
       [...new Array(ballCount)].forEach((_, i) => {
-        const currentDegreeIdx = i % 5;
-        const currentDegree = degrees[currentDegreeIdx];
+        balls[i] = {
+          x: 0,
+          y: 0,
+          dx: 2,
+          dy: -2,
+          color: colors[i],
+        };
+      });
 
-        if (isBallDrawn === false) {
-          ball[i].x = Math.random() * canvas.width - ballRadius;
-          ball[i].y = Math.random() * canvas.height - ballRadius;
-        }
+      const ballRadius = 15;
 
-        ctx.beginPath();
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
 
-        ctx.save();
-        ctx.translate(ball[i].x, ball[i].y);
-        ctx.rotate(currentDegree);
-        ctx.translate(-ball[i].x, -ball[i].y);
+      ctx.canvas.width = 200;
+      ctx.canvas.height = 200;
 
-        ctx.arc(ball[i].x, ball[i].y, ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = ball[i].color;
-        ctx.fill();
-        ctx.strokeStyle = '#000000';
-        ctx.stroke();
+      const degrees = [0, 0, 0, 0, 0];
 
-        ctx.font = '.7em Noto Sans KR';
-        ctx.fillStyle = 'white';
-        ctx.textAlign = 'center';
-        ctx.fillText(i, ball[i].x, ball[i].y);
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        [...new Array(ballCount)].forEach((_, i) => {
+          const currentDegreeIdx = i % 5;
+          const currentDegree = degrees[currentDegreeIdx];
 
-        ctx.restore();
+          if (isBallDrawn === false) {
+            balls[i].x = Math.random() * canvas.width - ballRadius;
+            balls[i].y = Math.random() * canvas.height - ballRadius;
+          }
 
-        ctx.closePath();
-        degrees.forEach((degree, idx) => {
-          if (idx % 2 === 0) {
-            degrees[idx] = degree + 0.001 * (idx + 1);
-          } else {
-            degrees[idx] = degree - 0.001 * (idx + 1);
+          ctx.beginPath();
+
+          ctx.save();
+          ctx.translate(balls[i].x, balls[i].y);
+          ctx.rotate(currentDegree);
+          ctx.translate(-balls[i].x, -balls[i].y);
+
+          ctx.arc(balls[i].x, balls[i].y, ballRadius, 0, Math.PI * 2);
+          ctx.fillStyle = balls[i].color;
+          ctx.fill();
+          ctx.strokeStyle = '#000000';
+          ctx.stroke();
+
+          ctx.font = '.7em Noto Sans KR';
+          ctx.fillStyle = 'white';
+          ctx.textAlign = 'center';
+          ctx.fillText(i, balls[i].x, balls[i].y);
+
+          ctx.restore();
+
+          ctx.closePath();
+          degrees.forEach((degree, idx) => {
+            if (idx % 2 === 0) {
+              degrees[idx] = degree + 0.001 * (idx + 1);
+            } else {
+              degrees[idx] = degree - 0.001 * (idx + 1);
+            }
+          });
+        });
+
+        move();
+        rebound();
+        requestAnimationFrame(draw);
+      }
+
+      function move() {
+        [...new Array(ballCount)].forEach((_, i) => {
+          balls[i].x = balls[i].x + balls[i].dx;
+          balls[i].y = balls[i].y + balls[i].dy;
+          isBallDrawn = true;
+        });
+      }
+
+      function rebound() {
+        [...new Array(ballCount)].forEach((_, i) => {
+          if (
+            balls[i].x + balls[i].dx > canvas.width - ballRadius ||
+            balls[i].x + balls[i].dx < ballRadius
+          ) {
+            balls[i].dx = -balls[i].dx + Math.random();
+          }
+          if (
+            balls[i].y + balls[i].dy > canvas.height - ballRadius ||
+            balls[i].y + balls[i].dy < ballRadius
+          ) {
+            balls[i].dy = -balls[i].dy + Math.random() + 0.2;
           }
         });
-      });
+      }
 
-      move();
-      rebound();
-      requestAnimationFrame(draw);
+      draw();
+    } catch (error) {
+      console.log(error);
     }
-
-    function move() {
-      [...new Array(ballCount)].forEach((_, i) => {
-        ball[i].x = ball[i].x + ball[i].dx;
-        ball[i].y = ball[i].y + ball[i].dy;
-        isBallDrawn = true;
-      });
-    }
-
-    function rebound() {
-      [...new Array(ballCount)].forEach((_, i) => {
-        if (
-          ball[i].x + ball[i].dx > canvas.width - ballRadius ||
-          ball[i].x + ball[i].dx < ballRadius
-        ) {
-          ball[i].dx = -ball[i].dx + Math.random();
-        }
-        if (
-          ball[i].y + ball[i].dy > canvas.height - ballRadius ||
-          ball[i].y + ball[i].dy < ballRadius
-        ) {
-          ball[i].dy = -ball[i].dy + Math.random() + 0.2;
-        }
-      });
-    }
-
-    draw();
   }
 }
 
