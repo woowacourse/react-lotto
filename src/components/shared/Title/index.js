@@ -58,6 +58,6 @@ export default function Title(props) {
 Title.propTypes = {
   className: PropTypes.string,
   as: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   children: PropTypes.node.isRequired,
 };
