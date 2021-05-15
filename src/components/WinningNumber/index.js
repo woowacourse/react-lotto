@@ -47,6 +47,7 @@ class WinningNumber extends React.Component {
   }
 
   onChangeWinningNumber(e, index) {
+    if (typeof index !== 'number') return;
     const inputValue = Number(e.target.value.slice(0, 2));
 
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
