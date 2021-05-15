@@ -1,0 +1,17 @@
+.Title {
+  margin: 1.5rem 0;
+  text-align: center;
+  color: #333;
+}
+
+.Title--small {
+  font-size: 0.9rem;
+}
+
+.Title--medium {
+  font-size: 1.5rem;
+}
+
+.Title--large {
+  font-size: 2rem;
+}

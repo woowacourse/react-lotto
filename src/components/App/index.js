@@ -1,88 +1,71 @@
-/* eslint-disable react/sort-comp */
-import { Component } from 'react';
-import PurchaseForm from '../containers/PurchaseForm';
-import UserLotto from '../containers/UserLotto';
-import WinningNumbers from '../containers/WinningNumbers';
-import UserResult from '../containers/UserResult';
-import { createLotto } from './service';
+import React, { useState } from 'react';
+import { PurchaseForm } from '../containers/PurchaseForm';
+import { UserLotto } from '../containers/UserLotto';
+import { WinningNumbers } from '../containers/WinningNumbers';
+import { UserResult } from '../containers/UserResult';
+import { Title } from '../shared';
+import { useModal } from '../../hooks';
 import './style.css';
 
 const initialState = {
   lottoBundle: [],
   winningNumber: {},
   shouldReset: false,
-  isShowingUserResult: false,
 };
-export default class App extends Component {
-  constructor() {
-    super();
 
-    this.state = { ...initialState };
-    this.onPurchaseLotto = this.onPurchaseLotto.bind(this);
-    this.setWinningNumber = this.setWinningNumber.bind(this);
-    this.onShowUserResult = this.onShowUserResult.bind(this);
-    this.onCloseUserResult = this.onCloseUserResult.bind(this);
-    this.onReset = this.onReset.bind(this);
-    this.didReset = this.didReset.bind(this);
-  }
+export const App = () => {
+  const [lottoBundle, setLottoBundle] = useState(initialState.lottoBundle);
+  const isPurchased = lottoBundle.length > 0;
+  const [winningNumber, setWinningNumber] = useState(initialState.winningNumber);
+  const [shouldReset, setShouldReset] = useState(initialState.shouldReset);
+  const {
+    isOpen: isUserResultOpen,
+    open: showUserResult,
+    close: hideUserResult,
+    ...restUseModal
+  } = useModal();
 
-  onPurchaseLotto({ numOfLotto }) {
-    this.setState({ lottoBundle: [...Array(numOfLotto)].map(() => createLotto()) });
-  }
+  const onReset = () => {
+    setLottoBundle(initialState.lottoBundle);
+    setWinningNumber(initialState.winningNumber);
+    hideUserResult();
+    setShouldReset(true);
+  };
 
-  setWinningNumber({ winningNumber }) {
-    this.setState({ winningNumber });
-  }
+  const finishReset = () => {
+    setShouldReset(false);
+  };
 
-  onShowUserResult() {
-    this.setState({ isShowingUserResult: true });
-  }
-
-  onCloseUserResult() {
-    this.setState({ isShowingUserResult: false });
-  }
-
-  onReset() {
-    this.setState({ ...initialState, shouldReset: true });
-  }
-
-  didReset() {
-    this.setState({ shouldReset: false });
-  }
-
-  render() {
-    const { lottoBundle, winningNumber, isShowingUserResult, shouldReset } = this.state;
-    const isPurchased = Boolean(lottoBundle.length);
-
-    return (
-      <>
-        <main className="App__main">
-          <h1 className="App__title">행운의 로또</h1>
-          <PurchaseForm
-            lottoBundle={lottoBundle}
-            onPurchaseLotto={this.onPurchaseLotto}
-            shouldReset={shouldReset}
-            didReset={this.didReset}
-          />
-          {isPurchased && (
-            <>
-              <UserLotto lottoBundle={this.state.lottoBundle} />
-              <WinningNumbers
-                setWinningNumber={this.setWinningNumber}
-                onShowUserResult={this.onShowUserResult}
-              />
-            </>
-          )}
-        </main>
-        {isShowingUserResult && (
-          <UserResult
-            lottoBundle={lottoBundle}
-            winningNumber={winningNumber}
-            onCloseUserResult={this.onCloseUserResult}
-            onReset={this.onReset}
-          />
+  return (
+    <>
+      <main className="App__main">
+        <Title as="h1" size="medium">
+          행운의 로또
+        </Title>
+        <PurchaseForm
+          setLottoBundle={setLottoBundle}
+          shouldReset={shouldReset}
+          finishReset={finishReset}
+        />
+        {isPurchased && (
+          <>
+            <UserLotto lottoBundle={lottoBundle} />
+            <WinningNumbers
+              winningNumber={winningNumber}
+              setWinningNumber={setWinningNumber}
+              onShowUserResult={showUserResult}
+            />
+          </>
         )}
-      </>
-    );
-  }
-}
+      </main>
+      {isUserResultOpen && (
+        <UserResult
+          restUseModal={{ hideUserResult, ...restUseModal }}
+          lottoBundle={lottoBundle}
+          winningNumber={winningNumber}
+          onReset={onReset}
+        />
+      )}
+    </>
+  );
+};

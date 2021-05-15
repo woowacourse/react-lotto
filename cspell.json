@@ -1,0 +1,19 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": [
+    "theads",
+    "noninteractive",
+    "labelledby",
+    "describedby",
+    "semistandard",
+    "noopener",
+    "noreferrer",
+    "Viewports",
+    "Parens",
+    "Strapi",
+    "classname",
+    "browserslist"
+  ],
+  "flagWords": []
+}

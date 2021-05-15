@@ -1,15 +1,23 @@
-import { Component } from 'react';
-import './style.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import styles from './style.css';
 
-export default class Record extends Component {
-  render() {
-    const { label, children } = this.props;
+const cx = classNames.bind(styles);
 
-    return (
-      <p className="Record">
-        <span className="Record__label">{label}</span>
-        <span className="Record__value">{children}</span>
-      </p>
-    );
-  }
+export default function Record(props) {
+  const { className, label, children, ...rest } = props;
+
+  return (
+    <p className={cx('Record', className)} {...rest}>
+      <span className="Record__label">{label}</span>
+      <span className="Record__value">{children}</span>
+    </p>
+  );
 }
+
+Record.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
