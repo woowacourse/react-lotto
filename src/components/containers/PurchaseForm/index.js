@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { createRef as useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../shared';
 import { validatePurchaseAmount, payForLotto, getLottoBundle } from './service';
@@ -19,7 +19,7 @@ export const PurchaseForm = (props) => {
   const [inputStatus, setInputStatus] = useState(initialState.inputStatus);
   const { isValidAmount, validationMessage, isSubmitted } = inputStatus;
 
-  const paymentInput = useRef(null);
+  const paymentInputRef = useRef(null);
   const onChangeInput = (e) => {
     const money = e.target.value;
     const { isValidAmount, validationMessage } = validatePurchaseAmount(money);
@@ -40,8 +40,8 @@ export const PurchaseForm = (props) => {
   };
 
   useEffect(() => {
-    paymentInput.current.focus();
-    paymentInput.current.value = '';
+    paymentInputRef.current.focus();
+    paymentInputRef.current.value = '';
     setInputStatus(() => initialState.inputStatus);
     finishReset();
   }, [shouldReset]);
@@ -59,12 +59,13 @@ export const PurchaseForm = (props) => {
             max="100000"
             placeholder="구입 금액"
             onChange={onChangeInput}
-            ref={paymentInput}
+            ref={paymentInputRef}
             disabled={isSubmitted}
           />
         </label>
         <div className="PurchaseForm__button_wrapper">
           <Button
+            hi="hi"
             type="submit"
             className="PurchaseForm__button"
             disabled={!isValidAmount || isSubmitted}
