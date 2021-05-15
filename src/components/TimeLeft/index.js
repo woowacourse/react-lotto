@@ -10,12 +10,13 @@ class TimeLeft extends React.Component {
       now: new Date(),
       announceDate: new Date(),
     };
-    this.date = ['April', 24, 2021, '20:45:00'];
+    // this.date = ['April', 24, 2021, '20:45:00'];
+    this.date = [2021, 4, 24, 20, 45, 0];
     this.ticking = null;
   }
 
   componentDidMount() {
-    this.setState({ announceDate: new Date(this.date.join(' ')) });
+    this.setState({ announceDate: new Date(...this.date) });
   }
 
   tick() {
