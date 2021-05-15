@@ -8,7 +8,7 @@ import getRandomNumber from './utils/random-number';
 import Canvas from './components/Canvas';
 import TimeLeft from './components/TimeLeft';
 import { hideScroll, showScroll } from './utils/scroll';
-import muyahoAudio from './sound/muyaho.mp3';
+import audio_muyaho from './sound/muyaho.mp3';
 import Lottie from 'react-lottie';
 import coinSpin from './animation/coinSpin.json';
 import './style.scss';
@@ -29,7 +29,7 @@ class App extends React.Component {
     };
 
     this.moneyInputRef = React.createRef();
-    this.audio = new Audio(muyahoAudio);
+    this.audio = new Audio(audio_muyaho);
 
     this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
     this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
@@ -115,7 +115,7 @@ class App extends React.Component {
           <>
             <TimeLeft />
             <audio controls autoPlay hidden>
-              <source src={muyahoAudio} type='audio/mp3' />
+              <source src={audio_muyaho} type='audio/mp3' />
             </audio>
           </>
         )}
