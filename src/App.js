@@ -67,7 +67,7 @@ class App extends React.Component {
       isModalOpen: true,
     });
 
-    hideScroll();
+    hideScroll('modal-opened');
   }
 
   handleResetButtonClick() {
@@ -76,7 +76,7 @@ class App extends React.Component {
       isModalOpen: false,
     });
 
-    showScroll();
+    showScroll('modal-opened');
   }
 
   handleModalClose() {
@@ -84,7 +84,7 @@ class App extends React.Component {
       isModalOpen: false,
     });
 
-    showScroll();
+    showScroll('modal-opened');
   }
 
   makeAutoTicket() {
