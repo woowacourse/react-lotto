@@ -21,9 +21,11 @@ class App extends React.Component {
       isModalOpen: false,
       isLoading: false,
       moneyAmount: 0,
-      bonusNumber: 0,
       receipt: [],
-      winningNumber: [],
+      lotto: {
+        winningNumbers: [],
+        bonusNumber: 0,
+      },
     };
 
     this.moneyInputRef = React.createRef();
@@ -51,8 +53,10 @@ class App extends React.Component {
 
   handleWinningNumberSubmit(winningNumbers, bonusNumber) {
     this.setState({
-      winningNumber: winningNumbers,
-      bonusNumber: bonusNumber,
+      lotto: {
+        winningNumbers,
+        bonusNumber,
+      },
     });
   }
 
@@ -142,8 +146,7 @@ class App extends React.Component {
               />
               {this.state.isModalOpen && (
                 <Modal
-                  winningNumber={this.state.winningNumber}
-                  bonusNumber={this.state.bonusNumber}
+                  lotto={this.state.lotto}
                   receipt={this.state.receipt}
                   moneyAmount={this.state.moneyAmount}
                   onResetButtonClick={this.handleResetButtonClick}

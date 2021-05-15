@@ -20,11 +20,11 @@ class Modal extends React.Component {
   }
 
   countWinningBall(ticket) {
-    return ticket.filter((ball) => this.props.winningNumber.includes(ball)).length;
+    return ticket.filter((ball) => this.props.lotto.winningNumbers.includes(ball)).length;
   }
 
   countBonusBall(ticket) {
-    const winningBonusBall = ticket.find((ball) => ball === this.props.bonusNumber);
+    const winningBonusBall = ticket.find((ball) => ball === this.props.lotto.bonusNumber);
 
     return winningBonusBall ? 1 : 0;
   }
@@ -60,7 +60,7 @@ class Modal extends React.Component {
             <h1 className='modal-header'>슈퍼 로또</h1>
             <h1 className='modal-sub-header'>당첨 결과 번호</h1>
             <div className='result-numbers-container'>
-              {this.props.winningNumber.map((number) => (
+              {this.props.lotto.winningNumbers.map((number) => (
                 <LotteryBall
                   key={uuidv4()}
                   numberValue={number}
@@ -76,10 +76,10 @@ class Modal extends React.Component {
               }
               {
                 <LotteryBall
-                  numberValue={this.props.bonusNumber}
+                  numberValue={this.props.lotto.bonusNumber}
                   toggled={true}
                   colored={true}
-                  ballColor={chooseBallColor(this.props.bonusNumber)}
+                  ballColor={chooseBallColor(this.props.lotto.bonusNumber)}
                 />
               }
             </div>
@@ -87,8 +87,8 @@ class Modal extends React.Component {
               {this.props.receipt.map((ticket) => (
                 <PurchaseNumberItem
                   key={uuidv4()}
-                  bonusNumber={this.props.bonusNumber}
-                  winningNumber={this.props.winningNumber}
+                  bonusNumber={this.props.lotto.bonusNumber}
+                  winningNumber={this.props.lotto.winningNumbers}
                   ticketNumbers={ticket}
                   toggled={true}
                   winningBallCount={this.countWinningBall(ticket)}
