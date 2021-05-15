@@ -23,7 +23,7 @@ class App extends React.Component {
       moneyAmount: 0,
       receipt: [],
       lotto: {
-        winningNumbers: [],
+        winningNumbers: new Array(LOTTERY_BALL_LENGTH).fill(0),
         bonusNumber: 0,
       },
     };
@@ -33,11 +33,21 @@ class App extends React.Component {
 
     this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
     this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
+    this.handleSetWinningNumbers = this.handleSetWinningNumbers.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentWillUnmount() {
     this.moneyInputRef = null;
+  }
+
+  handleSetWinningNumbers({ winningNumbers, bonusNumber }) {
+    this.setState({
+      lotto: {
+        winningNumbers,
+        bonusNumber,
+      },
+    });
   }
 
   handleMoneySubmit(money) {
@@ -143,9 +153,11 @@ class App extends React.Component {
             <>
               <Receipt receipt={this.state.receipt} />
               <WinningNumber
+                lotto={this.state.lotto}
                 onHandleSubmit={(winningNumbers, bonusNumber) =>
                   this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
                 }
+                onHandleSetWinningNumbers={this.handleSetWinningNumbers}
                 onModalButtonClick={this.handleModalButtonClick}
               />
               {this.state.isModalOpen && (

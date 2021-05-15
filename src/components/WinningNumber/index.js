@@ -10,13 +10,11 @@ class WinningNumber extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0),
       currentInputIndex: 0,
     };
   }
 
   onWinningNumberSubmit(e) {
-    ``;
     e.preventDefault();
     // TODO: 깔끔한 방법 찾기
     const winningNumbers = [];
@@ -38,8 +36,8 @@ class WinningNumber extends React.Component {
     return !!inputValue;
   }
 
-  isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
-    const currentIndex = winningNumberInputs.findIndex((el) => el === inputValue);
+  isInputValueDuplicated(winningNumbers, inputValue, index) {
+    const currentIndex = winningNumbers.findIndex((el) => el === inputValue);
     if (currentIndex !== -1 && currentIndex !== index) {
       return true;
     }
@@ -50,26 +48,42 @@ class WinningNumber extends React.Component {
     if (typeof index !== 'number') return;
     const inputValue = Number(e.target.value.slice(0, 2));
 
-    const newWinningNumberInputs = [...this.state.winningNumberInputs];
+    const newWinningNumberInputs = [
+      ...this.props.lotto.winningNumbers,
+      this.props.lotto.bonusNumber,
+    ];
     newWinningNumberInputs[index] = inputValue;
+    const bonusNumber = Number(newWinningNumberInputs.splice(newWinningNumberInputs.length - 1, 1));
 
     if (!this.isInputValueExist(inputValue)) {
+      this.props.onHandleSetWinningNumbers({
+        winningNumbers: newWinningNumberInputs,
+        bonusNumber,
+      });
       this.setState({
-        winningNumberInputs: newWinningNumberInputs,
         currentInputIndex: index,
       });
       return;
     }
 
-    if (this.isInputValueDuplicated(this.state, inputValue, index)) {
+    if (
+      this.isInputValueDuplicated(
+        [...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber],
+        inputValue,
+        index
+      )
+    ) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
       return;
     }
 
+    this.props.onHandleSetWinningNumbers({
+      winningNumbers: newWinningNumberInputs,
+      bonusNumber,
+    });
     this.setState({
-      winningNumberInputs: newWinningNumberInputs,
       currentInputIndex: index + 1,
     });
   }
@@ -78,23 +92,26 @@ class WinningNumber extends React.Component {
     return (
       <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
         <div className='winning-number-form'>
-          {[...this.state.winningNumberInputs].map((number, index) => {
-            return (
-              <NumberInput
-                isCurrentInput={this.state.currentInputIndex === index}
-                min='1'
-                max='45'
-                key={uuidv4()}
-                customClass={
-                  index < this.state.winningNumberInputs.length - 1
-                    ? 'winning-number'
-                    : 'bonus-number'
-                }
-                defaultValue={number ? number : ''}
-                onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
-              />
-            );
-          })}
+          {[...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber].map(
+            (number, index) => {
+              return (
+                <NumberInput
+                  isCurrentInput={this.state.currentInputIndex === index}
+                  min='1'
+                  max='45'
+                  key={uuidv4()}
+                  customClass={
+                    index <
+                    [...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber].length - 1
+                      ? 'winning-number'
+                      : 'bonus-number'
+                  }
+                  defaultValue={number ? number : ''}
+                  onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
+                />
+              );
+            }
+          )}
         </div>
         <Button buttonText='결과 확인하기' />
       </form>
