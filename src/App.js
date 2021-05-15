@@ -52,6 +52,8 @@ class App extends React.Component {
   }
 
   handleWinningNumberSubmit(winningNumbers, bonusNumber) {
+    if (!Array.isArray(winningNumbers)) return;
+
     this.setState({
       lotto: {
         winningNumbers,
@@ -95,6 +97,8 @@ class App extends React.Component {
   }
 
   makeReceipt(ticketCount) {
+    if (typeof ticketCount !== 'number') return;
+
     this.setState({ isLoading: true });
     setTimeout(() => {
       this.setState({

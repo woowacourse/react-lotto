@@ -16,6 +16,7 @@ class WinningNumber extends React.Component {
   }
 
   onWinningNumberSubmit(e) {
+    ``;
     e.preventDefault();
     // TODO: 깔끔한 방법 찾기
     const winningNumbers = [];

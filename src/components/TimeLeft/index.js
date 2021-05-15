@@ -4,12 +4,18 @@ import './style.scss';
 class TimeLeft extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       timeLeft: '--일 --시간 --분 --초',
       now: new Date(),
-      announceDate: new Date('April 24, 2021 20:45:00'),
+      announceDate: new Date(),
     };
+    this.date = ['April', 24, 2021, '20:45:00'];
     this.ticking = null;
+  }
+
+  componentDidMount() {
+    this.setState({ announceDate: new Date(this.date.join(' ')) });
   }
 
   tick() {
