@@ -30,27 +30,23 @@ class WinningNumber extends React.Component {
   }
 
   isInputValueChanged(currentInputValue, inputValue) {
-    if (currentInputValue === inputValue) {
-      return false;
-    }
-    return true;
+    return currentInputValue === inputValue;
   }
 
   isInputValueExist(inputValue) {
-    if (!inputValue) return false;
-    return true;
+    return !!inputValue;
   }
 
-  isInputValueDuplicated({ winningNumberInputs }, inputValue) {
-    if (!winningNumberInputs.includes(inputValue)) {
-      return false;
+  isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
+    const currentIndex = winningNumberInputs.findIndex((el) => el === inputValue);
+    if (currentIndex !== -1 && currentIndex !== index) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   onChangeWinningNumber(e, index) {
-    const inputValue = Number(e.target.value);
-    if (!this.isInputValueChanged(this.state.winningNumberInputs[index], inputValue)) return;
+    const inputValue = Number(e.target.value.slice(0, 2));
 
     const newWinningNumberInputs = [...this.state.winningNumberInputs];
     newWinningNumberInputs[index] = inputValue;
@@ -63,7 +59,7 @@ class WinningNumber extends React.Component {
       return;
     }
 
-    if (this.isInputValueDuplicated(this.state, inputValue)) {
+    if (this.isInputValueDuplicated(this.state, inputValue, index)) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
