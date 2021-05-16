@@ -19,12 +19,6 @@ const PaymentForm = (props) => {
 
     const money = target.value;
 
-    //TODO: 동작보고 삭제하기
-    /* if (money === "") {
-      setMoney("");
-      return;
-    } */
-
     setMoney(money);
 
     const newErrorMessage = isValidPayment(money)

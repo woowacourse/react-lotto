@@ -50,6 +50,7 @@ export const MESSAGE = {
   },
   WINNING_NUMBERS_FORM: {
     HAS_DUPLICATED_NUMBER: "중복인 숫자가 포함되어 있습니다.",
+    OUT_OF_RANGE: `숫자는 ${LOTTERY.MIN_NUMBER}이상 ${LOTTERY.MAX_NUMBER}이하여야 합니다.`,
   },
 };
 

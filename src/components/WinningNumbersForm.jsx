@@ -15,6 +15,18 @@ const WinningNumbersForm = (props) => {
 
     const inputs = [...winningNumberInputs, bonusNumberInput];
 
+    const isNumberInputsInRange = inputs.every(
+      (input) =>
+        LOTTERY.MIN_NUMBER <= Number(input) &&
+        Number(input) <= LOTTERY.MAX_NUMBER
+    );
+
+    if (!isNumberInputsInRange) {
+      setErrorInputMessage(MESSAGE.WINNING_NUMBERS_FORM.OUT_OF_RANGE);
+
+      return;
+    }
+
     if (hasDuplicatedValue(inputs)) {
       setErrorInputMessage(MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER);
 
