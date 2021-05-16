@@ -1,8 +1,6 @@
 import React from "react";
 
-const Modal = (props) => {
-  const { isModalOpen, closeModal, children } = props;
-
+const Modal = ({ isModalOpen, closeModal, children }) => {
   const onCloseButtonClick = ({ target, currentTarget }) => {
     if (target === currentTarget) {
       closeModal();

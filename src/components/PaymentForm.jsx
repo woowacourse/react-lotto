@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { isNumber, MAX_PAYMENT, MESSAGE, SELECTOR } from "../utils";
 
-const PaymentForm = (props) => {
+const PaymentForm = ({
+  isDisabled,
+  isValidPayment,
+  onMoneySubmit,
+  paymentMinUnit,
+}) => {
   const [money, setMoney] = useState("");
   const [errorInputMessage, setErrorInputMessage] = useState("");
-  const { isDisabled, isValidPayment, onMoneySubmit, paymentMinUnit } = props;
 
   useEffect(() => {
     if (!isDisabled) {

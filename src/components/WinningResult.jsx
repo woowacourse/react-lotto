@@ -1,8 +1,8 @@
 import React from "react";
 import { formatMoney, PRIZE } from "../utils";
 
-const WinningResult = (props) => {
-  const { rankCount, earningRate } = props.winningResult;
+const WinningResult = ({ winningResult, resetApp }) => {
+  const { rankCount, earningRate } = winningResult;
 
   return (
     <>
@@ -62,7 +62,7 @@ const WinningResult = (props) => {
         <button
           type="button"
           className="modal__restart-button btn btn-cyan"
-          onClick={props.resetApp}
+          onClick={resetApp}
         >
           다시 시작하기
         </button>

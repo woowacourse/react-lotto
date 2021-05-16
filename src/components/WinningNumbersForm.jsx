@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { hasDuplicatedValue, isNumber, LOTTERY, MESSAGE } from "../utils";
 
-const WinningNumbersForm = (props) => {
+const WinningNumbersForm = ({ onWinningNumberSubmit }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [winningNumberInputs, setWinningNumberInputs] = useState(
     Array(LOTTERY.NUMBER_COUNT).fill("")
   );
   const [bonusNumberInput, setBonusNumberInput] = useState("");
   const [errorInputMessage, setErrorInputMessage] = useState("");
-  const { onWinningNumberSubmit } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
