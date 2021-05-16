@@ -23,4 +23,4 @@ class PurchaseNumberList extends React.Component {
   }
 }
 
-export default PurchaseNumberList;
+export default React.memo(PurchaseNumberList);
