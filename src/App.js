@@ -26,7 +26,6 @@ class App extends React.Component {
       winningNumber: [],
     };
 
-    this.moneyInputRef = React.createRef();
     this.audio = new Audio(muyahoAudio);
   }
 
@@ -94,23 +93,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div ref={this.bodyRef}>
-        {this.state.isMoneyInputValid && <TimeLeft />}
+      <div>
         {this.state.isMoneyInputValid && (
-          <audio controls autoPlay hidden>
-            <source src={muyahoAudio} type='audio/mp3' />
-          </audio>
+          <>
+            <TimeLeft />
+            <audio controls autoPlay hidden>
+              <source src={muyahoAudio} type='audio/mp3' />
+            </audio>
+          </>
         )}
         <Canvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput
-          ref={this.moneyInputRef}
           onHandleSubmit={(money, ticketCount) => {
             this.handleMoneySubmit(money);
             this.makeReceipt(ticketCount);
           }}
         />
-        {this.state.isLoading && (
+        {this.state.isLoading ? (
           <Lottie
             speed={1}
             height={'300px'}
@@ -120,28 +120,29 @@ class App extends React.Component {
               loop: false,
             }}
           />
-        )}
-        {!this.state.isLoading && this.state.isMoneyInputValid && (
+        ) : (
           <>
-            <Receipt receipt={this.state.receipt} />
-            <WinningNumber
-              onHandleSubmit={(winningNumbers, bonusNumber) =>
-                this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
-              }
-              onModalButtonClick={() => this.handleModalButtonClick()}
-            />
-          </>
-        )}
-        {!this.state.isLoading && this.state.isModalOpen && (
-          <>
-            <Modal
-              winningNumber={this.state.winningNumber}
-              bonusNumber={this.state.bonusNumber}
-              receipt={this.state.receipt}
-              moneyAmount={this.state.moneyAmount}
-              onResetButtonClick={() => this.handleResetButtonClick()}
-              onModalClose={() => this.handleModalClose()}
-            />
+            {this.state.isMoneyInputValid && (
+              <>
+                <Receipt receipt={this.state.receipt} />
+                <WinningNumber
+                  onHandleSubmit={(winningNumbers, bonusNumber) =>
+                    this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
+                  }
+                  onModalButtonClick={() => this.handleModalButtonClick()}
+                />
+              </>
+            )}
+            {this.state.isModalOpen && (
+              <Modal
+                winningNumber={this.state.winningNumber}
+                bonusNumber={this.state.bonusNumber}
+                receipt={this.state.receipt}
+                moneyAmount={this.state.moneyAmount}
+                onResetButtonClick={() => this.handleResetButtonClick()}
+                onModalClose={() => this.handleModalClose()}
+              />
+            )}
           </>
         )}
       </div>
