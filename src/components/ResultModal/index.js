@@ -98,7 +98,7 @@ class ResultModal extends React.Component {
               <p>{`수익률: ${this.state.earningRate}%`}</p>
             </div>
           </div>
-          <Button onClick={this.props.onResetButtonClick} buttonText='다시 시작하기' />
+          <Button onClick={this.props.onResetButtonClick}>다시 시작하기</Button>
         </div>
       </Modal>
     );

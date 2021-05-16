@@ -108,7 +108,7 @@ class WinningNumber extends React.Component {
             />
           ))}
         </div>
-        <Button buttonText='결과 확인하기' />
+        <Button>결과 확인하기</Button>
       </form>
     );
   }

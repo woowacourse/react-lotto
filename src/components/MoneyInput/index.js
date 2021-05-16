@@ -36,7 +36,7 @@ class MoneyInput extends React.Component {
           max='1000000'
           placeholder='1,000'
         />
-        <Button buttonText='구입' customClass='money-input-button' />
+        <Button customClass='money-input-button'>구입</Button>
       </form>
     );
   }
