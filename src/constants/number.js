@@ -20,6 +20,14 @@ const RANK = {
   FIFTH: 5,
 };
 
+const TIME = {
+  WEEK: 7 * 1000 * 60 * 60 * 24,
+  DAY: 1000 * 60 * 60 * 24,
+  HOUR: 1000 * 60 * 60,
+  MINUTE: 1000 * 60,
+  SECOND: 1000,
+};
+
 export {
   LOTTERY_BALL_LENGTH,
   BONUS_BALL_LENGTH,
@@ -28,4 +36,5 @@ export {
   LOTTERY_PRICE,
   PRIZE,
   RANK,
+  TIME,
 };

@@ -51,7 +51,7 @@ class Canvas extends React.Component {
         const currentDegreeIdx = i % 5;
         const currentDegree = degrees[currentDegreeIdx];
 
-        if (isBallDrawn === false) {
+        if (!isBallDrawn) {
           ball[i].x = Math.random() * canvas.width - ballRadius;
           ball[i].y = Math.random() * canvas.height - ballRadius;
         }
