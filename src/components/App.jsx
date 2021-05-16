@@ -15,6 +15,9 @@ const App = () => {
   const [lotteries, setLotteries] = useState([]);
   const [winningResult, setWinningResult] = useState(null);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const [winningNumbers, setWinningNumbers] = useState([]);
+  const [bonusNumber, setBonusNumber] = useState([]);
+  const [isCountDownVisible, setIsCountDownVisible] = useState(false);
 
   const onMoneySubmit = (money) => {
     const lotteries = lotteryMachine.publishLotteries(money);
@@ -35,8 +38,17 @@ const App = () => {
   };
 
   const onWinningNumberSubmit = (winningNumbers, bonusNumber) => {
-    //TODO: 타이머가 다 되었을 때 다시 누르면 바로 볼 수 있도록 수정하기
+    if (winningResult) {
+      setIsResultModalOpen(true);
+      return;
+    }
 
+    setWinningNumbers(winningNumbers);
+    setBonusNumber(bonusNumber);
+    setIsCountDownVisible(true);
+  };
+
+  const announceResult = () => {
     const rankCount = profitCalculator.getRankCount({
       winningNumbers,
       bonusNumber,
@@ -45,6 +57,7 @@ const App = () => {
     const earningRate = profitCalculator.getEarningRate(rankCount, lotteries);
 
     setWinningResult({ rankCount, earningRate });
+    setIsResultModalOpen(true);
   };
 
   const closeResultModal = () => {
@@ -55,6 +68,9 @@ const App = () => {
     setLotteries([]);
     setWinningResult(null);
     setIsResultModalOpen(false);
+    setWinningNumbers([]);
+    setBonusNumber(null);
+    setIsCountDownVisible(false);
   };
 
   return (
@@ -73,10 +89,10 @@ const App = () => {
             <WinningNumbersForm onWinningNumberSubmit={onWinningNumberSubmit} />
           </>
         )}
-        {winningResult && (
+        {isCountDownVisible && (
           <CountDown
             initialTimeBySecond={LOTTO_RESULT_COUNT_DOWN}
-            onCountDownEnded={() => setIsResultModalOpen(true)}
+            onCountDownEnded={announceResult}
           >
             <h2>🎉 로또 결과가 곧 발표됩니다! 🎉</h2>
           </CountDown>
