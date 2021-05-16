@@ -1,4 +1,5 @@
 import React from 'react';
+import { TIME } from '../../constants/number';
 import './style.scss';
 
 class TimeLeft extends React.Component {
@@ -7,7 +8,7 @@ class TimeLeft extends React.Component {
     this.state = {
       timeLeft: '--일 --시간 --분 --초',
       now: new Date(),
-      announceDate: new Date('April 24, 2021 20:45:00'),
+      announceDate: new Date(...[2021, 4, 24, 20, 45, 0]),
     };
     this.ticking = null;
   }
@@ -15,22 +16,22 @@ class TimeLeft extends React.Component {
   tick() {
     if (this.state.announceDate < this.state.now) {
       this.setState({
-        announceDate: new Date(this.state.announceDate.getTime() + 7 * 1000 * 60 * 60 * 24),
+        announceDate: new Date(this.state.announceDate.getTime() + TIME.WEEK),
       });
     }
 
     let dateDifference = this.state.announceDate - this.state.now;
     const dayDifference = Math.floor(
-      (this.state.announceDate.getTime() - this.state.now.getTime()) / (1000 * 60 * 60 * 24)
+      (this.state.announceDate.getTime() - this.state.now.getTime()) / TIME.DAY
     );
-    dateDifference -= dayDifference * (1000 * 60 * 60 * 24);
-    const hourDifference = Math.floor(dateDifference / (1000 * 60 * 60));
-    dateDifference -= hourDifference * (1000 * 60 * 60);
+    dateDifference -= dayDifference * TIME.DAY;
+    const hourDifference = Math.floor(dateDifference / TIME.HOUR);
+    dateDifference -= hourDifference * TIME.HOUR;
 
-    const minuteDifference = Math.floor(dateDifference / (1000 * 60));
-    dateDifference -= minuteDifference * (1000 * 60);
+    const minuteDifference = Math.floor(dateDifference / TIME.MINUTE);
+    dateDifference -= minuteDifference * TIME.MINUTE;
 
-    const secondDifference = Math.floor(dateDifference / 1000);
+    const secondDifference = Math.floor(dateDifference / TIME.SECOND);
 
     const newTime = `⏰ ${dayDifference < 10 ? `0${dayDifference}` : dayDifference}일 ${
       hourDifference < 10 ? `0${hourDifference}` : hourDifference
