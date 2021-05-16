@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './components/Modal';
+import ResultModal from './components/ResultModal';
 import MoneyInput from './components/MoneyInput';
 import Receipt from './components/Receipt';
 import WinningNumber from './components/WinningNumber';
@@ -135,7 +135,7 @@ class App extends React.Component {
               </>
             )}
             {this.state.isModalOpen && (
-              <Modal
+              <ResultModal
                 winningNumber={this.state.winningNumber}
                 bonusNumber={this.state.bonusNumber}
                 receipt={this.state.receipt}
