@@ -1,8 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import LotteryBall from '../LotteryBall';
 import chooseBallColor from '../../../utils/color-ball';
-import calculatePrize from '../../../utils/calculate-prize';
+import LotteryBall from '../LotteryBall';
 import './style.scss';
 
 class PurchaseNumberItem extends React.Component {
@@ -19,34 +18,22 @@ class PurchaseNumberItem extends React.Component {
 
   render() {
     return (
-      <>
-        <li className='purchase-number-item'>
-          <div className='lottery-balls-container'>
-            {this.props.ticketNumbers.map((number, idx) => {
-              {
-                this.props.winningBallCount &&
-                  this.props.onCalculateTotalPrize(
-                    calculatePrize(this.props.winningBallCount, this.props.bonusBallCount)
-                  );
+      <li className='purchase-number-item'>
+        <div className='lottery-balls-container'>
+          {this.props.ticketNumbers.map((number, idx) => (
+            <LotteryBall
+              colored={
+                this.props.lotteryNumbers &&
+                this.props.lotteryNumbers.find((lotteryNumber) => lotteryNumber.value === number)
               }
-              return (
-                <LotteryBall
-                  colored={
-                    this.props.lotteryNumbers &&
-                    this.props.lotteryNumbers.find(
-                      (lotteryNumber) => lotteryNumber.value === number
-                    )
-                  }
-                  key={this.lotteryBallIds[idx]}
-                  numberValue={number}
-                  toggled={this.props.toggled}
-                  ballColor={chooseBallColor(number)}
-                />
-              );
-            })}
-          </div>
-        </li>
-      </>
+              key={this.lotteryBallIds[idx]}
+              numberValue={number}
+              toggled={this.props.toggled}
+              ballColor={chooseBallColor(number)}
+            />
+          ))}
+        </div>
+      </li>
     );
   }
 }

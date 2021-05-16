@@ -4,21 +4,24 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
+import calculatePrize from '../../utils/calculate-prize';
 import chooseBallColor from '../../utils/color-ball';
 import LotteryBall from '../Receipt/LotteryBall';
 import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../UtilComponent/Button';
 import Modal from '../UtilComponent/Modal';
 import './style.scss';
-
 class ResultModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      totalPrize: 0,
-      earningRate: 0,
-    };
-    this.tempTotalPrize = 0;
+    this.totalPrize = this.props.receipt.reduce((sum, currentTicket) => {
+      const winningCount = this.countWinningBall(currentTicket);
+      const bonusCount = this.countBonusBall(currentTicket);
+      return sum + calculatePrize(winningCount, bonusCount);
+    }, 0);
+    this.earningRate = Math.floor(
+      ((this.totalPrize - this.props.moneyAmount) / this.props.moneyAmount) * 100
+    );
     this.winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
     this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
   }
@@ -37,20 +40,9 @@ class ResultModal extends React.Component {
     return winningBonusBall ? 1 : 0;
   }
 
-  calculateTotalPrize(prize) {
-    this.tempTotalPrize = this.tempTotalPrize + prize;
-  }
-
-  componentDidMount() {
-    this.setState({
-      totalPrize: this.tempTotalPrize,
-      earningRate: Math.floor(
-        ((this.tempTotalPrize - this.props.moneyAmount) / this.props.moneyAmount) * 100
-      ),
-    });
-  }
-
   render() {
+    const bonusNumber = this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
+
     return (
       <Modal onModalClose={this.props.onModalClose}>
         <div className='modal-inner'>
@@ -73,42 +65,29 @@ class ResultModal extends React.Component {
                   />
                 )
             )}
-            {
-              <div className='plus-icon'>
-                <FontAwesomeIcon icon={faPlus} />
-              </div>
-            }
-            {
-              <LotteryBall
-                numberValue={this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value}
-                toggled={true}
-                colored={true}
-                ballColor={chooseBallColor(
-                  this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value
-                )}
-              />
-            }
+            <div className='plus-icon'>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <LotteryBall
+              numberValue={bonusNumber}
+              toggled={true}
+              colored={true}
+              ballColor={chooseBallColor(bonusNumber)}
+            />
           </div>
           <div className='modal-numbers-container'>
             {this.props.receipt.map((ticket, idx) => (
               <PurchaseNumberItem
                 key={this.numberItemIds[idx]}
-                // bonusNumber={this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value}
-                // winningNumber={this.props.lotteryNumbers.map(
-                //   (number) => number.type === 'winning' && number.value
-                // )}
                 lotteryNumbers={this.props.lotteryNumbers}
                 ticketNumbers={ticket}
                 toggled={true}
-                winningBallCount={this.countWinningBall(ticket)}
-                bonusBallCount={this.countBonusBall(ticket)}
-                onCalculateTotalPrize={(prize) => this.calculateTotalPrize(prize)}
               />
             ))}
             <div className='modal-result-text'>
               <p>{`구입 금액: ${this.props.moneyAmount}원`}</p>
-              <p>{`총 수익: ${this.state.totalPrize}원`}</p>
-              <p>{`수익률: ${this.state.earningRate}%`}</p>
+              <p>{`총 수익: ${this.totalPrize}원`}</p>
+              <p>{`수익률: ${this.earningRate}%`}</p>
             </div>
           </div>
           <Button onClick={this.props.onResetButtonClick}>다시 시작하기</Button>
