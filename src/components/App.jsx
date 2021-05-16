@@ -6,6 +6,8 @@ import PaymentForm from "./PaymentForm";
 import WinningNumbersForm from "./WinningNumbersForm";
 import Modal from "./Modal";
 import WinningResult from "./WinningResult";
+import CountDown from "./CountDown";
+import { LOTTO_RESULT_COUNT_DOWN } from "../utils/constants";
 
 const App = () => {
   const lotteryMachine = new LotteryMachine();
@@ -33,6 +35,8 @@ const App = () => {
   };
 
   const onWinningNumberSubmit = (winningNumbers, bonusNumber) => {
+    //TODO: 타이머가 다 되었을 때 다시 누르면 바로 볼 수 있도록 수정하기
+
     const rankCount = profitCalculator.getRankCount({
       winningNumbers,
       bonusNumber,
@@ -41,7 +45,6 @@ const App = () => {
     const earningRate = profitCalculator.getEarningRate(rankCount, lotteries);
 
     setWinningResult({ rankCount, earningRate });
-    setIsResultModalOpen(true);
   };
 
   const closeResultModal = () => {
@@ -70,6 +73,15 @@ const App = () => {
             <WinningNumbersForm onWinningNumberSubmit={onWinningNumberSubmit} />
           </>
         )}
+        {winningResult && (
+          <CountDown
+            initialTimeBySecond={LOTTO_RESULT_COUNT_DOWN}
+            onCountDownEnded={() => setIsResultModalOpen(true)}
+          >
+            <h2>🎉 로또 결과가 곧 발표됩니다! 🎉</h2>
+          </CountDown>
+        )}
+
         <Modal isModalOpen={isResultModalOpen} closeModal={closeResultModal}>
           {isResultModalOpen && (
             <WinningResult winningResult={winningResult} resetApp={resetApp} />

@@ -1,5 +1,7 @@
 export const MAX_PAYMENT = 100000;
 
+export const LOTTO_RESULT_COUNT_DOWN = 5;
+
 export const LOTTERY = {
   PRICE: 1000,
   NUMBER_COUNT: 6,

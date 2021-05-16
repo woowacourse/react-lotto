@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const LotteriesDetail = (props) => {
   const [isNumberVisible, setIsNumberVisible] = useState(false);
+  //TODO: props 분해할당 그냥 인자받는데서 하기
   const { lotteries } = props;
 
   const handleNumberDisplay = () => {
