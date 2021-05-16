@@ -27,6 +27,10 @@ class App extends React.Component {
     };
 
     this.audio = new Audio(muyahoAudio);
+
+    this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
+    this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   handleMoneySubmit(money) {
@@ -40,11 +44,8 @@ class App extends React.Component {
     }
   }
 
-  handleWinningNumberSubmit(winningNumbers, bonusNumber) {
-    this.setState({
-      winningNumber: winningNumbers,
-      bonusNumber: bonusNumber,
-    });
+  handleWinningNumberSubmit(winningNumber, bonusNumber) {
+    this.setState({ winningNumber, bonusNumber });
   }
 
   handleModalButtonClick() {
@@ -129,7 +130,7 @@ class App extends React.Component {
                   onHandleSubmit={(winningNumbers, bonusNumber) =>
                     this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
                   }
-                  onModalButtonClick={() => this.handleModalButtonClick()}
+                  onModalButtonClick={this.handleModalButtonClick}
                 />
               </>
             )}
@@ -139,8 +140,8 @@ class App extends React.Component {
                 bonusNumber={this.state.bonusNumber}
                 receipt={this.state.receipt}
                 moneyAmount={this.state.moneyAmount}
-                onResetButtonClick={() => this.handleResetButtonClick()}
-                onModalClose={() => this.handleModalClose()}
+                onResetButtonClick={this.handleResetButtonClick}
+                onModalClose={this.handleModalClose}
               />
             )}
           </>
