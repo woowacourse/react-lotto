@@ -57,15 +57,11 @@ class WinningNumber extends React.Component {
   }
 
   onChangeLotteryNumber(e, index) {
-    let inputValue = e.target.value;
+    const inputValue = Math.min(Number(e.target.value), 45);
     const lotteryNumbers = [...this.props.lotteryNumbers];
 
-    if (inputValue.length > 2) {
-      inputValue = inputValue.slice(0, 2);
-    }
-
     lotteryNumbers[index] = {
-      value: Number(inputValue),
+      value: inputValue,
       type: lotteryNumbers[index].type,
     };
 
