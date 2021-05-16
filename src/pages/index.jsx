@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import { LotteryMachine, ProfitCalculator } from "../services";
 import { LOTTERY } from "../utils";
-import LotteriesDetail from "./LotteriesDetail";
-import PaymentForm from "./PaymentForm";
-import WinningNumbersForm from "./WinningNumbersForm";
-import Modal from "./Modal";
-import WinningResult from "./WinningResult";
-import CountDown from "./CountDown";
+import LotteriesDetail from "../components/LotteriesDetail";
+import PaymentForm from "../components/PaymentForm";
+import WinningNumbersForm from "../components/WinningNumbersForm";
+import Modal from "../components/Modal";
+import WinningResult from "../components/WinningResult";
+import CountDown from "../components/CountDown";
 import { LOTTO_RESULT_COUNT_DOWN } from "../utils/constants";
 
 const App = () => {
   const lotteryMachine = new LotteryMachine();
   const profitCalculator = new ProfitCalculator();
+
   const [lotteries, setLotteries] = useState([]);
-  const [winningResult, setWinningResult] = useState(null);
-  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [winningNumbers, setWinningNumbers] = useState([]);
   const [bonusNumber, setBonusNumber] = useState([]);
+
+  const [winningResult, setWinningResult] = useState(null);
+
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [isCountDownVisible, setIsCountDownVisible] = useState(false);
+
+  const resetApp = () => {
+    setLotteries([]);
+    setWinningResult(null);
+    setIsResultModalOpen(false);
+    setWinningNumbers([]);
+    setBonusNumber(null);
+    setIsCountDownVisible(false);
+  };
 
   const onMoneySubmit = (money) => {
     const lotteries = lotteryMachine.publishLotteries(money);
@@ -62,15 +74,6 @@ const App = () => {
 
   const closeResultModal = () => {
     setIsResultModalOpen(false);
-  };
-
-  const resetApp = () => {
-    setLotteries([]);
-    setWinningResult(null);
-    setIsResultModalOpen(false);
-    setWinningNumbers([]);
-    setBonusNumber(null);
-    setIsCountDownVisible(false);
   };
 
   return (
