@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
-import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
 import chooseBallColor from '../../utils/color-ball';
-import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import LotteryBall from '../Receipt/LotteryBall';
+import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../UtilComponent/Button';
 import Modal from '../UtilComponent/Modal';
 import './style.scss';
@@ -18,16 +19,20 @@ class ResultModal extends React.Component {
       earningRate: 0,
     };
     this.tempTotalPrize = 0;
-    this.winningNumberIds = [...Array(this.props.winningNumber.length)].map(() => uuidv4());
+    this.winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
     this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
   }
 
   countWinningBall(ticket) {
-    return ticket.filter((ball) => this.props.winningNumber.includes(ball)).length;
+    return ticket.filter((ball) =>
+      this.props.lotteryNumbers.some((number) => number.value === ball)
+    ).length;
   }
 
   countBonusBall(ticket) {
-    const winningBonusBall = ticket.find((ball) => ball === this.props.bonusNumber);
+    const winningBonusBall = ticket.find(
+      (ball) => ball === this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1]
+    );
 
     return winningBonusBall ? 1 : 0;
   }
@@ -56,15 +61,18 @@ class ResultModal extends React.Component {
           <h1 className='modal-header'>슈퍼 로또</h1>
           <h1 className='modal-sub-header'>당첨 결과 번호</h1>
           <div className='result-numbers-container'>
-            {this.props.winningNumber.map((number, idx) => (
-              <LotteryBall
-                key={this.winningNumberIds[idx]}
-                numberValue={number}
-                toggled={true}
-                colored={true}
-                ballColor={chooseBallColor(number)}
-              />
-            ))}
+            {this.props.lotteryNumbers.map(
+              ({ value, type }, idx) =>
+                type === 'winning' && (
+                  <LotteryBall
+                    key={this.winningNumberIds[idx]}
+                    numberValue={value}
+                    toggled={true}
+                    colored={true}
+                    ballColor={chooseBallColor(value)}
+                  />
+                )
+            )}
             {
               <div className='plus-icon'>
                 <FontAwesomeIcon icon={faPlus} />
@@ -72,10 +80,12 @@ class ResultModal extends React.Component {
             }
             {
               <LotteryBall
-                numberValue={this.props.bonusNumber}
+                numberValue={this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value}
                 toggled={true}
                 colored={true}
-                ballColor={chooseBallColor(this.props.bonusNumber)}
+                ballColor={chooseBallColor(
+                  this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value
+                )}
               />
             }
           </div>
@@ -83,8 +93,11 @@ class ResultModal extends React.Component {
             {this.props.receipt.map((ticket, idx) => (
               <PurchaseNumberItem
                 key={this.numberItemIds[idx]}
-                bonusNumber={this.props.bonusNumber}
-                winningNumber={this.props.winningNumber}
+                // bonusNumber={this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value}
+                // winningNumber={this.props.lotteryNumbers.map(
+                //   (number) => number.type === 'winning' && number.value
+                // )}
+                lotteryNumbers={this.props.lotteryNumbers}
                 ticketNumbers={ticket}
                 toggled={true}
                 winningBallCount={this.countWinningBall(ticket)}
@@ -106,8 +119,7 @@ class ResultModal extends React.Component {
 }
 
 ResultModal.propTypes = {
-  winningNumber: PropTypes.array,
-  bonusNumber: PropTypes.number,
+  lotteryNumbers: PropTypes.array,
   receipt: PropTypes.array,
   moneyAmount: PropTypes.number,
   onResetButtonClick: PropTypes.func,

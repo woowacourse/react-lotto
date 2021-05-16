@@ -1,17 +1,22 @@
 import React from 'react';
-import ResultModal from './components/ResultModal';
-import MoneyInput from './components/MoneyInput';
-import Receipt from './components/Receipt';
-import WinningNumber from './components/WinningNumber';
-import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
-import getRandomNumber from './utils/random-number';
-import Canvas from './components/Canvas';
-import TimeLeft from './components/TimeLeft';
-import { hideScroll, showScroll } from './utils/scroll';
-import muyahoAudio from './sound/muyaho.mp3';
 import Lottie from 'react-lottie';
 import coinSpin from './animation/coinSpin.json';
+import Canvas from './components/Canvas';
+import MoneyInput from './components/MoneyInput';
+import Receipt from './components/Receipt';
+import ResultModal from './components/ResultModal';
+import TimeLeft from './components/TimeLeft';
+import WinningNumber from './components/WinningNumber';
+import {
+  LOTTERY_BALL_LENGTH,
+  LOTTERY_NUMBERS_LENGTH,
+  MAX_LOTTO_NUMBER,
+  MIN_LOTTO_NUMBER,
+} from './constants/number';
+import muyahoAudio from './sound/muyaho.mp3';
 import './style.scss';
+import getRandomNumber from './utils/random-number';
+import { hideScroll, showScroll } from './utils/scroll';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,9 +26,11 @@ class App extends React.Component {
       isModalOpen: false,
       isLoading: false,
       moneyAmount: 0,
-      bonusNumber: 0,
       receipt: [],
-      winningNumber: [],
+      lotteryNumbers: [...Array(LOTTERY_NUMBERS_LENGTH)].map((_, idx) => ({
+        value: 0,
+        type: idx < LOTTERY_BALL_LENGTH ? 'winning' : 'bonus',
+      })),
     };
 
     this.audio = new Audio(muyahoAudio);
@@ -44,8 +51,8 @@ class App extends React.Component {
     }
   }
 
-  handleWinningNumberSubmit(winningNumber, bonusNumber) {
-    this.setState({ winningNumber, bonusNumber });
+  handleLotteryNumberSubmit(lotteryNumbers) {
+    this.setState({ lotteryNumbers });
   }
 
   handleModalButtonClick() {
@@ -127,8 +134,9 @@ class App extends React.Component {
               <>
                 <Receipt receipt={this.state.receipt} />
                 <WinningNumber
-                  onHandleSubmit={(winningNumbers, bonusNumber) =>
-                    this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
+                  lotteryNumbers={this.state.lotteryNumbers}
+                  onHandleChangeLotteryNumbers={(lotteryNumbers) =>
+                    this.handleLotteryNumberSubmit(lotteryNumbers)
                   }
                   onModalButtonClick={this.handleModalButtonClick}
                 />
@@ -136,8 +144,7 @@ class App extends React.Component {
             )}
             {this.state.isModalOpen && (
               <ResultModal
-                winningNumber={this.state.winningNumber}
-                bonusNumber={this.state.bonusNumber}
+                lotteryNumbers={this.state.lotteryNumbers}
                 receipt={this.state.receipt}
                 moneyAmount={this.state.moneyAmount}
                 onResetButtonClick={this.handleResetButtonClick}

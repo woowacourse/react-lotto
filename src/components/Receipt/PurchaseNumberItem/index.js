@@ -9,6 +9,12 @@ class PurchaseNumberItem extends React.Component {
   constructor(props) {
     super(props);
     this.lotteryBallIds = [...Array(this.props.ticketNumbers.length)].map(() => uuidv4());
+    this.bonusNumber =
+      this.props.lotteryNumbers &&
+      this.props.lotteryNumbers.find((number) => number.type === 'bonus');
+    this.winningNumbers =
+      this.props.lotteryNumbers &&
+      this.props.lotteryNumbers.filter((number) => number.type === 'winning');
   }
 
   render() {
@@ -26,8 +32,10 @@ class PurchaseNumberItem extends React.Component {
               return (
                 <LotteryBall
                   colored={
-                    this.props.winningNumber &&
-                    [...this.props.winningNumber, this.props.bonusNumber].includes(number)
+                    this.props.lotteryNumbers &&
+                    this.props.lotteryNumbers.find(
+                      (lotteryNumber) => lotteryNumber.value === number
+                    )
                   }
                   key={this.lotteryBallIds[idx]}
                   numberValue={number}
