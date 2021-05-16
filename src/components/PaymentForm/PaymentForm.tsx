@@ -1,67 +1,50 @@
-import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import { Wrapper } from '../common/Wrapper';
 import { PaymentFormWrapper, PaymentFormLabel } from './PaymentForm.styles';
 import { alertByPaymentCase, isValidPayment } from '../../services/validation';
 
-type Props = {
+interface Props {
   handlePayment: (newPayment: number) => void;
-};
+}
 
-type State = {
-  payment: number;
-};
+const PaymentForm: React.VFC<Props> = ({ handlePayment }) => {
+  const [payment, setPayment] = useState<number>(0);
 
-export default class PaymentForm extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPayment(event.target.valueAsNumber);
+  };
 
-    this.state = {
-      payment: 0,
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      payment: event.target.valueAsNumber,
-    });
-  }
-
-  handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isValidPayment(this.state.payment)) {
-      alertByPaymentCase(this.state.payment);
+    if (isValidPayment(payment)) {
+      alertByPaymentCase(payment);
       return;
     }
 
-    this.setState({
-      payment: 0,
-    });
-    this.props.handlePayment(this.state.payment);
-  }
+    setPayment(0);
+    handlePayment(payment);
+  };
 
-  render() {
-    return (
-      <PaymentFormWrapper onSubmit={this.handleSubmit}>
-        <PaymentFormLabel>구입할 금액을 입력해주세요</PaymentFormLabel>
-        <Wrapper display="flex">
-          <Input
-            fullWidth
-            type="number"
-            onChange={this.handleInputChange}
-            value={this.state.payment === 0 ? '' : this.state.payment}
-            placeholder="구입 금액"
-            name="payment-input"
-            required
-          />
-          <Button>확인</Button>
-        </Wrapper>
-      </PaymentFormWrapper>
-    );
-  }
-}
+  return (
+    <PaymentFormWrapper onSubmit={handleSubmit}>
+      <PaymentFormLabel>구입할 금액을 입력해주세요</PaymentFormLabel>
+      <Wrapper display="flex">
+        <Input
+          fullWidth
+          type="number"
+          onChange={handleInputChange}
+          value={payment === 0 ? '' : payment}
+          placeholder="구입 금액"
+          name="payment-input"
+          required
+        />
+        <Button>확인</Button>
+      </Wrapper>
+    </PaymentFormWrapper>
+  );
+};
+
+export default PaymentForm;

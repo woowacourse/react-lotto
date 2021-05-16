@@ -1,122 +1,86 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
+
+import ALERT_MESSAGE from './constants/alertMessage';
+import { issueTickets } from './services/tickets';
+
+import { AppWrapper } from './App.styles';
 import PaymentForm from './components/PaymentForm/PaymentForm';
 import TicketList from './components/TicketList/TicketList';
 import ResultModal from './components/ResultModal/ResultModal';
 import WinningNumberForm from './components/WinningNumberForm/WinningNumberForm';
-import { AppWrapper } from './App.styles';
-import { issueTickets } from './services/tickets';
-import ALERT_MESSAGE from './constants/alertMessage';
-import { getRemainedTime } from './utils/date';
-import { GREENWICH_MILLISECONDS } from './services/game';
 import RemainedTimeIndicator from './components/RemainedTimeIndicator/RemainedTimeIndicator';
 
-type State = {
+interface AppState {
   tickets: Ticket[];
-  winningNumber: WinningNumber;
-  isModalOpen: boolean;
-  remainTime: Date | null;
-};
+  winningNumbers: number[];
+  isModalVisible: boolean;
+}
 
-export default class App extends Component<{}, State> {
-  winningNumberFormRef: React.RefObject<HTMLFormElement>;
-  remainTimer: NodeJS.Timeout | null;
+const App = () => {
+  let winningNumberFormRef: React.RefObject<HTMLFormElement> = useRef(null);
 
-  constructor(props: {}) {
-    super(props);
-    this.winningNumberFormRef = React.createRef();
-    this.remainTimer = null;
+  const [appState, setAppState] = useState<AppState>({
+    tickets: [],
+    winningNumbers: [],
+    isModalVisible: false,
+  });
 
-    this.state = {
-      tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainTime: null,
-    };
-
-    this.handlePayment = this.handlePayment.bind(this);
-    this.handleWinningNumber = this.handleWinningNumber.bind(this);
-    this.handleModal = this.handleModal.bind(this);
-    this.handleRemainedTime = this.handleRemainedTime.bind(this);
-  }
-
-  handleRemainedTime() {
-    this.setState({
-      remainTime: new Date(getRemainedTime() - GREENWICH_MILLISECONDS),
-    });
-  }
-
-  handlePayment(payment: number) {
+  const handlePayment = (payment: number) => {
     const tickets: Ticket[] = issueTickets(payment);
-    this.setState({
+    setAppState({
+      ...appState,
       tickets,
     });
+  };
 
-    this.handleRemainedTime();
-    this.remainTimer = setInterval(() => {
-      this.handleRemainedTime();
-    }, 1000);
-  }
+  const handleModal = (isOpen: boolean) => {
+    setAppState({
+      ...appState,
+      isModalVisible: isOpen,
+    });
+  };
 
-  handleWinningNumber(winningNumber: WinningNumber) {
-    const ticketCount = this.state.tickets.length;
-
-    if (ticketCount === 0) {
+  const submitWinningNumber = (winningNumberInputs: number[]) => {
+    if (appState.tickets.length === 0) {
       alert(ALERT_MESSAGE.SHOULD_BUY_TICKET);
       return;
     }
 
-    this.setState({
-      winningNumber,
+    setAppState({
+      ...appState,
+      winningNumbers: [...winningNumberInputs],
+      isModalVisible: true,
     });
+  };
 
-    this.handleModal(true);
-  }
-
-  handleModal(isOpen: boolean) {
-    this.setState({
-      isModalOpen: isOpen,
-    });
-  }
-
-  resetGame() {
-    this.setState({
+  const resetGame = () => {
+    setAppState({
+      ...appState,
       tickets: [],
-      winningNumber: {
-        numbers: [],
-        bonus: 0,
-      },
-      isModalOpen: false,
-      remainTime: null,
+      winningNumbers: [],
+      isModalVisible: false,
     });
+    winningNumberFormRef.current?.reset();
+  };
 
-    this.winningNumberFormRef.current?.reset();
-    this.remainTimer && clearInterval(this.remainTimer);
-  }
+  return (
+    <AppWrapper display="flex">
+      <h1 className="app-title">🎱 행운의 로또</h1>
+      <PaymentForm handlePayment={handlePayment} />
+      {appState.tickets.length > 0 && <RemainedTimeIndicator />}
+      <TicketList tickets={appState.tickets} />
+      <WinningNumberForm submitWinningNumber={submitWinningNumber} formRef={winningNumberFormRef} />
 
-  render() {
-    return (
-      <AppWrapper display="flex">
-        <h1 className="app-title">🎱 행운의 로또</h1>
-        <PaymentForm handlePayment={this.handlePayment} />
-        {this.state.remainTime && <RemainedTimeIndicator remainTime={this.state.remainTime} />}
-        <TicketList tickets={this.state.tickets} />
-        <WinningNumberForm
-          handleWinningNumber={this.handleWinningNumber}
-          formRef={this.winningNumberFormRef}
+      {appState.isModalVisible && (
+        <ResultModal
+          handleModalClose={() => handleModal(false)}
+          resetGame={() => resetGame()}
+          tickets={appState.tickets}
+          winningNumbers={appState.winningNumbers}
         />
+      )}
+    </AppWrapper>
+  );
+};
 
-        {this.state.isModalOpen && (
-          <ResultModal
-            handleModalClose={() => this.handleModal(false)}
-            resetGame={() => this.resetGame()}
-            tickets={this.state.tickets}
-            winningNumber={this.state.winningNumber}
-          />
-        )}
-      </AppWrapper>
-    );
-  }
-}
+export default App;

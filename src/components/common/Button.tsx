@@ -4,6 +4,10 @@ type ButtonProps = {
   fullWidth?: boolean;
 };
 
+type test = {
+  remainDate?: Date;
+};
+
 const Button = styled.button<ButtonProps>`
   background-color: #00bcd4;
   height: 36px;

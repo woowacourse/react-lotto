@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
 import { TicketItemWrapper } from './TicketItem.styles';
 
-type Props = {
+interface Props {
   ticketNumbers: number[];
   isDetailMode: boolean;
+}
+
+const TicketItem: React.VFC<Props> = ({ ticketNumbers, isDetailMode = false }) => {
+  return (
+    <TicketItemWrapper>
+      <span className="ticket-icon">🎟️ </span>
+      {isDetailMode && <span className="ticket-number">{ticketNumbers.join(' ')}</span>}
+    </TicketItemWrapper>
+  );
 };
 
-export default class TicketItem extends Component<Props> {
-  render() {
-    return (
-      <TicketItemWrapper>
-        <span className="ticket-icon">🎟️ </span>
-        {this.props.isDetailMode && (
-          <span className="ticket-number">{this.props.ticketNumbers.join(' ')}</span>
-        )}
-      </TicketItemWrapper>
-    );
-  }
-}
+export default TicketItem;

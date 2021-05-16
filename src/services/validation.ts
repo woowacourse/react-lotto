@@ -20,14 +20,8 @@ export const alertByWinningNumberCase = (winningNumber: number): void => {
   }
 };
 
-export const isWinningNumberDuplicated = ({ numbers, bonus }: WinningNumber): boolean => {
-  return hasDuplicateElement<number>([...numbers, bonus]);
-};
-
-export const alertByWinningNumbersCase = ({ numbers, bonus }: WinningNumber): void => {
-  if (!hasDuplicateElement<number>([...numbers, bonus])) {
-    alert(ALERT_MESSAGE.DUPLICATED_NUMBER_EXIST);
-  }
+export const isWinningNumberDuplicated = (winningNumbers: number[]): boolean => {
+  return hasDuplicateElement<number>(winningNumbers);
 };
 
 //TODO: answer Submit에서 alert 한번, 이후 handlewinndingNumber에서 alert 또 한번이 과연 맞는건가?
