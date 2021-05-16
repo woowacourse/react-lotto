@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Modal extends Component {
-  render() {
-    return (
-      <div className={`modal ${this.props.isModalOpen ? "open" : ""}`}>
-        <div className="modal-inner p-10">
-          <div className="modal-close" onClick={this.props.closeModal}>
-            <svg viewBox="0 0 40 40">
-              <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-            </svg>
-          </div>
+const Modal = (props) => {
+  const { isModalOpen, closeModal, children } = props;
 
-          {this.props.children}
+  return (
+    <div className={`modal ${isModalOpen ? "open" : ""}`}>
+      <div className="modal-inner p-10">
+        <div className="modal-close" onClick={closeModal}>
+          <svg viewBox="0 0 40 40">
+            <path className="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </svg>
         </div>
+
+        {children}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Modal;

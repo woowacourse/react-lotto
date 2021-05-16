@@ -1,7 +1,7 @@
 import React from "react";
 import { formatMoney, PRIZE } from "../utils";
 
-function WinningResult(props) {
+const WinningResult = (props) => {
   const { rankCount, earningRate } = props.winningResult;
 
   return (
@@ -69,6 +69,6 @@ function WinningResult(props) {
       </div>
     </>
   );
-}
+};
 
 export default WinningResult;
