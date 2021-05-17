@@ -1,9 +1,9 @@
-function hideScroll() {
-  document.body.classList.add('modal-opened');
+function hideScroll(className) {
+  document.body.classList.add(className);
 }
 
-function showScroll() {
-  document.body.classList.remove('modal-opened');
+function showScroll(className) {
+  document.body.classList.remove(className);
 }
 
 export { hideScroll, showScroll };
