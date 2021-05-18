@@ -1,0 +1,31 @@
+html,
+body,
+div,
+span,
+p,
+a,
+audio,
+ul,
+li,
+form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a:visited,
+a:link a:hover a:active {
+  text-decoration: none;
+}
