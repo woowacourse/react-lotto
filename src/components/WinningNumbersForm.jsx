@@ -1,132 +1,129 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { hasDuplicatedValue, isNumber, LOTTERY, MESSAGE } from "../utils";
 
-class WinningNumbersForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSubmit: false,
-      winningNumberInputs: Array(LOTTERY.NUMBER_COUNT).fill(""),
-      bonusNumberInput: "",
-      errorInputMessage: "",
-    };
-  }
+const WinningNumbersForm = ({ onWinningNumberSubmit }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [winningNumberInputs, setWinningNumberInputs] = useState(
+    Array(LOTTERY.NUMBER_COUNT).fill("")
+  );
+  const [bonusNumberInput, setBonusNumberInput] = useState("");
+  const [errorInputMessage, setErrorInputMessage] = useState("");
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const inputs = [
-      ...this.state.winningNumberInputs,
-      this.state.bonusNumberInput,
-    ];
+    const inputs = [...winningNumberInputs, bonusNumberInput];
 
-    if (hasDuplicatedValue(inputs)) {
-      this.setState({
-        errorInputMessage: MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER,
-      });
+    const isNumberInputsInRange = inputs.every(
+      (input) =>
+        LOTTERY.MIN_NUMBER <= Number(input) &&
+        Number(input) <= LOTTERY.MAX_NUMBER
+    );
+
+    if (!isNumberInputsInRange) {
+      setErrorInputMessage(MESSAGE.WINNING_NUMBERS_FORM.OUT_OF_RANGE);
 
       return;
     }
 
-    this.setState({
-      errorInputMessage: "",
-    });
-    this.setState({ isSubmit: true });
-    this.props.onWinningNumberSubmit(
-      this.state.winningNumberInputs.map((input) => Number(input)),
-      Number(this.state.bonusNumber)
+    if (hasDuplicatedValue(inputs)) {
+      setErrorInputMessage(MESSAGE.WINNING_NUMBERS_FORM.HAS_DUPLICATED_NUMBER);
+
+      return;
+    }
+
+    setErrorInputMessage("");
+    setIsSubmit(true);
+
+    onWinningNumberSubmit(
+      winningNumberInputs.map((input) => Number(input)),
+      Number(bonusNumberInput)
     );
   };
 
-  handleWinningNumberChange = ({ target }) => {
+  const handleWinningNumberChange = ({ target }) => {
     if (!isNumber(target.value)) {
       return;
     }
 
-    if (target.value.length > 1) {
+    if (target.value.length > LOTTERY.NUMBER_INPUT_MAX_LENGTH) {
       return;
     }
 
     const targetIndex = Number(target.dataset.index);
-    const winningNumberInputs = this.state.winningNumberInputs.map(
-      (input, index) => {
-        if (index !== targetIndex) {
-          return input;
-        }
-
-        return target.value;
+    const newWinningNumberInputs = winningNumberInputs.map((input, index) => {
+      if (index !== targetIndex) {
+        return input;
       }
-    );
 
-    this.setState({ winningNumberInputs });
+      return target.value;
+    });
+
+    setWinningNumberInputs(newWinningNumberInputs);
   };
 
-  handleBonusNumberChange = ({ target }) => {
+  const handleBonusNumberChange = ({ target }) => {
     if (!isNumber(target.value)) {
       return;
     }
 
-    if (target.value.length > 1) {
+    if (target.value.length > LOTTERY.NUMBER_INPUT_MAX_LENGTH) {
       return;
     }
 
-    const bonusNumberInput = target.value;
-
-    this.setState({ bonusNumberInput });
+    setBonusNumberInput(target.value);
   };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="mt-9">
-        <label className="flex-auto d-inline-block mb-3">
-          지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.
-        </label>
-        <div className="d-flex">
+  return (
+    <form onSubmit={handleSubmit} className="mt-9">
+      <label className="flex-auto d-inline-block mb-3">
+        지난 주 당첨번호 6개와 보너스 넘버 1개를 입력해주세요.
+      </label>
+      <div className="d-flex">
+        <div>
+          <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
           <div>
-            <h4 className="mt-0 mb-3 text-center">당첨 번호</h4>
-            <div>
-              {this.state.winningNumberInputs.map((_, index) => (
-                <input
-                  key={index}
-                  onChange={this.handleWinningNumberChange}
-                  data-index={index}
-                  className="winning-number mx-1 text-center"
-                  type="text"
-                  value={this.state.winningNumberInputs[index]}
-                  min={LOTTERY.MIN_NUMBER}
-                  max={LOTTERY.MAX_NUMBER}
-                  required
-                  disabled={this.state.isSubmit}
-                ></input>
-              ))}
-            </div>
-          </div>
-          <div className="bonus-number-container flex-grow">
-            <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
-            <div className="d-flex justify-center">
+            {winningNumberInputs.map((value, index) => (
               <input
-                className="bonus-number text-center"
-                onChange={this.handleBonusNumberChange}
+                key={index}
+                onChange={handleWinningNumberChange}
+                data-index={index}
+                className="winning-number mx-1 text-center"
                 type="text"
-                value={this.state.bonusNumberInput}
+                value={value}
                 min={LOTTERY.MIN_NUMBER}
                 max={LOTTERY.MAX_NUMBER}
-                disabled={this.state.isSubmit}
                 required
-              />
-            </div>
+                disabled={isSubmit}
+              ></input>
+            ))}
           </div>
         </div>
-        <p className="mt-3">{this.state.errorInputMessage}</p>
-        <button
-          type="submit"
-          className="open-result-modal-button mt-5 btn btn-cyan w-100"
-        >
-          결과 확인하기
-        </button>
-      </form>
-    );
-  }
-}
+        <div className="bonus-number-container flex-grow">
+          <h4 className="mt-0 mb-3 text-center">보너스 번호</h4>
+          <div className="d-flex justify-center">
+            <input
+              className="bonus-number text-center"
+              onChange={handleBonusNumberChange}
+              type="text"
+              value={bonusNumberInput}
+              min={LOTTERY.MIN_NUMBER}
+              max={LOTTERY.MAX_NUMBER}
+              disabled={isSubmit}
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <p className="mt-3">{errorInputMessage}</p>
+      <button
+        type="submit"
+        className="open-result-modal-button mt-5 btn btn-cyan w-100"
+      >
+        결과 확인하기
+      </button>
+    </form>
+  );
+};
 
 export default WinningNumbersForm;
