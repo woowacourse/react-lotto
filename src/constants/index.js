@@ -81,3 +81,12 @@ export const PATH = {
   ENTER_WINNING: '/enter-winning',
   RESULT: '/result',
 };
+
+export const SESSION = {
+  KEY: {
+    MONEY_INPUT: 'moneyInput',
+    NEW_LOTTO_LIST: 'newLottoList',
+    WINNING_NUMBER: 'winningNumber',
+    BONUS_NUMBER: 'bonusNumber',
+  },
+};
