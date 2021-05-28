@@ -1,0 +1,42 @@
+.lottery-ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 1px solid grey;
+  margin: 0.1rem;
+  font-size: 1rem;
+  box-shadow: 2px 1px 7px 0px #b5b5b5;
+  font-weight: 900;
+  font-family: system-ui;
+}
+
+.winning-ball {
+  color: white;
+}
+
+.ten-down {
+  background-color: rgba(252, 209, 83, 1);
+}
+
+.twenty-down {
+  background-color: rgba(255, 143, 78, 1);
+}
+
+.thirty-down {
+  background-color: rgba(60, 188, 255, 1);
+}
+
+.fourty-down {
+  background-color: rgba(141, 112, 217, 1);
+}
+
+.fourty-five-down {
+  background-color: rgba(255, 76, 76, 1);
+}
+
+.default-ball {
+  background-color: grey;
+}

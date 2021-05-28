@@ -15,16 +15,36 @@
 
 ## 📝 Requirements
 
-### Step1
+### Step1 (Class Component)
 
-- [ ] `Class Component`를 사용합니다.
-- [ ] 로또 구입 금액을 입력하면, 금액에 해당하는 로또를 발급해야 한다.
-- [ ] 로또 1장의 가격은 1,000원이다.
-- [ ] 소비자는 **자동 구매**만 할 수 있다.
-- [ ] 복권 번호는 번호보기 토글 버튼을 클릭하면, 볼 수 있어야 한다.
-- [ ] 결과 확인하기 버튼을 누르면 당첨 통계, 수익률을 모달로 확인할 수 있다.
-- [ ] 로또 당첨 금액은 고정되어 있는 것으로 가정한다.
-- [ ] 다시 시작하기 버튼을 누르면 초기화 되서 다시 구매를 시작할 수 있다.
+- [ ] 로또 구입 금액을 입력할 수 있다.
+- [ ] 입력한 구입 금액에 해당하는 갯수의 로또를 발급해야 한다.
+  - 로또 1장의 가격은 1,000원이다.
+  - 소비자는 **자동 구매**만 할 수 있다.
+- [ ] 번호 보기 토글 버튼을 클릭할 수 있다.
+  - 복권 번호를 볼 수 있다.
+- [ ] 결과 확인하기 버튼을 누를 수 있다.
+  - 당첨 통계, 수익률을 보여주는 모달이 나타난다.
+  - 로또 당첨 금액은 고정되어 있는 것으로 가정한다.
+- [ ] 다시 시작하기 버튼을 누를 수 있다.
+  - 게임이 초기화 된다.
+
+### Component 구성
+
+- [ ] `App.js`: 최상위 컴포넌트
+
+- [ ] `MoneyInput`: 로또 구입 금액 컴포넌트
+  - [ ] Input Component
+  - [ ] Button Component
+- [ ] `PurchasedNumberList`: 번호들의 컴포넌트
+  - [ ] Toggle Component
+- [ ] `PurchasedNumberItem`: 번호 Detail
+  - [ ] LottoNumber Component
+- [ ] `WinningNumber.js`: 당첨 번호 컴포넌트
+  - [ ] Input Component
+  - [ ] Button Component
+- [ ] `Modal.js`: Modal 컴포넌트
+  - [ ] Button Component
 
 ### Step2
 
