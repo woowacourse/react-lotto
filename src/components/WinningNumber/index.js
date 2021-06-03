@@ -37,8 +37,7 @@ class WinningNumber extends React.Component {
   }
 
   isInputValueDuplicated(lotteryNumbers, inputValue, index) {
-    const idx = lotteryNumbers.findIndex((el) => el.value === inputValue);
-    return idx !== -1 && idx !== index;
+    return lotteryNumbers.some((el, idx) => el.value === inputValue && idx !== index);
   }
 
   onBlurLotteryNumberInput(e, index) {
