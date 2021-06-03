@@ -1,133 +1,123 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './style.scss';
 
-class LottoBallCanvas extends React.Component {
-  constructor(props) {
-    super(props);
+const LottoBallCanvas = () => {
+  const canvasRef = useRef();
 
-    this.colors = [
-      'rgba(252, 209, 83, 1)',
-      'rgba(255, 143, 78, 1)',
-      'rgba(60, 188, 255, 1)',
-      'rgba(141, 112, 217, 1)',
-      'rgba(255, 76, 76, 1)',
-    ];
-    this.isBallDrawn = false;
-    this.ball = [];
-    this.ballCount = 30;
-    this.ballRadius = 15;
-    this.degrees = [0, 0, 0, 0, 0];
+  const colors = [
+    'rgba(252, 209, 83, 1)',
+    'rgba(255, 143, 78, 1)',
+    'rgba(60, 188, 255, 1)',
+    'rgba(141, 112, 217, 1)',
+    'rgba(255, 76, 76, 1)',
+  ];
+  const ball = [];
+  const ballCount = 30;
+  const ballRadius = 15;
+  const degrees = [0, 0, 0, 0, 0];
 
-    this.canvasRef = React.createRef();
+  let isBallDrawn = false;
 
-    this.setCanvas = this.setCanvas.bind(this);
-    this.addBalls = this.addBalls.bind(this);
-    this.move = this.move.bind(this);
-    this.rebound = this.rebound.bind(this);
-    this.draw = this.draw.bind(this);
-  }
+  let canvas = null;
+  let ctx = null;
 
-  setCanvas() {
-    // this.canvas = document.getElementById('lotto_ball_canvas');
-    this.canvas = this.canvasRef.current;
-    this.ctx = this.canvas.getContext('2d');
+  const setCanvas = () => {
+    canvas = canvasRef.current;
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 200;
+    ctx.canvas.height = 200;
+  };
 
-    this.ctx.canvas.width = 200;
-    this.ctx.canvas.height = 200;
-  }
-
-  addBalls() {
-    [...new Array(this.ballCount)].forEach((_, i) => {
-      this.ball[i] = {
+  const addBalls = () => {
+    [...new Array(ballCount)].forEach((_, i) => {
+      ball[i] = {
         x: 0,
         y: 0,
         dx: 2,
         dy: -2,
-        color: this.colors[i % this.colors.length],
+        color: colors[i % colors.length],
       };
     });
-  }
+  };
 
-  move() {
-    [...new Array(this.ballCount)].forEach((_, i) => {
-      this.ball[i].x = this.ball[i].x + this.ball[i].dx;
-      this.ball[i].y = this.ball[i].y + this.ball[i].dy;
-      this.isBallDrawn = true;
+  const move = () => {
+    [...new Array(ballCount)].forEach((_, i) => {
+      ball[i].x = ball[i].x + ball[i].dx;
+      ball[i].y = ball[i].y + ball[i].dy;
+      isBallDrawn = true;
     });
-  }
+  };
 
-  rebound() {
-    [...new Array(this.ballCount)].forEach((_, i) => {
+  const rebound = () => {
+    [...new Array(ballCount)].forEach((_, i) => {
       if (
-        this.ball[i].x + this.ball[i].dx > this.canvas.width - this.ballRadius ||
-        this.ball[i].x + this.ball[i].dx < this.ballRadius
+        ball[i].x + ball[i].dx > canvas.width - ballRadius ||
+        ball[i].x + ball[i].dx < ballRadius
       ) {
-        this.ball[i].dx = -this.ball[i].dx + Math.random();
+        ball[i].dx = -ball[i].dx + Math.random();
       }
       if (
-        this.ball[i].y + this.ball[i].dy > this.canvas.height - this.ballRadius ||
-        this.ball[i].y + this.ball[i].dy < this.ballRadius
+        ball[i].y + ball[i].dy > canvas.height - ballRadius ||
+        ball[i].y + ball[i].dy < ballRadius
       ) {
-        this.ball[i].dy = -this.ball[i].dy + Math.random() + 0.2;
+        ball[i].dy = -ball[i].dy + Math.random() + 0.2;
       }
     });
-  }
+  };
 
-  draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    [...new Array(this.ballCount)].forEach((_, i) => {
+  const draw = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    [...new Array(ballCount)].forEach((_, i) => {
       const currentDegreeIdx = i % 5;
-      const currentDegree = this.degrees[currentDegreeIdx];
+      const currentDegree = degrees[currentDegreeIdx];
 
-      if (!this.isBallDrawn) {
-        this.ball[i].x = Math.random() * this.canvas.width - this.ballRadius;
-        this.ball[i].y = Math.random() * this.canvas.height - this.ballRadius;
+      if (!isBallDrawn) {
+        ball[i].x = Math.random() * canvas.width - ballRadius;
+        ball[i].y = Math.random() * canvas.height - ballRadius;
       }
 
-      this.ctx.beginPath();
+      ctx.beginPath();
 
-      this.ctx.save();
-      this.ctx.translate(this.ball[i].x, this.ball[i].y);
-      this.ctx.rotate(currentDegree);
-      this.ctx.translate(-this.ball[i].x, -this.ball[i].y);
+      ctx.save();
+      ctx.translate(ball[i].x, ball[i].y);
+      ctx.rotate(currentDegree);
+      ctx.translate(-ball[i].x, -ball[i].y);
 
-      this.ctx.arc(this.ball[i].x, this.ball[i].y, this.ballRadius, 0, Math.PI * 2);
-      this.ctx.fillStyle = this.ball[i].color;
-      this.ctx.fill();
-      this.ctx.strokeStyle = '#000000';
-      this.ctx.stroke();
+      ctx.arc(ball[i].x, ball[i].y, ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = ball[i].color;
+      ctx.fill();
+      ctx.strokeStyle = '#000000';
+      ctx.stroke();
 
-      this.ctx.font = '.7em Noto Sans KR';
-      this.ctx.fillStyle = 'white';
-      this.ctx.textAlign = 'center';
-      this.ctx.fillText(i, this.ball[i].x, this.ball[i].y);
+      ctx.font = '.7em Noto Sans KR';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.fillText(i, ball[i].x, ball[i].y);
 
-      this.ctx.restore();
+      ctx.restore();
 
-      this.ctx.closePath();
-      this.degrees.forEach((degree, idx) => {
+      ctx.closePath();
+      degrees.forEach((degree, idx) => {
         if (idx % 2 === 0) {
-          this.degrees[idx] = degree + 0.001 * (idx + 1);
+          degrees[idx] = degree + 0.001 * (idx + 1);
         } else {
-          this.degrees[idx] = degree - 0.001 * (idx + 1);
+          degrees[idx] = degree - 0.001 * (idx + 1);
         }
       });
     });
 
-    this.move();
-    this.rebound();
-    requestAnimationFrame(this.draw);
-  }
+    move();
+    rebound();
+    requestAnimationFrame(draw);
+  };
 
-  componentDidMount() {
-    this.setCanvas();
-    this.addBalls();
-    this.draw();
-  }
+  useEffect(() => {
+    setCanvas();
+    addBalls();
+    draw();
+  }, []);
 
-  render() {
-    return <canvas ref={this.canvasRef} id='lotto_ball_canvas' />;
-  }
-}
+  return <canvas ref={canvasRef} id='lotto_ball_canvas' />;
+};
 
 export default LottoBallCanvas;
