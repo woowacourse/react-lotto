@@ -35,6 +35,7 @@ class App extends React.Component {
 
     this.audio = new Audio(muyahoAudio);
 
+    this.handleLotteryNumberSubmit = this.handleLotteryNumberSubmit.bind(this);
     this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
     this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -135,9 +136,7 @@ class App extends React.Component {
                 <Receipt receipt={this.state.receipt} />
                 <WinningNumber
                   lotteryNumbers={this.state.lotteryNumbers}
-                  onHandleChangeLotteryNumbers={(lotteryNumbers) =>
-                    this.handleLotteryNumberSubmit(lotteryNumbers)
-                  }
+                  onHandleChangeLotteryNumbers={this.handleLotteryNumberSubmit}
                   onModalButtonClick={this.handleModalButtonClick}
                 />
               </>

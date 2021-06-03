@@ -14,7 +14,7 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <div className='modal' onClick={(e) => this.onClickDimmer(e)}>
+      <div className='modal' onClick={this.onClickDimmer}>
         {this.props.children}
       </div>
     );

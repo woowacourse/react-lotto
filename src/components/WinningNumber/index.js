@@ -15,6 +15,8 @@ class WinningNumber extends React.Component {
       .forEach((_, idx) => {
         this[`inputRef${idx}`] = React.createRef();
       });
+
+    this.onWinningNumberSubmit = this.onWinningNumberSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +74,7 @@ class WinningNumber extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
+      <form onSubmit={this.onWinningNumberSubmit}>
         <div className='winning-number-form'>
           {this.props.lotteryNumbers.map(({ value, type }, idx) => (
             <NumberInput
