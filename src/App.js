@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import coinSpin from './animation/coinSpin.json';
-import Canvas from './components/Canvas';
+import LottoBallCanvas from './components/LottoBallCanvas';
 import MoneyInput from './components/MoneyInput';
 import Receipt from './components/Receipt';
 import ResultModal from './components/ResultModal';
@@ -111,7 +111,7 @@ class App extends React.Component {
             </audio>
           </>
         )}
-        <Canvas />
+        <LottoBallCanvas />
         <div className='title'>슈퍼 로또</div>
         <MoneyInput
           onHandleSubmit={(money, ticketCount) => {
