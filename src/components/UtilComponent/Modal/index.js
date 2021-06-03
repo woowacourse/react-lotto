@@ -4,6 +4,8 @@ import './style.scss';
 class Modal extends React.Component {
   constructor(props) {
     super(props);
+
+    this.onClickDimmer = this.onClickDimmer.bind(this);
   }
 
   onClickDimmer(e) {

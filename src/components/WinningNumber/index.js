@@ -10,11 +10,9 @@ class WinningNumber extends React.Component {
   constructor(props) {
     super(props);
     this.inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
-    Array(LOTTERY_NUMBERS_LENGTH)
-      .fill(0)
-      .forEach((_, idx) => {
-        this[`inputRef${idx}`] = React.createRef();
-      });
+    [...Array(LOTTERY_NUMBERS_LENGTH)].forEach((_, idx) => {
+      this[`inputRef${idx}`] = React.createRef();
+    });
 
     this.onWinningNumberSubmit = this.onWinningNumberSubmit.bind(this);
   }
