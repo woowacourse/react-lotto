@@ -1,85 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import NumberInput from '../UtilComponent/NumberInput/index';
-import Button from '../UtilComponent/Button/index';
+import NumberInput from '../@util-components/NumberInput/index';
+import Button from '../@util-components/Button/index';
 import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
 import './style.scss';
 
-class WinningNumber extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      winningNumberInputs: new Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0),
-      currentInputIndex: 0,
-    };
-    this.onWinningNumberSubmit = this.onWinningNumberSubmit.bind(this);
-  }
+const WinningNumber = ({ onHandleSubmit, onModalButtonClick }) => {
+  const [currentInputIndex, setCurrentInputIndex] = useState(0);
+  const [winningNumberInputs, setWinningNumberInputs] = useState(
+    Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(0)
+  );
 
-  onWinningNumberSubmit(e) {
+  const onWinningNumberSubmit = (e) => {
     e.preventDefault();
-    // TODO: 깔끔한 방법 찾기
+
     const winningNumbers = [];
-    e.target
+    const { target } = e;
+    target
       .querySelectorAll('.winning-number')
       .forEach((input) => winningNumbers.push(Number(input.value)));
 
-    const bonusNumber = Number(e.target.querySelector('.bonus-number').value);
+    const bonusNumber = Number(target.querySelector('.bonus-number').value);
 
-    this.props.onHandleSubmit(winningNumbers, bonusNumber);
-    this.props.onModalButtonClick();
-  }
+    onHandleSubmit(winningNumbers, bonusNumber);
+    onModalButtonClick();
+  };
 
-  isInputValueChanged(currentInputValue, inputValue) {
-    if (currentInputValue === inputValue) {
-      return false;
-    }
-    return true;
-  }
+  // TODO: 확인
+  const isInputValueChanged = (currentInputValue, inputValue) => currentInputValue === inputValue;
 
-  isInputValueExist(inputValue) {
-    if (!inputValue) return false;
-    return true;
-  }
+  const isInputValueExist = (inputValue) => !!inputValue;
 
-  isInputValueDuplicated({ winningNumberInputs }, inputValue, index) {
+  const isInputValueDuplicated = (winningNumberInputs, inputValue, index) => {
     const currentIndex = winningNumberInputs.findIndex((el) => el === inputValue);
-    if (currentIndex !== -1 && currentIndex !== index) {
-      return true;
-    }
-    return false;
-  }
 
-  onChangeWinningNumber(e, index) {
+    return currentIndex !== -1 && currentIndex !== index;
+  };
+
+  const onChangeWinningNumber = (e, index) => {
     const inputValue = Number(e.target.value.slice(0, 2));
 
-    const newWinningNumberInputs = [...this.state.winningNumberInputs];
+    const newWinningNumberInputs = [winningNumberInputs];
     newWinningNumberInputs[index] = inputValue;
 
-    if (!this.isInputValueExist(inputValue)) {
-      this.setState({
-        winningNumberInputs: newWinningNumberInputs,
-        currentInputIndex: index,
-      });
+    if (!isInputValueExist(inputValue)) {
+      setWinningNumberInputs(newWinningNumberInputs);
+      setCurrentInputIndex(index);
+
       return;
     }
 
-    if (this.isInputValueDuplicated(this.state, inputValue, index)) {
+    if (isInputValueDuplicated(winningNumberInputs, inputValue, index)) {
       alert('입력값이 중복되었습니다.');
       e.target.value = '';
       e.target.focus();
+
       return;
     }
 
-    this.setState({
-      winningNumberInputs: newWinningNumberInputs,
-      currentInputIndex: index + 1,
-    });
-  }
+    setWinningNumberInputs(newWinningNumberInputs);
+    setCurrentInputIndex(index + 1);
+  };
 
-  onChangeInputNumber(e, index) {
+  const onChangeInputNumber = (e, index) => {
     let inputValue = e.target.value;
-    const newWinningNumberInputs = [...this.state.winningNumberInputs];
+    const newWinningNumberInputs = [...winningNumberInputs];
 
     if (inputValue.length > 2) {
       inputValue = Number(inputValue.slice(0, 2));
@@ -87,40 +73,34 @@ class WinningNumber extends React.Component {
 
     newWinningNumberInputs.splice(index, 1, inputValue);
 
-    this.setState({
-      winningNumberInputs: newWinningNumberInputs,
-      currentInputIndex: index,
-    });
-  }
+    setWinningNumberInputs(newWinningNumberInputs);
+    setCurrentInputIndex(index);
+  };
 
-  render() {
-    return (
-      <form onSubmit={this.onWinningNumberSubmit}>
-        <div className='winning-number-form'>
-          {[...this.state.winningNumberInputs].map((number, index) => {
-            return (
-              <NumberInput
-                isCurrentInput={this.state.currentInputIndex === index}
-                min='1'
-                max='45'
-                key={uuidv4()}
-                customClass={
-                  index < this.state.winningNumberInputs.length - 1
-                    ? 'winning-number'
-                    : 'bonus-number'
-                }
-                defaultValue={number ? number : ''}
-                onInputChange={(e) => this.onChangeInputNumber(e, index)}
-                onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
-              />
-            );
-          })}
-        </div>
-        <Button buttonText='결과 확인하기' />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onWinningNumberSubmit}>
+      <div className='winning-number-form'>
+        {[...winningNumberInputs].map((number, index) => {
+          return (
+            <NumberInput
+              isCurrentInput={currentInputIndex === index}
+              min='1'
+              max='45'
+              key={uuidv4()}
+              customClass={
+                index < winningNumberInputs.length - 1 ? 'winning-number' : 'bonus-number'
+              }
+              defaultValue={number ? number : ''}
+              onInputChange={(e) => onChangeInputNumber(e, index)}
+              // onInputFocusOut={(e) => onChangeWinningNumber(e, index)}
+            />
+          );
+        })}
+      </div>
+      <Button buttonText='결과 확인하기' />
+    </form>
+  );
+};
 
 WinningNumber.propTypes = {
   onHandleSubmit: PropTypes.func,

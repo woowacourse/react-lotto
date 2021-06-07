@@ -1,19 +1,8 @@
-import React from 'react';
-import getRandomNumber from '../../utils/random-number';
+import React, { useEffect } from 'react';
 import './style.scss';
 
-class Canvas extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  addAnimation() {}
-
-  render() {
-    return <canvas id='canvas' />;
-  }
-
-  componentDidMount() {
+const Canvas = () => {
+  useEffect(() => {
     const colors = [
       ...Array(6).fill('rgba(252, 209, 83, 1)'),
       ...Array(6).fill('rgba(255, 143, 78, 1)'),
@@ -117,7 +106,9 @@ class Canvas extends React.Component {
     }
 
     draw();
-  }
-}
+  });
+
+  return <canvas id='canvas' />;
+};
 
 export default Canvas;
