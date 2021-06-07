@@ -50,6 +50,7 @@ const App = () => {
   const handleResetButtonClick = () => {
     setIsMoneyInputValid(false);
     setIsModalOpen(false);
+    resetMoneyForm();
 
     showScroll();
   };
@@ -77,6 +78,11 @@ const App = () => {
       setIsLoading(false);
       setReceipt([...Array(ticketCount)].map(makeAutoTicket));
     }, 1000);
+  };
+
+  const resetMoneyForm = () => {
+    moneyInputRef.current.reset();
+    moneyInputRef.current.focus();
   };
 
   useEffect(() => {
@@ -121,7 +127,7 @@ const App = () => {
       <Canvas />
       <div className='title'>슈퍼 로또</div>
       <MoneyInput
-        numberformRef={moneyInputRef}
+        moneyInputRef={moneyInputRef}
         onHandleSubmit={(money, ticketCount) => {
           handleMoneySubmit(money);
           makeReceipt(ticketCount);
