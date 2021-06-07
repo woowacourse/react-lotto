@@ -1,20 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './style.scss';
 
-const TimeLeft = () => {
-  const [timeLeft, setTimeLeft] = useState('--일 --시간 --분 --초');
-  const [now, setNow] = useState(new Date());
-  const [announceDate, setAnnounceDate] = useState(new Date('April 24, 2021 20:45:00'));
-  let ticking = null;
+class TimeLeft extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const tick = () => {
-    if (announceDate < now) {
-      setAnnounceDate(new Date(announceDate.getTime() + 7 * 1000 * 60 * 60 * 24));
+    this.state = {
+      timeLeft: '--일 --시간 --분 --초',
+      now: new Date(),
+      announceDate: new Date(),
+    };
+    // this.date = ['April', 24, 2021, '20:45:00'];
+    this.date = [2021, 4, 24, 20, 45, 0];
+    this.ticking = null;
+  }
+
+  componentDidMount() {
+    this.setState({ announceDate: new Date(...this.date) });
+  }
+
+  tick() {
+    if (this.state.announceDate < this.state.now) {
+      this.setState({
+        announceDate: new Date(this.state.announceDate.getTime() + 7 * 1000 * 60 * 60 * 24),
+      });
     }
 
-    let dateDifference = announceDate - now;
+    let dateDifference = this.state.announceDate - this.state.now;
     const dayDifference = Math.floor(
-      (announceDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+      (this.state.announceDate.getTime() - this.state.now.getTime()) / (1000 * 60 * 60 * 24)
     );
     dateDifference -= dayDifference * (1000 * 60 * 60 * 24);
     const hourDifference = Math.floor(dateDifference / (1000 * 60 * 60));
@@ -31,27 +45,34 @@ const TimeLeft = () => {
       secondDifference < 10 ? `0${secondDifference}` : secondDifference
     }초 ⏰`;
 
-    setTimeLeft(newTime);
-    setNow(new Date());
-  };
+    this.setState({
+      timeLeft: newTime,
+      now: new Date(),
+    });
+  }
 
-  useEffect(() => {
-    ticking = setInterval(() => {
-      tick();
+  componentDidMount() {
+    this.ticking = setInterval(() => {
+      this.tick();
     }, 1000);
-    return clearInterval(ticking);
-  }, []);
+  }
 
-  return (
-    <>
-      <div className='belt-up'></div>
-      <div className='time-container'>
-        <div className='time-sub-title'>
-          🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {timeLeft} </span>
+  componentWillUnmount() {
+    clearInterval(this.ticking);
+  }
+
+  render() {
+    return (
+      <>
+        <div className='belt-up'></div>
+        <div className='time-container'>
+          <div className='time-sub-title'>
+            🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {this.state.timeLeft} </span>
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 export default TimeLeft;

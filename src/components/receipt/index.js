@@ -23,4 +23,8 @@ Receipt.propTypes = {
   receipt: PropTypes.array,
 };
 
+Receipt.propTypes = {
+  receipt: PropTypes.array,
+};
+
 export default Receipt;
