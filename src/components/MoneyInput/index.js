@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NumberInput from '../UtilComponent/NumberInput';
-import Button from '../UtilComponent/Button';
+import NumberInput from '../@util-components/NumberInput';
+import Button from '../@util-components/Button';
 import { LOTTERY_PRICE } from '../../constants/number';
 import './style.scss';
 

@@ -108,13 +108,4 @@ Modal.propTypes = {
   onModalClose: PropTypes.func,
 };
 
-Modal.propTypes = {
-  winningNumber: PropTypes.array,
-  bonusNumber: PropTypes.number,
-  receipt: PropTypes.array,
-  moneyAmount: PropTypes.number,
-  onResetButtonClick: PropTypes.func,
-  onModalClose: PropTypes.func,
-};
-
 export default Modal;
