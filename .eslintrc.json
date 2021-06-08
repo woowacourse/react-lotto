@@ -13,6 +13,7 @@
     "no-alert": "off",
     "no-param-reassign": "off",
     "no-return-assign": "off",
+    "no-unused-expressions": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "max-depth": ["error", 1],
@@ -23,6 +24,8 @@
     "react/prop-types": "off",
     "react/destructuring-assignment": "off",
     "max-classes-per-file": ["error", 3],
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "react/no-array-index-key": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

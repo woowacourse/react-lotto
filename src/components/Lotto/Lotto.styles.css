@@ -1,0 +1,17 @@
+.lotto {
+  display: flex;
+  align-items: center;
+}
+
+.lotto-image {
+  width: 2.25rem;
+  margin: 0 0.2rem;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.lotto-number {
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  color: #333;
+}
