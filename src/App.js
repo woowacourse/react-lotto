@@ -1,131 +1,99 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 
 import LottoPurchaseForm from './components/LottoPurchaseForm/LottoPurchaseForm';
 import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
 import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
 import RewardModalInner from './components/lottoRewardResult/RewardModalInner';
 
-import Modal from './components/commons/Modal/Modal';
-import Flex from './components/commons/Flex/Flex';
+import { Flex, Modal } from './components';
 
 import { createLottos } from './services/lottoPurchase';
 
-import { MESSAGE } from './constants/messages';
-
 import { MainSection, WidthFullDiv } from './App.style';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+import { MESSAGE } from './constants/messages';
 
-    this.state = {
-      lottos: [],
-      winningNumbers: {
-        numbers: [],
-        bonusNumber: 0,
-      },
-      isModalOpened: false,
-    };
+const App = () => {
+  const [lottos, setLottos] = useState([]);
+  const [winningNumbers, setWinningNumbers] = useState({
+    numbers: [],
+    bonusNumber: 0,
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    this.purchaseFormRef = React.createRef();
-  }
+  const purchaseFormRef = useRef();
 
-  initState = () => {
-    this.setLottos([]);
-    this.setWinningNumbers([], 0);
-    this.setIsModalOpened(false);
+  const initState = () => {
+    setLottos([]);
+    setWinningNumbers({ numbers: [], bonusNumber: 0 });
+    setIsModalOpen(false);
   };
 
-  setLottos = lottos => {
-    this.setState({
-      lottos,
-    });
+  const handlePurchaseLotto = inputPrice => {
+    setLottos(createLottos(inputPrice));
   };
 
-  setWinningNumbers = winningNumbers => {
-    this.setState({
-      winningNumbers,
-    });
+  const handleWinningNumber = (numbers, bonusNumber) => {
+    setWinningNumbers({ numbers, bonusNumber });
+    setIsModalOpen(true);
   };
 
-  setIsModalOpened = bool => {
-    this.setState({
-      isModalOpened: bool,
-    });
+  const handleModalClosed = () => {
+    setIsModalOpen(false);
   };
 
-  handlePurchaseLotto = inputPrice => {
-    this.setLottos(createLottos(inputPrice));
-  };
-
-  handleWinningNumber = (numbers, bonusNumber) => {
-    this.setWinningNumbers({ numbers, bonusNumber });
-    this.setIsModalOpened(true);
-  };
-
-  handleModalClosed = () => {
-    this.setIsModalOpened(false);
-  };
-
-  handleRestart = () => {
+  const handleRestart = () => {
     if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
-      this.initState();
-      this.purchaseFormRef.current.resetLottoPurchaseForm();
+      initState();
+      purchaseFormRef.current.resetLottoPurchaseForm();
     }
   };
 
-  render() {
-    const { lottos, winningNumbers, isModalOpened } = this.state;
-    const isPurchased = lottos.length > 0;
+  return (
+    <MainSection>
+      <h1>🎱 행운의 로또</h1>
+      <Flex flexDirection="column" alignItems="center">
+        <WidthFullDiv>
+          <LottoPurchaseForm
+            handlePurchaseLotto={handlePurchaseLotto}
+            ref={purchaseFormRef}
+          />
 
-    return (
-      <MainSection>
-        <h1>🎱 행운의 로또</h1>
-        <Flex flexDirection="column" alignItems="center">
-          <WidthFullDiv>
-            <LottoPurchaseForm
-              handlePurchaseLotto={this.handlePurchaseLotto}
-              ref={this.purchaseFormRef}
-            />
+          {lottos.length > 0 && (
+            <>
+              <PurchaseResult lottos={lottos} />
+              <WinningNumberForm handleWinningNumber={handleWinningNumber} />
+            </>
+          )}
+        </WidthFullDiv>
+      </Flex>
 
-            {isPurchased && (
-              <>
-                <PurchaseResult lottos={lottos} />
-                <WinningNumberForm
-                  handleWinningNumber={this.handleWinningNumber}
-                />
-              </>
-            )}
-          </WidthFullDiv>
-        </Flex>
-
-        {isModalOpened && (
-          <Modal
-            handleModalClosed={this.handleModalClosed}
-            backgroundColor="rgba(0, 0, 0, 0.5)"
-            transition="opacity 0.25s ease"
-            innerMaxWidth="350px"
-            innerBackgroundColor="#fff"
-            innerMargin="auto"
-            innerPadding="2.5rem"
-            innerTransition="top 0.25s ease"
-            closeButtonWidth="20px"
-            closeButtonHeight="20px"
-            closeButtonRightPosition="30px"
-            closeButtonTopPosition="30px"
-            closeButtonPathStroke="gray"
-            closeButtonPathStrokeWidth="5"
-          >
-            <RewardModalInner
-              lottos={lottos}
-              winningNumbers={winningNumbers}
-              handleRestart={this.handleRestart}
-            />
-          </Modal>
-        )}
-      </MainSection>
-    );
-  }
-}
+      {isModalOpen && (
+        <Modal
+          handleModalClosed={handleModalClosed}
+          backgroundColor="rgba(0, 0, 0, 0.5)"
+          transition="opacity 0.25s ease"
+          innerMaxWidth="350px"
+          innerBackgroundColor="#fff"
+          innerMargin="auto"
+          innerPadding="2.5rem"
+          innerTransition="top 0.25s ease"
+          closeButtonWidth="20px"
+          closeButtonHeight="20px"
+          closeButtonRightPosition="30px"
+          closeButtonTopPosition="30px"
+          closeButtonPathStroke="gray"
+          closeButtonPathStrokeWidth="5"
+        >
+          <RewardModalInner
+            lottos={lottos}
+            winningNumbers={winningNumbers}
+            handleRestart={handleRestart}
+          />
+        </Modal>
+      )}
+    </MainSection>
+  );
+};
 
 export default App;
