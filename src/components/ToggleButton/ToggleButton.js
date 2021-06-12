@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Flex from '../utils/Flex';
+import Flex from '../commons/Flex/Flex';
 
 import {
   ToggleButtonInput,
   ToggleButtonLabel,
   ToggleButtonSpan,
-} from './styles/ToggleButton.style';
+} from './ToggleButton.style';
 
 class ToggleButton extends Component {
   render() {

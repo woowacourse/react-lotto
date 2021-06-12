@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Flex from '../utils/Flex';
+import Flex from '../commons/Flex/Flex';
 
 import { LOTTO } from '../../constants/lotto';
 

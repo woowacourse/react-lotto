@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { FlexBox } from './styles/FlexBox.style';
+import { FlexBox } from './Flex.style';
 
 class Flex extends Component {
   render() {

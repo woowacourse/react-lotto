@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import NumberList from './NumberList';
 import BonusNumberInput from './BonusNumberInput';
 
-import Button from '../utils/Button';
+import Button from '../commons/Button/Button';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';

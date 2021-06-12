@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Button from '../utils/Button';
-import Flex from '../utils/Flex';
+import Button from '../commons/Button/Button';
+import Flex from '../commons/Flex/Flex';
 
 class RestartButton extends Component {
   render() {

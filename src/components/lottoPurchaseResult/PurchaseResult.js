@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import LottoIconList from './LottoIconList';
 import LottoDetailList from './LottoDetailList';
-import ToggleButton from './ToggleButton';
 
-import Flex from '../utils/Flex';
+import ToggleButton from '../ToggleButton/ToggleButton';
+
+import Flex from '../commons/Flex/Flex';
 
 import { PurchaseResultSection } from './styles/PurchaseResult.style';
 

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import LottoPurchaseForm from './LottoPurchaseForm/LottoPurchaseForm';
-import PurchaseResult from './lottoPurchaseResult/PurchaseResult';
-import WinningNumberForm from './lottoWinningNumber/WinningNumberForm';
-import RewardModalInner from './lottoRewardResult/RewardModalInner';
+import LottoPurchaseForm from './components/LottoPurchaseForm/LottoPurchaseForm';
+import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
+import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
+import RewardModalInner from './components/lottoRewardResult/RewardModalInner';
 
-import Modal from './utils/Modals';
-import Flex from './utils/Flex';
+import Modal from './components/commons/Modal/Modal';
+import Flex from './components/commons/Flex/Flex';
 
-import { createLottos } from '../services/lottoPurchase';
+import { createLottos } from './services/lottoPurchase';
 
-import { MESSAGE } from '../constants/messages';
+import { MESSAGE } from './constants/messages';
 
 import { MainSection, WidthFullDiv } from './App.style';
 

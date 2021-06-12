@@ -5,7 +5,7 @@ import {
   ModalInnerDiv,
   ModalCloseButton,
   HiddenButtonName,
-} from './styles/Modal.style';
+} from './Modal.style';
 
 class Modal extends Component {
   handleCloseModal = ({ currentTarget, target }) => {
