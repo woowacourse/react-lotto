@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import PropTypes from 'prop-types';
 
 import { FlexBox } from './Flex.style';
 
-class Flex extends Component {
-  render() {
-    const {
-      children,
-      flexFlow,
-      justifyContent,
-      alignItems,
-      flexWrap,
-      flexBasis,
-      flexGrow,
-      flexShrink,
-    } = this.props;
+export const Flex = props => {
+  const { children, ...rest } = props;
 
-    return (
-      <FlexBox
-        FlexBox={flexFlow}
-        justifyContent={justifyContent}
-        alignItems={alignItems}
-        flexWrap={flexWrap}
-        flexBasis={flexBasis}
-        flexGrow={flexGrow}
-        flexShrink={flexShrink}
-      >
-        {children}
-      </FlexBox>
-    );
-  }
-}
+  return <FlexBox {...rest}>{children}</FlexBox>;
+};
 
-export default Flex;
+Flex.propTypes = {
+  children: PropTypes.node.isRequired,
+  flexFlow: PropTypes.string,
+  justifyContent: PropTypes.string,
+  alignItems: PropTypes.string,
+  flexWrap: PropTypes.string,
+  flexBasis: PropTypes.string,
+  flexGrow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  flexShrink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};

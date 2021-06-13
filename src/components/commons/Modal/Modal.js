@@ -6,8 +6,7 @@ import {
   ModalCloseButton,
   HiddenButtonName,
 } from './Modal.style';
-
-class Modal extends Component {
+export class Modal extends Component {
   handleCloseModal = ({ currentTarget, target }) => {
     const isDimmedClicked = currentTarget === target;
     const isCloseButtonClicked = target.classList.contains('close-modal');
@@ -76,5 +75,3 @@ class Modal extends Component {
     );
   }
 }
-
-export default Modal;

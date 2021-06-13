@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Flex from '../commons/Flex/Flex';
+import { Flex } from '..';
 
 import {
   ToggleButtonInput,
@@ -8,7 +8,7 @@ import {
   ToggleButtonSpan,
 } from './ToggleButton.style';
 
-class ToggleButton extends Component {
+export class ToggleButton extends Component {
   render() {
     const { setIsShowNumbers } = this.props;
 
@@ -28,5 +28,3 @@ class ToggleButton extends Component {
     );
   }
 }
-
-export default ToggleButton;

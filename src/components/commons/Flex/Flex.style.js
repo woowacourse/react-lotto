@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FlexBox = styled.div`
   display: flex;
+
   flex-flow: ${props => props.flexFlow};
   justify-content: ${props => props.justifyContent};
   align-items: ${props => props.alignItems};
@@ -9,4 +10,6 @@ export const FlexBox = styled.div`
   flex-basis: ${props => props.flexBasis};
   flex-grow: ${props => props.flexGrow};
   flex-shrink: ${props => props.flexShrink};
+
+  ${({ css }) => css}
 `;

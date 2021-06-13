@@ -1,41 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import PropTypes from 'prop-types';
 
 import { StyledButton } from './Button.style';
 
-class Button extends Component {
-  render() {
-    const {
-      type,
-      minWidth,
-      onClick,
-      disabled,
-      autoFocus,
-      form,
-      name,
-      value,
-      backgroundColor,
-      borderColor,
-      color,
-    } = this.props;
+export const Button = props => {
+  const { children, ...rest } = props;
 
-    return (
-      <StyledButton
-        type={type || 'submit'}
-        onClick={onClick}
-        disabled={disabled}
-        autoFocus={autoFocus}
-        form={form}
-        name={name}
-        value={value}
-        minWidth={minWidth}
-        backgroundColor={backgroundColor || '#c71f1f'}
-        borderColor={borderColor || '#c71f1f'}
-        color={color || '#fce9e9'}
-      >
-        {this.props.children}
-      </StyledButton>
-    );
-  }
-}
+  return <StyledButton {...rest}>{children}</StyledButton>;
+};
 
-export default Button;
+Button.propTypes = {
+  type: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  value: PropTypes.string,
+  name: PropTypes.string,
+
+  size: PropTypes.string,
+};
+
+Button.defaultProps = {
+  type: 'submit',
+  size: 'SMALL',
+};

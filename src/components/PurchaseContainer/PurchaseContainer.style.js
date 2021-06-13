@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { css } from 'styled-components';
 
-export const PurchaseInputForm = styled.form`
+export const formCss = css`
   margin: 0.5rem;
 
   & label {
@@ -9,7 +9,7 @@ export const PurchaseInputForm = styled.form`
   }
 `;
 
-export const PurchaseInput = styled.input`
+export const inputCss = css`
   width: 100%;
   margin-right: 0.2rem;
   padding-left: 0.5rem;
