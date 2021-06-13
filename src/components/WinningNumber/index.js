@@ -1,88 +1,68 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
 import Button from '../UtilComponent/Button/index';
 import NumberInput from '../UtilComponent/NumberInput/index';
 import './style.scss';
 
-class WinningNumber extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
-    [...Array(LOTTERY_NUMBERS_LENGTH)].forEach((_, idx) => {
-      this[`inputRef${idx}`] = React.createRef();
-    });
+const WinningNumber = React.forwardRef(
+  ({ onHandleChangeLotteryNumbers, onModalButtonClick, lotteryNumbers }, ref) => {
+    const inputIds = useRef([...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4()));
 
-    this.onWinningNumberSubmit = this.onWinningNumberSubmit.bind(this);
-  }
+    const onWinningNumberSubmit = (e) => {
+      e.preventDefault();
+      const newLotteryNumbers = lotteryNumbers.map((number, idx) => ({
+        value: Number(ref.current[idx].current.value),
+        type: number.type,
+      }));
 
-  componentDidMount() {
-    this.inputRef0.current.focus();
-  }
-
-  onWinningNumberSubmit(e) {
-    e.preventDefault();
-    const lotteryNumbers = this.props.lotteryNumbers.map((_, idx) => ({
-      value: Number(this[`inputRef${idx}`].current.value),
-      type: this.props.lotteryNumbers[idx].type,
-    }));
-
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-    this.props.onModalButtonClick();
-  }
-
-  isInputValueExist(inputValue) {
-    return !!inputValue;
-  }
-
-  isInputValueDuplicated(lotteryNumbers, inputValue, index) {
-    return lotteryNumbers.some((el, idx) => el.value === inputValue && idx !== index);
-  }
-
-  onBlurLotteryNumberInput(e, index) {
-    const inputValue = Number(e.target.value);
-    const lotteryNumbers = [...this.props.lotteryNumbers];
-    lotteryNumbers[index].value = inputValue;
-
-    if (!this.isInputValueExist(inputValue)) return;
-
-    if (this.isInputValueDuplicated(this.props.lotteryNumbers, inputValue, index)) {
-      alert('입력값이 중복되었습니다.');
-      e.target.value = '';
-      e.target.focus();
-      return;
-    }
-
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-  }
-
-  onChangeLotteryNumber(e, index) {
-    const inputValue = Math.min(Number(e.target.value), 45);
-    const lotteryNumbers = [...this.props.lotteryNumbers];
-
-    lotteryNumbers[index] = {
-      value: inputValue,
-      type: lotteryNumbers[index].type,
+      onHandleChangeLotteryNumbers(newLotteryNumbers);
+      onModalButtonClick();
     };
 
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-  }
+    const isInputValueExist = (inputValue) => !!inputValue;
 
-  render() {
+    const isInputValueDuplicated = (lotteryNumbers, inputValue, index) => {
+      return lotteryNumbers.some((el, idx) => el.value === inputValue && idx !== index);
+    };
+
+    const onBlurLotteryNumberInput = (e, index) => {
+      const inputValue = Math.min(Number(e.target.value), 45);
+      const newLotteryNumbers = [...lotteryNumbers];
+      newLotteryNumbers[index].value = inputValue;
+
+      if (!isInputValueExist(inputValue)) return;
+
+      e.target.value = inputValue;
+
+      if (isInputValueDuplicated(lotteryNumbers, inputValue, index)) {
+        alert('입력값이 중복되었습니다.');
+        e.target.value = '';
+        e.target.focus();
+        return;
+      }
+
+      onHandleChangeLotteryNumbers(newLotteryNumbers);
+    };
+
+    useEffect(() => {
+      ref.current[0].current.scrollIntoView(true);
+      ref.current[0].current.focus();
+    }, []);
+
     return (
-      <form onSubmit={this.onWinningNumberSubmit}>
+      <form onSubmit={onWinningNumberSubmit}>
         <div className='winning-number-form'>
-          {this.props.lotteryNumbers.map(({ value, type }, idx) => (
+          {lotteryNumbers.map(({ value, type }, idx) => (
             <NumberInput
               min='1'
               max='45'
-              key={this.inputIds[idx]}
-              ref={this[`inputRef${idx}`]}
+              key={inputIds.current[idx]}
+              ref={ref.current[idx]}
               customClass={`${type}-number`}
-              value={value || ''}
-              onBlur={(e) => this.onBlurLotteryNumberInput(e, idx)}
-              onChange={(e) => this.onChangeLotteryNumber(e, idx)}
+              defaultValue={''}
+              onBlur={(e) => onBlurLotteryNumberInput(e, idx)}
             />
           ))}
         </div>
@@ -90,11 +70,11 @@ class WinningNumber extends React.Component {
       </form>
     );
   }
-}
+);
 
 WinningNumber.propTypes = {
   onHandleSubmit: PropTypes.func,
   onModalButtonClick: PropTypes.func,
 };
 
-export default WinningNumber;
+export default React.memo(WinningNumber);

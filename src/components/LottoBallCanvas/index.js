@@ -21,6 +21,12 @@ const LottoBallCanvas = () => {
   let canvas = null;
   let ctx = null;
 
+  useEffect(() => {
+    setCanvas();
+    addBalls();
+    draw();
+  }, []);
+
   const setCanvas = () => {
     canvas = canvasRef.current;
     ctx = canvas.getContext('2d');
@@ -110,12 +116,6 @@ const LottoBallCanvas = () => {
     rebound();
     requestAnimationFrame(draw);
   };
-
-  useEffect(() => {
-    setCanvas();
-    addBalls();
-    draw();
-  }, []);
 
   return <canvas ref={canvasRef} id='lotto_ball_canvas' />;
 };

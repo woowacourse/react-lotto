@@ -3,26 +3,10 @@ import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
 
-class LotteryBall extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <span
-        className={`lottery-ball ${
-          this.props.colored && this.props.ballColor && `winning-ball ${this.props.ballColor}`
-        }`}
-      >
-        {this.props.toggled ? (
-          this.props.numberValue
-        ) : (
-          <FontAwesomeIcon icon={faAsterisk} color='grey' size='xs' />
-        )}
-      </span>
-    );
-  }
-}
+const LotteryBall = ({ colored, ballColor, toggled, numberValue }) => (
+  <span className={`lottery-ball ${colored && ballColor && `winning-ball ${ballColor}`}`}>
+    {toggled ? numberValue : <FontAwesomeIcon icon={faAsterisk} color='grey' size='xs' />}
+  </span>
+);
 
 export default LotteryBall;

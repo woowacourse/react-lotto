@@ -1,51 +1,34 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LOTTERY_PRICE } from '../../constants/number';
 import Button from '../UtilComponent/Button';
 import NumberInput from '../UtilComponent/NumberInput';
 import './style.scss';
-class MoneyInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputRef = React.createRef();
 
-    this.onMoneyInputSubmit = this.onMoneyInputSubmit.bind(this);
-  }
+const MoneyInput = React.forwardRef(({ onHandleSubmit }, ref) => {
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
 
-  componentDidMount() {
-    this.inputRef.current.focus();
-  }
-
-  onMoneyInputSubmit(e) {
+  const onMoneyInputSubmit = (e) => {
     e.preventDefault();
-    const money = Number(this.inputRef.current.value);
+    const money = Number(ref.current.value);
     const ticketCount = Math.floor(money / LOTTERY_PRICE);
-    this.props.onHandleSubmit(money, ticketCount);
-  }
+    onHandleSubmit(money, ticketCount);
+  };
 
-  resetMoneyForm() {
-    this.inputRef.current.value = '';
-  }
-
-  render() {
-    return (
-      <form className='money-input-form' onSubmit={this.onMoneyInputSubmit}>
-        <NumberInput
-          ref={this.inputRef}
-          customClass='money-input'
-          name='amount'
-          min='1000'
-          max='1000000'
-          placeholder='1,000'
-        />
-        <Button customClass='money-input-button'>구입</Button>
-      </form>
-    );
-  }
-}
-
-MoneyInput.propTypes = {
-  onHandleSubmit: PropTypes.func,
-};
+  return (
+    <form className='money-input-form' onSubmit={onMoneyInputSubmit}>
+      <NumberInput
+        ref={ref}
+        customClass='money-input'
+        name='amount'
+        min='1000'
+        max='1000000'
+        placeholder='1,000'
+      />
+      <Button customClass='money-input-button'>구입</Button>
+    </form>
+  );
+});
 
 export default MoneyInput;

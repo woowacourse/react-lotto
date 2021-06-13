@@ -4,98 +4,93 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
-import calculatePrize from '../../utils/calculate-prize';
-import chooseBallColor from '../../utils/color-ball';
+import calculatePrize from '../../utils/calculatePrize';
+import chooseBallColor from '../../utils/colorBall';
 import LotteryBall from '../Receipt/LotteryBall';
 import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../UtilComponent/Button';
 import Modal from '../UtilComponent/Modal';
 import './style.scss';
-class ResultModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.totalPrize = this.props.receipt.reduce((sum, currentTicket) => {
-      const winningCount = this.countWinningBall(currentTicket);
-      const bonusCount = this.countBonusBall(currentTicket);
-      return sum + calculatePrize(winningCount, bonusCount);
-    }, 0);
-    this.earningRate = Math.floor(
-      ((this.totalPrize - this.props.moneyAmount) / this.props.moneyAmount) * 100
-    );
-    this.winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
-    this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
-  }
 
-  countWinningBall(ticket) {
-    return ticket.filter((ball) =>
-      this.props.lotteryNumbers.some((number) => number.value === ball)
-    ).length;
-  }
+const ResultModal = ({
+  receipt,
+  moneyAmount,
+  lotteryNumbers,
+  onModalClose,
+  onResetButtonClick,
+}) => {
+  const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
+  const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
+  const numberItemIds = [...Array(receipt.length)].map(() => uuidv4());
 
-  countBonusBall(ticket) {
-    const winningBonusBall = ticket.find(
-      (ball) => ball === this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1]
-    );
+  const countWinningBall = (ticket) => {
+    ticket.filter((ball) => lotteryNumbers.some((number) => number.value === ball)).length;
+  };
 
-    return winningBonusBall ? 1 : 0;
-  }
+  const countBonusBall = (ticket) => {
+    ticket.find((ball) => ball === lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1]) ? 1 : 0;
+  };
 
-  render() {
-    const bonusNumber = this.props.lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
+  const totalPrize = receipt.reduce(
+    (sum, currentTicket) =>
+      sum + calculatePrize(countWinningBall(currentTicket), countBonusBall(currentTicket)),
+    0
+  );
 
-    return (
-      <Modal onModalClose={this.props.onModalClose}>
-        <div className='modal-inner'>
-          <div className='modal-top-spacing'></div>
-          <Button customClass='modal-close-button' onClick={this.props.onModalClose}>
-            <FontAwesomeIcon icon={faTimes} />
-          </Button>
-          <h1 className='modal-header'>슈퍼 로또</h1>
-          <h1 className='modal-sub-header'>당첨 결과 번호</h1>
-          <div className='result-numbers-container'>
-            {this.props.lotteryNumbers.map(
-              ({ value, type }, idx) =>
-                type === 'winning' && (
-                  <LotteryBall
-                    key={this.winningNumberIds[idx]}
-                    numberValue={value}
-                    toggled={true}
-                    colored={true}
-                    ballColor={chooseBallColor(value)}
-                  />
-                )
-            )}
-            <div className='plus-icon'>
-              <FontAwesomeIcon icon={faPlus} />
-            </div>
-            <LotteryBall
-              numberValue={bonusNumber}
-              toggled={true}
-              colored={true}
-              ballColor={chooseBallColor(bonusNumber)}
-            />
+  const earningRate = Math.floor(((totalPrize - moneyAmount) / moneyAmount) * 100);
+
+  return (
+    <Modal onModalClose={onModalClose}>
+      <div className='modal-inner'>
+        <div className='modal-top-spacing'></div>
+        <Button customClass='modal-close-button' onClick={onModalClose}>
+          <FontAwesomeIcon icon={faTimes} />
+        </Button>
+        <h1 className='modal-header'>슈퍼 로또</h1>
+        <h1 className='modal-sub-header'>당첨 결과 번호</h1>
+        <div className='result-numbers-container'>
+          {lotteryNumbers.map(
+            ({ value, type }, idx) =>
+              type === 'winning' && (
+                <LotteryBall
+                  key={winningNumberIds[idx]}
+                  numberValue={value}
+                  toggled={true}
+                  colored={true}
+                  ballColor={chooseBallColor(value)}
+                />
+              )
+          )}
+          <div className='plus-icon'>
+            <FontAwesomeIcon icon={faPlus} />
           </div>
-          <div className='modal-numbers-container'>
-            {this.props.receipt.map((ticket, idx) => (
-              <PurchaseNumberItem
-                key={this.numberItemIds[idx]}
-                lotteryNumbers={this.props.lotteryNumbers}
-                ticketNumbers={ticket}
-                toggled={true}
-              />
-            ))}
-            <div className='modal-result-text'>
-              <p>{`구입 금액: ${this.props.moneyAmount}원`}</p>
-              <p>{`총 수익: ${this.totalPrize}원`}</p>
-              <p>{`수익률: ${this.earningRate}%`}</p>
-            </div>
-          </div>
-          <Button onClick={this.props.onResetButtonClick}>다시 시작하기</Button>
+          <LotteryBall
+            numberValue={bonusNumber}
+            toggled={true}
+            colored={true}
+            ballColor={chooseBallColor(bonusNumber)}
+          />
         </div>
-      </Modal>
-    );
-  }
-}
+        <div className='modal-numbers-container'>
+          {receipt.map((ticket, idx) => (
+            <PurchaseNumberItem
+              key={numberItemIds[idx]}
+              lotteryNumbers={lotteryNumbers}
+              ticketNumbers={ticket}
+              toggled={true}
+            />
+          ))}
+          <div className='modal-result-text'>
+            <p>{`구입 금액: ${moneyAmount}원`}</p>
+            <p>{`총 수익: ${totalPrize}원`}</p>
+            <p>{`수익률: ${earningRate}%`}</p>
+          </div>
+        </div>
+        <Button onClick={onResetButtonClick}>다시 시작하기</Button>
+      </div>
+    </Modal>
+  );
+};
 
 ResultModal.propTypes = {
   lotteryNumbers: PropTypes.array,

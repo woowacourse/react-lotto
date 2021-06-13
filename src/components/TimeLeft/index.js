@@ -1,30 +1,24 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TIME } from '../../constants/number';
 import './style.scss';
 
-class TimeLeft extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeLeft: '--일 --시간 --분 --초',
-      now: new Date(),
-      announceDate: new Date(...[2021, 4, 24, 20, 45, 0]),
-    };
-    this.ticking = null;
-  }
+const TimeLeft = () => {
+  const [timeLeft, setTimeLeft] = useState('');
+  const announceDate = useRef();
+  const ticking = useRef();
 
-  tick() {
-    if (this.state.announceDate < this.state.now) {
-      this.setState({
-        announceDate: new Date(this.state.announceDate.getTime() + TIME.WEEK),
-      });
+  const tick = () => {
+    const now = new Date();
+
+    if (announceDate.current < now) {
+      announceDate.current = new Date(announceDate.current.getTime() + TIME.WEEK);
+      return;
     }
 
-    let dateDifference = this.state.announceDate - this.state.now;
-    const dayDifference = Math.floor(
-      (this.state.announceDate.getTime() - this.state.now.getTime()) / TIME.DAY
-    );
+    let dateDifference = announceDate.current.getTime() - now.getTime();
+    const dayDifference = Math.floor((announceDate.current.getTime() - now.getTime()) / TIME.DAY);
     dateDifference -= dayDifference * TIME.DAY;
+
     const hourDifference = Math.floor(dateDifference / TIME.HOUR);
     dateDifference -= hourDifference * TIME.HOUR;
 
@@ -39,34 +33,28 @@ class TimeLeft extends React.Component {
       secondDifference < 10 ? `0${secondDifference}` : secondDifference
     }초 ⏰`;
 
-    this.setState({
-      timeLeft: newTime,
-      now: new Date(),
-    });
-  }
+    setTimeLeft(newTime);
+  };
 
-  componentDidMount() {
-    this.ticking = setInterval(() => {
-      this.tick();
+  useEffect(() => {
+    announceDate.current = new Date(...[2021, 5, 12, 20, 45, 0]);
+    ticking.current = setInterval(() => {
+      tick();
     }, 1000);
-  }
 
-  componentWillUnmount() {
-    clearInterval(this.ticking);
-  }
+    return () => {
+      clearInterval(ticking.current);
+    };
+  }, []);
 
-  render() {
-    return (
-      <>
-        <div className='belt-up'></div>
-        <div className='time-container'>
-          <div className='time-sub-title'>
-            🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 <span> {this.state.timeLeft} </span>
-          </div>
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <div className='belt-up'></div>
+      <div className='time-container'>
+        <div className='time-sub-title'>🎁✨🎉🎟🎀🎢🎐 당첨 발표까지 🎊🎄🎈🧨🎇🧧 {timeLeft}</div>
+      </div>
+    </>
+  );
+};
 
 export default TimeLeft;
