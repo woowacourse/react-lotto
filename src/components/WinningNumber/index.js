@@ -7,6 +7,7 @@ import NumberInput from '../shared/NumberInput/index';
 
 import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
 
+import { isInputValueDuplicated, isInputValueExist } from '../../utils/validations';
 import { ModalContext } from '../../contexts/ModalContextProvider';
 
 import './style.scss';
@@ -24,12 +25,6 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
 
     onChangeLotteryNumbers(newLotteryNumbers);
     openModal();
-  };
-
-  const isInputValueExist = (inputValue) => !!inputValue;
-
-  const isInputValueDuplicated = (lotteryNumbers, inputValue, index) => {
-    return lotteryNumbers.some((el, idx) => el.value === inputValue && idx !== index);
   };
 
   const onBlurLotteryNumberInput = (e, index) => {
@@ -52,9 +47,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
   };
 
   useEffect(() => {
-    if (ref.current[0].current) {
-      ref.current[0].current.focus();
-    }
+    ref.current[0].current.focus();
   }, []);
 
   return (
