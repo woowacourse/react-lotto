@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const BonusNumberInputWrapperDiv = styled.div`
+export const BonusNumberWrapper = styled.div`
   margin-bottom: 1rem;
 
   & p {
@@ -11,7 +11,7 @@ export const BonusNumberInputWrapperDiv = styled.div`
   }
 `;
 
-export const NumberInput = styled.input`
+export const InputCss = css`
   margin-right: 0.25rem;
   margin-left: 0.25rem;
   text-align: center;

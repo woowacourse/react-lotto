@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const WinningNumberSelectForm = styled.form`
+export const FormCss = css`
   margin: 2rem 0.5rem;
   display: flex;
   flex-direction: column;
@@ -14,4 +14,12 @@ export const WinningNumberSelectForm = styled.form`
     margin-bottom: 0;
     font-size: 1.5rem;
   }
+`;
+
+export const SelectNumberList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  text-align: center;
+  justify-content: center;
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NumberListUl = styled.ul`
+export const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 95%;
@@ -8,7 +8,7 @@ export const NumberListUl = styled.ul`
   justify-content: center;
 `;
 
-export const WinningNumberLabel = styled.label`
+export const Label = styled.label`
   display: inline-block;
   position: relative;
   width: 1.5rem;
@@ -28,11 +28,11 @@ export const WinningNumberLabel = styled.label`
   }
 `;
 
-export const WinningNumberCheckbox = styled.input`
+export const Checkbox = styled.input`
   position: absolute;
   opacity: 0;
 
-  &:checked + ${WinningNumberLabel} {
+  &:checked + ${Label} {
     border: 2px solid #c71f1f;
     background-color: #c71f1f;
     color: #fce9e9;

@@ -6,3 +6,4 @@ export { Modal } from './_commons/Modal/Modal';
 
 export { LottoListContainer } from './LottoListContainer/LottoListContainer';
 export { PurchaseContainer } from './PurchaseContainer/PurchaseContainer';
+export { WinningNumbersContainer } from './WinningNumbersContainer/WinningNumbersContainer';

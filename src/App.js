@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
 import RewardModalInner from './components/lottoRewardResult/RewardModalInner';
 
 import {
@@ -8,6 +7,7 @@ import {
   Modal,
   PurchaseContainer,
   LottoListContainer,
+  WinningNumbersContainer,
 } from './components';
 
 import { createLottos } from './services/lottoPurchase';
@@ -60,7 +60,7 @@ const App = () => {
           {!!lottos.length && (
             <>
               <LottoListContainer lottos={lottos} />
-              <WinningNumberForm handleWinningNumber={handleWinningNumber} />
+              <WinningNumbersContainer onSubmit={handleWinningNumber} />
             </>
           )}
         </WidthFullDiv>
