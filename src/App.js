@@ -8,16 +8,10 @@ import ResultModal from './components/ResultModal';
 import TimeLeft from './components/TimeLeft';
 import WinningNumber from './components/WinningNumber';
 
-import getRandomNumber from './utils/randomNumber';
 import coinSpin from './animation/coinSpin.json';
 import muyahoAudio from './sound/muyaho.mp3';
-import {
-  LOTTERY_BALL_LENGTH,
-  LOTTERY_NUMBERS_LENGTH,
-  MAX_LOTTO_NUMBER,
-  MIN_LOTTO_NUMBER,
-  ANIMATION,
-} from './constants/number';
+import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH, ANIMATION } from './constants/number';
+import makeAutoTicket from './utils/makeAutoTicket';
 
 import { ModalContext } from './contexts/ModalContextProvider';
 
@@ -63,15 +57,6 @@ const App = () => {
 
     inputRef.current.value = '';
     inputRef.current.focus();
-  };
-
-  const makeAutoTicket = () => {
-    const uniqueTicket = new Set();
-    while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
-      uniqueTicket.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
-    }
-
-    return [...uniqueTicket];
   };
 
   const makeTickets = (ticketCount) => {
