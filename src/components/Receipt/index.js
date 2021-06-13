@@ -6,7 +6,7 @@ import ToggleButton from '../shared/Toggle';
 
 import './style.scss';
 
-const Receipt = ({ receipt }) => {
+const Receipt = ({ tickets }) => {
   const [showBalls, setShowBalls] = useState(false);
 
   const handleToggle = () => {
@@ -19,13 +19,13 @@ const Receipt = ({ receipt }) => {
         <p>구입한 로또 번호</p>
         <ToggleButton onToggle={handleToggle} />
       </div>
-      <PurchaseNumberList receipt={receipt} showBalls={showBalls} />
+      <PurchaseNumberList tickets={tickets} showBalls={showBalls} />
     </div>
   );
 };
 
 Receipt.propTypes = {
-  receipt: PropTypes.array,
+  tickets: PropTypes.array,
 };
 
 export default React.memo(Receipt);

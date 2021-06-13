@@ -22,12 +22,12 @@ import chooseBallColor from '../../utils/colorBall';
 
 import './style.scss';
 
-const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
+const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
   const { closeModal } = useContext(ModalContext);
 
   const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
   const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
-  const numberItemIds = [...Array(receipt.length)].map(() => uuidv4());
+  const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
   const countWinningBall = (ticket) => {
     ticket.filter((ball) => lotteryNumbers.some((number) => number.value === ball)).length;
@@ -39,7 +39,7 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
       : BONUS_BALL_NOT_EXIST;
   };
 
-  const totalPrize = receipt.reduce(
+  const totalPrize = tickets.reduce(
     (sum, currentTicket) =>
       sum + calculatePrize(countWinningBall(currentTicket), countBonusBall(currentTicket)),
     0
@@ -80,7 +80,7 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
           />
         </div>
         <div className='modal-numbers-container'>
-          {receipt.map((ticket, idx) => (
+          {tickets.map((ticket, idx) => (
             <PurchaseNumberItem
               key={numberItemIds[idx]}
               lotteryNumbers={lotteryNumbers}
@@ -102,7 +102,7 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
 
 ResultModal.propTypes = {
   lotteryNumbers: PropTypes.array,
-  receipt: PropTypes.array,
+  tickets: PropTypes.array,
   moneyAmount: PropTypes.number,
   onResetButtonClick: PropTypes.func,
 };

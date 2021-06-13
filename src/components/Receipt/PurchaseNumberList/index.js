@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 import PurchaseNumberItem from '../PurchaseNumberItem';
 
-const PurchaseNumberList = ({ receipt, showBalls }) => {
-  const numberItemIds = [...Array(receipt.length)].map(() => uuidv4());
+const PurchaseNumberList = ({ tickets, showBalls }) => {
+  const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
   return (
     <ul>
-      {receipt.map((ticket, idx) => (
+      {tickets.map((ticket, idx) => (
         <PurchaseNumberItem key={numberItemIds[idx]} ticketNumbers={ticket} isToggled={showBalls} />
       ))}
     </ul>

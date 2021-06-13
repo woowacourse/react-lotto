@@ -27,7 +27,7 @@ const App = () => {
   const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [moneyAmount, setMoneyAmount] = useState(0);
-  const [receipt, setReceipt] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [lotteryNumbers, setLotteryNumbers] = useState([]);
 
   const { isModalOpen, closeModal } = useContext(ModalContext);
@@ -74,11 +74,11 @@ const App = () => {
     return [...uniqueTicket];
   };
 
-  const makeReceipt = (ticketCount) => {
+  const makeTickets = (ticketCount) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setReceipt([...Array(ticketCount)].map(() => makeAutoTicket()));
+      setTickets([...Array(ticketCount)].map(() => makeAutoTicket()));
     }, ANIMATION.DELAY);
   };
 
@@ -98,7 +98,7 @@ const App = () => {
         ref={inputRef}
         onHandleSubmit={(money, ticketCount) => {
           handleMoneySubmit(money);
-          makeReceipt(ticketCount);
+          makeTickets(ticketCount);
         }}
       />
       {isLoading ? (
@@ -115,7 +115,7 @@ const App = () => {
         <>
           {isMoneyInputValid && (
             <>
-              <Receipt receipt={receipt} />
+              <Receipt tickets={tickets} />
               <WinningNumber
                 lotteryNumbers={lotteryNumbers}
                 onChangeLotteryNumbers={setLotteryNumbers}
@@ -126,7 +126,7 @@ const App = () => {
           {isModalOpen && (
             <ResultModal
               lotteryNumbers={lotteryNumbers}
-              receipt={receipt}
+              tickets={tickets}
               moneyAmount={moneyAmount}
               onResetButtonClick={handleResetButtonClick}
             />
