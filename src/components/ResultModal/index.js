@@ -30,14 +30,13 @@ const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick 
   const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
   const countWinningBall = (ticket) => {
-    ticket.filter((ball) => lotteryNumbers.some((number) => number.value === ball)).length;
+    const bonusNumberExcepted = lotteryNumbers.slice(0, lotteryNumbers.length - 1);
+    return ticket.filter((ball) => bonusNumberExcepted.some((number) => number.value === ball))
+      .length;
   };
 
-  const countBonusBall = (ticket) => {
-    ticket.find((ball) => ball === lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1])
-      ? BONUS_BALL_EXIST
-      : BONUS_BALL_NOT_EXIST;
-  };
+  const countBonusBall = (ticket) =>
+    ticket.some((ball) => ball === bonusNumber) ? BONUS_BALL_EXIST : BONUS_BALL_NOT_EXIST;
 
   const totalPrize = tickets.reduce(
     (sum, currentTicket) =>
