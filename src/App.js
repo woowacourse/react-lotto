@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-import RewardModalInner from './components/lottoRewardResult/RewardModalInner';
-
 import {
   Flex,
   Modal,
   PurchaseContainer,
   LottoListContainer,
   WinningNumbersContainer,
+  LottoRewardsContainer,
 } from './components';
 
 import { createLottos } from './services/lottoPurchase';
@@ -68,10 +67,10 @@ const App = () => {
 
       {isModalOpen && (
         <Modal onClick={handleModalClosed} css={ModalInnerCss}>
-          <RewardModalInner
+          <LottoRewardsContainer
             lottos={lottos}
             winningNumbers={winningNumbers}
-            onClickRestart={handleRestart}
+            onClick={handleRestart}
           />
         </Modal>
       )}
