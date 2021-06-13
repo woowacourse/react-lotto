@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Flex } from '..';
-import { ShowNumberToggleButton } from './ShowNumberToggleButton/ShowNumberToggleButton';
+import { ShowNumberToggleButton } from './ToggleButton/ToggleButton';
 
 import {
   Section,

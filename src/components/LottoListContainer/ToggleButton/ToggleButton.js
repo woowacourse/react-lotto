@@ -6,7 +6,7 @@ import {
   ToggleButtonInput,
   ToggleButtonLabel,
   ToggleButtonSpan,
-} from './ShowNumberToggleButton.style';
+} from './ToggleButton.style';
 
 export const ShowNumberToggleButton = props => {
   const { onChange } = props;
