@@ -4,7 +4,7 @@ import chooseBallColor from '../../../utils/colorBall';
 import LotteryBall from '../LotteryBall';
 import './style.scss';
 
-const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, toggled }) => {
+const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, isToggled }) => {
   const lotteryBallIds = [...Array(ticketNumbers.length)].map(() => uuidv4());
 
   return (
@@ -12,13 +12,13 @@ const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, toggled }) => {
       <div className='lottery-balls-container'>
         {ticketNumbers.map((number, idx) => (
           <LotteryBall
-            colored={
+            key={lotteryBallIds[idx]}
+            isColored={
               lotteryNumbers &&
               lotteryNumbers.find((lotteryNumber) => lotteryNumber.value === number)
             }
-            key={lotteryBallIds[idx]}
+            isToggled={isToggled}
             numberValue={number}
-            toggled={toggled}
             ballColor={chooseBallColor(number)}
           />
         ))}

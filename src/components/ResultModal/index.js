@@ -52,8 +52,8 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
                 <LotteryBall
                   key={winningNumberIds[idx]}
                   numberValue={value}
-                  toggled={true}
-                  colored={true}
+                  isToggled={true}
+                  isColored={true}
                   ballColor={chooseBallColor(value)}
                 />
               )
@@ -63,8 +63,8 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
           </div>
           <LotteryBall
             numberValue={bonusNumber}
-            toggled={true}
-            colored={true}
+            isToggled={true}
+            isColored={true}
             ballColor={chooseBallColor(bonusNumber)}
           />
         </div>
@@ -74,7 +74,7 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
               key={numberItemIds[idx]}
               lotteryNumbers={lotteryNumbers}
               ticketNumbers={ticket}
-              toggled={true}
+              isToggled={true}
             />
           ))}
           <div className='modal-result-text'>
