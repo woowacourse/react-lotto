@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 
-import PurchaseResult from './components/lottoPurchaseResult/PurchaseResult';
 import WinningNumberForm from './components/lottoWinningNumber/WinningNumberForm';
 import RewardModalInner from './components/lottoRewardResult/RewardModalInner';
 
-import { Flex, Modal, PurchaseContainer } from './components';
+import {
+  Flex,
+  Modal,
+  PurchaseContainer,
+  LottoListContainer,
+} from './components';
 
 import { createLottos } from './services/lottoPurchase';
 
-import { MainSection, WidthFullDiv } from './App.style';
-
 import { MESSAGE } from './constants/messages';
+
+import { MainSection, WidthFullDiv } from './App.style';
 
 const App = () => {
   const [lottos, setLottos] = useState([]);
@@ -19,18 +23,15 @@ const App = () => {
     bonusNumber: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPurchased, setIsPurchased] = useState(false);
 
   const initState = () => {
     setLottos([]);
     setWinningNumbers({ numbers: [], bonusNumber: 0 });
     setIsModalOpen(false);
-    setIsPurchased(false);
   };
 
   const handlePurchaseLotto = inputPrice => {
     setLottos(createLottos(inputPrice));
-    setIsPurchased(true);
   };
 
   const handleWinningNumber = (numbers, bonusNumber) => {
@@ -55,12 +56,12 @@ const App = () => {
         <WidthFullDiv>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
-            disabled={isPurchased}
+            disabled={!!lottos.length}
           />
 
-          {lottos.length > 0 && (
+          {!!lottos.length && (
             <>
-              <PurchaseResult lottos={lottos} />
+              <LottoListContainer lottos={lottos} />
               <WinningNumberForm handleWinningNumber={handleWinningNumber} />
             </>
           )}
