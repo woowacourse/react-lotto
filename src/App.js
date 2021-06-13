@@ -14,7 +14,7 @@ import { createLottos } from './services/lottoPurchase';
 
 import { MESSAGE } from './constants/messages';
 
-import { MainSection, WidthFullDiv } from './App.style';
+import { MainSection, WidthFullDiv, ModalInnerCss } from './App.style';
 
 const App = () => {
   const [lottos, setLottos] = useState([]);
@@ -27,7 +27,7 @@ const App = () => {
   const initState = () => {
     setLottos([]);
     setWinningNumbers({ numbers: [], bonusNumber: 0 });
-    setIsModalOpen(false);
+    handleModalClosed();
   };
 
   const handlePurchaseLotto = inputPrice => {
@@ -39,9 +39,7 @@ const App = () => {
     setIsModalOpen(true);
   };
 
-  const handleModalClosed = () => {
-    setIsModalOpen(false);
-  };
+  const handleModalClosed = () => setIsModalOpen(false);
 
   const handleRestart = () => {
     if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
@@ -69,22 +67,7 @@ const App = () => {
       </Flex>
 
       {isModalOpen && (
-        <Modal
-          handleModalClosed={handleModalClosed}
-          backgroundColor="rgba(0, 0, 0, 0.5)"
-          transition="opacity 0.25s ease"
-          innerMaxWidth="350px"
-          innerBackgroundColor="#fff"
-          innerMargin="auto"
-          innerPadding="2.5rem"
-          innerTransition="top 0.25s ease"
-          closeButtonWidth="20px"
-          closeButtonHeight="20px"
-          closeButtonRightPosition="30px"
-          closeButtonTopPosition="30px"
-          closeButtonPathStroke="gray"
-          closeButtonPathStrokeWidth="5"
-        >
+        <Modal onClick={handleModalClosed} css={ModalInnerCss}>
           <RewardModalInner
             lottos={lottos}
             winningNumbers={winningNumbers}
