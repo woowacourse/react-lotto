@@ -1,9 +1,9 @@
 import React from 'react';
 import './style.scss';
 
-const ToggleButton = ({ onHandleToggle }) => (
+const ToggleButton = ({ onToggle }) => (
   <label className='switch'>
-    <input type='checkbox' onClick={onHandleToggle} />
+    <input type='checkbox' onClick={onToggle} />
     <span className='slider round'></span>
   </label>
 );

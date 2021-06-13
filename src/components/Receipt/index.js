@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import PurchaseNumberList from './PurchaseNumberList';
 import ToggleButton from '../shared/Toggle';
+
 import './style.scss';
 
 const Receipt = ({ receipt }) => {
@@ -15,7 +17,7 @@ const Receipt = ({ receipt }) => {
     <div className='purchased-lotto'>
       <div className='sub-title'>
         <p>구입한 로또 번호</p>
-        <ToggleButton onHandleToggle={handleToggle} />
+        <ToggleButton onToggle={handleToggle} />
       </div>
       <PurchaseNumberList receipt={receipt} showBalls={showBalls} />
     </div>

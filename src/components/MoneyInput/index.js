@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
-import { LOTTERY_PRICE } from '../../constants/number';
+
 import Button from '../shared/Button';
 import NumberInput from '../shared/NumberInput';
+
+import { LOTTERY_PRICE } from '../../constants/number';
+
 import './style.scss';
 
 const MoneyInput = React.forwardRef(({ onHandleSubmit }, ref) => {

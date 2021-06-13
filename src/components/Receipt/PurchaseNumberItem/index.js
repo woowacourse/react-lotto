@@ -1,7 +1,10 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import chooseBallColor from '../../../utils/colorBall';
+
 import LotteryBall from '../LotteryBall';
+
+import chooseBallColor from '../../../utils/colorBall';
+
 import './style.scss';
 
 const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, isToggled }) => {

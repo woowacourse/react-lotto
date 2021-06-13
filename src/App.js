@@ -1,22 +1,27 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Lottie from 'react-lottie';
-import coinSpin from './animation/coinSpin.json';
+
 import LottoBallCanvas from './components/LottoBallCanvas';
 import MoneyInput from './components/MoneyInput';
 import Receipt from './components/Receipt';
 import ResultModal from './components/ResultModal';
 import TimeLeft from './components/TimeLeft';
 import WinningNumber from './components/WinningNumber';
+
+import getRandomNumber from './utils/randomNumber';
+import coinSpin from './animation/coinSpin.json';
+import muyahoAudio from './sound/muyaho.mp3';
 import {
   LOTTERY_BALL_LENGTH,
   LOTTERY_NUMBERS_LENGTH,
   MAX_LOTTO_NUMBER,
   MIN_LOTTO_NUMBER,
+  ANIMATION,
 } from './constants/number';
+
 import { ModalContext } from './contexts/ModalContextProvider';
-import muyahoAudio from './sound/muyaho.mp3';
+
 import './style.scss';
-import getRandomNumber from './utils/randomNumber';
 
 const App = () => {
   const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
@@ -74,7 +79,7 @@ const App = () => {
     setTimeout(() => {
       setIsLoading(false);
       setReceipt([...Array(ticketCount)].map(() => makeAutoTicket()));
-    }, 1000);
+    }, ANIMATION.DELAY);
   };
 
   return (
@@ -98,9 +103,9 @@ const App = () => {
       />
       {isLoading ? (
         <Lottie
-          speed={1}
-          height={'300px'}
-          width={'300px'}
+          speed={ANIMATION.SPEED}
+          height={`${ANIMATION.SIZE}px`}
+          width={`${ANIMATION.SIZE}px`}
           options={{
             animationData: coinSpin,
             loop: false,

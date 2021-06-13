@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
-import { ModalContext } from '../../contexts/ModalContextProvider';
+
 import Button from '../shared/Button/index';
 import NumberInput from '../shared/NumberInput/index';
+
+import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
+
+import { ModalContext } from '../../contexts/ModalContextProvider';
+
 import './style.scss';
 
 const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers }, ref) => {
@@ -29,7 +33,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
   };
 
   const onBlurLotteryNumberInput = (e, index) => {
-    const inputValue = Math.min(Number(e.target.value), 45);
+    const inputValue = Math.min(Number(e.target.value), MAX_LOTTO_NUMBER);
     const newLotteryNumbers = [...lotteryNumbers];
     newLotteryNumbers[index].value = inputValue;
 

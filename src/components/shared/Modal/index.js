@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../../contexts/ModalContextProvider';
 import './style.scss';
 
-const Modal = ({ onModalClose, children }) => {
+const Modal = ({ children }) => {
+  const { closeModal } = useContext(ModalContext);
+
   const onClickDimmer = (e) => {
     if (e.target === e.currentTarget) {
-      onModalClose();
+      closeModal();
     }
   };
 

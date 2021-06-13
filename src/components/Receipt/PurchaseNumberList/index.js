@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
 import PurchaseNumberItem from '../PurchaseNumberItem';
 
 const PurchaseNumberList = ({ receipt, showBalls }) => {
@@ -8,7 +9,7 @@ const PurchaseNumberList = ({ receipt, showBalls }) => {
   return (
     <ul>
       {receipt.map((ticket, idx) => (
-        <PurchaseNumberItem key={numberItemIds[idx]} ticketNumbers={ticket} toggled={showBalls} />
+        <PurchaseNumberItem key={numberItemIds[idx]} ticketNumbers={ticket} isToggled={showBalls} />
       ))}
     </ul>
   );

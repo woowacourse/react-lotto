@@ -1,20 +1,29 @@
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
-import { ModalContext } from '../../contexts/ModalContextProvider';
-import calculatePrize from '../../utils/calculatePrize';
-import chooseBallColor from '../../utils/colorBall';
+
 import LotteryBall from '../Receipt/LotteryBall';
 import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../shared/Button';
 import Modal from '../shared/Modal';
+
+import {
+  LOTTERY_BALL_LENGTH,
+  LOTTERY_NUMBERS_LENGTH,
+  BONUS_BALL_EXIST,
+  BONUS_BALL_NOT_EXIST,
+} from '../../constants/number';
+
+import { ModalContext } from '../../contexts/ModalContextProvider';
+import calculatePrize from '../../utils/calculatePrize';
+import chooseBallColor from '../../utils/colorBall';
+
 import './style.scss';
 
 const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
-  const { isModalOpen, closeModal } = useContext(ModalContext);
+  const { closeModal } = useContext(ModalContext);
 
   const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
   const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
@@ -25,7 +34,9 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
   };
 
   const countBonusBall = (ticket) => {
-    ticket.find((ball) => ball === lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1]) ? 1 : 0;
+    ticket.find((ball) => ball === lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1])
+      ? BONUS_BALL_EXIST
+      : BONUS_BALL_NOT_EXIST;
   };
 
   const totalPrize = receipt.reduce(
@@ -37,7 +48,7 @@ const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick 
   const earningRate = Math.floor(((totalPrize - moneyAmount) / moneyAmount) * 100);
 
   return (
-    <Modal onModalClose={closeModal}>
+    <Modal>
       <div className='modal-inner'>
         <div className='modal-top-spacing'></div>
         <Button customClass='modal-close-button' onClick={closeModal}>
