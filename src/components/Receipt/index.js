@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PurchaseNumberList from './PurchaseNumberList';
-import ToggleButton from '../UtilComponent/Toggle';
+import ToggleButton from '../shared/Toggle';
 import './style.scss';
 
 const Receipt = ({ receipt }) => {

@@ -1,24 +1,21 @@
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
+import { ModalContext } from '../../contexts/ModalContextProvider';
 import calculatePrize from '../../utils/calculatePrize';
 import chooseBallColor from '../../utils/colorBall';
 import LotteryBall from '../Receipt/LotteryBall';
 import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
-import Button from '../UtilComponent/Button';
-import Modal from '../UtilComponent/Modal';
+import Button from '../shared/Button';
+import Modal from '../shared/Modal';
 import './style.scss';
 
-const ResultModal = ({
-  receipt,
-  moneyAmount,
-  lotteryNumbers,
-  onModalClose,
-  onResetButtonClick,
-}) => {
+const ResultModal = ({ receipt, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
+  const { isModalOpen, closeModal } = useContext(ModalContext);
+
   const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
   const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
   const numberItemIds = [...Array(receipt.length)].map(() => uuidv4());
@@ -40,10 +37,10 @@ const ResultModal = ({
   const earningRate = Math.floor(((totalPrize - moneyAmount) / moneyAmount) * 100);
 
   return (
-    <Modal onModalClose={onModalClose}>
+    <Modal onModalClose={closeModal}>
       <div className='modal-inner'>
         <div className='modal-top-spacing'></div>
-        <Button customClass='modal-close-button' onClick={onModalClose}>
+        <Button customClass='modal-close-button' onClick={closeModal}>
           <FontAwesomeIcon icon={faTimes} />
         </Button>
         <h1 className='modal-header'>슈퍼 로또</h1>
@@ -97,7 +94,6 @@ ResultModal.propTypes = {
   receipt: PropTypes.array,
   moneyAmount: PropTypes.number,
   onResetButtonClick: PropTypes.func,
-  onModalClose: PropTypes.func,
 };
 
 export default ResultModal;

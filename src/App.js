@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Lottie from 'react-lottie';
 import coinSpin from './animation/coinSpin.json';
 import LottoBallCanvas from './components/LottoBallCanvas';
@@ -13,18 +13,19 @@ import {
   MAX_LOTTO_NUMBER,
   MIN_LOTTO_NUMBER,
 } from './constants/number';
+import { ModalContext } from './contexts/ModalContextProvider';
 import muyahoAudio from './sound/muyaho.mp3';
 import './style.scss';
 import getRandomNumber from './utils/randomNumber';
-import { hideScroll, showScroll } from './utils/scroll';
 
 const App = () => {
   const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [moneyAmount, setMoneyAmount] = useState(0);
   const [receipt, setReceipt] = useState([]);
   const [lotteryNumbers, setLotteryNumbers] = useState([]);
+
+  const { isModalOpen, closeModal } = useContext(ModalContext);
 
   const audio = new Audio(muyahoAudio);
   const inputRef = useRef();
@@ -51,28 +52,12 @@ const App = () => {
     }
   };
 
-  const handleLotteryNumberSubmit = (lotteryNumbers) => {
-    console.log(lotteryNumbers);
-    setLotteryNumbers(lotteryNumbers);
-  };
-
-  const handleModalButtonClick = () => {
-    setIsModalOpen(true);
-    hideScroll('modal-opened');
-  };
-
   const handleResetButtonClick = () => {
     setIsMoneyInputValid(false);
-    setIsModalOpen(false);
+    closeModal();
 
     inputRef.current.value = '';
     inputRef.current.focus();
-    showScroll('modal-opened');
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    showScroll('modal-opened');
   };
 
   const makeAutoTicket = () => {
@@ -128,8 +113,7 @@ const App = () => {
               <Receipt receipt={receipt} />
               <WinningNumber
                 lotteryNumbers={lotteryNumbers}
-                onHandleChangeLotteryNumbers={handleLotteryNumberSubmit}
-                onModalButtonClick={handleModalButtonClick}
+                onChangeLotteryNumbers={setLotteryNumbers}
                 ref={winningInputRefs}
               />
             </>
@@ -140,7 +124,6 @@ const App = () => {
               receipt={receipt}
               moneyAmount={moneyAmount}
               onResetButtonClick={handleResetButtonClick}
-              onModalClose={handleModalClose}
             />
           )}
         </>

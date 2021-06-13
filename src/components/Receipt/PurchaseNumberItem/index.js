@@ -6,9 +6,6 @@ import './style.scss';
 
 const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, toggled }) => {
   const lotteryBallIds = [...Array(ticketNumbers.length)].map(() => uuidv4());
-  const bonusNumber = lotteryNumbers && lotteryNumbers.find((number) => number.type === 'bonus');
-  const winningNumbers =
-    lotteryNumbers && lotteryNumbers.filter((number) => number.type === 'winning');
 
   return (
     <li className='purchase-number-item'>
