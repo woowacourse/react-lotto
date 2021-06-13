@@ -1,9 +1,9 @@
 {
   "name": "react-lotto",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/ddongule/react-lotto.git",
-  "author": "ddongule <mnk918p@gmail.com>",
+  "main": "./src/index.js",
+  "repository": "https://github.com/iborymagic/react-lotto.git",
+  "author": "iborymagic <mlch8023@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "proptypes": "^1.1.0",
