@@ -3,17 +3,18 @@
 </p>
 <h2 align="middle">Level2 - 행운의 로또</h2>
 <p align="middle">React 로또 어플리케이션</p>
+<div style="display: flex; justify-content: center;">
+  <img src="https://img.shields.io/badge/language-react-skyblue.svg?style=flat-square" style="margin-right: 10px"/>
+  <img src="https://img.shields.io/badge/style-styled--component-yellowgreen"/>
+</div>
 </p>
 
-## 🚀 Getting Started
+## 데모 사이트
 
-- Boilerplate는 페어와 협의하여 자유롭게 선택합니다.
-- CSS는 레벨1에 있는 코드를 직접 찾아서 자유롭게 재활용합니다.
-- 불필요한 Third-Party 없이 React에서 제공되는 것만으로 구현합니다.
-- 테스트 도구 선정부터 작성까지 일절 관여하지 않습니다. 자유롭게 즐겨보세요
-  <br>
+- 마지막 업데이트 : 2021.06.14
+- 티케의 [행운의 React-Lotto](https://devhyun637.github.io/react-lotto/)
 
-## 📝 Requirements
+## 📝 구현목록
 
 ### Step1
 
