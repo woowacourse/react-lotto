@@ -3,8 +3,8 @@
 </p>
 <h2 align="middle">Level2 - 행운의 로또</h2>
 <p align="middle">React 로또 어플리케이션</p>
-<div style="display: flex; justify-content: center;">
-  <img src="https://img.shields.io/badge/language-react-skyblue.svg?style=flat-square" style="margin-right: 10px"/>
+<div align="center">
+  <img src="https://img.shields.io/badge/language-react-skyblue.svg?style=flat-square" />
   <img src="https://img.shields.io/badge/style-styled--component-yellowgreen"/>
 </div>
 </p>
