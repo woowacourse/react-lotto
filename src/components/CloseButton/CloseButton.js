@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Button, HiddenButtonName } from './CloseButton.style';
 
 export const ModalCloseButton = props => {
@@ -13,4 +15,8 @@ export const ModalCloseButton = props => {
       <HiddenButtonName>닫기 버튼</HiddenButtonName>
     </Button>
   );
+};
+
+ModalCloseButton.prototype = {
+  onClick: PropTypes.func,
 };

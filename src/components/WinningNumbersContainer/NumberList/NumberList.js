@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { LOTTO } from '../../../constants/lotto';
 
 import { Ul, Checkbox, Label } from './NumberList.style';
@@ -27,4 +29,9 @@ export const NumberList = props => {
       })}
     </Ul>
   );
+};
+
+NumberList.prototype = {
+  onChange: PropTypes.func,
+  numbers: PropTypes.array.isRequired,
 };

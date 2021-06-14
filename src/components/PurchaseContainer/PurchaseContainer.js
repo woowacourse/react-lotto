@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Button, Flex, Input, Form } from '..';
 
 import { LOTTO } from '../../constants/lotto';
@@ -47,4 +49,9 @@ export const PurchaseContainer = props => {
       </Flex>
     </Form>
   );
+};
+
+Input.prototype = {
+  onSubmit: PropTypes.func,
+  disabled: PropTypes.bool,
 };

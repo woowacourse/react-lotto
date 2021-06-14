@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Flex } from '../..';
 
 import {
@@ -25,4 +27,8 @@ export const ShowNumberToggleButton = props => {
       </ToggleButtonLabel>
     </Flex>
   );
+};
+
+ShowNumberToggleButton.prototype = {
+  onChange: PropTypes.func,
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { ModalSection, ModalInnerDiv } from './Modal.style';
 import { ModalCloseButton } from '../../CloseButton/CloseButton';
 
@@ -26,4 +28,10 @@ export const Modal = props => {
       </ModalInnerDiv>
     </ModalSection>
   );
+};
+
+Modal.prototype = {
+  onClick: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  css: PropTypes.object,
 };

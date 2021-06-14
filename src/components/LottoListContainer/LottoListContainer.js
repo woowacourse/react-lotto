@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Flex } from '..';
 import { ShowNumberToggleButton } from './ToggleButton/ToggleButton';
 
@@ -39,4 +41,8 @@ export const LottoListContainer = props => {
       <LottoList isShowNumbers={isShowNumbers}>{renderLottoList()}</LottoList>
     </Section>
   );
+};
+
+LottoListContainer.prototype = {
+  lottos: PropTypes.array,
 };

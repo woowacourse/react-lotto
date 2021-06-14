@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Flex, Button } from '..';
 import { RewardTable } from './Table/Table';
 
@@ -32,4 +34,10 @@ export const LottoRewardsContainer = props => {
       </Flex>
     </>
   );
+};
+
+LottoRewardsContainer.prototype = {
+  onClick: PropTypes.func,
+  lottos: PropTypes.array.isRequired,
+  winningNumbers: PropTypes.object.isRequired,
 };

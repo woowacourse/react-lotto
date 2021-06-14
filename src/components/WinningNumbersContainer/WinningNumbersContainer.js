@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import { useSelectNumbers } from '../../hooks/useSelectNumbers';
 
 import { Form, Button } from '..';
@@ -43,4 +45,8 @@ export const WinningNumbersContainer = props => {
       <Button size="LARGE">결과 확인하기</Button>
     </Form>
   );
+};
+
+WinningNumbersContainer.prototype = {
+  onSubmit: PropTypes.func,
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import {
   getLottoProfitResult,
   getRanks,
@@ -38,4 +40,8 @@ export const RewardTable = props => {
       <tbody>{getRewardResults()}</tbody>
     </Table>
   );
+};
+
+RewardTable.prototype = {
+  counts: PropTypes.number.isRequired,
 };
