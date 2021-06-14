@@ -1,16 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import PALETTE from '../../constants/palette';
 import './style.scss';
 
 const LottoBallCanvas = () => {
   const canvasRef = useRef();
 
-  const colors = [
-    'rgba(252, 209, 83, 1)',
-    'rgba(255, 143, 78, 1)',
-    'rgba(60, 188, 255, 1)',
-    'rgba(141, 112, 217, 1)',
-    'rgba(255, 76, 76, 1)',
-  ];
+  const colors = [PALETTE.YELLOW, PALETTE.ORANGE, PALETTE.BLUE, PALETTE.PURPLE, PALETTE.RED];
   const ball = [];
   const ballCount = 30;
   const ballRadius = 15;
