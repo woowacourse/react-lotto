@@ -29,5 +29,7 @@ export const StyledButton = styled.button`
 
   &:disabled {
     cursor: not-allowed;
+    background-color: #d3c5c5;
+    border-color: #d3c5c5;
   }
 `;
