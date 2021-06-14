@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import LotteryBall from '../Receipt/LotteryBall';
+import LotteryBall from '../shared/LotteryBall';
 import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
-import Button from '../shared/Button';
-import Modal from '../shared/Modal';
+import Button from '../common/Button';
+import Modal from '../common/Modal';
 
 import {
   LOTTERY_BALL_LENGTH,
@@ -22,11 +22,12 @@ import chooseBallColor from '../../utils/colorBall';
 
 import './style.scss';
 
+const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
+
 const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
   const { closeModal } = useContext(ModalContext);
 
   const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
-  const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
   const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
   const countWinningBall = (ticket) => {

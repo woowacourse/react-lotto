@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import Button from '../shared/Button';
-import NumberInput from '../shared/NumberInput';
+import Button from '../common/Button';
+import NumberInput from '../common/NumberInput';
 
 import { LOTTERY_PRICE } from '../../constants/number';
 

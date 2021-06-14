@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import Button from '../shared/Button/index';
-import NumberInput from '../shared/NumberInput/index';
+import Button from '../common/Button/index';
+import NumberInput from '../common/NumberInput/index';
 
 import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
 import { ALERT_MESSAGE } from '../../constants/message';
@@ -13,9 +13,10 @@ import { ModalContext } from '../../contexts/ModalContextProvider';
 
 import './style.scss';
 
+const inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
+
 const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers }, ref) => {
   const { openModal } = useContext(ModalContext);
-  const inputIds = useRef([...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4()));
 
   const onWinningNumberSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +59,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
           <NumberInput
             min={MIN_LOTTO_NUMBER}
             max={MAX_LOTTO_NUMBER}
-            key={inputIds.current[idx]}
+            key={inputIds[idx]}
             ref={ref.current[idx]}
             customClass={`${type}-number`}
             defaultValue=''

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import PurchaseNumberList from './PurchaseNumberList';
-import ToggleButton from '../shared/Toggle';
+import ToggleButton from '../common/Toggle';
 
 import './style.scss';
 

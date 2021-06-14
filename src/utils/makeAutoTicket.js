@@ -1,3 +1,4 @@
+import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../constants/number';
 import getRandomNumber from './randomNumber';
 
 const makeAutoTicket = () => {
