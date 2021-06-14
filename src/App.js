@@ -10,6 +10,7 @@ import WinningNumber from './components/WinningNumber';
 
 import coinSpin from './animation/coinSpin.json';
 import muyahoAudio from './sound/muyaho.mp3';
+import { LOTTERY_NUMBER_TYPE } from './constants/type';
 import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH, ANIMATION } from './constants/number';
 import makeAutoTicket from './utils/makeAutoTicket';
 
@@ -37,7 +38,7 @@ const App = () => {
     setLotteryNumbers(
       [...Array(LOTTERY_NUMBERS_LENGTH)].map((_, idx) => ({
         value: 0,
-        type: idx < LOTTERY_BALL_LENGTH ? 'winning' : 'bonus',
+        type: idx < LOTTERY_BALL_LENGTH ? LOTTERY_NUMBER_TYPE.WINNING : LOTTERY_NUMBER_TYPE.BONUS,
       }))
     );
   }, []);

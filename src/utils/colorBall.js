@@ -1,22 +1,24 @@
+import { BALL_COLOR_RANGE } from '../constants/type';
+
 function chooseBallColor(number) {
   switch (true) {
     case 1 <= number && number <= 10:
-      return 'ten-down';
+      return BALL_COLOR_RANGE.YELLOW;
 
     case 11 <= number && number <= 20:
-      return 'twenty-down';
+      return BALL_COLOR_RANGE.ORANGE;
 
     case 21 <= number && number <= 30:
-      return 'thirty-down';
+      return BALL_COLOR_RANGE.BLUE;
 
     case 31 <= number && number <= 40:
-      return 'fourty-down';
+      return BALL_COLOR_RANGE.PURPLE;
 
     case 41 <= number && number <= 45:
-      return 'fourty-five-down';
+      return BALL_COLOR_RANGE.RED;
 
     default:
-      return '';
+      return BALL_COLOR_RANGE.DEFAULT;
   }
 }
 

@@ -6,6 +6,7 @@ import Button from '../shared/Button/index';
 import NumberInput from '../shared/NumberInput/index';
 
 import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
+import { ALERT_MESSAGE } from '../../constants/message';
 
 import { isInputValueDuplicated, isInputValueExist } from '../../utils/validations';
 import { ModalContext } from '../../contexts/ModalContextProvider';
@@ -37,7 +38,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
     e.target.value = inputValue;
 
     if (isInputValueDuplicated(lotteryNumbers, inputValue, index)) {
-      alert('입력값이 중복되었습니다.');
+      alert(ALERT_MESSAGE.DUPLICATED_NUMBER_INPUT);
       e.target.value = '';
       e.target.focus();
       return;
