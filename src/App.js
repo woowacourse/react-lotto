@@ -9,6 +9,8 @@ import {
   LottoRewardsContainer,
 } from './components';
 
+import { useModal } from './hooks/useModal';
+
 import { createLottos } from './services/lottoPurchase';
 
 import { MESSAGE } from './constants/messages';
@@ -21,7 +23,8 @@ const App = () => {
     numbers: [],
     bonusNumber: 0,
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isModalOpen, handleModalOpen, handleModalClosed] = useModal();
 
   const initState = () => {
     setLottos([]);
@@ -35,10 +38,8 @@ const App = () => {
 
   const handleWinningNumber = (numbers, bonusNumber) => {
     setWinningNumbers({ numbers, bonusNumber });
-    setIsModalOpen(true);
+    handleModalOpen();
   };
-
-  const handleModalClosed = () => setIsModalOpen(false);
 
   const handleRestart = () => {
     if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
