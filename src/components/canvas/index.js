@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style.scss';
 
-const Canvas = () => {
+const LottoBallCanvas = () => {
   useEffect(() => {
     const colors = [
       ...Array(6).fill('rgba(252, 209, 83, 1)'),
@@ -111,4 +111,4 @@ const Canvas = () => {
   return <canvas id='canvas' />;
 };
 
-export default Canvas;
+export default LottoBallCanvas;

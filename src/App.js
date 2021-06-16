@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from './components/Modal';
 import MoneyInput from './components/MoneyInput';
 import Receipt from './components/Receipt';
 import WinningNumber from './components/WinningNumber';
 import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
 import getRandomNumber from './utils/random-number';
-import Canvas from './components/Canvas';
+import LottoBallCanvas from './components/LottoBallCanvas';
 import TimeLeft from './components/TimeLeft';
 import { hideScroll, showScroll } from './utils/scroll';
 import muyahoAudio from './sound/muyaho.mp3';
@@ -34,7 +34,7 @@ const App = () => {
     }
   };
 
-  const handleWinningNumberSubmit = (winningNumbers, bonusNumber) => {
+  const handleWinningNumberSubmit = ({ winningNumbers, bonusNumber }) => {
     if (typeof bonusNumber !== 'number') return;
     if (!winningNumbers instanceof Array) return;
 
@@ -85,16 +85,12 @@ const App = () => {
     moneyInputRef.current.focus();
   };
 
-  useEffect(() => {
-    return (audio = null);
-  }, []);
-
   const receiptPage = (
     <>
       <Receipt receipt={receipt} />
       <WinningNumber
         onHandleSubmit={(winningNumbers, bonusNumber) =>
-          handleWinningNumberSubmit(winningNumbers, bonusNumber)
+          handleWinningNumberSubmit({ winningNumbers, bonusNumber })
         }
         onModalButtonClick={handleModalButtonClick}
       />
@@ -124,7 +120,7 @@ const App = () => {
           </audio>
         </>
       )}
-      <Canvas />
+      <LottoBallCanvas />
       <div className='title'>슈퍼 로또</div>
       <MoneyInput
         moneyInputRef={moneyInputRef}
