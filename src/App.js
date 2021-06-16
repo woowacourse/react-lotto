@@ -23,7 +23,7 @@ const App = () => {
 
   const moneyInputRef = useRef(null);
   const bodyRef = useRef(null);
-  let audio = new Audio(muyahoAudio);
+  const audio = new Audio(muyahoAudio);
 
   const handleMoneySubmit = (money) => {
     setIsMoneyInputValid(true);
