@@ -17,7 +17,6 @@ Button.propTypes = {
   autoFocus: PropTypes.bool,
   value: PropTypes.string,
   name: PropTypes.string,
-
   size: PropTypes.string,
 };
 
