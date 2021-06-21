@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
-import { ModalSection, ModalInnerDiv } from './Modal.style';
+import { ModalInnerDiv, ModalSection } from './Modal.style';
 import { ModalCloseButton } from './ModalCloseButton/ModalCloseButton';
 
 export const Modal = props => {

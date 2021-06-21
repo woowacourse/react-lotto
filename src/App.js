@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 
+import { MainSection, ModalInnerCss, WidthFullDiv } from './App.style';
 import {
   Flex,
+  LottoListContainer,
+  LottoRewardsContainer,
   Modal,
   PurchaseContainer,
-  LottoListContainer,
   WinningNumbersContainer,
-  LottoRewardsContainer,
 } from './components';
-
-import { useModal } from './hooks/useModal';
-
-import { createLottos } from './services/lottoPurchase';
-
 import { MESSAGE } from './constants/messages';
-
-import { MainSection, WidthFullDiv, ModalInnerCss } from './App.style';
+import { useModal } from './hooks/useModal';
+import { createLottos } from './services/lottoPurchase';
 
 const App = () => {
   const [lottos, setLottos] = useState([]);

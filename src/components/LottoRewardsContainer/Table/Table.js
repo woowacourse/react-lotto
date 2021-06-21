@@ -1,12 +1,10 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import {
   getLottoProfitResult,
   getRanks,
 } from '../../../services/winningResult';
-
 import { Table } from './Table.style';
 
 export const RewardTable = props => {

@@ -1,12 +1,9 @@
-import React, { useRef, useEffect } from 'react';
-
 import PropTypes from 'prop-types';
-
-import { Button, Flex, Input, Form } from '..';
+import React, { useEffect, useRef } from 'react';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
-
+import { Button, Flex, Form, Input } from '..';
 import { formCss, inputCss } from './PurchaseContainer.style';
 
 export const PurchaseContainer = props => {

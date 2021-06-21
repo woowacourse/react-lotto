@@ -1,16 +1,14 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import PropTypes from 'prop-types';
-
 import { Flex } from '..';
-import { ShowNumberToggleButton } from './ToggleButton/ToggleButton';
-
 import {
-  Section,
-  LottoList,
   LottoItem,
+  LottoList,
   LottoNumberDetails,
+  Section,
 } from './LottoListContainer.style';
+import { ShowNumberToggleButton } from './ToggleButton/ToggleButton';
 
 export const LottoListContainer = props => {
   const { lottos } = props;

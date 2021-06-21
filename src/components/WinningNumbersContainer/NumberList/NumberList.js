@@ -1,10 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import { LOTTO } from '../../../constants/lotto';
-
-import { Ul, Checkbox, Label } from './NumberList.style';
+import { Checkbox, Label, Ul } from './NumberList.style';
 
 export const NumberList = props => {
   const { numbers, onChange } = props;

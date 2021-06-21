@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Flex, Input } from '../..';
-
-import { BonusNumberWrapper, InputCss } from './BonusNumberInput.style';
-
 import { LOTTO } from '../../../constants/lotto';
+import { Flex, Input } from '../..';
+import { BonusNumberWrapper, InputCss } from './BonusNumberInput.style';
 
 export const BonusNumberInput = () => {
   return (

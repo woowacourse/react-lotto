@@ -3,7 +3,6 @@ export { Flex } from './_commons/Flex/Flex';
 export { Form } from './_commons/Form/Form';
 export { Input } from './_commons/Input/Input';
 export { Modal } from './_commons/Modal/Modal';
-
 export { LottoListContainer } from './LottoListContainer/LottoListContainer';
 export { LottoRewardsContainer } from './LottoRewardsContainer/LottoRewardsContainer';
 export { PurchaseContainer } from './PurchaseContainer/PurchaseContainer';

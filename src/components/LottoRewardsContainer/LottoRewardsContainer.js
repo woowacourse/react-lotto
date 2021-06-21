@@ -1,13 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
-import { Flex, Button } from '..';
-import { RewardTable } from './Table/Table';
-
 import { getMatchedCounts, getTotalProfit } from '../../services/winningResult';
-
-import { Title, ProfitMessage } from './LottoRewardsContainer.style';
+import { Button, Flex } from '..';
+import { ProfitMessage, Title } from './LottoRewardsContainer.style';
+import { RewardTable } from './Table/Table';
 
 export const LottoRewardsContainer = props => {
   const { lottos, winningNumbers, onClick } = props;

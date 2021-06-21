@@ -1,17 +1,13 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import { useSelectNumbers } from '../../hooks/useSelectNumbers';
-
-import { Form, Button } from '..';
-import { BonusNumberInput } from './BonusNumberInput/BonusNumberInput';
-import { NumberList } from './NumberList/NumberList';
-
-import { FormCss } from './WinningNumbersContainer.style';
+import React from 'react';
 
 import { LOTTO } from '../../constants/lotto';
 import { MESSAGE } from '../../constants/messages';
+import { useSelectNumbers } from '../../hooks/useSelectNumbers';
+import { Button, Form } from '..';
+import { BonusNumberInput } from './BonusNumberInput/BonusNumberInput';
+import { NumberList } from './NumberList/NumberList';
+import { FormCss } from './WinningNumbersContainer.style';
 
 export const WinningNumbersContainer = props => {
   const { onSubmit } = props;
