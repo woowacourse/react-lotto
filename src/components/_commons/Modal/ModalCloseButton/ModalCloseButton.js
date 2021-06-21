@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Button, HiddenButtonName } from './CloseButton.style';
+import { Button, HiddenButtonName } from './ModalCloseButton.style';
 
 export const ModalCloseButton = props => {
   const { onClick } = props;
