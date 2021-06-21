@@ -13,16 +13,15 @@ export const BUTTON_SIZE = {
 };
 
 export const StyledButton = styled.button`
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 4px;
-  outline: 0;
-  border-style: none;
-  cursor: pointer;
-
-  color: #fce9e9;
   background-color: #c71f1f;
   border-color: #c71f1f;
+  border-radius: 4px;
+  border-style: none;
+  color: #fce9e9;
+  cursor: pointer;
+  height: 36px;
+  outline: 0;
+  padding: 0 16px;
 
   ${({ size }) => BUTTON_SIZE[size] || BUTTON_SIZE.SMALL}
   ${({ css }) => css}

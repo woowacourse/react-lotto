@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
 export const FlexBox = styled.div`
-  display: flex;
-
-  flex-flow: ${props => props.flexFlow};
-  justify-content: ${props => props.justifyContent};
   align-items: ${props => props.alignItems};
-  flex-wrap: ${props => props.flexWrap};
+  display: flex;
   flex-basis: ${props => props.flexBasis};
+  flex-flow: ${props => props.flexFlow};
   flex-grow: ${props => props.flexGrow};
   flex-shrink: ${props => props.flexShrink};
+  flex-wrap: ${props => props.flexWrap};
+  justify-content: ${props => props.justifyContent};
 
   ${({ css }) => css}
 `;

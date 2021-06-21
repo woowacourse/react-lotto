@@ -10,7 +10,7 @@ export const formCss = css`
 `;
 
 export const inputCss = css`
-  width: 100%;
   margin-right: 0.2rem;
   padding-left: 0.5rem;
+  width: 100%;
 `;

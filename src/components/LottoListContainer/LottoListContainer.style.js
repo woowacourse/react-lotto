@@ -5,12 +5,12 @@ export const Section = styled.section`
 `;
 
 export const LottoList = styled.ul`
+  border-radius: 5px;
+  border: 0.5px solid #e9e2e2;
   display: flex;
   flex-wrap: wrap;
   margin-top: 0.5rem;
   padding: 0.6rem;
-  border: 0.5px solid #e9e2e2;
-  border-radius: 5px;
 
   ${({ isShowNumbers }) =>
     isShowNumbers &&
@@ -24,10 +24,10 @@ export const LottoList = styled.ul`
 
 export const LottoItem = styled.li`
   display: flex;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
   font-size: 2.25rem;
   line-height: 2.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 `;
 
 export const LottoNumberDetails = styled.span`

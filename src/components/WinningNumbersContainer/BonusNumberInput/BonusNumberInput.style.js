@@ -12,14 +12,14 @@ export const BonusNumberWrapper = styled.div`
 `;
 
 export const InputCss = css`
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
-  text-align: center;
-  width: 40px;
-  height: 36px;
+  color: #c71f1f;
   font-size: 1rem;
   font-weight: bold;
-  color: #c71f1f;
+  height: 36px;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  text-align: center;
+  width: 40px;
 
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;

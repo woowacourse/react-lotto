@@ -3,24 +3,24 @@ import styled from 'styled-components';
 export const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  width: 95%;
-  text-align: center;
   justify-content: center;
+  text-align: center;
+  width: 95%;
 `;
 
 export const Label = styled.label`
+  background-color: #d3c5c5;
+  border-radius: 50%;
+  border: 2px solid #d3c5c5;
   display: inline-block;
-  position: relative;
-  width: 1.5rem;
+  font-size: 1rem;
   height: 1.5rem;
   line-height: 1.5rem;
   margin: 4px;
   padding: 4px;
-  font-size: 1rem;
+  position: relative;
   text-align: center;
-  border: 2px solid #d3c5c5;
-  border-radius: 50%;
-  background-color: #d3c5c5;
+  width: 1.5rem;
 
   &:hover {
     box-sizing: content-box;
@@ -29,8 +29,8 @@ export const Label = styled.label`
 `;
 
 export const Checkbox = styled.input`
-  position: absolute;
   opacity: 0;
+  position: absolute;
 
   &:checked + ${Label} {
     border: 2px solid #c71f1f;

@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
+  cursor: pointer;
+  height: 1.25rem;
   padding: 0;
   position: absolute;
-  cursor: pointer;
-
-  width: 1.25rem;
-  height: 1.25rem;
   right: 1.875rem;
   top: 1.875rem;
+  width: 1.25rem;
 
   & svg {
     display: inline-block;

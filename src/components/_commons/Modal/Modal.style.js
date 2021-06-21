@@ -1,21 +1,20 @@
 import styled from 'styled-components';
 
 export const ModalSection = styled.section`
-  display: flex;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-
   background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   transition: opacity 0.25s ease;
+  z-index: 2;
 `;
 
 export const ModalInnerDiv = styled.div`
-  position: relative;
   overflow: auto;
+  position: relative;
 
   ${({ css }) => css}
 

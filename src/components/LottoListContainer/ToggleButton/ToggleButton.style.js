@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ToggleButtonInput = styled.input`
-  position: absolute;
   opacity: 0;
+  position: absolute;
 
   &:checked + label #show-number-span {
     background-color: #c71f1f;
@@ -15,20 +15,20 @@ export const ToggleButtonInput = styled.input`
 `;
 
 export const ToggleButtonLabel = styled.label`
-  display: flex;
   align-items: center;
+  display: flex;
 `;
 
 export const ToggleButtonSpan = styled.span`
-  position: relative;
+  background-color: #d3c5c5;
+  border-radius: 60px;
+  display: block;
+  height: 26px;
   line-height: 2rem;
   margin-left: 3px;
-  display: block;
-  width: 50px;
-  height: 26px;
-  border-radius: 60px;
-  background-color: #d3c5c5;
+  position: relative;
   transition: background 0.4s;
+  width: 50px;
 
   &:after {
     content: '';
