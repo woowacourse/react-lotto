@@ -11,10 +11,10 @@ import {
 } from './components';
 import { MESSAGE } from './constants/messages';
 import { useModal } from './hooks/useModal';
-import { createlottoList } from './services/lottoPurchase';
+import { createLottoList } from './services/lottoPurchase';
 
 const App = () => {
-  const [lottoList, setlottoList] = useState([]);
+  const [lottoList, setLottoList] = useState([]);
   const [winningNumbers, setWinningNumbers] = useState({
     numbers: [],
     bonusNumber: 0,
@@ -24,13 +24,13 @@ const App = () => {
   const { isModalOpen, handleModalOpen, handleModalClosed } = useModal();
 
   const initState = () => {
-    setlottoList([]);
+    setLottoList([]);
     setWinningNumbers({ numbers: [], bonusNumber: 0 });
     handleModalClosed();
   };
 
   const handlePurchaseLotto = inputPrice => {
-    setlottoList(createlottoList(inputPrice));
+    setLottoList(createLottoList(inputPrice));
   };
 
   const handleWinningNumber = (numbers, bonusNumber) => {
@@ -51,7 +51,7 @@ const App = () => {
         <MainWrapper size={100}>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
-            disabled={isPurchased}
+            isPurchased={isPurchased}
           />
 
           {isPurchased && (

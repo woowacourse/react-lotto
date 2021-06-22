@@ -1,7 +1,7 @@
 import { LOTTO } from '../constants';
 import { getRandomNumber } from '../utils/index';
 
-export const createlottoList = price => {
+export const createLottoList = price => {
   const lottoCount = Math.floor(price / LOTTO.UNIT);
 
   const lottoList = Array.from({ length: lottoCount }, () => {

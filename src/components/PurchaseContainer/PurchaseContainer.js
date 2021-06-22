@@ -6,17 +6,17 @@ import { Button, Flex, Form, Input } from '..';
 import { formCss, inputCss } from './PurchaseContainer.style';
 
 export const PurchaseContainer = props => {
-  const { onSubmit, disabled } = props;
+  const { onSubmit, isPurchased } = props;
 
   const formRef = useRef();
   const inputRef = useRef();
 
   useEffect(() => {
-    if (!disabled) {
+    if (!isPurchased) {
       formRef.current.reset();
       inputRef.current.focus();
     }
-  }, [disabled]);
+  }, [isPurchased]);
 
   const handlePurchaseLottoInput = e => {
     e.preventDefault();
@@ -34,14 +34,14 @@ export const PurchaseContainer = props => {
           name="price"
           placeholder={MESSAGE.INPUT_PLACEHOLDER}
           required
-          disabled={disabled}
+          disabled={isPurchased}
           autoFocus
           min={LOTTO.MIN_PRICE}
           max={LOTTO.MAX_PRICE}
           step={LOTTO.UNIT}
           css={inputCss}
         />
-        <Button disabled={disabled}>확인</Button>
+        <Button disabled={isPurchased}>확인</Button>
       </Flex>
     </Form>
   );
