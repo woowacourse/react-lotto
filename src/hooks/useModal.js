@@ -6,5 +6,5 @@ export const useModal = () => {
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClosed = () => setIsModalOpen(false);
 
-  return [isModalOpen, handleModalOpen, handleModalClosed];
+  return { isModalOpen, handleModalOpen, handleModalClosed };
 };

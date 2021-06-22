@@ -21,7 +21,7 @@ const App = () => {
   });
   const isPurchased = !!lottoList.length;
 
-  const [isModalOpen, handleModalOpen, handleModalClosed] = useModal();
+  const { isModalOpen, handleModalOpen, handleModalClosed } = useModal();
 
   const initState = () => {
     setlottoList([]);
