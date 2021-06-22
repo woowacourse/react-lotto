@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { LOTTO } from '../constants/lotto';
-import { MESSAGE } from '../constants/messages';
+import { LOTTO, MESSAGE } from '../constants';
 
 export const useSelectNumbers = () => {
   const [numbers, setNumbers] = useState([]);

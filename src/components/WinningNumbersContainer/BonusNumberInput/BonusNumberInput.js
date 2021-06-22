@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LOTTO } from '../../../constants/lotto';
+import { LOTTO } from '../../../constants';
 import { Flex, Input } from '../..';
 import { BonusNumberWrapper, InputCss } from './BonusNumberInput.style';
 

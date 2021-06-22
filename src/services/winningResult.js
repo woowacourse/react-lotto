@@ -1,10 +1,4 @@
-import {
-  LOTTO,
-  MATCH_COUNT,
-  PROFIT,
-  RANK,
-  RESULT_TABLE,
-} from '../constants/lotto';
+import { LOTTO, MATCH_COUNT, PROFIT, RANK, RESULT_TABLE } from '../constants';
 
 export const getMatchedCounts = (lottoList, winningNumbers) => {
   return lottoList.map(lotto => {

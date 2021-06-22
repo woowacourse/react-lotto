@@ -1,4 +1,4 @@
-import { LOTTO } from '../constants/lotto';
+import { LOTTO } from '../constants';
 import { getRandomNumber } from '../utils/index';
 
 export const createlottoList = price => {

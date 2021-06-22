@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { LOTTO } from '../../../constants/lotto';
+import { LOTTO } from '../../../constants';
 import { Checkbox, Label, Ul } from './NumberList.style';
 
 export const NumberList = props => {

@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { LOTTO } from '../../constants/lotto';
-import { MESSAGE } from '../../constants/messages';
+import { LOTTO, MESSAGE } from '../../constants';
 import { useSelectNumbers } from '../../hooks/useSelectNumbers';
 import { Button, Form } from '..';
 import { BonusNumberInput } from './BonusNumberInput/BonusNumberInput';
