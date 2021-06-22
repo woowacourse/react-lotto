@@ -10,21 +10,7 @@ import { Table } from './Table.style';
 export const RewardTable = props => {
   const { counts } = props;
 
-  const getRewardResults = () => {
-    const profitResults = getLottoProfitResult(getRanks(counts));
-
-    return Object.values(profitResults).map(
-      ({ matchingCount, reward, wins }) => (
-        <tr key={matchingCount}>
-          <td>{matchingCount}</td>
-          <td>{reward}</td>
-          <td>
-            <span>{wins}</span>개
-          </td>
-        </tr>
-      ),
-    );
-  };
+  const profitResults = getLottoProfitResult(getRanks(counts));
 
   return (
     <Table>
@@ -35,7 +21,17 @@ export const RewardTable = props => {
           <th>당첨 갯수</th>
         </tr>
       </thead>
-      <tbody>{getRewardResults()}</tbody>
+      <tbody>
+        {Object.values(profitResults).map(({ matchingCount, reward, wins }) => (
+          <tr key={matchingCount}>
+            <td>{matchingCount}</td>
+            <td>{reward}</td>
+            <td>
+              <span>{wins}</span>개
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </Table>
   );
 };

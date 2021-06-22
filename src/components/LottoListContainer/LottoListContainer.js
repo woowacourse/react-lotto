@@ -17,16 +17,6 @@ export const LottoListContainer = props => {
 
   const handleShowNumbers = () => setIsShowNumbers(prevValue => !prevValue);
 
-  const renderLottoList = () =>
-    lottoList?.map((lotto, idx) => (
-      <LottoItem key={idx + 1}>
-        <span>🎟️ </span>
-        {isShowNumbers && (
-          <LottoNumberDetails>{lotto.join(' ')}</LottoNumberDetails>
-        )}
-      </LottoItem>
-    ));
-
   return (
     <Section aria-label="purchase-lotto">
       <Flex justifyContent="space-between" alignItems="center">
@@ -36,7 +26,16 @@ export const LottoListContainer = props => {
         <ShowNumberToggleButton onChange={handleShowNumbers} />
       </Flex>
 
-      <LottoList isShowNumbers={isShowNumbers}>{renderLottoList()}</LottoList>
+      <LottoList isShowNumbers={isShowNumbers}>
+        {lottoList?.map((lotto, idx) => (
+          <LottoItem key={idx + 1}>
+            <span>🎟️ </span>
+            {isShowNumbers && (
+              <LottoNumberDetails>{lotto.join(' ')}</LottoNumberDetails>
+            )}
+          </LottoItem>
+        ))}
+      </LottoList>
     </Section>
   );
 };
