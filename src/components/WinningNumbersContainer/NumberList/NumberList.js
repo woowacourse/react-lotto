@@ -12,16 +12,20 @@ export const NumberList = props => {
   return (
     <Ul>
       {Array.from({ length: LOTTO.END_NUM }, (_, idx) => {
+        const currentIndex = idx + 1;
+
         return (
-          <li key={idx + 1}>
+          <li key={currentIndex}>
             <Checkbox
               type="checkbox"
-              id={`winningNumber${idx + 1}`}
-              name={idx + 1}
+              id={`winningNumber${currentIndex}`}
+              name={currentIndex}
               onChange={handleSelectNumbers}
-              checked={numbers.includes(idx + 1)}
+              checked={numbers.includes(currentIndex)}
             />
-            <Label htmlFor={`winningNumber${idx + 1}`}>{idx + 1}</Label>
+            <Label htmlFor={`winningNumber${currentIndex}`}>
+              {currentIndex}
+            </Label>
           </li>
         );
       })}
