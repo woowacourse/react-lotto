@@ -21,7 +21,12 @@ const App = () => {
   });
   const isPurchased = !!lottoList.length;
 
-  const { isModalOpen, handleModalOpen, handleModalClosed } = useModal();
+  const {
+    isModalOpen,
+    handleModalOpen,
+    handleModalClosed,
+    setIsModalOpen,
+  } = useModal();
 
   const initState = () => {
     setLottoList([]);
@@ -51,7 +56,7 @@ const App = () => {
         <MainWrapper size={100}>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
-            isPurchased={isPurchased}
+            disabled={isPurchased}
           />
 
           {isPurchased && (
@@ -64,7 +69,11 @@ const App = () => {
       </Flex>
 
       {isModalOpen && (
-        <Modal onClick={handleModalClosed} css={ModalInnerCss}>
+        <Modal
+          onCloseModal={handleModalClosed}
+          setIsModalOpen={setIsModalOpen}
+          css={ModalInnerCss}
+        >
           <LottoRewardsContainer
             lottoList={lottoList}
             winningNumbers={winningNumbers}

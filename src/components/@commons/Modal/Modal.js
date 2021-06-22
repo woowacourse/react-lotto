@@ -5,13 +5,13 @@ import { ModalInnerDiv, ModalSection } from './Modal.style';
 import { ModalCloseButton } from './ModalCloseButton/ModalCloseButton';
 
 export const Modal = props => {
-  const { children, onClick, ...rest } = props;
+  const { children, onCloseModal, setIsModalOpen, ...rest } = props;
 
   const handleCloseModal = ({ currentTarget, target }) => {
     const isDimmedClicked = currentTarget === target;
 
     if (!isDimmedClicked) return;
-    onClick();
+    setIsModalOpen(false);
   };
 
   return (
@@ -22,7 +22,7 @@ export const Modal = props => {
       onClick={handleCloseModal}
     >
       <ModalInnerDiv {...rest}>
-        <ModalCloseButton onClick={onClick} />
+        {onCloseModal && <ModalCloseButton onClick={onCloseModal} />}
         {children}
       </ModalInnerDiv>
     </ModalSection>
@@ -30,7 +30,8 @@ export const Modal = props => {
 };
 
 Modal.prototype = {
-  onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
+  onCloseModal: PropTypes.func,
+  setIsModalOpen: PropTypes.func.isRequired,
   css: PropTypes.object,
 };
