@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
+import { SIZE } from '../../../constants';
+
 export const BUTTON_SIZE = {
-  SMALL: {
+  [SIZE.SMALL]: {
     'min-width': '20%',
   },
-  MEDIUM: {
+  [SIZE.MEDIUM]: {
     'min-width': '60%',
   },
-  LARGE: {
+  [SIZE.LARGE]: {
     'min-width': '80%',
   },
 };

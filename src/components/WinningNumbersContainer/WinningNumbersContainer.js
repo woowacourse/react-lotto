@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { LOTTO, MESSAGE } from '../../constants';
+import { LOTTO, MESSAGE, SIZE } from '../../constants';
 import { useSelectNumbers } from '../../hooks/useSelectNumbers';
 import { Button, Form } from '..';
 import { BonusNumberInput } from './BonusNumberInput/BonusNumberInput';
@@ -37,7 +37,7 @@ export const WinningNumbersContainer = props => {
       <p>당첨 번호 6개를 선택하고, 보너스 번호를 입력해주세요</p>
       <NumberList onChange={handleSelectNumbers} numbers={numbers} />
       <BonusNumberInput />
-      <Button size="LARGE">결과 확인하기</Button>
+      <Button size={SIZE.LARGE}>결과 확인하기</Button>
     </Form>
   );
 };
