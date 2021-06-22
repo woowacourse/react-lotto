@@ -4,6 +4,7 @@ import { LOTTO, MESSAGE } from '../constants';
 
 export const useSelectNumbers = () => {
   const [numbers, setNumbers] = useState([]);
+  const [bonusNumber, setBonusNumber] = useState('');
 
   const handleSelectNumbers = pickedNumber =>
     setNumbers(prevNumbers => {
@@ -19,5 +20,9 @@ export const useSelectNumbers = () => {
       }
     });
 
-  return [numbers, handleSelectNumbers];
+  const handleChangeBonusNumber = bonusNumber => {
+    setBonusNumber(bonusNumber);
+  };
+
+  return { bonusNumber, numbers, handleSelectNumbers, handleChangeBonusNumber };
 };

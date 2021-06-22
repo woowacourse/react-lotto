@@ -7,7 +7,9 @@ import { Checkbox, Label, Ul } from './NumberList.style';
 export const NumberList = props => {
   const { numbers, onChange } = props;
 
-  const handleSelectNumbers = ({ target: { name } }) => onChange(Number(name));
+  const handleSelectNumbers = ({ target: { name } }) => {
+    onChange(Number(name));
+  };
 
   return (
     <Ul>

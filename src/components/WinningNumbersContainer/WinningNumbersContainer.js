@@ -11,12 +11,15 @@ import { FormCss } from './WinningNumbersContainer.style';
 export const WinningNumbersContainer = props => {
   const { onSubmit } = props;
 
-  const [numbers, handleSelectNumbers] = useSelectNumbers();
+  const {
+    bonusNumber,
+    numbers,
+    handleSelectNumbers,
+    handleChangeBonusNumber,
+  } = useSelectNumbers();
 
   const handleSubmitWinningNumbers = e => {
     e.preventDefault();
-
-    const bonusNumber = Number(e.target.elements['bonus-number'].value);
 
     if (numbers.length !== LOTTO.BUNDLE_SIZE) {
       alert(MESSAGE.SELECT_WINNING_NUMBER);
@@ -36,7 +39,10 @@ export const WinningNumbersContainer = props => {
       <h2>당첨번호 입력하기</h2>
       <p>당첨 번호 6개를 선택하고, 보너스 번호를 입력해주세요</p>
       <NumberList onChange={handleSelectNumbers} numbers={numbers} />
-      <BonusNumberInput />
+      <BonusNumberInput
+        onChangeBonusNumber={handleChangeBonusNumber}
+        bonusNumber={bonusNumber}
+      />
       <Button size={SIZE.LARGE}>결과 확인하기</Button>
     </Form>
   );
