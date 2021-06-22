@@ -15,7 +15,7 @@ export const LottoListContainer = props => {
 
   const [isShowNumbers, setIsShowNumbers] = useState(false);
 
-  const handleShowNumbers = () => setIsShowNumbers(!isShowNumbers);
+  const handleShowNumbers = () => setIsShowNumbers(preState => !preState);
 
   const renderLottoList = () =>
     lottoList?.map((lotto, idx) => (
