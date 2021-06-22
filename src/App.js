@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { MainSection, ModalInnerCss, WidthFullDiv } from './App.style';
+import { MainSection, MainWrapper, ModalInnerCss } from './App.style';
 import {
   Flex,
   LottoListContainer,
@@ -48,7 +48,7 @@ const App = () => {
     <MainSection>
       <h1>🎱 행운의 로또</h1>
       <Flex flexDirection="column" alignItems="center">
-        <WidthFullDiv>
+        <MainWrapper size={100}>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
             disabled={isPurchased}
@@ -60,7 +60,7 @@ const App = () => {
               <WinningNumbersContainer onSubmit={handleWinningNumber} />
             </>
           )}
-        </WidthFullDiv>
+        </MainWrapper>
       </Flex>
 
       {isModalOpen && (

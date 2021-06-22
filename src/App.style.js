@@ -9,8 +9,8 @@ export const MainSection = styled.section`
   }
 `;
 
-export const WidthFullDiv = styled.div`
-  width: 100%;
+export const MainWrapper = styled.div`
+  width: ${props => props.size}%;
 `;
 
 export const ModalInnerCss = css`
