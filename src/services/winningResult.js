@@ -6,8 +6,8 @@ import {
   RESULT_TABLE,
 } from '../constants/lotto';
 
-export const getMatchedCounts = (lottos, winningNumbers) => {
-  return lottos.map(lotto => {
+export const getMatchedCounts = (lottoList, winningNumbers) => {
+  return lottoList.map(lotto => {
     const isMatchedBonus = lotto.includes(winningNumbers.bonusNumber);
     const matchingCount = lotto.filter(number =>
       winningNumbers.numbers.includes(number),

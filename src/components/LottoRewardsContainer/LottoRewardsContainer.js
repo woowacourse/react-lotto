@@ -7,9 +7,9 @@ import { ProfitMessage, Title } from './LottoRewardsContainer.style';
 import { RewardTable } from './Table/Table';
 
 export const LottoRewardsContainer = props => {
-  const { lottos, winningNumbers, onClick } = props;
+  const { lottoList, winningNumbers, onClick } = props;
 
-  const counts = getMatchedCounts(lottos, winningNumbers);
+  const counts = getMatchedCounts(lottoList, winningNumbers);
 
   return (
     <>
@@ -35,6 +35,6 @@ export const LottoRewardsContainer = props => {
 
 LottoRewardsContainer.prototype = {
   onClick: PropTypes.func,
-  lottos: PropTypes.array.isRequired,
+  lottoList: PropTypes.array.isRequired,
   winningNumbers: PropTypes.object.isRequired,
 };

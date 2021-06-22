@@ -11,14 +11,14 @@ import {
 import { ShowNumberToggleButton } from './ToggleButton/ToggleButton';
 
 export const LottoListContainer = props => {
-  const { lottos } = props;
+  const { lottoList } = props;
 
   const [isShowNumbers, setIsShowNumbers] = useState(false);
 
   const handleShowNumbers = () => setIsShowNumbers(!isShowNumbers);
 
   const renderLottoList = () =>
-    lottos?.map((lotto, idx) => (
+    lottoList?.map((lotto, idx) => (
       <LottoItem key={idx + 1}>
         <span>🎟️ </span>
         {isShowNumbers && (
@@ -31,7 +31,7 @@ export const LottoListContainer = props => {
     <Section aria-label="purchase-lotto">
       <Flex justifyContent="space-between" alignItems="center">
         <label>
-          총 <span>{lottos.length}</span>개를 구매하였습니다.
+          총 <span>{lottoList.length}</span>개를 구매하였습니다.
         </label>
         <ShowNumberToggleButton onChange={handleShowNumbers} />
       </Flex>
@@ -42,5 +42,5 @@ export const LottoListContainer = props => {
 };
 
 LottoListContainer.prototype = {
-  lottos: PropTypes.array,
+  lottoList: PropTypes.array,
 };

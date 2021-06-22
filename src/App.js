@@ -11,26 +11,26 @@ import {
 } from './components';
 import { MESSAGE } from './constants/messages';
 import { useModal } from './hooks/useModal';
-import { createLottos } from './services/lottoPurchase';
+import { createlottoList } from './services/lottoPurchase';
 
 const App = () => {
-  const [lottos, setLottos] = useState([]);
+  const [lottoList, setlottoList] = useState([]);
   const [winningNumbers, setWinningNumbers] = useState({
     numbers: [],
     bonusNumber: 0,
   });
-  const isPurchased = !!lottos.length;
+  const isPurchased = !!lottoList.length;
 
   const [isModalOpen, handleModalOpen, handleModalClosed] = useModal();
 
   const initState = () => {
-    setLottos([]);
+    setlottoList([]);
     setWinningNumbers({ numbers: [], bonusNumber: 0 });
     handleModalClosed();
   };
 
   const handlePurchaseLotto = inputPrice => {
-    setLottos(createLottos(inputPrice));
+    setlottoList(createlottoList(inputPrice));
   };
 
   const handleWinningNumber = (numbers, bonusNumber) => {
@@ -56,7 +56,7 @@ const App = () => {
 
           {isPurchased && (
             <>
-              <LottoListContainer lottos={lottos} />
+              <LottoListContainer lottoList={lottoList} />
               <WinningNumbersContainer onSubmit={handleWinningNumber} />
             </>
           )}
@@ -66,7 +66,7 @@ const App = () => {
       {isModalOpen && (
         <Modal onClick={handleModalClosed} css={ModalInnerCss}>
           <LottoRewardsContainer
-            lottos={lottos}
+            lottoList={lottoList}
             winningNumbers={winningNumbers}
             onClick={handleRestart}
           />
