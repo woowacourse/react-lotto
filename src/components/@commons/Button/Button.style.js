@@ -25,10 +25,10 @@ export const StyledButton = styled.button`
 
   ${({ size }) => BUTTON_SIZE[size] || BUTTON_SIZE.SMALL}
   ${({ css }) => css}
-
-  &:disabled {
-    cursor: not-allowed;
+	
+	&:disabled {
     background-color: #d3c5c5;
     border-color: #d3c5c5;
+    cursor: not-allowed;
   }
 `;
