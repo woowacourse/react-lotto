@@ -19,6 +19,7 @@ const App = () => {
     numbers: [],
     bonusNumber: 0,
   });
+  const isPurchased = !!lottos.length;
 
   const [isModalOpen, handleModalOpen, handleModalClosed] = useModal();
 
@@ -50,10 +51,10 @@ const App = () => {
         <WidthFullDiv>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
-            disabled={!!lottos.length}
+            disabled={isPurchased}
           />
 
-          {!!lottos.length && (
+          {isPurchased && (
             <>
               <LottoListContainer lottos={lottos} />
               <WinningNumbersContainer onSubmit={handleWinningNumber} />
