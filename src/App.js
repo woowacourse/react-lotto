@@ -5,13 +5,18 @@ import LottoBallCanvas from './components/LottoBallCanvas';
 import MoneyInput from './components/MoneyInput';
 import Receipt from './components/Receipt';
 import ResultModal from './components/ResultModal';
-import TimeLeft from './components/TimeLeft';
+import AnnounceDateIndicator from './components/AnnounceDateIndicator';
 import WinningNumber from './components/WinningNumber';
 
 import coinSpin from './animation/coinSpin.json';
 import muyahoAudio from './sound/muyaho.mp3';
 import { LOTTERY_NUMBER_TYPE } from './constants/type';
-import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH, ANIMATION } from './constants/number';
+import {
+  LOTTERY_BALL_LENGTH,
+  LOTTERY_NUMBERS_LENGTH,
+  DEFAULT_LOTTO_NUMBER,
+  ANIMATION,
+} from './constants/number';
 import makeAutoTicket from './utils/makeAutoTicket';
 
 import { ModalContext } from './contexts/ModalContextProvider';
@@ -29,19 +34,22 @@ const App = () => {
 
   const audio = new Audio(muyahoAudio);
   const inputRef = useRef();
-  const winningInputRefs = useRef([]);
-  winningInputRefs.current = [...Array(LOTTERY_NUMBERS_LENGTH)].map(
-    (ref, idx) => (winningInputRefs.current[idx] = React.createRef())
+  const winningInputRefs = useRef(
+    [...Array(LOTTERY_NUMBERS_LENGTH)].map((ref, idx) => (ref = React.createRef()))
   );
 
   useEffect(() => {
+    resetLotteryNumbers();
+  }, []);
+
+  const resetLotteryNumbers = () => {
     setLotteryNumbers(
       [...Array(LOTTERY_NUMBERS_LENGTH)].map((_, idx) => ({
-        value: 0,
+        value: DEFAULT_LOTTO_NUMBER,
         type: idx < LOTTERY_BALL_LENGTH ? LOTTERY_NUMBER_TYPE.WINNING : LOTTERY_NUMBER_TYPE.BONUS,
       }))
     );
-  }, []);
+  };
 
   const handleMoneySubmit = (money) => {
     setIsMoneyInputValid(true);
@@ -53,6 +61,8 @@ const App = () => {
   };
 
   const handleResetButtonClick = () => {
+    resetLotteryNumbers();
+
     setIsMoneyInputValid(false);
     closeModal();
 
@@ -72,7 +82,7 @@ const App = () => {
     <div>
       {isMoneyInputValid && (
         <>
-          <TimeLeft />
+          <AnnounceDateIndicator />
           <audio controls autoPlay hidden>
             <source src={muyahoAudio} type='audio/mp3' />
           </audio>

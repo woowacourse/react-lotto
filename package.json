@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "./src/index.js",
   "repository": "https://github.com/iborymagic/react-lotto.git",
-  "author": "iborymagic <mlch8023@gmail.com>",
+  "contributors": [
+    "iborymagic <mlch8023@gmail.com>",
+    "ddongule <mnk918p@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "proptypes": "^1.1.0",
