@@ -1,27 +1,22 @@
-import {
-  LOTTO,
-  MATCH_COUNT,
-  PROFIT,
-  RANK,
-  RESULT_TABLE,
-} from '../constants/lotto';
+import { LOTTO, MATCH_COUNT, PROFIT, RANK, RESULT_TABLE } from '../constants';
 
-export const getMatchedCounts = (lottos, winningNumbers) => {
-  return lottos.map(lotto => {
+export const getMatchedCounts = (lottoList, winningNumbers) => {
+  return lottoList.map(lotto => {
     const isMatchedBonus = lotto.includes(winningNumbers.bonusNumber);
-    let count = lotto.filter(number => winningNumbers.numbers.includes(number))
-      .length;
+    const matchingCount = lotto.filter(number =>
+      winningNumbers.numbers.includes(number),
+    ).length;
 
-    if (count === MATCH_COUNT.FIVE && isMatchedBonus) {
-      count += MATCH_COUNT.BONUS;
+    if (matchingCount === MATCH_COUNT.FIVE && isMatchedBonus) {
+      return matchingCount + MATCH_COUNT.BONUS;
     }
 
-    return count;
+    return matchingCount;
   });
 };
 
-export const getRanks = counts => {
-  return counts.map(getRank);
+export const getRanks = matchingCount => {
+  return matchingCount.map(getRank);
 };
 
 export const getTotalProfit = counts => {
