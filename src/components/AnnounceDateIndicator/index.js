@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TIME } from '../../constants/number';
 import './style.scss';
 
-const TimeLeft = () => {
+const AnnounceDateIndicator = () => {
   const [timeLeft, setTimeLeft] = useState('');
-  const announceDate = useRef();
+  const announceDate = useRef(); // 리액트와 관련 없는 단순 날짜.
   const ticking = useRef();
 
   const tick = () => {
@@ -57,4 +57,4 @@ const TimeLeft = () => {
   );
 };
 
-export default TimeLeft;
+export default AnnounceDateIndicator;
