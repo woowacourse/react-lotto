@@ -1,6 +1,6 @@
 import { BALL_COLOR_RANGE } from '../constants/type';
 
-function chooseBallColor(number) {
+const chooseBallColor = (number) => {
   switch (true) {
     case 1 <= number && number <= 10:
       return BALL_COLOR_RANGE.YELLOW;
@@ -20,6 +20,6 @@ function chooseBallColor(number) {
     default:
       return BALL_COLOR_RANGE.DEFAULT;
   }
-}
+};
 
-export default chooseBallColor;
+export { chooseBallColor };

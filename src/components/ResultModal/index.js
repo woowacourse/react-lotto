@@ -9,16 +9,11 @@ import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../common/Button';
 import Modal from '../common/Modal';
 
-import {
-  LOTTERY_BALL_LENGTH,
-  LOTTERY_NUMBERS_LENGTH,
-  BONUS_BALL_EXIST,
-  BONUS_BALL_NOT_EXIST,
-} from '../../constants/number';
+import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
 
 import { ModalContext } from '../../contexts/ModalContextProvider';
-import calculatePrize from '../../utils/calculatePrize';
-import chooseBallColor from '../../utils/colorBall';
+import { calculateTotalPrize } from './service';
+import { chooseBallColor } from '../service';
 
 import './style.scss';
 
@@ -27,24 +22,10 @@ const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
 const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
   const { closeModal } = useContext(ModalContext);
 
-  const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
   const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
-  const countWinningBall = (ticket) => {
-    const bonusNumberExcepted = lotteryNumbers.slice(0, lotteryNumbers.length - 1);
-    return ticket.filter((ball) => bonusNumberExcepted.some((number) => number.value === ball))
-      .length;
-  };
-
-  const countBonusBall = (ticket) =>
-    ticket.some((ball) => ball === bonusNumber) ? BONUS_BALL_EXIST : BONUS_BALL_NOT_EXIST;
-
-  const totalPrize = tickets.reduce(
-    (sum, currentTicket) =>
-      sum + calculatePrize(countWinningBall(currentTicket), countBonusBall(currentTicket)),
-    0
-  );
-
+  const bonusNumber = lotteryNumbers[LOTTERY_NUMBERS_LENGTH - 1].value;
+  const totalPrize = calculateTotalPrize(tickets, lotteryNumbers, bonusNumber);
   const earningRate = Math.floor(((totalPrize - moneyAmount) / moneyAmount) * 100);
 
   return (

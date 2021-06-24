@@ -4,7 +4,7 @@ import './style.scss';
 
 const AnnounceDateIndicator = () => {
   const [timeLeft, setTimeLeft] = useState('');
-  const announceDate = useRef(); // 리액트와 관련 없는 단순 날짜.
+  const announceDate = useRef();
   const ticking = useRef();
 
   const tick = () => {

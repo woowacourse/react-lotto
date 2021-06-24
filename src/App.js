@@ -17,7 +17,7 @@ import {
   DEFAULT_LOTTO_NUMBER,
   ANIMATION,
 } from './constants/number';
-import makeAutoTicket from './utils/makeAutoTicket';
+import { makeAutoTicket } from './service';
 
 import { ModalContext } from './contexts/ModalContextProvider';
 

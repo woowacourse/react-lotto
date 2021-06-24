@@ -43,6 +43,7 @@ const LOTTO_BALL_CANVAS = {
   HEIGHT: 200,
   BALL_COUNT: 30,
   BALL_RADIUS: 15,
+  BALL_SPEED: 2,
 };
 
 export {

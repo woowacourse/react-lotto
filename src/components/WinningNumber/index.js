@@ -36,8 +36,6 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
 
     if (!isInputValueExist(inputValue)) return;
 
-    e.target.value = inputValue;
-
     if (isInputValueDuplicated(lotteryNumbers, inputValue, index)) {
       alert(ALERT_MESSAGE.DUPLICATED_NUMBER_INPUT);
       e.target.value = '';

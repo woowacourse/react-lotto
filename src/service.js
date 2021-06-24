@@ -1,5 +1,5 @@
-import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../constants/number';
-import getRandomNumber from './randomNumber';
+import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
+import getRandomNumber from './utils/randomNumber';
 
 const makeAutoTicket = () => {
   const uniqueTicket = new Set();
@@ -10,4 +10,4 @@ const makeAutoTicket = () => {
   return [...uniqueTicket];
 };
 
-export default makeAutoTicket;
+export { makeAutoTicket };
