@@ -56,7 +56,7 @@ const App = () => {
         <MainWrapper size={100}>
           <PurchaseContainer
             onSubmit={handlePurchaseLotto}
-            disabled={isPurchased}
+            isPurchased={isPurchased}
           />
 
           {isPurchased && (
