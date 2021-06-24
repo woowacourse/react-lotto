@@ -6,19 +6,21 @@ export const useSelectNumbers = () => {
   const [numbers, setNumbers] = useState([]);
   const [bonusNumber, setBonusNumber] = useState('');
 
-  const handleSelectNumbers = pickedNumber =>
-    setNumbers(prevNumbers => {
-      const newNumbers = prevNumbers.find(number => number === pickedNumber)
-        ? prevNumbers.filter(number => number !== pickedNumber)
-        : [...prevNumbers, pickedNumber];
+  const handleSelectNumbers = pickedNumber => {
+    const isIncluded = numbers.find(number => number === pickedNumber);
 
-      if (newNumbers.length === LOTTO.BUNDLE_SIZE + 1) {
-        alert(MESSAGE.EXCEEDED_LOTTO_COUNT);
-        return prevNumbers;
-      } else {
-        return newNumbers;
-      }
-    });
+    if (!isIncluded && numbers.length === LOTTO.BUNDLE_SIZE) {
+      alert(MESSAGE.EXCEEDED_LOTTO_COUNT);
+
+      return;
+    }
+
+    const newNumbers = isIncluded
+      ? numbers.filter(number => number !== pickedNumber)
+      : [...numbers, pickedNumber];
+
+    setNumbers(newNumbers);
+  };
 
   const handleChangeBonusNumber = bonusNumber => {
     setBonusNumber(bonusNumber);
