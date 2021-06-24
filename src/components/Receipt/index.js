@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import PurchaseNumberList from './PurchaseNumberList';
 import ToggleButton from '../common/Toggle';
 
 import './style.scss';
 
-const Receipt = ({ tickets }) => {
+const Receipt = () => {
   const [showBalls, setShowBalls] = useState(false);
 
   const handleToggle = () => {
@@ -19,13 +18,9 @@ const Receipt = ({ tickets }) => {
         <p>구입한 로또 번호</p>
         <ToggleButton onToggle={handleToggle} />
       </div>
-      <PurchaseNumberList tickets={tickets} showBalls={showBalls} />
+      <PurchaseNumberList showBalls={showBalls} isColoredBalls={false} />
     </div>
   );
-};
-
-Receipt.propTypes = {
-  tickets: PropTypes.array,
 };
 
 export default React.memo(Receipt);

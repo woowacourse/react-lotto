@@ -10,26 +10,22 @@ import WinningNumber from './components/WinningNumber';
 
 import coinSpin from './animation/coinSpin.json';
 import muyahoAudio from './sound/muyaho.mp3';
-import { LOTTERY_NUMBER_TYPE } from './constants/type';
-import {
-  LOTTERY_BALL_LENGTH,
-  LOTTERY_NUMBERS_LENGTH,
-  DEFAULT_LOTTO_NUMBER,
-  ANIMATION,
-} from './constants/number';
+import { LOTTERY_NUMBERS_LENGTH, ANIMATION } from './constants/number';
 import { makeAutoTicket } from './service';
 
 import { ModalContext } from './contexts/ModalContextProvider';
+import { LotteryNumbersContext } from './contexts/LotteryNumbersContextProvider';
 
 import './style.scss';
+import { TicketsContext } from './contexts/TicketsContextProvider';
 
 const App = () => {
   const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [moneyAmount, setMoneyAmount] = useState(0);
-  const [tickets, setTickets] = useState([]);
-  const [lotteryNumbers, setLotteryNumbers] = useState([]);
 
+  const { setTickets } = useContext(TicketsContext);
+  const { resetLotteryNumbers } = useContext(LotteryNumbersContext);
   const { isModalOpen, closeModal } = useContext(ModalContext);
 
   const audio = new Audio(muyahoAudio);
@@ -41,15 +37,6 @@ const App = () => {
   useEffect(() => {
     resetLotteryNumbers();
   }, []);
-
-  const resetLotteryNumbers = () => {
-    setLotteryNumbers(
-      [...Array(LOTTERY_NUMBERS_LENGTH)].map((_, idx) => ({
-        value: DEFAULT_LOTTO_NUMBER,
-        type: idx < LOTTERY_BALL_LENGTH ? LOTTERY_NUMBER_TYPE.WINNING : LOTTERY_NUMBER_TYPE.BONUS,
-      }))
-    );
-  };
 
   const handleMoneySubmit = (money) => {
     setIsMoneyInputValid(true);
@@ -92,7 +79,7 @@ const App = () => {
       <div className='title'>슈퍼 로또</div>
       <MoneyInput
         ref={inputRef}
-        onHandleSubmit={(money, ticketCount) => {
+        onSubmit={(money, ticketCount) => {
           handleMoneySubmit(money);
           makeTickets(ticketCount);
         }}
@@ -111,21 +98,12 @@ const App = () => {
         <>
           {isMoneyInputValid && (
             <>
-              <Receipt tickets={tickets} />
-              <WinningNumber
-                lotteryNumbers={lotteryNumbers}
-                onChangeLotteryNumbers={setLotteryNumbers}
-                ref={winningInputRefs}
-              />
+              <Receipt />
+              <WinningNumber ref={winningInputRefs} />
             </>
           )}
           {isModalOpen && (
-            <ResultModal
-              lotteryNumbers={lotteryNumbers}
-              tickets={tickets}
-              moneyAmount={moneyAmount}
-              onResetButtonClick={handleResetButtonClick}
-            />
+            <ResultModal moneyAmount={moneyAmount} onResetButtonClick={handleResetButtonClick} />
           )}
         </>
       )}

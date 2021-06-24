@@ -12,10 +12,12 @@ import { isInputValueDuplicated, isInputValueExist } from '../../utils/validatio
 import { ModalContext } from '../../contexts/ModalContextProvider';
 
 import './style.scss';
+import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
 
 const inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
 
-const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers }, ref) => {
+const WinningNumber = React.forwardRef(({ props }, ref) => {
+  const { lotteryNumbers, setLotteryNumbers } = useContext(LotteryNumbersContext);
   const { openModal } = useContext(ModalContext);
 
   const onWinningNumberSubmit = (e) => {
@@ -25,7 +27,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
       type: number.type,
     }));
 
-    onChangeLotteryNumbers(newLotteryNumbers);
+    setLotteryNumbers(newLotteryNumbers);
     openModal();
   };
 
@@ -43,7 +45,7 @@ const WinningNumber = React.forwardRef(({ onChangeLotteryNumbers, lotteryNumbers
       return;
     }
 
-    onChangeLotteryNumbers(newLotteryNumbers);
+    setLotteryNumbers(newLotteryNumbers);
   };
 
   useEffect(() => {

@@ -7,20 +7,20 @@ import { LOTTERY_PRICE } from '../../constants/number';
 
 import './style.scss';
 
-const MoneyInput = React.forwardRef(({ onHandleSubmit }, ref) => {
+const MoneyInput = React.forwardRef(({ onSubmit }, ref) => {
   useEffect(() => {
     ref.current.focus();
   }, []);
 
-  const onMoneyInputSubmit = (e) => {
+  const handleMoneyInputSubmit = (e) => {
     e.preventDefault();
     const money = Number(ref.current.value);
     const ticketCount = Math.floor(money / LOTTERY_PRICE);
-    onHandleSubmit(money, ticketCount);
+    onSubmit(money, ticketCount);
   };
 
   return (
-    <form className='money-input-form' onSubmit={onMoneyInputSubmit}>
+    <form className='money-input-form' onSubmit={handleMoneyInputSubmit}>
       <NumberInput
         ref={ref}
         customClass='money-input'

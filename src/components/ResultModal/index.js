@@ -9,17 +9,21 @@ import PurchaseNumberItem from '../Receipt/PurchaseNumberItem';
 import Button from '../common/Button';
 import Modal from '../common/Modal';
 
+import { calculateTotalPrize } from './service';
+import { chooseBallColor } from '../service';
 import { LOTTERY_BALL_LENGTH, LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
 
 import { ModalContext } from '../../contexts/ModalContextProvider';
-import { calculateTotalPrize } from './service';
-import { chooseBallColor } from '../service';
+import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
+import { TicketsContext } from '../../contexts/TicketsContextProvider';
 
 import './style.scss';
 
 const winningNumberIds = [...Array(LOTTERY_BALL_LENGTH)].map(() => uuidv4());
 
-const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick }) => {
+const ResultModal = ({ moneyAmount, onResetButtonClick }) => {
+  const { tickets } = useContext(TicketsContext);
+  const { lotteryNumbers } = useContext(LotteryNumbersContext);
   const { closeModal } = useContext(ModalContext);
 
   const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
@@ -64,9 +68,9 @@ const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick 
           {tickets.map((ticket, idx) => (
             <PurchaseNumberItem
               key={numberItemIds[idx]}
-              lotteryNumbers={lotteryNumbers}
               ticketNumbers={ticket}
               isToggled={true}
+              isColoredBalls={true}
             />
           ))}
           <div className='modal-result-text'>
@@ -82,8 +86,6 @@ const ResultModal = ({ tickets, moneyAmount, lotteryNumbers, onResetButtonClick 
 };
 
 ResultModal.propTypes = {
-  lotteryNumbers: PropTypes.array,
-  tickets: PropTypes.array,
   moneyAmount: PropTypes.number,
   onResetButtonClick: PropTypes.func,
 };

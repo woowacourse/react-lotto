@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import LotteryBall from '../../shared/LotteryBall';
 
 import { chooseBallColor } from '../../service';
+import { LotteryNumbersContext } from '../../../contexts/LotteryNumbersContextProvider';
 
 import './style.scss';
 
-const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, isToggled }) => {
+const PurchaseNumberItem = ({ ticketNumbers, isToggled, isColoredBalls }) => {
   const lotteryBallIds = [...Array(ticketNumbers.length)].map(() => uuidv4());
+
+  const { lotteryNumbers } = useContext(LotteryNumbersContext);
 
   return (
     <li className='purchase-number-item'>
@@ -17,6 +20,7 @@ const PurchaseNumberItem = ({ lotteryNumbers, ticketNumbers, isToggled }) => {
           <LotteryBall
             key={lotteryBallIds[idx]}
             isColored={
+              isColoredBalls &&
               lotteryNumbers &&
               lotteryNumbers.find((lotteryNumber) => lotteryNumber.value === number)
             }
