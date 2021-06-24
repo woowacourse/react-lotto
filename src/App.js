@@ -49,7 +49,6 @@ const App = () => {
 
   const handleResetButtonClick = () => {
     resetLotteryNumbers();
-
     setIsMoneyInputValid(false);
     closeModal();
 

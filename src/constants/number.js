@@ -44,6 +44,7 @@ const LOTTO_BALL_CANVAS = {
   BALL_COUNT: 30,
   BALL_RADIUS: 15,
   BALL_SPEED: 2,
+  BALL_SPIN_WEIGHT: 0.001,
 };
 
 export {

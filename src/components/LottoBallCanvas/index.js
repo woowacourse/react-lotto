@@ -1,116 +1,114 @@
 import React, { useEffect, useRef } from 'react';
+import { LOTTO_BALL_CANVAS } from '../../constants/number';
 import PALETTE from '../../constants/palette';
 import './style.scss';
+
+const colors = [PALETTE.YELLOW, PALETTE.ORANGE, PALETTE.BLUE, PALETTE.PURPLE, PALETTE.RED];
 
 const LottoBallCanvas = () => {
   const canvasRef = useRef();
 
-  const colors = [PALETTE.YELLOW, PALETTE.ORANGE, PALETTE.BLUE, PALETTE.PURPLE, PALETTE.RED];
-  const ball = [];
-  const ballCount = 30;
-  const ballRadius = 15;
-  const degrees = [0, 0, 0, 0, 0];
-
-  let isBallDrawn = false;
-
-  let canvas = null;
-  let ctx = null;
-
   useEffect(() => {
-    setCanvas();
-    addBalls();
-    draw();
-  }, []);
+    const degrees = [0, 0, 0, 0, 0];
+    const ball = [...new Array(LOTTO_BALL_CANVAS.BALL_COUNT)].map((_, i) => ({
+      x: 0,
+      y: 0,
+      dx: LOTTO_BALL_CANVAS.BALL_SPEED,
+      dy: -LOTTO_BALL_CANVAS.BALL_SPEED,
+      color: colors[i % colors.length],
+    }));
 
-  const setCanvas = () => {
-    canvas = canvasRef.current;
-    ctx = canvas.getContext('2d');
-    ctx.canvas.width = 200;
-    ctx.canvas.height = 200;
-  };
+    let animationFrame;
+    let isBallDrawn = false;
 
-  const addBalls = () => {
-    [...new Array(ballCount)].forEach((_, i) => {
-      ball[i] = {
-        x: 0,
-        y: 0,
-        dx: 2,
-        dy: -2,
-        color: colors[i % colors.length],
-      };
-    });
-  };
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
 
-  const move = () => {
-    [...new Array(ballCount)].forEach((_, i) => {
-      ball[i].x = ball[i].x + ball[i].dx;
-      ball[i].y = ball[i].y + ball[i].dy;
-      isBallDrawn = true;
-    });
-  };
+    ctx.canvas.width = LOTTO_BALL_CANVAS.WIDTH;
+    ctx.canvas.height = LOTTO_BALL_CANVAS.HEIGHT;
 
-  const rebound = () => {
-    [...new Array(ballCount)].forEach((_, i) => {
-      if (
-        ball[i].x + ball[i].dx > canvas.width - ballRadius ||
-        ball[i].x + ball[i].dx < ballRadius
-      ) {
-        ball[i].dx = -ball[i].dx + Math.random();
-      }
-      if (
-        ball[i].y + ball[i].dy > canvas.height - ballRadius ||
-        ball[i].y + ball[i].dy < ballRadius
-      ) {
-        ball[i].dy = -ball[i].dy + Math.random() + 0.2;
-      }
-    });
-  };
+    const move = () => {
+      [...new Array(LOTTO_BALL_CANVAS.BALL_COUNT)].forEach((_, i) => {
+        ball[i].x = ball[i].x + ball[i].dx;
+        ball[i].y = ball[i].y + ball[i].dy;
+        isBallDrawn = true;
+      });
+    };
 
-  const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    [...new Array(ballCount)].forEach((_, i) => {
-      const currentDegreeIdx = i % 5;
-      const currentDegree = degrees[currentDegreeIdx];
+    const rebound = () => {
+      [...new Array(LOTTO_BALL_CANVAS.BALL_COUNT)].forEach((_, i) => {
+        if (
+          ball[i].x + ball[i].dx > ctx.canvas.width - LOTTO_BALL_CANVAS.BALL_RADIUS ||
+          ball[i].x + ball[i].dx < LOTTO_BALL_CANVAS.BALL_RADIUS
+        ) {
+          ball[i].dx = -ball[i].dx + Math.random();
+        }
 
-      if (!isBallDrawn) {
-        ball[i].x = Math.random() * canvas.width - ballRadius;
-        ball[i].y = Math.random() * canvas.height - ballRadius;
-      }
-
-      ctx.beginPath();
-
-      ctx.save();
-      ctx.translate(ball[i].x, ball[i].y);
-      ctx.rotate(currentDegree);
-      ctx.translate(-ball[i].x, -ball[i].y);
-
-      ctx.arc(ball[i].x, ball[i].y, ballRadius, 0, Math.PI * 2);
-      ctx.fillStyle = ball[i].color;
-      ctx.fill();
-      ctx.strokeStyle = '#000000';
-      ctx.stroke();
-
-      ctx.font = '.7em Noto Sans KR';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText(i, ball[i].x, ball[i].y);
-
-      ctx.restore();
-
-      ctx.closePath();
-      degrees.forEach((degree, idx) => {
-        if (idx % 2 === 0) {
-          degrees[idx] = degree + 0.001 * (idx + 1);
-        } else {
-          degrees[idx] = degree - 0.001 * (idx + 1);
+        if (
+          ball[i].y + ball[i].dy > ctx.canvas.height - LOTTO_BALL_CANVAS.BALL_RADIUS ||
+          ball[i].y + ball[i].dy < LOTTO_BALL_CANVAS.BALL_RADIUS
+        ) {
+          ball[i].dy = -ball[i].dy + Math.random() + 0.2;
         }
       });
-    });
+    };
 
-    move();
-    rebound();
-    requestAnimationFrame(draw);
-  };
+    const draw = () => {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      [...new Array(LOTTO_BALL_CANVAS.BALL_COUNT)].forEach((_, i) => {
+        const currentDegreeIdx = i % 5;
+        const currentDegree = degrees[currentDegreeIdx];
+
+        if (!isBallDrawn) {
+          ball[i].x = Math.random() * ctx.canvas.width - LOTTO_BALL_CANVAS.BALL_RADIUS;
+          ball[i].y = Math.random() * ctx.canvas.height - LOTTO_BALL_CANVAS.BALL_RADIUS;
+        }
+
+        ctx.beginPath();
+
+        ctx.save();
+        ctx.translate(ball[i].x, ball[i].y);
+        ctx.rotate(currentDegree);
+        ctx.translate(-ball[i].x, -ball[i].y);
+
+        ctx.arc(ball[i].x, ball[i].y, LOTTO_BALL_CANVAS.BALL_RADIUS, 0, Math.PI * 2);
+        ctx.fillStyle = ball[i].color;
+        ctx.fill();
+        ctx.strokeStyle = PALETTE.BLACK;
+        ctx.stroke();
+
+        ctx.font = '.7em Noto Sans KR';
+        ctx.fillStyle = PALETTE.WHITE;
+        ctx.textAlign = 'center';
+        ctx.fillText(i, ball[i].x, ball[i].y);
+
+        ctx.restore();
+
+        ctx.closePath();
+        degrees.forEach((degree, idx) => {
+          if (idx % 2 === 0) {
+            degrees[idx] = degree + LOTTO_BALL_CANVAS.BALL_SPIN_WEIGHT * (idx + 1);
+          } else {
+            degrees[idx] = degree - LOTTO_BALL_CANVAS.BALL_SPIN_WEIGHT * (idx + 1);
+          }
+        });
+      });
+
+      move();
+      rebound();
+    };
+
+    const render = () => {
+      draw();
+      animationFrame = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
 
   return <canvas ref={canvasRef} id='lotto_ball_canvas' />;
 };
