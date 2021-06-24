@@ -77,7 +77,7 @@ const App = () => {
           <LottoRewardsContainer
             lottoList={lottoList}
             winningNumbers={winningNumbers}
-            onClick={handleRestart}
+            onClickRestartButton={handleRestart}
           />
         </Modal>
       )}

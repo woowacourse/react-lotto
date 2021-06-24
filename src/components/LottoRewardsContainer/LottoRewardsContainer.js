@@ -7,7 +7,7 @@ import { ProfitMessage, Title } from './LottoRewardsContainer.style';
 import { RewardTable } from './Table/Table';
 
 export const LottoRewardsContainer = props => {
-  const { lottoList, winningNumbers, onClick } = props;
+  const { lottoList, winningNumbers, onClickRestartButton } = props;
 
   const counts = getMatchedCounts(lottoList, winningNumbers);
 
@@ -25,7 +25,7 @@ export const LottoRewardsContainer = props => {
       </ProfitMessage>
 
       <Flex justifyContent="center" alignItems="center">
-        <Button type="reset" onClick={onClick}>
+        <Button type="reset" onClick={onClickRestartButton}>
           다시 시작하기
         </Button>
       </Flex>
@@ -34,7 +34,7 @@ export const LottoRewardsContainer = props => {
 };
 
 LottoRewardsContainer.prototype = {
-  onClick: PropTypes.func,
+  onClickRestartButton: PropTypes.func,
   lottoList: PropTypes.array.isRequired,
   winningNumbers: PropTypes.object.isRequired,
 };
