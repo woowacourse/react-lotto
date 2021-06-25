@@ -9,6 +9,7 @@ import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../.
 import { ALERT_MESSAGE } from '../../constants/message';
 
 import { isInputValueDuplicated, isInputValueExist } from '../../utils/validations';
+import first from '../../utils/first';
 import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
 import { ModalContext } from '../../contexts/ModalContextProvider';
 
@@ -19,11 +20,12 @@ const inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
 const WinningNumber = React.forwardRef(({ props }, ref) => {
   const { lotteryNumbers, setLotteryNumbers } = useContext(LotteryNumbersContext);
   const { openModal } = useContext(ModalContext);
+  const inputRefs = ref.current;
 
   const onWinningNumberSubmit = (e) => {
     e.preventDefault();
     const newLotteryNumbers = lotteryNumbers.map((number, idx) => ({
-      value: Number(ref.current[idx].current.value),
+      value: Number(inputRefs[idx].current.value),
       type: number.type,
     }));
 
@@ -32,7 +34,7 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
   };
 
   const onBlurLotteryNumberInput = (index) => () => {
-    const currentInputElement = ref.current[index].current;
+    const currentInputElement = inputRefs[index].current;
 
     const inputValue = Math.min(Number(currentInputElement.value), MAX_LOTTO_NUMBER);
     const newLotteryNumbers = [...lotteryNumbers];
@@ -51,7 +53,7 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
   };
 
   useEffect(() => {
-    ref.current[0].current.focus();
+    first(inputRefs).current.focus();
   }, []);
 
   return (
@@ -62,7 +64,7 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
             min={MIN_LOTTO_NUMBER}
             max={MAX_LOTTO_NUMBER}
             key={inputIds[idx]}
-            ref={ref.current[idx]}
+            ref={inputRefs[idx]}
             customClass={`${type}-number`}
             defaultValue=''
             onBlur={onBlurLotteryNumberInput(idx)}
