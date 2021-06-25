@@ -15,9 +15,9 @@ import { makeAutoTicket } from './service';
 
 import { ModalContext } from './contexts/ModalContextProvider';
 import { LotteryNumbersContext } from './contexts/LotteryNumbersContextProvider';
+import { TicketsContext } from './contexts/TicketsContextProvider';
 
 import './style.scss';
-import { TicketsContext } from './contexts/TicketsContextProvider';
 
 const App = () => {
   const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
@@ -65,7 +65,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
       {isMoneyInputValid && (
         <>
           <AnnounceDateIndicator />
@@ -106,7 +106,7 @@ const App = () => {
           )}
         </>
       )}
-    </div>
+    </>
   );
 };
 
