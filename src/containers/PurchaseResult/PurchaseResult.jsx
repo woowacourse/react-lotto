@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Lotto from '../../components/Lotto/Lotto';
+import LottoTicket from '../../components/LottoTicket/LottoTicket';
 import './PurchaseResult.styles.css';
 
 const PurchaseResult = ({ lottoBundle }) => {
@@ -22,7 +22,7 @@ const PurchaseResult = ({ lottoBundle }) => {
       </div>
       <section className={`display-section ${isToggled && 'toggle'}`}>
         {lottoBundle.map((v, i) => (
-          <Lotto lotto={v} key={i} />
+          <LottoTicket lotto={v} key={i} />
         ))}
       </section>
     </div>

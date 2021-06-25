@@ -1,9 +1,9 @@
 import React from 'react';
-import './Lotto.styles.css';
+import './LottoTicket.styles.css';
 import lottoImage from '../../images/ticket.png';
 import { LOTTO_NUMBER_SEPARATOR } from '../../constants/message';
 
-const Lotto = ({ lotto }) => {
+const LottoTicket = ({ lotto }) => {
   return (
     <div className="lotto">
       <img className="lotto-image" src={lottoImage} alt="lotto" />
@@ -12,4 +12,4 @@ const Lotto = ({ lotto }) => {
   );
 };
 
-export default Lotto;
+export default LottoTicket;
