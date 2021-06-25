@@ -9,10 +9,10 @@ import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../.
 import { ALERT_MESSAGE } from '../../constants/message';
 
 import { isInputValueDuplicated, isInputValueExist } from '../../utils/validations';
+import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
 import { ModalContext } from '../../contexts/ModalContextProvider';
 
 import './style.scss';
-import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
 
 const inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
 
@@ -31,8 +31,10 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
     openModal();
   };
 
-  const onBlurLotteryNumberInput = (e, index) => {
-    const inputValue = Math.min(Number(e.target.value), MAX_LOTTO_NUMBER);
+  const onBlurLotteryNumberInput = (index) => () => {
+    const currentInputElement = ref.current[index].current;
+
+    const inputValue = Math.min(Number(currentInputElement.value), MAX_LOTTO_NUMBER);
     const newLotteryNumbers = [...lotteryNumbers];
     newLotteryNumbers[index].value = inputValue;
 
@@ -40,8 +42,8 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
 
     if (isInputValueDuplicated(lotteryNumbers, inputValue, index)) {
       alert(ALERT_MESSAGE.DUPLICATED_NUMBER_INPUT);
-      e.target.value = '';
-      e.target.focus();
+      currentInputElement.value = '';
+      currentInputElement.focus();
       return;
     }
 
@@ -63,7 +65,7 @@ const WinningNumber = React.forwardRef(({ props }, ref) => {
             ref={ref.current[idx]}
             customClass={`${type}-number`}
             defaultValue=''
-            onBlur={(e) => onBlurLotteryNumberInput(e, idx)}
+            onBlur={onBlurLotteryNumberInput(idx)}
           />
         ))}
       </div>
