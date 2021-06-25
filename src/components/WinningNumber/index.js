@@ -1,123 +1,60 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
-import NumberInput from '../UtilComponent/NumberInput/index';
-import Button from '../UtilComponent/Button/index';
-import { BONUS_BALL_LENGTH, LOTTERY_BALL_LENGTH } from '../../constants/number';
 import './style.scss';
 
-class WinningNumber extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentInputIndex: 0,
-    };
-  }
+import {
+  BONUS_BALL_LENGTH,
+  BONUS_NUMBER_INDEX,
+  DEFAULT_VALUE,
+  LOTTERY_BALL_LENGTH,
+  WINNING_NUMBER_INDEX,
+} from '../../constants/number';
 
-  onWinningNumberSubmit(e) {
+import Button from '../@util-components/Button/index';
+import NumberInput from '../@util-components/NumberInput/index';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+const WinningNumber = ({ onHandleSubmit, onModalButtonClick }) => {
+  const winningNumberInputs = Array(LOTTERY_BALL_LENGTH + BONUS_BALL_LENGTH).fill(DEFAULT_VALUE);
+  const winningNumbers = winningNumberInputs.slice(
+    WINNING_NUMBER_INDEX.START,
+    WINNING_NUMBER_INDEX.END
+  );
+  const bonusNumber = winningNumberInputs[BONUS_NUMBER_INDEX];
+
+  const onWinningNumberSubmit = (e) => {
     e.preventDefault();
-    // TODO: 깔끔한 방법 찾기
-    const winningNumbers = [];
-    e.target
-      .querySelectorAll('.winning-number')
-      .forEach((input) => winningNumbers.push(Number(input.value)));
 
-    const bonusNumber = Number(e.target.querySelector('.bonus-number').value);
+    onHandleSubmit(winningNumbers, bonusNumber);
+    onModalButtonClick();
+  };
 
-    this.props.onHandleSubmit(winningNumbers, bonusNumber);
-    this.props.onModalButtonClick();
-  }
+  const winningNumber = (value, index) => {
+    winningNumberInputs[index] = Number(value);
+  };
 
-  isInputValueChanged(currentInputValue, inputValue) {
-    return currentInputValue === inputValue;
-  }
-
-  isInputValueExist(inputValue) {
-    return !!inputValue;
-  }
-
-  isInputValueDuplicated(winningNumbers, inputValue, index) {
-    const currentIndex = winningNumbers.findIndex((el) => el === inputValue);
-    if (currentIndex !== -1 && currentIndex !== index) {
-      return true;
-    }
-    return false;
-  }
-
-  onChangeWinningNumber(e, index) {
-    if (typeof index !== 'number') return;
-    const inputValue = Number(e.target.value.slice(0, 2));
-
-    const newWinningNumberInputs = [
-      ...this.props.lotto.winningNumbers,
-      this.props.lotto.bonusNumber,
-    ];
-    newWinningNumberInputs[index] = inputValue;
-    const bonusNumber = Number(newWinningNumberInputs.splice(newWinningNumberInputs.length - 1, 1));
-
-    if (!this.isInputValueExist(inputValue)) {
-      this.props.onHandleSetWinningNumbers({
-        winningNumbers: newWinningNumberInputs,
-        bonusNumber,
-      });
-      this.setState({
-        currentInputIndex: index,
-      });
-      return;
-    }
-
-    if (
-      this.isInputValueDuplicated(
-        [...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber],
-        inputValue,
-        index
-      )
-    ) {
-      alert('입력값이 중복되었습니다.');
-      e.target.value = '';
-      e.target.focus();
-      return;
-    }
-
-    this.props.onHandleSetWinningNumbers({
-      winningNumbers: newWinningNumberInputs,
-      bonusNumber,
-    });
-    this.setState({
-      currentInputIndex: index + 1,
-    });
-  }
-
-  render() {
-    return (
-      <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
-        <div className='winning-number-form'>
-          {[...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber].map(
-            (number, index) => {
-              return (
-                <NumberInput
-                  isCurrentInput={this.state.currentInputIndex === index}
-                  min='1'
-                  max='45'
-                  key={uuidv4()}
-                  customClass={
-                    index <
-                    [...this.props.lotto.winningNumbers, this.props.lotto.bonusNumber].length - 1
-                      ? 'winning-number'
-                      : 'bonus-number'
-                  }
-                  defaultValue={number ? number : ''}
-                  onInputFocusOut={(e) => this.onChangeWinningNumber(e, index)}
-                />
-              );
-            }
-          )}
-        </div>
-        <Button buttonText='결과 확인하기' />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onWinningNumberSubmit}>
+      <div className='winning-number-form'>
+        {[...winningNumberInputs].map((number, index) => {
+          return (
+            <NumberInput
+              min='1'
+              max='45'
+              key={uuidv4()}
+              customClass={
+                index < winningNumberInputs.length - 1 ? 'winning-number' : 'bonus-number'
+              }
+              onBlur={({ target }) => winningNumber(target.value, index)}
+              defaultValue={number ? number : ''}
+            />
+          );
+        })}
+      </div>
+      <Button buttonText='결과 확인하기' />
+    </form>
+  );
+};
 
 WinningNumber.propTypes = {
   onHandleSubmit: PropTypes.func,

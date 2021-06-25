@@ -5,10 +5,10 @@ module.exports = {
   },
 
   extends: [
+    'airbnb/base',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
-    'plugin:cypress/recommended',
   ],
 
   parserOptions: {
@@ -25,5 +25,5 @@ module.exports = {
     ],
   },
 
-  plugins: ['prettier', 'cypress', 'react'],
+  plugins: ['prettier', 'react'],
 };

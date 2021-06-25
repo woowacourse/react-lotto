@@ -1,39 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PurchaseNumberList from './PurchaseNumberList';
-import ToggleButton from '../UtilComponent/Toggle';
+import ToggleButton from '../@util-components/Toggle';
 import './style.scss';
 
-class Receipt extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isVisibleBalls: false,
-    };
-    this.handleToggle = this.handleToggle.bind(this);
-  }
+const Receipt = ({ receipt }) => {
+  const [showBalls, setShowBalls] = useState(false);
 
-  handleToggle() {
-    this.setState({
-      isVisibleBalls: !this.state.isVisibleBalls,
-    });
-  }
+  const handleToggle = () => setShowBalls(!showBalls);
 
-  render() {
-    return (
-      <div className='purchased-lotto'>
-        <div className='sub-title'>
-          <p>구입한 로또 번호</p>
-          <ToggleButton onHandleToggle={this.handleToggle} />
-        </div>
-        <PurchaseNumberList
-          receipt={this.props.receipt}
-          isVisibleBalls={this.state.isVisibleBalls}
-        />
+  return (
+    <div className='purchased-lotto'>
+      <div className='sub-title'>
+        <p>구입한 로또 번호</p>
+        <ToggleButton onHandleToggle={handleToggle} />
       </div>
-    );
-  }
-}
+      <PurchaseNumberList receipt={receipt} showBalls={showBalls} />
+    </div>
+  );
+};
 
 Receipt.propTypes = {
   receipt: PropTypes.array,

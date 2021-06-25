@@ -1,180 +1,109 @@
-import React from 'react';
-import Modal from './components/Modal';
-import MoneyInput from './components/MoneyInput';
-import Receipt from './components/Receipt';
-import WinningNumber from './components/WinningNumber';
-import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
-import getRandomNumber from './utils/random-number';
-import Canvas from './components/Canvas';
-import TimeLeft from './components/TimeLeft';
-import { hideScroll, showScroll } from './utils/scroll';
-import audio_muyaho from './sound/muyaho.mp3';
-import Lottie from 'react-lottie';
-import coinSpin from './animation/coinSpin.json';
 import './style.scss';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMoneyInputValid: false,
-      isModalOpen: false,
-      isLoading: false,
-      moneyAmount: 0,
-      receipt: [],
-      lotto: {
-        winningNumbers: new Array(LOTTERY_BALL_LENGTH).fill(0),
-        bonusNumber: 0,
-      },
-    };
+import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
+import React, { useEffect, useState } from 'react';
 
-    this.moneyInputRef = React.createRef();
-    this.audio = new Audio(audio_muyaho);
+import Lottie from 'react-lottie';
+import LottoBallCanvas from './components/canvas';
+import MoneyInput from './components/MoneyInput';
+import PurchaseForm from './components/PurchaseForm';
+import TimeLeft from './components/TimeLeft';
+import { audio } from './utils/audio';
+import coinSpin from './animation/coinSpin.json';
+import getRandomNumber from './utils/random-number';
+import muyahoAudio from './sound/muyaho.mp3';
+import { showScroll } from './utils/scroll';
 
-    this.handleModalButtonClick = this.handleModalButtonClick.bind(this);
-    this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
-    this.handleSetWinningNumbers = this.handleSetWinningNumbers.bind(this);
-    this.handleModalClose = this.handleModalClose.bind(this);
-  }
+const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  componentWillUnmount() {
-    this.moneyInputRef = null;
-  }
+  const [lotto, setLotto] = useState({ numbers: [], bonus: 0 });
+  const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
 
-  handleSetWinningNumbers({ winningNumbers, bonusNumber }) {
-    this.setState({
-      lotto: {
-        winningNumbers,
-        bonusNumber,
-      },
-    });
-  }
+  const [moneyAmount, setMoneyAmount] = useState(0);
+  const [receipt, setReceipt] = useState([]);
 
-  handleMoneySubmit(money) {
-    this.setState({
-      isMoneyInputValid: true,
-      moneyAmount: money,
-    });
+  const handleMoneySubmit = (money) => {
+    setIsMoneyInputValid(true);
+    setMoneyAmount(money);
 
-    if (this.state.isMoneyInputValid) {
-      this.audio.play();
+    if (isMoneyInputValid) {
+      audio.play();
+      setIsLoading(true);
     }
-  }
+  };
 
-  handleWinningNumberSubmit(winningNumbers, bonusNumber) {
-    if (!Array.isArray(winningNumbers)) return;
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1000);
+  }, [isLoading]);
 
-    this.setState({
-      lotto: {
-        winningNumbers,
-        bonusNumber,
-      },
-    });
-  }
+  const handleResetButtonClick = () => {
+    setIsMoneyInputValid(false);
 
-  handleModalButtonClick() {
-    this.setState({
-      isModalOpen: true,
-    });
+    showScroll();
+  };
 
-    hideScroll('modal-opened');
-  }
-
-  handleResetButtonClick() {
-    this.setState({
-      isMoneyInputValid: false,
-      isModalOpen: false,
-    });
-
-    showScroll('modal-opened');
-  }
-
-  handleModalClose() {
-    this.setState({
-      isModalOpen: false,
-    });
-
-    showScroll('modal-opened');
-  }
-
-  makeAutoTicket() {
+  const makeAutoTicket = () => {
     const uniqueTicket = new Set();
+
     while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
       uniqueTicket.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
     }
 
     return [...uniqueTicket];
-  }
+  };
 
-  makeReceipt(ticketCount) {
+  const makeReceipt = (ticketCount) => {
     if (typeof ticketCount !== 'number') return;
 
-    this.setState({ isLoading: true });
-    setTimeout(() => {
-      this.setState({
-        isLoading: false,
-        receipt: [...Array(ticketCount)].map(() => this.makeAutoTicket()),
-      });
-    }, 1000);
-  }
+    setReceipt([...Array(ticketCount)].map(makeAutoTicket));
+  };
 
-  render() {
-    return (
-      <div ref={this.bodyRef}>
-        {this.state.isMoneyInputValid && (
-          <>
-            <TimeLeft />
-            <audio controls autoPlay hidden>
-              <source src={audio_muyaho} type='audio/mp3' />
-            </audio>
-          </>
-        )}
-        <Canvas />
-        <div className='title'>슈퍼 로또</div>
-        <MoneyInput
-          ref={this.moneyInputRef}
-          onHandleSubmit={(money, ticketCount) => {
-            this.handleMoneySubmit(money);
-            this.makeReceipt(ticketCount);
+  const handleWinningNumberSubmit = ({ winningNumbers, bonusNumber }) => {
+    if (typeof bonusNumber !== 'number') return;
+    if (!winningNumbers instanceof Array) return;
+
+    setLotto({ numbers: winningNumbers, bonus: bonusNumber });
+  };
+
+  return (
+    <>
+      <LottoBallCanvas />
+      <div className='title'>슈퍼 로또</div>
+      <MoneyInput handleMoneySubmit={handleMoneySubmit} makeReceipt={makeReceipt} />
+
+      {isMoneyInputValid && (
+        <>
+          <TimeLeft />
+          <audio controls autoPlay hidden>
+            <source src={muyahoAudio} type='audio/mp3' />
+          </audio>
+        </>
+      )}
+
+      {isLoading && (
+        <Lottie
+          speed={1}
+          height='300px'
+          width='300px'
+          options={{
+            animationData: coinSpin,
+            loop: false,
           }}
         />
-        {this.state.isLoading ? (
-          <Lottie
-            speed={1}
-            height='300px'
-            width='300px'
-            options={{
-              animationData: coinSpin,
-              loop: false,
-            }}
-          />
-        ) : (
-          this.state.isMoneyInputValid && (
-            <>
-              <Receipt receipt={this.state.receipt} />
-              <WinningNumber
-                lotto={this.state.lotto}
-                onHandleSubmit={(winningNumbers, bonusNumber) =>
-                  this.handleWinningNumberSubmit(winningNumbers, bonusNumber)
-                }
-                onHandleSetWinningNumbers={this.handleSetWinningNumbers}
-                onModalButtonClick={this.handleModalButtonClick}
-              />
-              {this.state.isModalOpen && (
-                <Modal
-                  lotto={this.state.lotto}
-                  receipt={this.state.receipt}
-                  moneyAmount={this.state.moneyAmount}
-                  onResetButtonClick={this.handleResetButtonClick}
-                  onModalClose={this.handleModalClose}
-                />
-              )}
-            </>
-          )
-        )}
-      </div>
-    );
-  }
-}
+      )}
+
+      {!isLoading && isMoneyInputValid && (
+        <PurchaseForm
+          lotto={lotto}
+          receipt={receipt}
+          moneyAmount={moneyAmount}
+          handleResetButtonClick={handleResetButtonClick}
+          handleWinningNumberSubmit={handleWinningNumberSubmit}
+        />
+      )}
+    </>
+  );
+};
 
 export default App;
