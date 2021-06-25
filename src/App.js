@@ -1,29 +1,27 @@
-import React, { useState, useRef } from 'react';
-import Modal from './components/Modal';
-import MoneyInput from './components/MoneyInput';
-import Receipt from './components/Receipt';
-import WinningNumber from './components/WinningNumber';
-import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
-import getRandomNumber from './utils/random-number';
-import LottoBallCanvas from './components/LottoBallCanvas';
-import TimeLeft from './components/TimeLeft';
-import { hideScroll, showScroll } from './utils/scroll';
-import muyahoAudio from './sound/muyaho.mp3';
-import Lottie from 'react-lottie';
-import coinSpin from './animation/coinSpin.json';
 import './style.scss';
 
+import { LOTTERY_BALL_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from './constants/number';
+import React, { useEffect, useState } from 'react';
+
+import Lottie from 'react-lottie';
+import LottoBallCanvas from './components/canvas';
+import MoneyInput from './components/MoneyInput';
+import PurchaseForm from './components/PurchaseForm';
+import TimeLeft from './components/TimeLeft';
+import { audio } from './utils/audio';
+import coinSpin from './animation/coinSpin.json';
+import getRandomNumber from './utils/random-number';
+import muyahoAudio from './sound/muyaho.mp3';
+import { showScroll } from './utils/scroll';
+
 const App = () => {
-  const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [lotto, setLotto] = useState({ numbers: [], bonus: 0 });
+  const [isMoneyInputValid, setIsMoneyInputValid] = useState(false);
+
   const [moneyAmount, setMoneyAmount] = useState(0);
   const [receipt, setReceipt] = useState([]);
-  const [lotto, setLotto] = useState({ numbers: [], bonus: 0 });
-
-  const moneyInputRef = useRef(null);
-  const bodyRef = useRef(null);
-  const audio = new Audio(muyahoAudio);
 
   const handleMoneySubmit = (money) => {
     setIsMoneyInputValid(true);
@@ -31,37 +29,23 @@ const App = () => {
 
     if (isMoneyInputValid) {
       audio.play();
+      setIsLoading(true);
     }
   };
 
-  const handleWinningNumberSubmit = ({ winningNumbers, bonusNumber }) => {
-    if (typeof bonusNumber !== 'number') return;
-    if (!winningNumbers instanceof Array) return;
-
-    setLotto({ numbers: winningNumbers, bonus: bonusNumber });
-  };
-
-  const handleModalButtonClick = () => {
-    setIsModalOpen(true);
-
-    hideScroll();
-  };
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1000);
+  }, [isLoading]);
 
   const handleResetButtonClick = () => {
     setIsMoneyInputValid(false);
-    setIsModalOpen(false);
-    resetMoneyForm();
 
-    showScroll();
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
     showScroll();
   };
 
   const makeAutoTicket = () => {
     const uniqueTicket = new Set();
+
     while (uniqueTicket.size !== LOTTERY_BALL_LENGTH) {
       uniqueTicket.add(getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
     }
@@ -72,46 +56,22 @@ const App = () => {
   const makeReceipt = (ticketCount) => {
     if (typeof ticketCount !== 'number') return;
 
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      setReceipt([...Array(ticketCount)].map(makeAutoTicket));
-    }, 1000);
+    setReceipt([...Array(ticketCount)].map(makeAutoTicket));
   };
 
-  const resetMoneyForm = () => {
-    moneyInputRef.current.reset();
-    moneyInputRef.current.focus();
+  const handleWinningNumberSubmit = ({ winningNumbers, bonusNumber }) => {
+    if (typeof bonusNumber !== 'number') return;
+    if (!winningNumbers instanceof Array) return;
+
+    setLotto({ numbers: winningNumbers, bonus: bonusNumber });
   };
-
-  const receiptPage = (
-    <>
-      <Receipt receipt={receipt} />
-      <WinningNumber
-        onHandleSubmit={(winningNumbers, bonusNumber) =>
-          handleWinningNumberSubmit({ winningNumbers, bonusNumber })
-        }
-        onModalButtonClick={handleModalButtonClick}
-      />
-    </>
-  );
-
-  const modalPage = (
-    <>
-      <Modal
-        winningNumber={lotto.numbers}
-        bonusNumber={lotto.bonus}
-        receipt={receipt}
-        moneyAmount={moneyAmount}
-        onResetButtonClick={handleResetButtonClick}
-        onModalClose={handleModalClose}
-      />
-    </>
-  );
 
   return (
-    <div ref={bodyRef}>
+    <>
+      <LottoBallCanvas />
+      <div className='title'>슈퍼 로또</div>
+      <MoneyInput handleMoneySubmit={handleMoneySubmit} makeReceipt={makeReceipt} />
+
       {isMoneyInputValid && (
         <>
           <TimeLeft />
@@ -120,16 +80,8 @@ const App = () => {
           </audio>
         </>
       )}
-      <LottoBallCanvas />
-      <div className='title'>슈퍼 로또</div>
-      <MoneyInput
-        moneyInputRef={moneyInputRef}
-        onHandleSubmit={(money, ticketCount) => {
-          handleMoneySubmit(money);
-          makeReceipt(ticketCount);
-        }}
-      />
-      {isLoading ? (
+
+      {isLoading && (
         <Lottie
           speed={1}
           height='300px'
@@ -139,15 +91,18 @@ const App = () => {
             loop: false,
           }}
         />
-      ) : (
-        !isLoading && (
-          <>
-            {isMoneyInputValid && receiptPage}
-            {isModalOpen && modalPage}
-          </>
-        )
       )}
-    </div>
+
+      {!isLoading && isMoneyInputValid && (
+        <PurchaseForm
+          lotto={lotto}
+          receipt={receipt}
+          moneyAmount={moneyAmount}
+          handleResetButtonClick={handleResetButtonClick}
+          handleWinningNumberSubmit={handleWinningNumberSubmit}
+        />
+      )}
+    </>
   );
 };
 

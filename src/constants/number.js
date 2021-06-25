@@ -1,10 +1,10 @@
-const LOTTERY_BALL_LENGTH = 6;
-const BONUS_BALL_LENGTH = 1;
-const MIN_LOTTO_NUMBER = 1;
-const MAX_LOTTO_NUMBER = 45;
-const LOTTERY_PRICE = 1000;
+export const LOTTERY_BALL_LENGTH = 6;
+export const BONUS_BALL_LENGTH = 1;
+export const MIN_LOTTO_NUMBER = 1;
+export const MAX_LOTTO_NUMBER = 45;
+export const LOTTERY_PRICE = 1000;
 
-const PRIZE = {
+export const PRIZE = {
   FIRST: 2000000000,
   SECOND: 30000000,
   THIRD: 1500000,
@@ -12,7 +12,7 @@ const PRIZE = {
   FIFTH: 5000,
 };
 
-const RANK = {
+export const RANK = {
   FIRST: 1,
   SECOND: 2,
   THIRD: 3,
@@ -20,12 +20,9 @@ const RANK = {
   FIFTH: 5,
 };
 
-export {
-  LOTTERY_BALL_LENGTH,
-  BONUS_BALL_LENGTH,
-  MIN_LOTTO_NUMBER,
-  MAX_LOTTO_NUMBER,
-  LOTTERY_PRICE,
-  PRIZE,
-  RANK,
+export const DEFAULT_VALUE = 0;
+export const WINNING_NUMBER_INDEX = {
+  START: 0,
+  END: 5,
 };
+export const BONUS_NUMBER_INDEX = 6;

@@ -12,10 +12,10 @@ const LottoBallCanvas = () => {
     ];
 
     let isBallDrawn = false;
-    const ball = [];
+    const balls = [];
     const ballCount = 30;
     [...new Array(ballCount)].forEach((_, i) => {
-      ball[i] = {
+      balls[i] = {
         x: 0,
         y: 0,
         dx: 2,
@@ -41,19 +41,19 @@ const LottoBallCanvas = () => {
         const currentDegree = degrees[currentDegreeIdx];
 
         if (isBallDrawn === false) {
-          ball[i].x = Math.random() * canvas.width - ballRadius;
-          ball[i].y = Math.random() * canvas.height - ballRadius;
+          balls[i].x = Math.random() * canvas.width - ballRadius;
+          balls[i].y = Math.random() * canvas.height - ballRadius;
         }
 
         ctx.beginPath();
 
         ctx.save();
-        ctx.translate(ball[i].x, ball[i].y);
+        ctx.translate(balls[i].x, balls[i].y);
         ctx.rotate(currentDegree);
-        ctx.translate(-ball[i].x, -ball[i].y);
+        ctx.translate(-balls[i].x, -balls[i].y);
 
-        ctx.arc(ball[i].x, ball[i].y, ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = ball[i].color;
+        ctx.arc(balls[i].x, balls[i].y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = balls[i].color;
         ctx.fill();
         ctx.strokeStyle = '#000000';
         ctx.stroke();
@@ -61,7 +61,7 @@ const LottoBallCanvas = () => {
         ctx.font = '.7em Noto Sans KR';
         ctx.fillStyle = 'white';
         ctx.textAlign = 'center';
-        ctx.fillText(i, ball[i].x, ball[i].y);
+        ctx.fillText(i, balls[i].x, balls[i].y);
 
         ctx.restore();
 
@@ -82,8 +82,8 @@ const LottoBallCanvas = () => {
 
     function move() {
       [...new Array(ballCount)].forEach((_, i) => {
-        ball[i].x = ball[i].x + ball[i].dx;
-        ball[i].y = ball[i].y + ball[i].dy;
+        balls[i].x = balls[i].x + balls[i].dx;
+        balls[i].y = balls[i].y + balls[i].dy;
         isBallDrawn = true;
       });
     }
@@ -91,16 +91,16 @@ const LottoBallCanvas = () => {
     function rebound() {
       [...new Array(ballCount)].forEach((_, i) => {
         if (
-          ball[i].x + ball[i].dx > canvas.width - ballRadius ||
-          ball[i].x + ball[i].dx < ballRadius
+          balls[i].x + balls[i].dx > canvas.width - ballRadius ||
+          balls[i].x + balls[i].dx < ballRadius
         ) {
-          ball[i].dx = -ball[i].dx + Math.random();
+          balls[i].dx = -balls[i].dx + Math.random();
         }
         if (
-          ball[i].y + ball[i].dy > canvas.height - ballRadius ||
-          ball[i].y + ball[i].dy < ballRadius
+          balls[i].y + balls[i].dy > canvas.height - ballRadius ||
+          balls[i].y + balls[i].dy < ballRadius
         ) {
-          ball[i].dy = -ball[i].dy + Math.random() + 0.2;
+          balls[i].dy = -balls[i].dy + Math.random() + 0.2;
         }
       });
     }

@@ -6,6 +6,7 @@ import './style.scss';
 
 const Receipt = ({ receipt }) => {
   const [showBalls, setShowBalls] = useState(false);
+
   const handleToggle = () => setShowBalls(!showBalls);
 
   return (
