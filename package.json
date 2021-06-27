@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy":"gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,6 +44,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "gh-pages": "^3.1.0",
     "install-peerdeps": "^3.0.3",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prop-types": "^15.7.2"
   }
 }
