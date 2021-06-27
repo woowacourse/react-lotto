@@ -1,101 +1,83 @@
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { LOTTERY_NUMBERS_LENGTH } from '../../constants/number';
-import Button from '../UtilComponent/Button/index';
-import NumberInput from '../UtilComponent/NumberInput/index';
+
+import Button from '../common/Button/index';
+import NumberInput from '../common/NumberInput/index';
+
+import { LOTTERY_NUMBERS_LENGTH, MAX_LOTTO_NUMBER, MIN_LOTTO_NUMBER } from '../../constants/number';
+import { ALERT_MESSAGE } from '../../constants/message';
+
+import { isInputValueDuplicated, isInputValueExist } from '../../utils/validations';
+import first from '../../utils/first';
+import { LotteryNumbersContext } from '../../contexts/LotteryNumbersContextProvider';
+import { ModalContext } from '../../contexts/ModalContextProvider';
+
 import './style.scss';
 
-class WinningNumber extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
-    Array(LOTTERY_NUMBERS_LENGTH)
-      .fill(0)
-      .forEach((_, idx) => {
-        this[`inputRef${idx}`] = React.createRef();
-      });
-  }
+const inputIds = [...Array(LOTTERY_NUMBERS_LENGTH)].map(() => uuidv4());
 
-  componentDidMount() {
-    this.inputRef0.current.focus();
-  }
+const WinningNumber = React.forwardRef(({ props }, ref) => {
+  const { lotteryNumbers, setLotteryNumbers } = useContext(LotteryNumbersContext);
+  const { openModal } = useContext(ModalContext);
+  const inputRefs = ref.current;
 
-  onWinningNumberSubmit(e) {
+  const onWinningNumberSubmit = (e) => {
     e.preventDefault();
-    const lotteryNumbers = this.props.lotteryNumbers.map((_, idx) => ({
-      value: Number(this[`inputRef${idx}`].current.value),
-      type: this.props.lotteryNumbers[idx].type,
+    const newLotteryNumbers = lotteryNumbers.map((number, idx) => ({
+      value: Number(inputRefs[idx].current.value),
+      type: number.type,
     }));
 
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-    this.props.onModalButtonClick();
-  }
+    setLotteryNumbers(newLotteryNumbers);
+    openModal();
+  };
 
-  isInputValueExist(inputValue) {
-    return !!inputValue;
-  }
+  const onBlurLotteryNumberInput = (index) => () => {
+    const currentInputElement = inputRefs[index].current;
 
-  isInputValueDuplicated(lotteryNumbers, inputValue, index) {
-    const idx = lotteryNumbers.findIndex((el) => el.value === inputValue);
-    return idx !== -1 && idx !== index;
-  }
+    const inputValue = Math.min(Number(currentInputElement.value), MAX_LOTTO_NUMBER);
+    const newLotteryNumbers = [...lotteryNumbers];
+    newLotteryNumbers[index].value = inputValue;
 
-  onBlurLotteryNumberInput(e, index) {
-    const inputValue = Number(e.target.value);
-    const lotteryNumbers = [...this.props.lotteryNumbers];
-    lotteryNumbers[index].value = inputValue;
+    if (!isInputValueExist(inputValue)) return;
 
-    if (!this.isInputValueExist(inputValue)) return;
-
-    if (this.isInputValueDuplicated(this.props.lotteryNumbers, inputValue, index)) {
-      alert('입력값이 중복되었습니다.');
-      e.target.value = '';
-      e.target.focus();
+    if (isInputValueDuplicated(lotteryNumbers, inputValue, index)) {
+      alert(ALERT_MESSAGE.DUPLICATED_NUMBER_INPUT);
+      currentInputElement.value = '';
+      currentInputElement.focus();
       return;
     }
 
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-  }
+    setLotteryNumbers(newLotteryNumbers);
+  };
 
-  onChangeLotteryNumber(e, index) {
-    const inputValue = Math.min(Number(e.target.value), 45);
-    const lotteryNumbers = [...this.props.lotteryNumbers];
+  useEffect(() => {
+    first(inputRefs).current.focus();
+  }, []);
 
-    lotteryNumbers[index] = {
-      value: inputValue,
-      type: lotteryNumbers[index].type,
-    };
-
-    this.props.onHandleChangeLotteryNumbers(lotteryNumbers);
-  }
-
-  render() {
-    return (
-      <form onSubmit={(e) => this.onWinningNumberSubmit(e)}>
-        <div className='winning-number-form'>
-          {this.props.lotteryNumbers.map(({ value, type }, idx) => (
-            <NumberInput
-              min='1'
-              max='45'
-              key={this.inputIds[idx]}
-              ref={this[`inputRef${idx}`]}
-              customClass={`${type}-number`}
-              value={value || ''}
-              onBlur={(e) => this.onBlurLotteryNumberInput(e, idx)}
-              onChange={(e) => this.onChangeLotteryNumber(e, idx)}
-            />
-          ))}
-        </div>
-        <Button>결과 확인하기</Button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onWinningNumberSubmit}>
+      <div className='winning-number-form'>
+        {lotteryNumbers.map(({ value, type }, idx) => (
+          <NumberInput
+            min={MIN_LOTTO_NUMBER}
+            max={MAX_LOTTO_NUMBER}
+            key={inputIds[idx]}
+            ref={inputRefs[idx]}
+            customClass={`${type}-number`}
+            defaultValue=''
+            onBlur={onBlurLotteryNumberInput(idx)}
+          />
+        ))}
+      </div>
+      <Button>결과 확인하기</Button>
+    </form>
+  );
+});
 
 WinningNumber.propTypes = {
   onHandleSubmit: PropTypes.func,
-  onModalButtonClick: PropTypes.func,
 };
 
 export default WinningNumber;

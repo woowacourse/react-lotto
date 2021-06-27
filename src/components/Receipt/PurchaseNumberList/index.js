@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
+import { TicketsContext } from '../../../contexts/TicketsContextProvider';
+
 import PurchaseNumberItem from '../PurchaseNumberItem';
 
-class PurchaseNumberList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.numberItemIds = [...Array(this.props.receipt.length)].map(() => uuidv4());
-  }
+const PurchaseNumberList = ({ isColoredBalls, showBalls }) => {
+  const { tickets } = useContext(TicketsContext);
+  const numberItemIds = [...Array(tickets.length)].map(() => uuidv4());
 
-  render() {
-    return (
-      <ul>
-        {this.props.receipt.map((ticket, idx) => (
-          <PurchaseNumberItem
-            key={this.numberItemIds[idx]}
-            ticketNumbers={ticket}
-            toggled={this.props.showBalls}
-          />
-        ))}
-      </ul>
-    );
-  }
-}
+  return (
+    <ul>
+      {tickets.map((ticket, idx) => (
+        <PurchaseNumberItem
+          key={numberItemIds[idx]}
+          ticketNumbers={ticket}
+          isToggled={showBalls}
+          isColoredBalls={isColoredBalls}
+        />
+      ))}
+    </ul>
+  );
+};
 
 export default React.memo(PurchaseNumberList);
