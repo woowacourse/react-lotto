@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import RewardResultTable from './RewardResultTable';
 import RestartButton from './RestartButton';
 
-class RewardModalInner extends Component {
-  render() {
-    return (
-      <>
-        <RewardResultTable
-          lottos={this.props.lottos}
-          winningNumbers={this.props.winningNumbers}
-        />
-        <RestartButton
-          initState={this.props.initState}
-          purchaseForm={this.props.purchaseForm}
-        />
-      </>
-    );
-  }
-}
+export const RewardModalInner = ({ lottos, winningNumbers, restart }) => {
+  return (
+    <>
+      <RewardResultTable lottos={lottos} winningNumbers={winningNumbers} />
+      <RestartButton restart={restart} />
+    </>
+  );
+};
+
+RewardModalInner.propTypes = {
+  lottos: PropTypes.array.isRequired,
+  winningNumbers: PropTypes.shape({
+    numbers: PropTypes.array,
+    bonusNumber: PropTypes.number,
+  }).isRequired,
+  restart: PropTypes.func.isRequired,
+};
 
 export default RewardModalInner;
