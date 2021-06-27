@@ -1,58 +1,48 @@
-import React, { Component } from 'react';
-
-import { LOTTO } from '../../constants/lotto';
-import { MESSAGE } from '../../constants/messages';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   NumberListUl,
   WinningNumberCheckbox,
   WinningNumberLabel,
 } from './NumberList.style';
+import { LOTTO } from '../../constants/lotto';
+import { MESSAGE } from '../../constants/messages';
 
-class NumberList extends Component {
-  handlePickNumber = e => {
-    const pickedNumber = Number(e.target.name);
-    const duplicatedNumber = this.props.numbers.find(
-      number => number === pickedNumber,
-    );
-    const prevNumbers = this.props.numbers;
-
-    const newNumbers = duplicatedNumber
-      ? prevNumbers.filter(number => number !== pickedNumber)
-      : [...prevNumbers, pickedNumber];
-
-    if (newNumbers.length === LOTTO.BUNDLE_SIZE + 1) {
+export const NumberList = ({ numbers, pickNumber }) => {
+  const onPickNumber = num => e => {
+    if (numbers.length === LOTTO.BUNDLE_SIZE && !numbers.includes(num)) {
       alert(MESSAGE.EXCEEDED_LOTTO_COUNT);
       return;
     }
 
-    this.props.setNumbers(newNumbers);
+    pickNumber(num);
   };
 
-  render() {
-    const currentNumbers = this.props.numbers;
+  return (
+    <NumberListUl>
+      {Array.from({ length: LOTTO.END_NUM }, (_, idx) => {
+        return (
+          <li key={idx + 1}>
+            <WinningNumberCheckbox
+              type="checkbox"
+              id={`winningNumber${idx + 1}`}
+              name={idx + 1}
+              onChange={onPickNumber(idx + 1)}
+              checked={numbers.includes(idx + 1)}
+            />
+            <WinningNumberLabel htmlFor={`winningNumber${idx + 1}`}>
+              {idx + 1}
+            </WinningNumberLabel>
+          </li>
+        );
+      })}
+    </NumberListUl>
+  );
+};
 
-    return (
-      <NumberListUl>
-        {Array.from({ length: LOTTO.END_NUM }, (_, idx) => {
-          return (
-            <li key={idx + 1}>
-              <WinningNumberCheckbox
-                type="checkbox"
-                id={`winningNumber${idx + 1}`}
-                name={idx + 1}
-                onChange={this.handlePickNumber}
-                checked={currentNumbers.includes(idx + 1)}
-              />
-              <WinningNumberLabel htmlFor={`winningNumber${idx + 1}`}>
-                {idx + 1}
-              </WinningNumberLabel>
-            </li>
-          );
-        })}
-      </NumberListUl>
-    );
-  }
-}
+NumberList.propType = {
+  numbers: PropTypes.array.isRequired,
+  pickNumber: PropTypes.func.isRequired,
+};
 
 export default NumberList;
