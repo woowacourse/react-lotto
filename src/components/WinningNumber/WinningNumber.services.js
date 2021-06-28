@@ -1,10 +1,6 @@
 import dummyWinningNumber from '../../constants/dummyData.json';
+import { BONUS_NUMBER_KEY, WINNING_DATE_KEY, WINNING_NUMBER_KEY, WINNING_ROUND_KEY } from '../../constants/key';
 import { LOTTO_NUMBERS_LENGTH } from '../../constants/lottoRules';
-
-const WINNING_ROUND_KEY = 'drwNo';
-const WINNING_DATE_KEY = 'drwNoDate';
-const WINNING_NUMBER_KEY = 'drwtNo';
-const BONUS_NUMBER_KEY = 'bnusNo';
 
 const getWinningNumbers = () => {
   return [...Array(LOTTO_NUMBERS_LENGTH)].map((_, i) => dummyWinningNumber[`${WINNING_NUMBER_KEY}${i + 1}`]);
