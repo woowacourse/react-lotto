@@ -1,4 +1,4 @@
-import { BONUS_NUMBER, WINNING_NUMBERS } from '../../components/WinningNumber/WinningNumber.services';
+import { BONUS_NUMBER, WINNING_NUMBERS } from '../../components/WinningNumber/WinningNumber.service';
 import {
   BONUS_CHECK_REQUIRED_COUNT,
   BONUS_COUNT,

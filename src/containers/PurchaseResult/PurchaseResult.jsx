@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LottoTicket from '../../components/LottoTicket/LottoTicket';
-import './PurchaseResult.styles.css';
+import './PurchaseResult.style.css';
 
 const PurchaseResult = ({ lottoBundle }) => {
   const [isToggled, setIsToggled] = useState(false);

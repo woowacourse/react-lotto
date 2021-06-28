@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './WinningResult.styles.css';
+import './WinningResult.style.css';
 import coin from '../../animations/coin.json';
 import Animation from '../../components/Animation/Animation';
 import useAnimationTimer from '../../hooks/useAnimationTimer';
 import { TIME_TO_LAST_COIN_ANIMATION } from '../../constants/time';
-import { getNumOfMatch, getMatchCount, getStatistics } from './WinningResult.services';
+import { getNumOfMatch, getMatchCount, getStatistics } from './WinningResult.service';
 import TableRow from '../../components/TableRow/TableRow';
-import { BONUS_NUMBER, WINNING_NUMBERS } from '../../components/WinningNumber/WinningNumber.services';
+import { BONUS_NUMBER, WINNING_NUMBERS } from '../../components/WinningNumber/WinningNumber.service';
 
 const WinningResult = ({ lottoBundle, setIsWinningResultOpen, onReset }) => {
   const matchCount = getMatchCount(lottoBundle);

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { getLottoBundle, validateValue } from './PurchaseForm.services';
-import './PurchaseForm.styles.css';
+import { getLottoBundle, validateValue } from './PurchaseForm.service';
+import './PurchaseForm.style.css';
 
 const PurchaseForm = ({ isPurchasedLotto, setIsPurchasedLotto, setLottoBundle, isReset, setIsReset }) => {
   const [validationMessage, setValidationMessage] = useState('');

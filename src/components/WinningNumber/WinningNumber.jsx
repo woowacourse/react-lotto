@@ -1,6 +1,6 @@
 import React from 'react';
-import './WinningNumber.styles.css';
-import { BONUS_NUMBER, WINNING_DATE, WINNING_NUMBERS, WINNING_ROUND } from './WinningNumber.services';
+import './WinningNumber.style.css';
+import { BONUS_NUMBER, WINNING_DATE, WINNING_NUMBERS, WINNING_ROUND } from './WinningNumber.service';
 import LottoBall from '../LottoBall/LottoBall';
 
 const WinningNumber = ({ setIsWinningResultOpen }) => {
