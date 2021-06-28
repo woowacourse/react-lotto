@@ -8,7 +8,15 @@ import { MINIMUM_DOUBLE_DIGITS } from '../../constants/numberRules';
 const LottoTicket = ({ lotto }) => {
   return (
     <div className="lotto">
-      <img className="lotto-image" src={lottoImage} alt="lotto" onError={noImage} />
+      <img
+        className="lotto-image"
+        src={lottoImage}
+        alt="lotto"
+        onError={({ target }) => {
+          target.src = noImage;
+          target.alt = '이미지를 불러올 수 없습니다.';
+        }}
+      />
       <span className="lotto-number">
         {lotto.map((v) => (v < MINIMUM_DOUBLE_DIGITS ? `0${v}` : v)).join(LOTTO_NUMBER_SEPARATOR)}
       </span>
