@@ -8,8 +8,8 @@ const TableRow = ({ lotto, numOfMatch, winningNumbers }) => {
     <tr className="table-row">
       <td className="table-data">{RESULT_TABLE_DATA[numOfMatch].DESCRIPTION}</td>
       <td className="table-data">
-        {lotto.map((v, i) => (
-          <LottoBall key={i} ballNumber={v} winningNumbers={winningNumbers} />
+        {lotto.map((ballNumber, index) => (
+          <LottoBall key={index} ballNumber={ballNumber} winningNumbers={winningNumbers} />
         ))}
       </td>
     </tr>
