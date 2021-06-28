@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { LOTTO } from '../constants/lotto';
-import { getRandomNumber } from '../utils';
+import { getRandomNumber } from '../services/getRandomNumber';
 
 const useLotto = () => {
   const [lottos, setLottos] = useState([]);

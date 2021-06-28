@@ -1,4 +1,0 @@
-export const CSS_ATTRIBUTE = {
-  RESULT_BUTTON_WIDTH: '70%',
-  INPUT_PRICE_BUTTON_WIDTH: '64px',
-};
