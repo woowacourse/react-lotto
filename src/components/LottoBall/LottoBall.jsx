@@ -1,26 +1,25 @@
+import classNames from 'classnames/bind';
 import React from 'react';
-import './LottoBall.styles.css';
+import { MINIMUM_DOUBLE_DIGITS } from '../../constants/numberRules';
+import styles from './LottoBall.styles.css';
 
-const LottoBall = ({ ballNumber, winningNumbers = [] }) => {
-  let ballColorClassName;
+const cx = classNames.bind(styles);
 
-  if (ballNumber < 10) {
-    ballColorClassName = 'zeros';
-  } else if (ballNumber < 20) {
-    ballColorClassName = 'tens';
-  } else if (ballNumber < 30) {
-    ballColorClassName = 'twenties';
-  } else if (ballNumber < 40) {
-    ballColorClassName = 'thirties';
-  } else {
-    ballColorClassName = 'forties';
-  }
+const LottoBall = ({ className, ballNumber, winningNumbers = [] }) => {
+  const ballColorClassName = cx(className, {
+    zeros: ballNumber < 10,
+    tens: ballNumber >= 10 && ballNumber < 20,
+    twenties: ballNumber >= 20 && ballNumber < 30,
+    thirties: ballNumber >= 30 && ballNumber < 40,
+    forties: ballNumber >= 40,
+    'not-matched': !!winningNumbers.length && !winningNumbers.includes(ballNumber),
+  });
 
-  if (!!winningNumbers.length && !winningNumbers.includes(ballNumber)) {
-    ballColorClassName += ' not-matched';
-  }
-
-  return <span className={`lotto-ball ${ballColorClassName}`}>{ballNumber < 10 ? `0${ballNumber}` : ballNumber}</span>;
+  return (
+    <span className={`lotto-ball ${ballColorClassName}`}>
+      {ballNumber < MINIMUM_DOUBLE_DIGITS ? `0${ballNumber}` : ballNumber}
+    </span>
+  );
 };
 
 export default LottoBall;
