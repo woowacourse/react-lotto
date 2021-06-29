@@ -1,0 +1,11 @@
+.table-row {
+  text-align: center;
+}
+
+.table-head,
+.table-data {
+  min-width: 2rem;
+  text-align: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid gainsboro;
+}

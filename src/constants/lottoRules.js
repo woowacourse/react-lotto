@@ -6,7 +6,6 @@ export const LOTTO_MAX_NUMBER = 45;
 
 export const LOTTO_NUMBERS_LENGTH = 6;
 export const BONUS_NUMBER_LENGTH = 1;
-
 export const BONUS_CHECK_REQUIRED_COUNT = 5;
 export const BONUS_COUNT = 0.5;
 

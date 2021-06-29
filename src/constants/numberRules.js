@@ -1,0 +1,1 @@
+export const MINIMUM_DOUBLE_DIGITS = 10;
