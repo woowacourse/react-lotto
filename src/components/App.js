@@ -1,93 +1,63 @@
-import React, { Component } from 'react';
-
+import React, { useState } from 'react';
+import { Modal } from './shared';
+import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
 import LottoPurchaseForm from './LottoPurchaseForm/LottoPurchaseForm';
 import PurchaseResult from './lottoPurchaseResult/PurchaseResult';
 import WinningNumberForm from './lottoWinningNumber/WinningNumberForm';
 import RewardModalInner from './lottoRewardResult/RewardModalInner';
+import { useLotto, useModal } from '../hooks';
 
-import Modal from './utils/Modals';
+export const App = () => {
+  const { isModalOpened, onCloseModal, openModal, closeModal } = useModal();
+  const { lottos, setLottos, isPurchased, purchaseLotto } = useLotto();
+  const [winningNumbers, setWinningNumbers] = useState({
+    numbers: [],
+    bonusNumber: 0,
+  });
 
-import { Main, MainWrapperDiv, WidthFullDiv } from './App.style';
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      lottos: [],
-      winningNumbers: {
-        numbers: [],
-        bonusNumber: 0,
-      },
-      isModalOpened: false,
-    };
-
-    this.purchaseFormRef = React.createRef();
-  }
-
-  initState = () => {
-    this.setLottos([]);
-    this.setWinningNumbers([], 0);
-    this.setIsModalOpened(false);
-  };
-
-  setLottos = lottos => {
-    this.setState({
-      lottos,
+  const restart = () => {
+    setLottos([]);
+    setWinningNumbers({
+      numbers: [],
+      bonusNumber: 0,
     });
+    closeModal();
   };
 
-  setWinningNumbers = (numbers, bonusNumber) => {
-    this.setState({
-      winningNumbers: { numbers, bonusNumber },
-    });
-  };
+  return (
+    <Main>
+      <h1>🎱 행운의 로또</h1>
+      <MainWrapperDiv>
+        <WidthFullDiv>
+          <LottoPurchaseForm
+            purchaseLotto={purchaseLotto}
+            isPurchased={isPurchased}
+          />
 
-  setIsModalOpened = bool => {
-    this.setState({
-      isModalOpened: bool,
-    });
-  };
+          {isPurchased && (
+            <>
+              <PurchaseResult lottos={lottos} />
+              <WinningNumberForm
+                winningNumbers={winningNumbers}
+                setWinningNumbers={setWinningNumbers}
+                openModal={openModal}
+              />
+            </>
+          )}
+        </WidthFullDiv>
+      </MainWrapperDiv>
 
-  render() {
-    const { lottos, isModalOpened } = this.state;
-    const isPurchased = lottos.length > 0;
-
-    return (
-      <Main>
-        <h1>🎱 행운의 로또</h1>
-        <MainWrapperDiv>
-          <WidthFullDiv>
-            <LottoPurchaseForm
-              setLottos={this.setLottos}
-              ref={this.purchaseFormRef}
-            />
-
-            {isPurchased && (
-              <>
-                <PurchaseResult lottos={lottos} />
-                <WinningNumberForm
-                  setWinningNumbers={this.setWinningNumbers}
-                  setIsModalOpened={this.setIsModalOpened}
-                />
-              </>
-            )}
-          </WidthFullDiv>
-        </MainWrapperDiv>
-
-        {isModalOpened && (
-          <Modal setIsModalOpened={this.setIsModalOpened}>
-            <RewardModalInner
-              lottos={this.state.lottos}
-              winningNumbers={this.state.winningNumbers}
-              initState={this.initState}
-              purchaseForm={this.purchaseFormRef.current}
-            />
-          </Modal>
-        )}
-      </Main>
-    );
-  }
-}
+      {isModalOpened && (
+        <Modal onCloseModal={onCloseModal} closeModal={closeModal}>
+          <RewardModalInner
+            lottos={lottos}
+            winningNumbers={winningNumbers}
+            restart={restart}
+          />
+        </Modal>
+      )}
+    </Main>
+  );
+};
 
 export default App;

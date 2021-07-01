@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-
-import LottoIcon from './LottoItem';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import { LottoIconListUl } from './LottoIconList.style';
-class LottoIconList extends Component {
-  getLottoIcons() {
-    return Array.from({ length: this.props.lottoCount }, (_, idx) => (
-      <LottoIcon key={idx} />
-    ));
-  }
+import LottoItem from './LottoItem';
 
-  render() {
-    return <LottoIconListUl>{this.getLottoIcons()}</LottoIconListUl>;
-  }
-}
+export const LottoIconList = ({ lottoCount }) => {
+  return (
+    <LottoIconListUl>
+      {Array.from({ length: lottoCount }, (_, idx) => (
+        <LottoItem key={idx} />
+      ))}
+    </LottoIconListUl>
+  );
+};
+
+LottoIconList.propTypes = {
+  lottoCount: PropTypes.number.isRequired,
+};
 
 export default LottoIconList;

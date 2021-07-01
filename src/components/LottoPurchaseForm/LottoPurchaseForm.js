@@ -1,64 +1,55 @@
-import React, { Component } from 'react';
-
-import Button from '../utils/Button';
-
-import { LOTTO } from '../../constants/lotto';
-import { MESSAGE } from '../../constants/messages';
-
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '../shared/';
 import {
   PurchaseInputForm,
   PurchaseFormFlexDiv,
   PurchaseInput,
 } from './LottoPurchaseForm.style';
-import { CSS_ATTRIBUTE } from '../../constants/cssAttribute';
-import { createLottos } from '../../services/lottoPurchase';
+import { useInput } from '../../hooks';
+import { LOTTO } from '../../constants/lotto';
+import { MESSAGE } from '../../constants/messages';
 
-class LottoPurchaseForm extends Component {
-  constructor(props) {
-    super(props);
+export const LottoPurchaseForm = ({ purchaseLotto, isPurchased }) => {
+  const [price, onChangePrice, clearValue] = useInput(0);
 
-    this.formRef = React.createRef();
-    this.inputRef = React.createRef();
-  }
-
-  componentDidMount() {
-    this.resetLottoPurchaseForm();
-  }
-
-  resetLottoPurchaseForm() {
-    this.formRef.current.reset();
-    this.inputRef.current.focus();
-  }
-
-  handlePurchaseLotto = e => {
+  const onSubmit = e => {
     e.preventDefault();
 
-    const inputPrice = e.target.elements.price.value;
-    const lottos = createLottos(inputPrice);
-    this.props.setLottos(lottos);
+    purchaseLotto(price);
   };
 
-  render() {
-    return (
-      <PurchaseInputForm ref={this.formRef} onSubmit={this.handlePurchaseLotto}>
-        <label htmlFor="input-price">구입할 금액을 입력해주세요.</label>
-        <PurchaseFormFlexDiv>
-          <PurchaseInput
-            ref={this.inputRef}
-            type="number"
-            id="input-price"
-            name="price"
-            placeholder={MESSAGE.INPUT_PLACEHOLDER}
-            required
-            min={LOTTO.MIN_PRICE}
-            max={LOTTO.MAX_PRICE}
-            step={LOTTO.UNIT}
-          />
-          <Button size={CSS_ATTRIBUTE.INPUT_PRICE_BUTTON_WIDTH}>확인</Button>
-        </PurchaseFormFlexDiv>
-      </PurchaseInputForm>
-    );
-  }
-}
+  useEffect(() => {
+    if (!isPurchased) {
+      clearValue();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPurchased]);
+
+  return (
+    <PurchaseInputForm onSubmit={onSubmit}>
+      <label htmlFor="input-price">구입할 금액을 입력해주세요.</label>
+      <PurchaseFormFlexDiv>
+        <PurchaseInput
+          type="number"
+          name="price"
+          value={price}
+          onChange={onChangePrice}
+          placeholder={MESSAGE.INPUT_PLACEHOLDER}
+          min={LOTTO.MIN_PRICE}
+          max={LOTTO.MAX_PRICE}
+          step={LOTTO.UNIT}
+          required
+        />
+        <Button>확인</Button>
+      </PurchaseFormFlexDiv>
+    </PurchaseInputForm>
+  );
+};
+
+LottoPurchaseForm.propTypes = {
+  purchaseLotto: PropTypes.func.isRequired,
+  isPurchased: PropTypes.bool.isRequired,
+};
 
 export default LottoPurchaseForm;

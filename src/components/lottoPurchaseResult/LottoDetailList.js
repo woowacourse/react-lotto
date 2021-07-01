@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { LottoDetailListUl } from './LottoDetailList.style';
 import LottoItem from './LottoItem';
 
-import { LottoDetailListUl } from './LottoDetailList.style';
+export const LottoDetailList = ({ lottos }) => {
+  return (
+    <LottoDetailListUl>
+      {lottos.map((lotto, idx) => (
+        <LottoItem key={idx} lotto={lotto} />
+      ))}
+    </LottoDetailListUl>
+  );
+};
 
-class LottoDetailList extends Component {
-  render() {
-    const { lottos } = this.props;
+LottoDetailList.propTypes = {
+  lottos: PropTypes.array.isRequired,
+};
 
-    return (
-      <LottoDetailListUl>
-        {lottos.map((lotto, idx) => (
-          <LottoItem key={idx} lotto={lotto} />
-        ))}
-      </LottoDetailListUl>
-    );
-  }
-}
 export default LottoDetailList;

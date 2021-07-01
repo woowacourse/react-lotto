@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-
-import Button from '../utils/Button';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from '../shared';
+import { RestartButtonWrapperDiv } from './RestartButton.style';
 import { MESSAGE } from '../../constants/messages';
 
-import { RestartButtonWrapperDiv } from './RestartButton.style';
-
-class RestartButton extends Component {
-  handleRestart = () => {
-    if (window.confirm(MESSAGE.CONFIRM_RESTART)) {
-      this.props.initState();
-      this.props.purchaseForm.resetLottoPurchaseForm();
-    }
+export const RestartButton = ({ restart }) => {
+  const onClick = () => {
+    alert(MESSAGE.CONFIRM_RESTART);
+    restart();
   };
 
-  render() {
-    return (
-      <RestartButtonWrapperDiv>
-        <Button buttonType="reset" clickHandler={this.handleRestart}>
-          다시 시작하기
-        </Button>
-      </RestartButtonWrapperDiv>
-    );
-  }
-}
+  return (
+    <RestartButtonWrapperDiv>
+      <Button size="medium" type="reset" onClick={onClick}>
+        다시 시작하기
+      </Button>
+    </RestartButtonWrapperDiv>
+  );
+};
+
+RestartButton.propTypes = {
+  restart: PropTypes.func.isRequired,
+};
 
 export default RestartButton;

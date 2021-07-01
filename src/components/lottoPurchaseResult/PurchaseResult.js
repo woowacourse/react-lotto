@@ -1,49 +1,36 @@
-import React, { Component } from 'react';
-
-import LottoIconList from './LottoIconList';
-import LottoDetailList from './LottoDetailList';
-import ToggleButton from './ToggleButton';
-
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   PurchaseResultSection,
   PurchaseResultMessageDiv,
 } from './PurchaseResult.style';
+import LottoIconList from './LottoIconList';
+import LottoDetailList from './LottoDetailList';
+import ToggleButton from './ToggleButton';
 
-class PurchaseResult extends Component {
-  constructor(props) {
-    super(props);
+export const PurchaseResult = ({ lottos }) => {
+  const [checked, setChecked] = useState(false);
 
-    this.state = {
-      isToggled: false,
-    };
-  }
+  return (
+    <PurchaseResultSection aria-label="purchase-lotto">
+      <PurchaseResultMessageDiv>
+        <label>
+          총 <span>{lottos.length}</span>개를 구매하였습니다.
+        </label>
+        <ToggleButton setChecked={setChecked} />
+      </PurchaseResultMessageDiv>
 
-  setIsToggled = isToggled => {
-    this.setState({
-      isToggled,
-    });
-  };
+      {checked ? (
+        <LottoDetailList lottos={lottos} />
+      ) : (
+        <LottoIconList lottoCount={lottos.length} />
+      )}
+    </PurchaseResultSection>
+  );
+};
 
-  render() {
-    const { isToggled } = this.state;
-
-    return (
-      <PurchaseResultSection aria-label="purchase-lotto">
-        <PurchaseResultMessageDiv>
-          <label>
-            총 <span>{this.props.lottos.length}</span>개를 구매하였습니다.
-          </label>
-          <ToggleButton setIsToggled={this.setIsToggled} />
-        </PurchaseResultMessageDiv>
-
-        {isToggled ? (
-          <LottoDetailList lottos={this.props.lottos} />
-        ) : (
-          <LottoIconList lottoCount={this.props.lottos.length} />
-        )}
-      </PurchaseResultSection>
-    );
-  }
-}
+PurchaseResult.propTypes = {
+  lottos: PropTypes.array.isRequired,
+};
 
 export default PurchaseResult;
